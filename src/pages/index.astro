@@ -1,6 +1,8 @@
 ---
 import "../styles/global.css";
 import  {Rocket,MessageCircle,Folder} from "@lucide/astro";
+import  Button from "../components/button.astro";
+import Projects from '../components/Projects.jsx';
 ---
 
 
@@ -37,7 +39,7 @@ import  {Rocket,MessageCircle,Folder} from "@lucide/astro";
   <body class="bg-black">
     <!-- Lottie Background Animation -->
 
-    <header class="h-lvh w-full flex justify-center relative z-99">
+    <header class="h-lvh w-full flex justify-center relative z-99" role="banner">
       <lottie-player
         src="images/up.json"
         background="transparent"
@@ -47,6 +49,7 @@ import  {Rocket,MessageCircle,Folder} from "@lucide/astro";
         autoplay
         data-aos="fade-down"
         data-aos-duration="1000"
+        aria-hidden="true"
       >
       </lottie-player>
       <lottie-player
@@ -58,6 +61,7 @@ import  {Rocket,MessageCircle,Folder} from "@lucide/astro";
         autoplay
         data-aos="fade-down"
         data-aos-duration="1000"
+        aria-hidden="true"
       >
       </lottie-player>
 
@@ -65,9 +69,11 @@ import  {Rocket,MessageCircle,Folder} from "@lucide/astro";
         class="bg-white/5 text-white rounded-2xl px-7 sm:py-1 py-4 mt-5 backdrop-blur-lg w-11/12 gap-2 fixed justify-between items-center z-99 text-normal top-0 sm:hidden flex"
         data-aos="fade-down"
         data-aos-duration="800"
+        role="navigation"
+        aria-label="Mobile navigation"
       >
         <div>
-          <a href="/" class="logo">
+          <a href="/" class="logo" aria-label="Home">
             <img
               src="/images/logo.svg"
               alt="Ajmal Razaq Bhatti Logo"
@@ -84,6 +90,7 @@ import  {Rocket,MessageCircle,Folder} from "@lucide/astro";
               <a
                 href="https://example.com/page1"
                 class="bg-white/5 flex justify-center items-center px-2 py-1 rounded-full hover:bg-white/20 transition-colors"
+                aria-label="Menu"
                 >Menu</a
               >
             </li>
@@ -97,9 +104,12 @@ import  {Rocket,MessageCircle,Folder} from "@lucide/astro";
           data-aos="fade-down"
           data-aos-delay="200"
           data-aos-duration="800"
+          role="status"
+          aria-live="polite"
         >
           <div
             class="relative mr-2.5 flex h-3.5 w-3.5 items-center justify-center"
+            aria-hidden="true"
           >
             <div class="h-2.5 w-2.5 rounded-full bg-purple-400 glow-sm"></div>
             <div
@@ -116,17 +126,20 @@ import  {Rocket,MessageCircle,Folder} from "@lucide/astro";
           <div class="relative flex items-center justify-center">
             <img
               src="/images/dev.png"
-              alt=""
+              alt="Developer illustration representing Ajmal Razaq Bhatti"
               class="logobig max-w-45 hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer hover:animate-pulse"
               data-aos="zoom-in"
               data-aos-duration="1200"
               data-speed="0.5"
+              fetchpriority="high"
+              aria-hidden="true"
             />
             <div
               class="w-fit bg-black/50 border text-accent sm:px-4 px-2 py-2 border-white/10 rounded-xl absolute top-5 sm:-left-25 -left-20 backdrop-blur-2xl animate-float hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer sm:text-base text-sm"
               data-aos="fade-right"
               data-aos-delay="600"
               data-aos-duration="800"
+              aria-label="Skill: Frontend Development"
             >
               Frontend Dev
             </div>
@@ -135,6 +148,7 @@ import  {Rocket,MessageCircle,Folder} from "@lucide/astro";
               data-aos="fade-left"
               data-aos-delay="800"
               data-aos-duration="800"
+              aria-label="Skill: Junior Product Design"
             >
               Jr. Product Designer
             </div>
@@ -164,6 +178,8 @@ import  {Rocket,MessageCircle,Folder} from "@lucide/astro";
             class="flex items-center justify-center gap-2 mt-2 text-accent"
             data-aos="fade-up"
             data-aos-delay="700"
+            role="navigation"
+            aria-label="Social media links"
           >
             <a
               href="https://github.com/theajmalrazaq"
@@ -173,6 +189,7 @@ import  {Rocket,MessageCircle,Folder} from "@lucide/astro";
               data-aos="flip-up"
               data-aos-delay="800"
               data-aos-duration="600"
+              aria-label="GitHub profile"
             >
               <span>GitHub</span>
             </a>
@@ -185,6 +202,7 @@ import  {Rocket,MessageCircle,Folder} from "@lucide/astro";
               data-aos="flip-up"
               data-aos-delay="900"
               data-aos-duration="600"
+              aria-label="LinkedIn profile"
             >
               <span>LinkedIn</span>
             </a>
@@ -197,6 +215,7 @@ import  {Rocket,MessageCircle,Folder} from "@lucide/astro";
               data-aos="flip-up"
               data-aos-delay="1000"
               data-aos-duration="600"
+              aria-label="X (Twitter) profile"
             >
               <span>X</span>
             </a>
@@ -209,6 +228,7 @@ import  {Rocket,MessageCircle,Folder} from "@lucide/astro";
               data-aos="flip-up"
               data-aos-delay="1100"
               data-aos-duration="600"
+              aria-label="Behance portfolio"
             >
               <span>Behance</span>
             </a>
@@ -223,13 +243,15 @@ import  {Rocket,MessageCircle,Folder} from "@lucide/astro";
             actually convert.
           </p>
           <button
-            class="bg-gradient-to-r to-black/0 rounded-full py-1 pr-1 pl-4 text-white shadow-accent-animate text-base cursor-pointer hover:shadow-lg transition-all duration-300 ease-in-out hover:to-black/10 hover:scale-105 flex items-center justify-between gap-2"
+            class="bg-gradient-to-r to-black/0 rounded-full py-1 pr-1 pl-5 text-white shadow-accent-animate text-base cursor-pointer hover:shadow-lg transition-all duration-300 ease-in-out hover:to-black/10 hover:scale-105 flex items-center justify-between gap-2 border border-white/10 glow-s"
             data-aos="zoom-in"
             data-aos-delay="1300"
+            aria-label="Contact me to discuss opportunities"
           >
             Let's Talk 
             <div
               class="bg-gradient-to-r to-black/0 p-3 text-white shadow-accent rounded-full flex items-center justify-center"
+              aria-hidden="true"
             >
               <MessageCircle size="18" />
             </div>
@@ -240,8 +262,9 @@ import  {Rocket,MessageCircle,Folder} from "@lucide/astro";
     <div class="w-full relative mt-8 sm:mt-14">
       <img
         src="/images/eclipse 2.svg"
-        alt=""
-        class="absolute -top-50 w-full -z-10"
+        alt="Decorative eclipse background"
+        class="absolute sm:-top-50 -top-40 w-full -z-10"
+        aria-hidden="true"
       />
       <div
         class="flex items-center justify-center w-full flex-col gap-3 sm:gap-5 px-4 sm:px-0"
@@ -249,11 +272,12 @@ import  {Rocket,MessageCircle,Folder} from "@lucide/astro";
         <div class="relative w-full flex items-center justify-center">
           <img
             src="/images/build.svg"
-            alt=""
+            alt="Decorative build illustration"
             class="absolute w-3/5 sm:w-auto"
             data-rotate
             data-speed="0.3"
             data-aos="fade-up"
+            aria-hidden="true"
           />
           <h1
             class="text-white text-2xl sm:text-4xl md:text-5xl -top-2 z-10 absolute font-recoleta text-center"
@@ -278,37 +302,43 @@ import  {Rocket,MessageCircle,Folder} from "@lucide/astro";
             could create <br class="hidden sm:block" />
             something wonderful.
           </p>
-          <button
-            class="flex gap-2 justify-center items-center text-white/80 cursor-pointer shadow-accent hover:shadow-lg bg-gradient-to-r to-black/0 rounded-full px-6 py-3 text-sm sm:text-base transition-all duration-300 ease-in-out hover:to-black/10 hover:scale-105 scroll-slide-in delayed-animation from-right"
-            data-aos="fade-up"
+         <Button 
+            text="Let's Build Together"
+            data_aos="fade-up"
+            data_aos_delay="200"
+            aria_label="Contact me to discuss a project"
           >
             <Rocket size="18" class="text-accent" />
-
-            Let's Build Together
-          </button>
+          </Button>
         </div>
       </div>
     </div>
     <div class="w-full flex items-center justify-center mt-10">
       <div
         class="w-[70%] h-[1px] bg-gradient-to-l from-transparent via-[#a098ff]/40 to-transparent z-99"
+        aria-hidden="true"
       ></div>
     </div>
     <!-- Projects Section  -->
     <div
       class="relative mt-40 w-full flex flex-col items-center justify-center gap-5"
+      id="projects"
+      role="region"
+      aria-labelledby="projects-heading"
     >
       <img
         src="images/projects2.svg"
-        alt=""
+        alt="Projects section decorative illustration"
         class="sm:w-1/2 absolute -top-30 animate-float duration-1000 p-5"
         id="projecticons"
         data-aos="fade-down"
+        aria-hidden="true"
       />
       <div
         class="relative z-10 w-fit p-4 rounded-4xl flex items-center justify-center shadow-accent hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer"
+        aria-hidden="true"
       >
-       <Folder size="64" class="text-accent"  />
+       <Folder size="64" class="text-accent" />
       </div>
 
       <div
@@ -317,6 +347,7 @@ import  {Rocket,MessageCircle,Folder} from "@lucide/astro";
         <h1
           class="text-white text-2xl sm:text-4xl md:text-5xl font-recoleta text-center"
           data-aos="fade-up"
+          id="projects-heading"
         >
           <span class="text-accent">Projects</span> that I've worked on.
         </h1>
@@ -331,19 +362,24 @@ import  {Rocket,MessageCircle,Folder} from "@lucide/astro";
           >
         </p>
       </div>
+      <Projects client:only="react" />
     </div>
-    <footer class="flex justify-center">
+    <footer class="flex justify-center" role="contentinfo">
       <nav
         class="bg-white/5 text-white rounded-2xl px-7 sm:py-1 py-4 mt-5 backdrop-blur-lg sm:w-fit w-full/2 gap-4 fixed justify-between sm:justify-center items-center z-99 text-normal bottom-5 sm:flex hidden"
+        role="navigation"
+        aria-label="Main navigation"
       >
         <div>
-          <a href="/" class="logo">
+          <a href="/" class="logo" aria-label="Home">
             <img
               src="images/logo.svg"
               alt="Ajmal Razaq Bhatti Logo"
               class="logo-image w-10"
               data-rotate
               data-speed="0.2"
+              fetchpriority="high"
+              aria-hidden="true"
             />
           </a>
         </div>
@@ -354,6 +390,7 @@ import  {Rocket,MessageCircle,Folder} from "@lucide/astro";
               <a
                 href="https://example.com/page1"
                 class="bg-white/5 flex justify-center items-center px-2 py-1 rounded-full hover:bg-white/20 transition-colors"
+                aria-label="Menu"
                 >Menu</a
               >
             </li>
@@ -367,13 +404,15 @@ import  {Rocket,MessageCircle,Folder} from "@lucide/astro";
                 <a
                   href="https://example.com/page1"
                   class="bg-white/5 flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full hover:bg-white/20 transition-colors text-xs sm:text-base"
+                  aria-label="About me"
                   >About</a
                 >
               </li>
               <li>
                 <a
-                  href="https://example.com/page1"
+                  href="#projects"
                   class="bg-white/5 flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full hover:bg-white/20 transition-colors text-xs sm:text-base"
+                  aria-label="View my projects"
                   >Projects</a
                 >
               </li>
@@ -381,6 +420,7 @@ import  {Rocket,MessageCircle,Folder} from "@lucide/astro";
                 <a
                   href="https://example.com/page1"
                   class="bg-white/5 flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full hover:bg-white/20 transition-colors text-xs sm:text-base"
+                  aria-label="Read my blog posts"
                   >Blogs</a
                 >
               </li>
@@ -388,6 +428,8 @@ import  {Rocket,MessageCircle,Folder} from "@lucide/astro";
                 <a
                   href="https://example.com/page1"
                   class="bg-[#a098ff] flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full hover:bg-white/20 transition-colors text-xs sm:text-base"
+                  aria-label="View my shorts content"
+                  aria-current="page"
                   >Shorts</a
                 >
               </li>
