@@ -6,6 +6,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "filter": "node -e \"const fs=require('fs');const path=require('path');const walk=(dir)=>{let results=[];const list=fs.readdirSync(dir);list.forEach((file)=>{file=path.join(dir,file);const stat=fs.statSync(file);if(stat.isDirectory())results=results.concat(walk(file));else if(/\\.(jpg|jpeg|png|gif|webp|svg)$/i.test(file)&&stat.size>300*1024)results.push({file,size:(stat.size/1024).toFixed(2)+'KB'});});return results;};console.table(walk('.'));\"",
     "astro": "astro"
   },
   "dependencies": {
