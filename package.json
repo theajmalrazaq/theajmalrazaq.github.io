@@ -10,9 +10,7 @@
   },
   "dependencies": {
     "@lucide/astro": "^0.525.0",
-    "@studio-freight/lenis": "^1.0.42",
     "@tailwindcss/vite": "^4.1.11",
-    "aos": "^2.3.4",
     "astro": "^5.11.0",
     "tailwindcss": "^4.1.11"
   },
