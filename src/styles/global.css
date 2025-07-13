@@ -1,0 +1,104 @@
+@import "tailwindcss";
+@font-face {
+  font-family: "Product Sans";
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/googlesans/v5/4UaGrENHsxJlGDuGo1OIlL3Owp4.woff2)
+    format("woff2");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Recoleta Regular";
+  src: url(https://nmanumr.com/fonts/Recoleta-Regular.woff2) format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+header {
+  background-image: url("images/bg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+* {
+  box-sizing: border-box;
+}
+.text-accent {
+  color: #a098ff;
+}
+.font-product-sans {
+  font-family: "Product Sans", sans-serif;
+}
+.font-recoleta {
+  font-family: "Recoleta Regular", serif;
+}
+
+.shadow-accent-animate {
+  box-shadow: 0px 0px 39px -22px #a198ff39 inset;
+  animation: pulse-glow 2s ease-in-out infinite alternate;
+  transition: all 0.3s ease-in-out;
+}
+.shadow-accent {
+  background: rgba(160, 152, 255, 0.06);
+  box-shadow: 0px 0px 45px -22px #a098ff inset;
+  border-color: #a098ff;
+}
+
+.shadow-accent:hover {
+  background: rgba(160, 152, 255, 0.06);
+  box-shadow: 0px 0px 45px -22px #a098ff inset;
+  border-color: #a098ff;
+}
+
+/* Lenis smooth scroll styles */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+/* Optimize scrolling performance */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom animation elements that we still need */
+.parallax {
+  will-change: transform;
+}
+
+[data-rotate] {
+  transition: transform 0.3s ease;
+  will-change: transform;
+}
+
+@keyframes pulse-glow {
+  0% {
+    box-shadow: 0px 0px 39px -22px #a098ff inset;
+  }
+  100% {
+    box-shadow: 0px 0px 39px -px #a098ff inset;
+  }
+}
+
+.animate-float {
+  animation: float 2s ease-in-out infinite;
+}
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
