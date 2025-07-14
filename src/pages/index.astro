@@ -124,23 +124,25 @@ import eclipseimg from '../../public/images/eclipse.svg';
 
       <div class="flex flex-col items-center w-full relative z-10">
         <div
-          class="sm:mt-4 mt-27 flex items-center justify-center rounded-full py-2 px-3 text-center backdrop-blur-md border border-white/10 glow-sm bg-accent-light text-white/90 transition-all duration-300 ease-in-out cursor-pointer"
+          class="sm:mt-4 mt-27 flex items-center justify-center rounded-full py-[10px] px-[10px] text-center bg-gradient-to-b from-transparent via-accent/20 to-transparent  backdrop-blur-3xl bg-accent-light text-white/90 transition-all duration-300 ease-in-out cursor-pointer"
           data-aos="fade-down"
           data-aos-delay="200"
           data-aos-duration="800"
           role="status"
           aria-live="polite"
         >
+           <div class="p-3 border border-white/10 flex items-center justify-center rounded-full py-2 px-3 text-center backdrop-blur-md  bg-accent-light bg-black text-white/90 transition-all duration-300 ease-in-out cursor-pointer">
           <div
             class="relative mr-2.5 flex h-3.5 w-3.5 items-center justify-center"
             aria-hidden="true"
           >
-            <div class="h-2.5 w-2.5 rounded-full bg-purple-400 glow-sm"></div>
+            <div class="h-2.5 w-2.5 rounded-full bg-accent glow-sm"></div>
             <div
-              class="absolute h-full w-full animate-ping rounded-full bg-purple-400 opacity-60"
+              class="absolute h-full w-full animate-ping rounded-full bg-accent opacity-60"
             ></div>
           </div>
           <p class="sm:text-sm text-xs">Available For New Opportunities</p>
+        </div>
         </div>
         <div
           class="flex flex-col gap-2 items-center justify-center mt-4 w-full"
@@ -151,16 +153,15 @@ import eclipseimg from '../../public/images/eclipse.svg';
             <img
               src={devimg.src}
               alt="Developer illustration representing Ajmal Razaq Bhatti"
-              class="logobig max-w-45 hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer hover:animate-pulse"
+              class="logobig w-[180px] h-[180px] hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer hover:animate-pulse"
               data-aos="zoom-in"
               data-aos-duration="1200"
               data-speed="0.5"
               fetchpriority="high"
-
               aria-hidden="true"
             />
             <div
-              class="w-fit bg-black/50 border text-accent sm:px-4 px-2 py-2 border-white/10 rounded-xl absolute top-5 sm:-left-25 -left-20 backdrop-blur-2xl animate-float hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer sm:text-base text-sm"
+              class="w-fit bg-black/50 border text-accent sm:px-4 px-2 py-2 border-white/10 rounded-xl absolute top-5 sm:-left-25 -left-20 backdrop-blur-2xl animate-float hover:scale-105 transition-all duration-300 ease-in-out  cursor-pointer sm:text-base text-sm"
               data-aos="fade-right"
               data-aos-delay="600"
               data-aos-duration="800"
@@ -210,7 +211,7 @@ import eclipseimg from '../../public/images/eclipse.svg';
               href="https://github.com/theajmalrazaq"
               target="_blank"
               rel="noopener noreferrer"
-              class="text-white/70 hover:text-accent flex items-center gap-1 bg-white/5 px-2 py-1 rounded-full border border-white/10 glow-s hover:shadow-lg hover:bg-[#a098ff] transition-all duration-400"
+              class="text-white/70 hover:color-accentflex items-center gap-1 bg-white/5 px-2 py-1 rounded-full border border-white/10 glow-s hover:shadow-lg hover:bg-accent transition-all duration-400"
               data-aos="flip-up"
               data-aos-delay="800"
               data-aos-duration="600"
@@ -223,7 +224,7 @@ import eclipseimg from '../../public/images/eclipse.svg';
               href="https://linkedin.com/in/theajmalrazaq"
               target="_blank"
               rel="noopener noreferrer"
-              class="text-white/70 hover:text-accent flex items-center gap-1 bg-white/5 px-2 py-1 rounded-full border border-white/10 glow-s hover:shadow-lg hover:bg-[#a098ff] transition-all duration-400"
+              class="text-white/70 hover:color-accentflex items-center gap-1 bg-white/5 px-2 py-1 rounded-full border border-white/10 glow-s hover:shadow-lg hover:bg-accent transition-all duration-400"
               data-aos="flip-up"
               data-aos-delay="900"
               data-aos-duration="600"
@@ -236,7 +237,7 @@ import eclipseimg from '../../public/images/eclipse.svg';
               href="https://x.com/theajmalrazaq"
               target="_blank"
               rel="noopener noreferrer"
-              class="text-white/70 hover:text-accent flex items-center gap-1 bg-white/5 px-2 py-1 rounded-full border border-white/10 glow-s hover:shadow-lg hover:bg-[#a098ff] transition-all duration-400"
+              class="text-white/70 hover:color-accentflex items-center gap-1 bg-white/5 px-2 py-1 rounded-full border border-white/10 glow-s hover:shadow-lg hover:bg-accent transition-all duration-400"
               data-aos="flip-up"
               data-aos-delay="1000"
               data-aos-duration="600"
@@ -249,7 +250,7 @@ import eclipseimg from '../../public/images/eclipse.svg';
               href="https://behance.net/theajmalrazaq"
               target="_blank"
               rel="noopener noreferrer"
-              class="text-white/70 hover:text-accent flex items-center gap-1 bg-white/5 px-2 py-1 rounded-full border border-white/10 glow-s hover:shadow-lg hover:bg-[#a098ff] transition-all duration-400"
+              class="text-white/70 hover:color-accentflex items-center gap-1 bg-white/5 px-2 py-1 rounded-full border border-white/10 glow-s hover:shadow-lg hover:bg-accent transition-all duration-400"
               data-aos="flip-up"
               data-aos-delay="1100"
               data-aos-duration="600"
@@ -452,7 +453,7 @@ import eclipseimg from '../../public/images/eclipse.svg';
               <li>
                 <a
                   href="https://example.com/page1"
-                  class="bg-[#a098ff] flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full hover:bg-white/20 transition-colors text-xs sm:text-base"
+                  class="bg-accent flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full hover:bg-white/20 transition-colors text-xs sm:text-base"
                   aria-label="View my shorts content"
                   aria-current="page"
                   >Shorts</a

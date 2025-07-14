@@ -14,17 +14,16 @@
   font-style: normal;
   font-display: swap;
 }
+
+@theme {
+  --bg-accent: #a098ff;
+  --color-accent: #a098ff;
+  --font-product-sans: "Product Sans", sans-serif;
+  --font-recoleta: "Recoleta Regular", serif;
+}
+
 * {
   box-sizing: border-box;
-}
-.text-accent {
-  color: #a098ff;
-}
-.font-product-sans {
-  font-family: "Product Sans", sans-serif;
-}
-.font-recoleta {
-  font-family: "Recoleta Regular", serif;
 }
 
 .shadow-accent-animate {
@@ -65,7 +64,6 @@ html.lenis {
     box-shadow: 0px 0px 39px -px #a098ff inset;
   }
 }
-
 .animate-float {
   animation: float 2s ease-in-out infinite;
 }

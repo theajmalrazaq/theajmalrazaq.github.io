@@ -6,6 +6,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "production": "astro build && astro preview",
     "filter": "node -e \"const fs=require('fs');const path=require('path');const walk=(dir)=>{let results=[];const list=fs.readdirSync(dir);list.forEach((file)=>{file=path.join(dir,file);const stat=fs.statSync(file);if(stat.isDirectory())results=results.concat(walk(file));else if(/\\.(jpg|jpeg|png|gif|webp|svg)$/i.test(file)&&stat.size>300*1024)results.push({file,size:(stat.size/1024).toFixed(2)+'KB'});});return results;};console.table(walk('.'));\"",
     "astro": "astro"
   },
@@ -20,7 +21,6 @@
     "astro-purgecss": "^5.3.0",
     "astro-seo-meta": "^5.1.0",
     "astro-sitemap": "^1.0.0",
-    "purgecss": "^7.0.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "tailwindcss": "^4.1.11"
