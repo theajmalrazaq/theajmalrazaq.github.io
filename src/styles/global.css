@@ -16,7 +16,7 @@
 }
 
 header {
-  background-image: url("../../public/images/bg.png");
+  background-image: url("/images/bg.png");
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -50,33 +50,17 @@ header {
   border-color: #a098ff;
 }
 
-/* Lenis smooth scroll styles */
-html.lenis,
-html.lenis body {
+html.lenis {
   height: auto;
 }
-
 .lenis.lenis-smooth {
-  scroll-behavior: auto !important;
+  scroll-behavior: auto;
 }
-
 .lenis.lenis-smooth [data-lenis-prevent] {
   overscroll-behavior: contain;
 }
-
-/* Optimize scrolling performance */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Custom animation elements that we still need */
-.parallax {
-  will-change: transform;
-}
-
-[data-rotate] {
-  transition: transform 0.3s ease;
-  will-change: transform;
+.lenis.lenis-stopped {
+  overflow: hidden;
 }
 
 @keyframes pulse-glow {

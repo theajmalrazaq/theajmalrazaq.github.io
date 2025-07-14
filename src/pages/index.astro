@@ -3,7 +3,7 @@ import "../styles/global.css";
 import  {Rocket,MessageCircle,Folder} from "@lucide/astro";
 import  Button from "../components/button.astro";
 import { Seo } from "astro-seo-meta"
-// import Projects from '../components/Projects.jsx';
+import Projects from '../components/Projects.jsx';
 ---
 
 
@@ -13,8 +13,8 @@ import { Seo } from "astro-seo-meta"
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <Seo
-  title="Ajmal Razaq"
-  description="An online portfolio and blog by Ajmal Razaq. Showcasing my projects, and sharing thoughts on frontend development and UI/UX design."
+  title="Ajmal Razaq Bhatti"
+  description="An online portfolio and blog by Ajmal Razaq Bhatti. Showcasing my projects, and sharing thoughts on frontend development and UI/UX design."
   keywords={["website", "blog", "portfolio", "frontend developer", "junior product designer", "ajmal razaq bhatti", "ajmalrazaq", "theajmalrazaq", "theajmalrazaq.github.io"]}
   icon="favicon/favicon.ico"
   themeColor="#000000"
@@ -34,7 +34,7 @@ import { Seo } from "astro-seo-meta"
 {
   "@context": "https://schema.org",
   "@type": "Person",
-  "name": "Ajmal Razaq",
+  "name": "Ajmal Razaq Bhatti",
   "url": "https://theajmalrazaq.tech",
   "sameAs": [
     "https://github.com/theajmalrazaq",
@@ -150,6 +150,7 @@ import { Seo } from "astro-seo-meta"
               data-aos-duration="1200"
               data-speed="0.5"
               fetchpriority="high"
+
               aria-hidden="true"
             />
             <div
@@ -380,7 +381,7 @@ import { Seo } from "astro-seo-meta"
           >
         </p>
       </div>
-      <!-- <Projects client:only="react" /> -->
+      <Projects client:only="react" />
     </div>
     <footer class="flex justify-center" role="contentinfo">
       <nav
@@ -456,6 +457,6 @@ import { Seo } from "astro-seo-meta"
         </div>
       </nav>
     </footer>
-	<script type="module" src="script.js"></script>
+	<script type="module" src="/script.js"></script>
   </body>
 </html>

@@ -12,11 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 const lenis = new Lenis({
-  duration: 1.2,
-  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-  smooth: true,
-  gestureDirection: "vertical",
-  touchMultiplier: 2,
+  lerp: 0.08,
+  wheelMultiplier: 1.2,
 });
 
 function raf(time) {
@@ -24,11 +21,3 @@ function raf(time) {
   requestAnimationFrame(raf);
 }
 requestAnimationFrame(raf);
-
-lenis.on("scroll", () => {
-  const elements = document.querySelectorAll(".parallax");
-  elements.forEach((el) => {
-    const speed = el.dataset.speed || 0.2;
-    el.style.transform = `translateY(${-lenis.scroll * speed}px)`;
-  });
-});
