@@ -4,6 +4,11 @@ import  {Rocket,MessageCircle,Folder} from "@lucide/astro";
 import  Button from "../components/button.astro";
 import { Seo } from "astro-seo-meta"
 import Projects from '../components/Projects.jsx';
+import projectsicons from '../../public/images/projectsicons.svg';
+import logoimg from '../../public/images/logo.svg';
+import devimg from '../../public/images/dev.png';
+import buildimg from '../../public/images/build.svg';
+import eclipseimg from '../../public/images/eclipse.svg';
 ---
 
 
@@ -58,6 +63,7 @@ import Projects from '../components/Projects.jsx';
     <!-- Lottie Background Animation -->
 
     <header class="h-lvh w-full flex justify-center relative z-99">
+      <div class="absolute top-0 w-full h-4/5 bg-[radial-gradient(circle_at_center,rgba(160,152,255,0.15)_10%,rgba(0,0,0,0)_30%)] backdrop-blur-[80px] -z-10 pointer-events-none" aria-hidden="true"></div>
       <lottie-player
         src="images/up.json"
         background="transparent"
@@ -93,7 +99,7 @@ import Projects from '../components/Projects.jsx';
         <div>
           <a href="/" class="logo" aria-label="Home">
             <img
-              src="/images/logo.svg"
+              src={logoimg.src}
               alt="Ajmal Razaq Bhatti Logo"
               class="logo-image w-10"
               data-rotate
@@ -143,7 +149,7 @@ import Projects from '../components/Projects.jsx';
         >
           <div class="relative flex items-center justify-center">
             <img
-              src="/images/dev.png"
+              src={devimg.src}
               alt="Developer illustration representing Ajmal Razaq Bhatti"
               class="logobig max-w-45 hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer hover:animate-pulse"
               data-aos="zoom-in"
@@ -280,7 +286,7 @@ import Projects from '../components/Projects.jsx';
     </header>
     <div class="w-full relative mt-8 sm:mt-14">
       <img
-        src="/images/eclipse 2.svg"
+        src={eclipseimg.src}
         alt="Decorative eclipse background"
         class="absolute sm:-top-50 -top-40 w-full -z-10"
         aria-hidden="true"
@@ -290,7 +296,7 @@ import Projects from '../components/Projects.jsx';
       >
         <div class="relative w-full flex items-center justify-center">
           <img
-            src="/images/build.svg"
+            src={buildimg.src}
             alt="Decorative build illustration"
             class="absolute w-3/5 sm:w-auto"
             data-rotate
@@ -346,7 +352,7 @@ import Projects from '../components/Projects.jsx';
       aria-labelledby="projects-heading"
     >
       <img
-        src="images/projects2.svg"
+        src={projectsicons.src}
         alt="Projects section decorative illustration"
         class="sm:w-1/2 absolute -top-30 animate-float duration-1000 p-5"
         id="projecticons"
@@ -392,7 +398,7 @@ import Projects from '../components/Projects.jsx';
         <div>
           <a href="/" class="logo" aria-label="Home">
             <img
-              src="images/logo.svg"
+              src={logoimg.src}
               alt="Ajmal Razaq Bhatti Logo"
               class="logo-image w-10"
               data-rotate
