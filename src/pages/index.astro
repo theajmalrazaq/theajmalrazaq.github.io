@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import  {Rocket,MessageCircle,Folder} from "@lucide/astro";
 import  Button from "../components/button.astro";
+import { Seo } from "astro-seo-meta"
 import Projects from '../components/Projects.jsx';
 ---
 
@@ -9,32 +10,47 @@ import Projects from '../components/Projects.jsx';
 <!DOCTYPE html>
 <html lang="en" class="lenis lenis--smooth select-none">
   <head>
-    <meta charset="UTF-8" />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="/assets/favicon/apple-touch-icon.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="/assets/favicon/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="/assets/favicon/favicon-16x16.png"
-    />
-    <link rel="manifest" href="/assets/favicon/site.webmanifest" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<Seo
+  title="Ajmal Razaq"
+  description="Ajmal Razaq Bhatti is a junior ProduHi, I'm Ajmal Razaq — a frontend developer and UX designer. Take a look at my work, ideas, and the projects I've built with care and creativity."
+  keywords={["website", "blog", "portfolio", "frontend developer", "junior product designer", "ajmal razaq bhatti", "ajmalrazaq", "theajmalrazaq", "theajmalrazaq.github.io"]}
+  icon="favicon/favicon.ico"
+  themeColor="#000000"
+  colorScheme="dark"
+  robots="index, follow"
+  facebook={{
+    image: "/images/social-share.png",
+    url: "https://theajmalrazaq.github.io",
+    type: "website",
+  }}
+  twitter={{
+    image: "/images/social-share.png",
+    site: "@theajmalrazaq",
+    card: "summary_large_image",
+  }}
+/><script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Ajmal Razaq",
+  "url": "https://theajmalrazaq.tech",
+  "sameAs": [
+    "https://github.com/theajmalrazaq",
+    "https://linkedin.com/in/theajmalrazaq"
+  ],
+  "jobTitle": "Frontend Developer & Junior Product Designer",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "Freelance"
+  }
+}
+</script>
+
     <link
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"
 />
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-    <title>Ajmal Razaq Bhatti</title>
   </head>
   <body class="bg-black">
     <!-- Lottie Background Animation -->
