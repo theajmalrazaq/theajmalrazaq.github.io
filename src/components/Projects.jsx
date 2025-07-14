@@ -19,7 +19,6 @@ export default function Projects() {
         }
       }
       fetchProjects();
-      console.log(import.meta.env.PUBLIC_SUPABASE_URL);
     }
   }, []);
 
