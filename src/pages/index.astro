@@ -9,6 +9,8 @@ import logoimg from '../../public/images/logo.svg';
 import devimg from '../../public/images/dev.webp';
 import buildimg from '../../public/images/build.svg';
 import eclipseimg from '../../public/images/eclipse.svg';
+import Navbar from '../components/navbar.astro';
+import Loading from '../components/loading.astro';
 ---
 
 
@@ -60,10 +62,15 @@ import eclipseimg from '../../public/images/eclipse.svg';
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   </head>
   <body class="bg-black">
+    <!-- Loading overlay -->
+    <div id="loading-overlay" class="fixed top-0 left-0 w-full h-full flex items-center justify-center z-[9999] bg-black">
+      <Loading />
+    </div>
+    
     <!-- Lottie Background Animation -->
 
     <header class="h-lvh w-full flex justify-center relative z-99">
-      <div class="absolute top-0 w-full h-4/5 bg-[radial-gradient(circle_at_center,rgba(160,152,255,0.15)_10%,rgba(0,0,0,0)_30%)] backdrop-blur-[80px] -z-10 pointer-events-none" aria-hidden="true"></div>
+      <div class="absolute top-0 w-full h-4/5 bg-[radial-gradient(circle_at_center,rgba(160,152,255,0.10)_0%,rgba(0,0,0,0)_30%)] backdrop-blur-[80px] -z-10 pointer-events-none" aria-hidden="true"></div>
       <lottie-player
         src="images/up.json"
         background="transparent"
@@ -90,7 +97,7 @@ import eclipseimg from '../../public/images/eclipse.svg';
       </lottie-player>
 
       <nav
-        class="bg-white/5 text-white rounded-2xl px-7 sm:py-1 py-4 mt-5 backdrop-blur-lg w-11/12 gap-2 fixed justify-between items-center z-99 text-normal top-0 sm:hidden flex"
+        class="bg-white/5 text-white rounded-2xl px-7 sm:py-1 py-4 mt-3 backdrop-blur-lg w-11/12 gap-2 fixed justify-between items-center z-99 text-normal top-0 sm:hidden flex"
         data-aos="fade-down"
         data-aos-duration="800"
         role="navigation"
@@ -124,7 +131,7 @@ import eclipseimg from '../../public/images/eclipse.svg';
 
       <div class="flex flex-col items-center w-full relative z-10">
         <div
-          class="sm:mt-4 mt-27 flex items-center justify-center rounded-full py-[10px] px-[10px] text-center bg-gradient-to-b from-transparent via-accent/20 to-transparent  backdrop-blur-3xl bg-accent-light text-white/90 transition-all duration-300 ease-in-out cursor-pointer"
+          class="sm:mt-2 mt-22 flex items-center justify-center rounded-full py-[6px] px-[6px] text-center bg-gradient-to-b from-transparent via-accent/20 to-transparent  backdrop-blur-3xl bg-accent-light text-white/90 transition-all duration-300 ease-in-out cursor-pointer"
           data-aos="fade-down"
           data-aos-delay="200"
           data-aos-duration="800"
@@ -355,7 +362,7 @@ import eclipseimg from '../../public/images/eclipse.svg';
       <img
         src={projectsicons.src}
         alt="Projects section decorative illustration"
-        class="sm:w-1/2 absolute -top-30 animate-float duration-1000 p-5"
+        class="sm:w-1/2 absolute -top-30 animate-float duration-1000 ease-in-out"
         id="projecticons"
         data-aos="fade-down"
         aria-hidden="true"
@@ -391,79 +398,8 @@ import eclipseimg from '../../public/images/eclipse.svg';
       <Projects client:only="react" />
     </div>
     <footer class="flex justify-center" role="contentinfo">
-      <nav
-        class="bg-white/5 text-white rounded-2xl px-7 sm:py-1 py-4 mt-5 backdrop-blur-lg sm:w-fit w-full/2 gap-4 fixed justify-between sm:justify-center items-center z-99 text-normal bottom-5 sm:flex hidden"
-        role="navigation"
-        aria-label="Main navigation"
-      >
-        <div>
-          <a href="/" class="logo" aria-label="Home">
-            <img
-              src={logoimg.src}
-              alt="Ajmal Razaq Bhatti Logo"
-              class="logo-image w-10"
-              data-rotate
-              data-speed="0.2"
-              fetchpriority="high"
-              aria-hidden="true"
-            />
-          </a>
-        </div>
-
-        <div class="sm:hidden flex justify-center items-center">
-          <ul class="flex gap-1 sm:gap-3 bg-black/10 p-1 sm:p-2 rounded-full">
-            <li>
-              <a
-                href="https://example.com/page1"
-                class="bg-white/5 flex justify-center items-center px-2 py-1 rounded-full hover:bg-white/20 transition-colors"
-                aria-label="Menu"
-                >Menu</a
-              >
-            </li>
-          </ul>
-        </div>
-
-        <div class="sm:flex justify-center items-center gap-2 sm:gap-4 hidden">
-          <div>
-            <ul class="flex gap-1 sm:gap-3 bg-black/10 p-1 sm:p-2 rounded-full">
-              <li>
-                <a
-                  href="https://example.com/page1"
-                  class="bg-white/5 flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full hover:bg-white/20 transition-colors text-xs sm:text-base"
-                  aria-label="About me"
-                  >About</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#projects"
-                  class="bg-white/5 flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full hover:bg-white/20 transition-colors text-xs sm:text-base"
-                  aria-label="View my projects"
-                  >Projects</a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://example.com/page1"
-                  class="bg-white/5 flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full hover:bg-white/20 transition-colors text-xs sm:text-base"
-                  aria-label="Read my blog posts"
-                  >Blogs</a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://example.com/page1"
-                  class="bg-accent flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full hover:bg-white/20 transition-colors text-xs sm:text-base"
-                  aria-label="View my shorts content"
-                  aria-current="page"
-                  >Shorts</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+      <Navbar page="index" />
     </footer>
-	<script type="module" src="/script.js"></script>
+    <script type="module" src="/script.js"></script>
   </body>
 </html>

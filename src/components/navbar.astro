@@ -1,0 +1,80 @@
+---
+import logoimg from '../../public/images/logo.svg';
+const { page } = Astro.props;
+
+// Helper function to determine if a link is active
+const isActive = (path: string) => {
+  return page === path;
+};
+---
+<nav
+        class="bg-white/5 text-white rounded-2xl px-7 sm:py-1 py-4 mt-5 backdrop-blur-lg sm:w-fit w-full/2 gap-4 fixed justify-between sm:justify-center items-center z-99 text-normal bottom-5 sm:flex hidden"
+        role="navigation"
+        aria-label="Main navigation"
+      >
+        <div>
+          <a href="/" class="logo" aria-label="Home">
+            <img
+              src={logoimg.src}
+              alt="Ajmal Razaq Bhatti Logo"
+              class="logo-image w-10"
+              data-rotate
+              data-speed="0.2"
+              fetchpriority="high"
+              aria-hidden="true"
+            />
+          </a>
+        </div>
+
+        <div class="sm:hidden flex justify-center items-center">
+          <ul class="flex gap-1 sm:gap-3 bg-black/10 p-1 sm:p-2 rounded-full">
+            <li>
+              <a
+                href="https://example.com/page1"
+                class={`${isActive('menu') ? 'bg-accent' : 'bg-white/5'} flex justify-center items-center px-2 py-1 rounded-full hover:bg-white/20 transition-colors`}
+                aria-label="Menu"
+                >Menu</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="sm:flex justify-center items-center gap-2 sm:gap-4 hidden">
+          <div>
+            <ul class="flex gap-1 sm:gap-3 bg-black/10 p-1 sm:p-2 rounded-full">
+              <li>
+                <a
+                  href="https://example.com/page1"
+                  class={`${isActive('about') ? 'bg-accent' : 'bg-white/5'} flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full hover:bg-white/20 transition-colors text-xs sm:text-base`}
+                  aria-label="About me"
+                  >About</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#projects"
+                  class={`${isActive('projects') ? 'bg-accent' : 'bg-white/5'} flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full hover:bg-white/20 transition-colors text-xs sm:text-base`}
+                  aria-label="View my projects"
+                  >Projects</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://example.com/page1"
+                  class={`${isActive('blogs') ? 'bg-accent' : 'bg-white/5'} flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full hover:bg-white/20 transition-colors text-xs sm:text-base`}
+                  aria-label="Read my blog posts"
+                  >Blogs</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://example.com/page1"
+                  class={`${isActive('shorts') ? 'bg-accent' : 'bg-white/5'} flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full hover:bg-white/20 transition-colors text-xs sm:text-base`}
+                  aria-label="View my shorts content"
+                  >Shorts</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
