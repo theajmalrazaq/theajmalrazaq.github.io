@@ -1,17 +1,17 @@
 ---
 import "../styles/global.css";
-import  {Rocket,MessageCircle,Folder} from "@lucide/astro";
+import  {Rocket,MessageCircle,Folder, ChevronRight} from "@lucide/astro";
 import  Button from "../components/button.astro";
 import { Seo } from "astro-seo-meta"
 import Projects from '../components/Projects.jsx';
 import projectsicons from '../../public/images/projectsicons.svg';
-import logoimg from '../../public/images/logo.svg';
 import devimg from '../../public/images/dev.webp';
 import buildimg from '../../public/images/build.svg';
 import eclipseimg from '../../public/images/eclipse.svg';
 import Navbar from '../components/navbar.astro';
 import Loading from '../components/loading.astro';
 import StarBorder from "../components/StarBorder.jsx";
+import Navmobile from "../components/navmobile.astro";
 ---
 
 
@@ -92,38 +92,8 @@ import StarBorder from "../components/StarBorder.jsx";
       >
       </lottie-player>
 
-      <nav
-        class="bg-white/5 text-white rounded-2xl px-7 sm:py-1 py-4 mt-3 backdrop-blur-lg w-11/12 gap-2 fixed justify-between items-center z-99 text-normal top-0 sm:hidden flex"
-        data-aos="fade-down"
-        data-aos-duration="800"
-        role="navigation"
-        aria-label="Mobile navigation"
-      >
-        <div>
-          <a href="/" class="logo" aria-label="Home">
-            <img
-              src={logoimg.src}
-              alt="Ajmal Razaq Bhatti Logo"
-              class="logo-image w-10"
-              data-rotate
-              data-speed="0.2"
-            />
-          </a>
-        </div>
-
-        <div class="sm:hidden flex justify-center items-center">
-          <ul class="flex gap-1 sm:gap-3 bg-black/10 p-1 sm:p-2 rounded-full">
-            <li>
-              <a
-                href="https://example.com/page1"
-                class="bg-white/5 flex justify-center items-center px-2 py-1 rounded-full hover:bg-white/20 transition-colors"
-                aria-label="Menu"
-                >Menu</a
-              >
-            </li>
-          </ul>
-        </div>
-      </nav>
+      <Navmobile />
+ 
 
       <div class="flex flex-col items-center w-full relative z-10">
         <div
@@ -396,7 +366,9 @@ import StarBorder from "../components/StarBorder.jsx";
           >
         </p>
       </div>
-      <Projects client:only="react" />
+      <Projects client:only="react">
+        <ChevronRight size="18px"/>
+      </Projects>
     </div>
     <footer class="flex justify-center" role="contentinfo">
       <Navbar page="index" />
