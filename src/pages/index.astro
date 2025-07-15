@@ -1,7 +1,8 @@
 ---
 import "../styles/global.css";
-import  {Rocket,MessageCircle,Folder, ChevronRight} from "@lucide/astro";
+import  {Rocket,MessageCircle,Folder, ChevronRight,Github} from "@lucide/astro";
 import  Button from "../components/button.astro";
+
 import { Seo } from "astro-seo-meta"
 import Projects from '../components/Projects.jsx';
 import projectsicons from '../../public/images/projectsicons.svg';
@@ -119,7 +120,7 @@ import Navmobile from "../components/navmobile.astro";
         </div>
         <div
           class="flex flex-col gap-2 items-center justify-center mt-4 w-full"
-          data-aos="fade-up"
+          data-aos="zoom-in"
           data-aos-delay="400"
         >
           <div class="relative flex items-center justify-center">
@@ -154,7 +155,7 @@ import Navmobile from "../components/navmobile.astro";
           </div>
           <h1
             class="sm:text-5xl text-4xl p-2 text-transparent font-recoleta devname bg-clip-text"
-            data-aos="fade-up"
+            data-aos="zoom-in"
             data-aos-delay="300"
             data-aos-duration="1000"
             style="
@@ -170,12 +171,12 @@ import Navmobile from "../components/navmobile.astro";
         </div>
         <div
           class="flex flex-col gap-5 items-center justify-center mt-2"
-          data-aos="fade-up"
+          data-aos="zoom-in"
           data-aos-delay="500"
         >
           <div
             class="flex items-center justify-center gap-2 mt-2 text-accent"
-            data-aos="fade-up"
+            data-aos="zoom-in"
             data-aos-delay="700"
             role="navigation"
             aria-label="Social media links"
@@ -234,7 +235,7 @@ import Navmobile from "../components/navmobile.astro";
           </div>
           <p
             class="font-product-sans text-sm text-center sm:w-3/4 text-white/90"
-            data-aos="fade-up"
+            data-aos="zoom-in"
             data-aos-delay="1200"
           >
             Designer? Developer? Why not both. I take ideas from "meh" to "whoa"
@@ -280,12 +281,12 @@ import Navmobile from "../components/navmobile.astro";
             class="absolute w-3/5 sm:w-auto"
             data-rotate
             data-speed="0.3"
-            data-aos="fade-up"
+            data-aos="zoom-in"
             aria-hidden="true"
           />
           <h1
             class="text-white text-2xl sm:text-4xl md:text-5xl -top-2 z-10 absolute font-recoleta text-center"
-            data-aos="fade-up"
+            data-aos="zoom-in"
           >
             Let's <span class="text-accent">build </span> something together.
           </h1>
@@ -295,7 +296,7 @@ import Navmobile from "../components/navmobile.astro";
         >
           <p
             class="font-product-sans text-sm text-center text-white/90"
-            data-aos="fade-up"
+            data-aos="zoom-in"
           >
             My focus lies in
             <span class="text-accent"
@@ -308,7 +309,7 @@ import Navmobile from "../components/navmobile.astro";
           </p>
          <Button 
             text="Let's Build Together"
-            data_aos="fade-up"
+            data_aos="zoom-in"
             data_aos_delay="200"
             aria_label="Contact me to discuss a project"
           >
@@ -350,14 +351,14 @@ import Navmobile from "../components/navmobile.astro";
       >
         <h1
           class="text-white text-2xl sm:text-4xl md:text-5xl font-recoleta text-center"
-          data-aos="fade-up"
+          data-aos="zoom-in"
           id="projects-heading"
         >
           <span class="text-accent">Projects</span> that I've worked on.
         </h1>
         <p
           class="font-product-sans text-sm text-center text-white/90"
-          data-aos="fade-up"
+          data-aos="zoom-in"
         >
           Here's a collection of work where I turned pain points into purposeful
           products through <br />
@@ -366,9 +367,11 @@ import Navmobile from "../components/navmobile.astro";
           >
         </p>
       </div>
-      <Projects client:only="react">
-        <ChevronRight size="18px"/>
-      </Projects>
+
+<Projects client:only="react">
+  <ChevronRight size="18" class="text-accent" />
+</Projects>
+       
     </div>
     <footer class="flex justify-center" role="contentinfo">
       <Navbar page="index" />
