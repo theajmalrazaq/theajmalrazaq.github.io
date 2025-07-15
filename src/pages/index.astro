@@ -11,6 +11,7 @@ import buildimg from '../../public/images/build.svg';
 import eclipseimg from '../../public/images/eclipse.svg';
 import Navbar from '../components/navbar.astro';
 import Loading from '../components/loading.astro';
+import StarBorder from "../components/StarBorder.jsx";
 ---
 
 
@@ -270,20 +271,25 @@ import Loading from '../components/loading.astro';
             designing sleek interfaces and coding fast, responsive websites that
             actually convert.
           </p>
-          <button
-            class="bg-gradient-to-r to-black/0 rounded-full py-1 pr-1 pl-5 text-white shadow-accent-animate text-base cursor-pointer hover:shadow-lg transition-all duration-300 ease-in-out hover:to-black/10 hover:scale-105 flex items-center justify-between gap-2 border border-white/10 glow-s"
-            data-aos="zoom-in"
-            data-aos-delay="1300"
-            aria-label="Contact me to discuss opportunities"
-          >
-            Let's Talk 
-            <div
-              class="bg-gradient-to-r to-black/0 p-3 text-white shadow-accent rounded-full flex items-center justify-center"
-              aria-hidden="true"
+          <div class="flex items-center justify-center gap-2 mt-4 relative group">
+             <StarBorder
+              as="button"
+              className="group/button"
+              color="#a098ff"
+              speed="3s"
             >
-              <MessageCircle size="18" />
+          <div class="flex items-center gap-2 cursor-pointer">
+  <div
+    class="bg-gradient-to-r to-black/0 p-3 text-white shadow-accent rounded-full flex items-center justify-center opacity-0 scale-0 group-hover/button:opacity-100 group-hover/button:scale-100 transition-all duration-300 ease-in-out absolute left-1"
+    aria-hidden="true"
+  >
+    <MessageCircle size="18" />
+  </div>
+  <span class="group-hover/button:ml-12 group-hover/button:pl-1 group-hover/button:px-4 group-hover/button:py-3 px-7 py-3 transition-all duration-300 ease-in-out">Let's Talk</span>
             </div>
-          </button>
+            </StarBorder>
+            </div> 
+       
         </div>
       </div>
     </header>
