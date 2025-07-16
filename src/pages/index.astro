@@ -2,9 +2,9 @@
 import "../styles/global.css";
 import  {Rocket,MessageCircle,Folder, ChevronRight,Github} from "@lucide/astro";
 import  Button from "../components/button.astro";
+
 import { Seo } from "astro-seo-meta"
-import Projects from "../components/Projects.astro";
-import { createClient } from "@supabase/supabase-js";
+import Projects from '../components/Projects.jsx';
 import projectsicons from '../../public/images/projectsicons.svg';
 import devimg from '../../public/images/dev.webp';
 import buildimg from '../../public/images/build.svg';
@@ -13,9 +13,6 @@ import Navbar from '../components/navbar.astro';
 import Loading from '../components/loading.astro';
 import StarBorder from "../components/StarBorder.jsx";
 import Navmobile from "../components/navmobile.astro";
-const supabase = createClient(import.meta.env.PUBLIC_SUPABASE_URL, import.meta.env.PUBLIC_SUPABASE_ANON_KEY);
-
-const { data: projects, error } = await supabase.from("selected_projects").select("*");
 ---
 
 
@@ -371,7 +368,9 @@ const { data: projects, error } = await supabase.from("selected_projects").selec
         </p>
       </div>
 
-<Projects projects={projects} />
+<Projects client:only="react">
+  <ChevronRight size="18" class="text-accent" />
+</Projects>
        
     </div>
     <footer class="flex justify-center" role="contentinfo">
