@@ -57,7 +57,7 @@ export default function Projects({ children }) {
                     rel="noopener noreferrer"
                     className="relative z-10"
                   >
-                    <div
+                    <button
                       className="w-fit bg-gradient-to-r from-accent/5 to-bg-black/5 border text-accent sm:px-3 px-3 py-2 border-white/10 rounded-full backdrop-blur-2xl hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer sm:text-base text-sm flex justify-center items-center gap-2"
                       aria-label="View Project"
                     >
@@ -65,13 +65,14 @@ export default function Projects({ children }) {
                       <div className="bg-gradient-to-r to-black/0 p-2 text-white shadow-accent rounded-full flex items-center justify-center w-auto">
                         {children}
                       </div>
-                    </div>
+                    </button>
                   </a>
                 </div>
                 <a
                   href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="text-accent hover:underline"
                 >
                   Github
                 </a>
