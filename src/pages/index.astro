@@ -5,7 +5,8 @@ import  Button from "../components/button.astro";
 
 import { Seo } from "astro-seo-meta"
 import Projects from '../components/Projects.jsx';
-import projectsicons from '../../public/images/projectsicons.svg';
+// import projectsicons from '../../public/images/projectsicons.svg'; 
+import projectsicons from '../../public/images/pro.svg'; 
 import devimg from '../../public/images/dev.webp';
 import buildimg from '../../public/images/build.svg';
 import eclipseimg from '../../public/images/eclipse.svg';
@@ -57,6 +58,7 @@ import Navmobile from "../components/navmobile.astro";
 }
 </script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-interactivity@latest/dist/lottie-interactivity.min.js"></script>
   </head>
   <body class="bg-black">
     <!-- Loading overlay -->
@@ -67,7 +69,7 @@ import Navmobile from "../components/navmobile.astro";
     <!-- Lottie Background Animation -->
 
     <header class="h-lvh w-full flex justify-center relative z-99">
-      <div class="absolute top-0 w-full h-4/5 bg-[radial-gradient(circle_at_center,rgba(160,152,255,0.10)_0%,rgba(0,0,0,0)_30%)] backdrop-blur-[80px] -z-10 pointer-events-none" aria-hidden="true"></div>
+      <div class="absolute top-0 w-full h-4/5 bg-[radial-gradient(circle_at_center,rgba(160,152,255,0.10)_0%,rgba(0,0,0,0)_30%)] backdrop-blur-[80px] -z-10 pointer-events-none" aria-hidden="true" data-aos="fade"></div>
       <lottie-player
         src="images/up.json"
         background="transparent"
@@ -120,7 +122,7 @@ import Navmobile from "../components/navmobile.astro";
         </div>
         <div
           class="flex flex-col gap-2 items-center justify-center mt-4 w-full"
-          data-aos="zoom-in"
+          data-aos="fade-up"
           data-aos-delay="400"
         >
           <div class="relative flex items-center justify-center">
@@ -128,7 +130,7 @@ import Navmobile from "../components/navmobile.astro";
               src={devimg.src}
               alt="Developer illustration representing Ajmal Razaq Bhatti"
               class="logobig w-[180px] h-[180px] hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer hover:animate-pulse"
-              data-aos="zoom-in"
+              data-aos="fade-up"
               data-aos-duration="1200"
               data-speed="0.5"
               fetchpriority="high"
@@ -154,8 +156,8 @@ import Navmobile from "../components/navmobile.astro";
             </div>
           </div>
           <h1
-            class="sm:text-5xl text-4xl p-2 text-transparent font-recoleta devname bg-clip-text"
-            data-aos="zoom-in"
+            class="sm:text-6xl text-4xl p-2 text-transparent font-recoleta devname bg-clip-text"
+            data-aos="fade-up"
             data-aos-delay="300"
             data-aos-duration="1000"
             style="
@@ -171,12 +173,12 @@ import Navmobile from "../components/navmobile.astro";
         </div>
         <div
           class="flex flex-col gap-5 items-center justify-center mt-2"
-          data-aos="zoom-in"
+          data-aos="fade-up"
           data-aos-delay="500"
         >
           <div
             class="flex items-center justify-center gap-2 mt-2 text-accent"
-            data-aos="zoom-in"
+            data-aos="fade-up"
             data-aos-delay="700"
             role="navigation"
             aria-label="Social media links"
@@ -235,7 +237,7 @@ import Navmobile from "../components/navmobile.astro";
           </div>
           <p
             class="font-product-sans text-sm text-center sm:w-3/4 text-white/90"
-            data-aos="zoom-in"
+            data-aos="fade-up"
             data-aos-delay="1200"
           >
             Designer? Developer? Why not both. I take ideas from "meh" to "whoa"
@@ -281,12 +283,12 @@ import Navmobile from "../components/navmobile.astro";
             class="absolute w-3/5 sm:w-auto"
             data-rotate
             data-speed="0.3"
-            data-aos="zoom-in"
+            data-aos="fade-up"
             aria-hidden="true"
           />
           <h1
             class="text-white text-2xl sm:text-4xl md:text-5xl -top-2 z-10 absolute font-recoleta text-center"
-            data-aos="zoom-in"
+            data-aos="fade-up"
           >
             Let's <span class="text-accent">build </span> something together.
           </h1>
@@ -296,7 +298,7 @@ import Navmobile from "../components/navmobile.astro";
         >
           <p
             class="font-product-sans text-sm text-center text-white/90"
-            data-aos="zoom-in"
+            data-aos="fade-up"
           >
             My focus lies in
             <span class="text-accent"
@@ -309,7 +311,7 @@ import Navmobile from "../components/navmobile.astro";
           </p>
          <Button 
             text="Let's Build Together"
-            data_aos="zoom-in"
+            data_aos="fade-up"
             data_aos_delay="200"
             aria_label="Contact me to discuss a project"
           >
@@ -326,19 +328,19 @@ import Navmobile from "../components/navmobile.astro";
     </div>
     <!-- Projects Section  -->
     <div
-      class="relative mt-40 w-full flex flex-col items-center justify-center gap-5"
+      class="relative mt-20 w-full flex flex-col items-center justify-center gap-5"
       id="projects"
       role="region"
       aria-labelledby="projects-heading"
     >
-      <img
+      <!-- <img
         src={projectsicons.src}
         alt="Projects section decorative illustration"
         class="sm:w-1/2 absolute -top-30 animate-float duration-1000 ease-in-out"
         id="projecticons"
         data-aos="fade-down"
         aria-hidden="true"
-      />
+      /> -->
       <div
         class="relative z-10 w-fit p-4 rounded-4xl flex items-center justify-center shadow-accent hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer"
         aria-hidden="true"
@@ -351,14 +353,15 @@ import Navmobile from "../components/navmobile.astro";
       >
         <h1
           class="text-white text-2xl sm:text-4xl md:text-5xl font-recoleta text-center"
-          data-aos="zoom-in"
+          data-aos="fade-up"
           id="projects-heading"
         >
           <span class="text-accent">Projects</span> that I've worked on.
         </h1>
+         
         <p
           class="font-product-sans text-sm text-center text-white/90"
-          data-aos="zoom-in"
+          data-aos="fade-up"
         >
           Here's a collection of work where I turned pain points into purposeful
           products through <br />
@@ -366,7 +369,23 @@ import Navmobile from "../components/navmobile.astro";
             >careful research, intuitive design, and scalable development.</span
           >
         </p>
+         <!-- <img
+        src={projectsicons.src}
+        alt="Projects section decorative illustration"
+        class="sm:w-1/2 animate-float duration-1000 ease-in-out"
+        id="projecticons"
+        data-aos="fade-up"
+        aria-hidden="true"
+      /> -->
       </div>
+      <lottie-player
+        src="images/click.json"
+        background="transparent"
+        id="firstLottie"
+        class="sm:top-10 h-1/2 w-64 sm:w-1/2 z-10"
+        data-aos="fade-up"
+      >
+      </lottie-player>
 
 <Projects client:only="react">
   <ChevronRight size="18" class="text-accent" />

@@ -1,5 +1,16 @@
 import Lenis from "https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.39/dist/lenis.mjs";
 import AOS from "https://cdn.jsdelivr.net/npm/aos@2.3.4/+esm";
+LottieInteractivity.create({
+  player: "#firstLottie",
+  mode: "scroll",
+  actions: [
+    {
+      visibility: [0, 1],
+      type: "seek",
+      frames: [0, 70],
+    },
+  ],
+});
 
 const lenis = new Lenis({
   lerp: 0.08,

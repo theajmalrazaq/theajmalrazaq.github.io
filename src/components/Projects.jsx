@@ -24,9 +24,18 @@ export default function Projects({ children }) {
   return (
     <section>
       <div
-        className="flex flex-col items-center justify-center gap-8 p-6 w-full"
+        className="flex flex-col items-center justify-center gap-8 p-3 w-full   rounded-4xl"
         data-aos="fade-up"
       >
+        <div className="shadow-accent w-fit rounded-full bg-gradient-to-l from-transparent via-[#a098ff]/40 to-transparent z-99 mt-4 flex justify-center gap-2 p-2">
+          <div className="px-4 py-2 shadow-accent rounded-full">
+            Web Project
+          </div>
+          <div className="px-4 py-2  rounded-full">UI/UX Projects</div>
+          <div className="px-4 py-2  rounded-full">
+            Graphics Design Projects
+          </div>
+        </div>
         {projects.map((project, index) => (
           <div
             key={project.id}

@@ -14,10 +14,19 @@
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: "Nexus";
+  src: url(https://nexus.zentry.com/_next/static/media/ef279d25efe713b4-s.p.ttf)
+    format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 @theme {
   --bg-accent: #a098ff;
   --color-accent: #a098ff;
+  --font-nexus: "Nexus";
   --font-product-sans: "Product Sans", sans-serif;
   --font-recoleta: "Recoleta Regular", serif;
 }
@@ -1046,7 +1055,7 @@ body[data-aos-easing="ease-in-out-quart"] [data-aos] {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-5px);
+    transform: translateY(-10px);
   }
   100% {
     transform: translateY(0);
