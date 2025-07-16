@@ -1,0 +1,56 @@
+---
+interface Project {
+  id: string | number;
+  img: string;
+  name: string;
+  icon: string;
+  description: string;
+  url: string;
+  github: string;
+}
+
+const { projects } = Astro.props;
+---
+
+<section>
+  <div class="flex flex-col items-center justify-center gap-8 p-6 w-full" data-aos="fade-up">
+    {projects.map((project: Project) => (
+      <div
+        class="project-card text-white bg-black border border-white/10 p-4 rounded-3xl shadow-lg flex sm:flex-row flex-col shadow-accent items-start gap-4 sm:w-[90%] w-full"
+        data-aos="zoom-in"
+        data-id={project.id}
+      >
+        <div>
+          <img src={project.img} alt={project.name} class="w-full h-56" />
+        </div>
+        <div>
+          <div class="flex flex-col gap-1">
+            <img src={project.icon} alt="" class="w-15 h-15" />
+            <h3 class="text-3xl font-semibold text-white font-recoleta">
+              {project.name}
+            </h3>
+            <p class="text-sm text-white">{project.description}</p>
+          </div>
+
+          <div class="flex justify-between items-center h-full">
+            <div class="relative mt-4 flex items-center justify-between w-fit ">
+              <a
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="relative z-10"
+              >
+                <div class="w-fit bg-gradient-to-r from-accent/5 to-bg-black/5 border text-accent sm:px-3 px-3 py-2 border-white/10 rounded-full backdrop-blur-2xl hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer sm:text-base text-sm flex justify-center items-center gap-2">
+                  View Project
+                </div>
+              </a>
+            </div>
+            <a href={project.github} target="_blank" rel="noopener noreferrer">
+              Github
+            </a>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
