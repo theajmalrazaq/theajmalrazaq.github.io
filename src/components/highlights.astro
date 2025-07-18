@@ -1,0 +1,380 @@
+---
+import  {Rocket,MessageCircle,Folder, ChevronRight,Github, Code, Palette, Layers, Clock} from "@lucide/astro";
+---
+
+<div class="relative">
+   <!-- Gradient overlay - left side -->
+   <div class="absolute -left-64 top-32 w-96 h-96 bg-accent/20 rounded-full blur-[120px] -z-10 animate-pulse"></div>
+   
+
+   
+   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        
+        <!-- Card 1: Collaboration -->
+        <div class="bg-black relative overflow-hidden rounded-4xl shadow-accent border border-accent/10 p-6 sm:p-8 col-span-1 row-span-1 pixel-card backdrop-blur-md "
+          data-aos="fade-up"
+          data-aos-delay="100"
+          data-aos-duration="800"
+          id="collaboration-card"
+          tabindex="0">
+          <div class="h-full flex flex-col relative z-10">
+            <div class="flex items-start gap-4 mb-4"
+              data-aos="text-focus-fade-up"
+              data-aos-delay="200"
+              data-aos-duration="1000">
+              <div class="p-3 rounded-full transition-all duration-300 collaboration-icon bg-white/5 border border-accent/10">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white/70">
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                  <polyline points="3.29 7 12 12 20.71 7"></polyline>
+                  <line x1="12" y1="22" x2="12" y2="12"></line>
+                </svg>
+              </div>
+            </div>
+            
+            <h3 class="sm:text-3xl text-2xl p-2 text-transparent font-recoleta bg-clip-text mb-2"
+               data-aos="text-focus-fade-up"
+               data-aos-delay="300"
+               data-aos-duration="2000"
+               style="background-image: linear-gradient(0deg, rgb(198, 200, 255) 50%, #a098ff 100%);">
+               Collaboration
+            </h3>
+            <p class="text-white/70 font-product-sans mb-3"
+               data-aos="text-focus-fade-up"
+               data-aos-delay="400"
+               data-aos-duration="1000">I prioritize client collaboration, fostering open communication</p>
+            
+            <div class="flex flex-col gap-2 mt-auto">
+              <div class="flex justify-between items-center"
+                data-aos="text-focus-fade-up"
+                data-aos-delay="500"
+                data-aos-duration="1000">
+                <span class="text-xs text-white/50">Communication</span>
+                <div class="flex">
+                  <span class="text-accent">★</span>
+                  <span class="text-accent">★</span>
+                  <span class="text-accent">★</span>
+                  <span class="text-accent">★</span>
+                  <span class="text-accent">★</span>
+                </div>
+              </div>
+              
+              <div class="flex justify-between items-center">
+                <div class="flex -space-x-2 hover:space-x-1 transition-all duration-300 cursor-pointer" id="team-members"
+                  data-aos="text-focus-fade-up"
+                  data-aos-delay="600"
+                  data-aos-duration="1000">
+                  <div class="w-8 h-8 rounded-full border-2 border-[#121212] bg-[#a098ff]/20 overflow-hidden hover:scale-110 transition-all duration-300">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Team member" class="w-full h-full object-cover" />
+                  </div>
+                  <div class="w-8 h-8 rounded-full border-2 border-[#121212] bg-[#a098ff]/20 overflow-hidden hover:scale-110 transition-all duration-300">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Team member" class="w-full h-full object-cover" />
+                  </div>
+                  <div class="w-8 h-8 rounded-full border-2 border-[#121212] bg-[#a098ff]/20 overflow-hidden hover:scale-110 transition-all duration-300 flex items-center justify-center text-xs text-white">+3</div>
+                </div>
+                
+                <button id="book-call-btn" class="px-4 py-1.5 bg-accent/20 text-accent text-xs font-medium rounded-full border border-accent/10/30 hover:bg-accent hover:text-white transition-all duration-300 flex items-center gap-1.5"
+                  data-aos="text-focus-fade-up"
+                  data-aos-delay="700"
+                  data-aos-duration="1000">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                  </svg>
+                  Book Call
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Animated Elements -->
+          <div class="absolute -bottom-6 -right-6 w-24 h-24 bg-accent/5 rounded-full blur-xl"></div>
+          <div class="absolute -top-6 -left-6 w-20 h-20 bg-accent/5 rounded-full blur-xl"></div>
+        </div>
+        
+        <!-- Card 2: Frontend Development -->
+        <div class="relative overflow-hidden rounded-4xl shadow-accent border border-accent/10 p-6 sm:p-8 col-span-1 row-span-1 pixel-card backdrop-blur-md bg-black"
+          data-aos="fade-up"
+          data-aos-delay="200"
+          data-aos-duration="800"
+          id="frontend-card"
+          tabindex="0">
+          <div class="h-full flex flex-col relative z-10">
+            <div class="flex items-start gap-4 mb-4"
+              data-aos="text-focus-fade-up"
+              data-aos-delay="200"
+              data-aos-duration="1000">
+              <div class="p-3 rounded-full bg-white/5 border border-accent/10 transition-all duration-300">
+                <Code size="24" class="text-white/70" />
+              </div>
+            </div>
+            
+            <h3 class="sm:text-3xl text-2xl text-transparent font-recoleta bg-clip-text mb-2"
+               data-aos="text-focus-fade-up"
+               data-aos-delay="300"
+               data-aos-duration="2000"
+               style="background-image: linear-gradient(0deg, rgb(198, 200, 255) 50%, #a098ff 100%);">
+               Frontend Development
+            </h3>
+            <p class="text-white/70 font-product-sans mb-3"
+               data-aos="text-focus-fade-up"
+               data-aos-delay="400"
+               data-aos-duration="1000">Creating responsive, fast & intuitive web experiences</p>
+            
+            <div class="flex flex-col gap-2 mt-auto"
+              data-aos="text-focus-fade-up"
+              data-aos-delay="500"
+              data-aos-duration="1000">
+              <div class="grid grid-cols-2 gap-2">
+                <div class="flex items-center gap-1">
+                  <div class="w-2 h-2 rounded-full bg-accent"></div>
+                  <span class="text-xs text-white/60">React</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <div class="w-2 h-2 rounded-full bg-accent"></div>
+                  <span class="text-xs text-white/60">Next.js</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <div class="w-2 h-2 rounded-full bg-accent"></div>
+                  <span class="text-xs text-white/60">Tailwind</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <div class="w-2 h-2 rounded-full bg-accent"></div>
+                  <span class="text-xs text-white/60">Astro</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Animated Elements -->
+          <div class="absolute -bottom-6 -right-6 w-24 h-24 bg-accent/5 rounded-full blur-xl"></div>
+          <div class="absolute -top-6 -left-6 w-20 h-20 bg-accent/5 rounded-full blur-xl"></div>
+        </div>
+        
+        <!-- Card 3: UI/UX Design -->
+        <div class="relative overflow-hidden rounded-4xl shadow-accent border border-accent/10 p-6 sm:p-8 col-span-1 row-span-1 pixel-card backdrop-blur-md bg-black"
+          data-aos="fade-up"
+          data-aos-delay="300"
+          data-aos-duration="800"
+          id="uiux-card"
+          tabindex="0">
+          <div class="h-full flex flex-col relative z-10">
+            <div class="flex items-start gap-4 mb-4"
+              data-aos="text-focus-fade-up"
+              data-aos-delay="200"
+              data-aos-duration="1000">
+              <div class="p-3 rounded-full bg-white/5 border border-accent/10 transition-all duration-300">
+                <Palette size="24" class="text-white/70" />
+              </div>
+            </div>
+            
+            <h3 class="sm:text-3xl text-2xl  text-transparent font-recoleta bg-clip-text mb-2"
+               data-aos="text-focus-fade-up"
+               data-aos-delay="300"
+               data-aos-duration="2000"
+               style="background-image: linear-gradient(0deg, rgb(198, 200, 255) 50%, #a098ff 100%);">
+               UI/UX Design
+            </h3>
+            <p class="text-white/70 font-product-sans mb-3"
+               data-aos="text-focus-fade-up"
+               data-aos-delay="400"
+               data-aos-duration="1000">Creating beautiful and intuitive user experiences</p>
+            
+            <div class="flex flex-col gap-2 mt-auto"
+              data-aos="text-focus-fade-up"
+              data-aos-delay="500"
+              data-aos-duration="1000">
+              <div class="grid grid-cols-2 gap-2">
+                <div class="flex items-center gap-1">
+                  <div class="w-2 h-2 rounded-full bg-accent"></div>
+                  <span class="text-xs text-white/60">Figma</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <div class="w-2 h-2 rounded-full bg-accent"></div>
+                  <span class="text-xs text-white/60">Sketch</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <div class="w-2 h-2 rounded-full bg-accent"></div>
+                  <span class="text-xs text-white/60">Prototyping</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <div class="w-2 h-2 rounded-full bg-accent"></div>
+                  <span class="text-xs text-white/60">User Research</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Animated Elements -->
+          <div class="absolute -bottom-6 -right-6 w-24 h-24 bg-accent/5 rounded-full blur-xl"></div>
+          <div class="absolute -top-6 -left-6 w-20 h-20 bg-accent/5 rounded-full blur-xl"></div>
+        </div>
+        
+       
+        
+        <!-- Card 5: Technology stack -->
+        <div class="relative overflow-hidden rounded-4xl shadow-accent border border-accent/10 p-6 sm:p-8 col-span-1 row-span-1 sm:col-span-2 pixel-card backdrop-blur-md bg-black"
+          data-aos="fade-up"
+          data-aos-delay="500"
+          data-aos-duration="800"
+          id="tech-stack-card"
+          tabindex="0">
+          <div class="h-full flex flex-col relative z-10">
+            <div class="flex items-start gap-4 mb-4"
+              data-aos="text-focus-fade-up"
+              data-aos-delay="200"
+              data-aos-duration="1000">
+              <div class="p-3 rounded-full bg-white/5 border border-accent/10 transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white/70">
+                  <rect width="18" height="18" x="3" y="3" rx="2"/>
+                  <path d="M9 14v1"/>
+                  <path d="M9 8v1"/>
+                  <path d="M15 14v1"/>
+                  <path d="M15 8v1"/>
+                  <path d="M9 12h6"/>
+                </svg>
+              </div>
+            </div>
+            
+            <h3 class="sm:text-3xl text-2xl text-transparent font-recoleta bg-clip-text mb-2"
+               data-aos="text-focus-fade-up"
+               data-aos-delay="300"
+               data-aos-duration="2000"
+               style="background-image: linear-gradient(0deg, rgb(198, 200, 255) 50%, #a098ff 100%);">
+               Tech Stack
+            </h3>
+            <p class="text-white/70 font-product-sans mb-3"
+               data-aos="text-focus-fade-up"
+               data-aos-delay="400"
+               data-aos-duration="1000">Modern technologies I use to build amazing products</p>
+            
+            <div id="tech-badge-container" class="mt-4 relative">
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3"
+                data-aos="text-focus-fade-up"
+                data-aos-delay="500"
+                data-aos-duration="1000">
+                <div class="tech-badge flex items-center gap-2 rounded-full py-2 px-4 bg-white/5 border border-accent/10 hover:bg-accent/20 hover:border-accent/10/30 transition-all duration-300 cursor-pointer" data-tech="frontend">
+                  <span class="text-white/90">Tailwind CSS</span>
+                </div>
+                <div class="tech-badge flex items-center gap-2 rounded-full py-2 px-4 bg-white/5 border border-accent/10 hover:bg-accent/20 hover:border-accent/10/30 transition-all duration-300 cursor-pointer" data-tech="frontend">
+                  <span class="text-white/90">React.js</span>
+                </div>
+                <div class="tech-badge flex items-center gap-2 rounded-full py-2 px-4 bg-white/5 border border-accent/10 hover:bg-accent/20 hover:border-accent/10/30 transition-all duration-300 cursor-pointer" data-tech="tools">
+                  <span class="text-white/90">Next.js</span>
+                </div>
+                <div class="tech-badge flex items-center gap-2 rounded-full py-2 px-4 bg-white/5 border border-accent/10 hover:bg-accent/20 hover:border-accent/10/30 transition-all duration-300 cursor-pointer" data-tech="tools">
+                  <span class="text-white/90">Astro</span>
+                </div>
+              </div>
+              
+              <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3"
+                data-aos="text-focus-fade-up"
+                data-aos-delay="600"
+                data-aos-duration="1000">
+                <div class="tech-badge flex items-center gap-2 rounded-full py-2 px-4 bg-white/5 border border-accent/10 hover:bg-accent/20 hover:border-accent/10/30 transition-all duration-300 cursor-pointer" data-tech="backend">
+                  <span class="text-white/90">NodeJS</span>
+                </div>
+                <div class="tech-badge flex items-center gap-2 rounded-full py-2 px-4 bg-white/5 border border-accent/10 hover:bg-accent/20 hover:border-accent/10/30 transition-all duration-300 cursor-pointer" data-tech="backend">
+                  <span class="text-white/90">TypeScript</span>
+                </div>
+                <div class="tech-badge flex items-center gap-2 rounded-full py-2 px-4 bg-white/5 border border-accent/10 hover:bg-accent/20 hover:border-accent/10/30 transition-all duration-300 cursor-pointer" data-tech="backend">
+                  <span class="text-white/90">PostgreSQL</span>
+                </div>
+                <div class="tech-badge flex items-center gap-2 rounded-full py-2 px-4 bg-white/5 border border-accent/10 hover:bg-accent/20 hover:border-accent/10/30 transition-all duration-300 cursor-pointer" data-tech="backend">
+                  <span class="text-white/90">MongoDB</span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Animated Elements -->
+            <div class="absolute -bottom-6 -right-6 w-24 h-24 bg-accent/5 rounded-full blur-xl"></div>
+            <div class="absolute -top-6 -left-6 w-20 h-20 bg-accent/5 rounded-full blur-xl"></div>
+          </div>
+        </div>
+        
+        <!-- Card 6: Time zone -->
+        <div class="relative overflow-hidden rounded-4xl shadow-accent border border-accent/10 p-6 sm:p-8 col-span-1 row-span-1 pixel-card backdrop-blur-md bg-black"
+          data-aos="fade-up"
+          data-aos-delay="600"
+          data-aos-duration="800"
+          id="timezone-card"
+          tabindex="0">
+          <div class="h-full flex flex-col relative z-10">
+            <div class="flex items-start gap-4 mb-4"
+              data-aos="text-focus-fade-up"
+              data-aos-delay="200"
+              data-aos-duration="1000">
+              <div class="p-3 rounded-full bg-white/5 border border-accent/10 transition-all duration-300">
+                <Clock size="24" class="text-white/70" />
+              </div>
+            </div>
+            
+             <h3 class="sm:text-3xl text-2xl text-transparent font-recoleta bg-clip-text mb-2"
+               data-aos="text-focus-fade-up"
+               data-aos-delay="300"
+               data-aos-duration="2000"
+               style="background-image: linear-gradient(0deg, rgb(198, 200, 255) 50%, #a098ff 100%);">Timezone Flexible</h3>
+            <p class="text-white/70 font-product-sans mb-3"
+               data-aos="text-focus-fade-up"
+               data-aos-delay="400"
+               data-aos-duration="1000">Available for meetings in your local time</p>
+            
+            <div class="mt-2 flex flex-col gap-3"
+              data-aos="text-focus-fade-up"
+              data-aos-delay="500"
+              data-aos-duration="1000">
+              <div class="flex justify-between items-center">
+                <div class="text-sm text-white/50 font-product-sans">My Local Time:</div>
+                <div class="text-lg text-white font-product-sans" id="local-time">--:--</div>
+              </div>
+              
+              <div class="relative h-1 w-full bg-white/10 rounded-full my-2 overflow-hidden">
+                <div class="absolute h-full bg-gradient-to-r from-accent/50 to-accent rounded-full" id="time-progress" style="width: 45%"></div>
+              </div>
+            </div>
+            
+            <div class="mt-4 flex flex-wrap gap-2"
+              data-aos="text-focus-fade-up"
+              data-aos-delay="600"
+              data-aos-duration="1000">
+              <div class="flex items-center gap-2 rounded-full py-2 px-4 bg-white/5 border border-accent/10 hover:bg-accent/20 hover:border-accent/10/30 transition-all duration-300 cursor-pointer timezone-badge" data-offset="0">
+                <span class="text-white/90">UK</span>
+                <span class="text-xs text-white/50 timezone-time">--:--</span>
+              </div>
+           
+              <div class="flex items-center gap-2 rounded-full py-2 px-4 bg-white/5 border border-accent/10 hover:bg-accent/20 hover:border-accent/10/30 transition-all duration-300 cursor-pointer timezone-badge" data-offset="-5">
+                <span class="text-white/90">USA</span>
+                <span class="text-xs text-white/50 timezone-time">--:--</span>
+              </div>
+            </div>
+            
+            <div class="mt-4 text-xs text-white/50 font-product-sans"
+              data-aos="text-focus-fade-up"
+              data-aos-delay="700"
+              data-aos-duration="1000">
+              Available: <span class="text-accent">9 AM - 6 PM</span> in your time
+            </div>
+          </div>
+          
+          <!-- Animated Elements -->
+          <div class="absolute -bottom-6 -right-6 w-24 h-24 bg-accent/5 rounded-full blur-xl"></div>
+          <div class="absolute -top-6 -left-6 w-20 h-20 bg-accent/5 rounded-full blur-xl"></div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<style>
+  @keyframes pulse-slow {
+    0%, 100% {
+      opacity: 0.4;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.7;
+      transform: scale(1.05);
+    }
+  }
+  
+  .animate-pulse-slow {
+    animation: pulse-slow 8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+</style>

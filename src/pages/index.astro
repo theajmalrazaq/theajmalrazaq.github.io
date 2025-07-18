@@ -1,12 +1,9 @@
 ---
 import "../styles/global.css";
-import  {Rocket,MessageCircle,Folder, ChevronRight,Github} from "@lucide/astro";
+import  {Rocket,MessageCircle,ChevronRight,} from "@lucide/astro";
 import  Button from "../components/button.astro";
-
 import { Seo } from "astro-seo-meta"
-import Projects from '../components/Projects.jsx';
-// import projectsicons from '../../public/images/projectsicons.svg'; 
-import projectsicons from '../../public/images/pro.svg'; 
+// import Projects from '../components/Projects.astro'; 
 import devimg from '../../public/images/dev.webp';
 import buildimg from '../../public/images/build.svg';
 import eclipseimg from '../../public/images/eclipse.svg';
@@ -14,11 +11,12 @@ import Navbar from '../components/navbar.astro';
 import Loading from '../components/loading.astro';
 import StarBorder from "../components/StarBorder.jsx";
 import Navmobile from "../components/navmobile.astro";
+import Highlights from '../components/highlights.astro';
 ---
 
 
 <!DOCTYPE html>
-<html lang="en" class="lenis lenis--smooth select-none">
+<html lang="en" class="lenis lenis--smooth select-none overflow-hidden">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -68,7 +66,7 @@ import Navmobile from "../components/navmobile.astro";
     
     <!-- Lottie Background Animation -->
 
-    <header class="h-lvh w-full flex justify-center relative z-99">
+    <header class="h-lvh w-full flex justify-center relative z-99" data-aos="text-focus-fade-up">
       <div class="absolute top-0 w-full h-4/5 bg-[radial-gradient(circle_at_center,rgba(160,152,255,0.10)_0%,rgba(0,0,0,0)_30%)] backdrop-blur-[80px] -z-10 pointer-events-none" aria-hidden="true" data-aos="fade"></div>
       <lottie-player
         src="images/up.json"
@@ -77,7 +75,8 @@ import Navmobile from "../components/navmobile.astro";
         speed="0.3"
         loop
         autoplay
-        data-aos="fade-down"
+        data-aos="text-focus-fade-up"
+        data-aos-delay="300"
         data-aos-duration="1000"
         aria-hidden="true"
       >
@@ -89,7 +88,8 @@ import Navmobile from "../components/navmobile.astro";
         speed="0.3"
         loop
         autoplay
-        data-aos="fade-down"
+        data-aos="text-focus-fade-up"
+        data-aos-delay="300"
         data-aos-duration="1000"
         aria-hidden="true"
       >
@@ -101,7 +101,7 @@ import Navmobile from "../components/navmobile.astro";
       <div class="flex flex-col items-center w-full relative z-10">
         <div
           class="sm:mt-2 mt-22 flex items-center justify-center rounded-full py-[6px] px-[6px] text-center bg-gradient-to-b from-transparent via-accent/20 to-transparent  backdrop-blur-3xl bg-accent-light text-white/90 transition-all duration-300 ease-in-out cursor-pointer"
-          data-aos="fade-down"
+          data-aos="text-focus-fade-up"
           data-aos-delay="200"
           data-aos-duration="800"
           role="status"
@@ -122,7 +122,7 @@ import Navmobile from "../components/navmobile.astro";
         </div>
         <div
           class="flex flex-col gap-2 items-center justify-center mt-4 w-full"
-          data-aos="fade-up"
+          data-aos="text-focus-fade-up"
           data-aos-delay="400"
         >
           <div class="relative flex items-center justify-center">
@@ -130,7 +130,7 @@ import Navmobile from "../components/navmobile.astro";
               src={devimg.src}
               alt="Developer illustration representing Ajmal Razaq Bhatti"
               class="logobig w-[180px] h-[180px] hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer hover:animate-pulse"
-              data-aos="fade-up"
+              data-aos="text-focus-fade-up"
               data-aos-duration="1200"
               data-speed="0.5"
               fetchpriority="high"
@@ -157,9 +157,9 @@ import Navmobile from "../components/navmobile.astro";
           </div>
           <h1
             class="sm:text-6xl text-4xl p-2 text-transparent font-recoleta devname bg-clip-text"
-            data-aos="fade-up"
+            data-aos="text-focus-fade-up"
             data-aos-delay="300"
-            data-aos-duration="1000"
+            data-aos-duration="2000"
             style="
               background-image: linear-gradient(
                 0deg,
@@ -173,12 +173,12 @@ import Navmobile from "../components/navmobile.astro";
         </div>
         <div
           class="flex flex-col gap-5 items-center justify-center mt-2"
-          data-aos="fade-up"
+          data-aos="text-focus-fade-up"
           data-aos-delay="500"
         >
           <div
             class="flex items-center justify-center gap-2 mt-2 text-accent"
-            data-aos="fade-up"
+            data-aos="text-focus-fade-up"
             data-aos-delay="700"
             role="navigation"
             aria-label="Social media links"
@@ -237,14 +237,14 @@ import Navmobile from "../components/navmobile.astro";
           </div>
           <p
             class="font-product-sans text-sm text-center sm:w-3/4 text-white/90"
-            data-aos="fade-up"
+            data-aos="text-focus-fade-up"
             data-aos-delay="1200"
           >
             Designer? Developer? Why not both. I take ideas from "meh" to "whoa"
             designing sleek interfaces and coding fast, responsive websites that
             actually convert.
           </p>
-          <div class="flex items-center justify-center gap-2 mt-4 relative group">
+          <div class="flex items-center justify-center gap-2 mt-4 relative group" data-aos="text-focus-fade-up" data-aos-delay="1400">
              <StarBorder
               as="button"
               className="group/button"
@@ -272,6 +272,7 @@ import Navmobile from "../components/navmobile.astro";
         alt="Decorative eclipse background"
         class="absolute sm:-top-50 -top-40 w-full -z-10"
         aria-hidden="true"
+        data-aos="text-focus-fade-up"
       />
       <div
         class="flex items-center justify-center w-full flex-col gap-3 sm:gap-5 px-4 sm:px-0"
@@ -283,12 +284,16 @@ import Navmobile from "../components/navmobile.astro";
             class="absolute w-3/5 sm:w-auto"
             data-rotate
             data-speed="0.3"
-            data-aos="fade-up"
+            data-aos="text-focus-fade-up"
+            data-aos-delay="100"
+            data-aos-duration="800"
             aria-hidden="true"
           />
           <h1
             class="text-white text-2xl sm:text-4xl md:text-5xl -top-2 z-10 absolute font-recoleta text-center"
-            data-aos="fade-up"
+            data-aos="text-focus-fade-up"
+            data-aos-delay="200"
+            data-aos-duration="800"
           >
             Let's <span class="text-accent">build </span> something together.
           </h1>
@@ -298,7 +303,9 @@ import Navmobile from "../components/navmobile.astro";
         >
           <p
             class="font-product-sans text-sm text-center text-white/90"
-            data-aos="fade-up"
+            data-aos="text-focus-fade-up"
+            data-aos-delay="300"
+            data-aos-duration="800"
           >
             My focus lies in
             <span class="text-accent"
@@ -311,8 +318,8 @@ import Navmobile from "../components/navmobile.astro";
           </p>
          <Button 
             text="Let's Build Together"
-            data_aos="fade-up"
-            data_aos_delay="200"
+            data_aos="text-focus-fade-up"
+            data_aos_delay="400"
             aria_label="Contact me to discuss a project"
           >
             <Rocket size="18" class="text-accent" />
@@ -324,36 +331,35 @@ import Navmobile from "../components/navmobile.astro";
       <div
         class="w-[70%] h-[1px] bg-gradient-to-l from-transparent via-[#a098ff]/40 to-transparent z-99"
         aria-hidden="true"
+        data-aos="fade-up"
+        data-aos-delay="200"
+        data-aos-duration="800"
       ></div>
     </div>
+
+    <!-- Highlight Bento: What I Can Do -->
+    <div class="relative mt-16 sm:mt-24 w-full px-15 overflow-hidden flex justify-center items-center" id="about-me">
+    <Highlights />
+    </div>
+
     <!-- Projects Section  -->
     <div
-      class="relative mt-20 w-full flex flex-col items-center justify-center gap-5"
+      class="relative mt-25 w-full flex flex-col items-center justify-center gap-5"
       id="projects"
       role="region"
       aria-labelledby="projects-heading"
     >
-      <!-- <img
-        src={projectsicons.src}
-        alt="Projects section decorative illustration"
-        class="sm:w-1/2 absolute -top-30 animate-float duration-1000 ease-in-out"
-        id="projecticons"
-        data-aos="fade-down"
-        aria-hidden="true"
-      /> -->
-      <div
-        class="relative z-10 w-fit p-4 rounded-4xl flex items-center justify-center shadow-accent hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer"
-        aria-hidden="true"
-      >
-       <Folder size="64" class="text-accent" />
-      </div>
+      
+       <img src="images/Projects.svg" alt="Projects section decorative illustration" class="absolute w-1/3 -top-15 duration-1000 ease-in-out" id="projecticons" data-aos="text-focus-fade-up" data-aos-delay="100" data-aos-duration="800" aria-hidden="true" />
 
       <div
         class="relative flex flex-col items-center justify-center gap-3 w-full"
       >
         <h1
           class="text-white text-2xl sm:text-4xl md:text-5xl font-recoleta text-center"
-          data-aos="fade-up"
+          data-aos="text-focus-fade-up"
+          data-aos-delay="200"
+          data-aos-duration="800"
           id="projects-heading"
         >
           <span class="text-accent">Projects</span> that I've worked on.
@@ -361,7 +367,9 @@ import Navmobile from "../components/navmobile.astro";
          
         <p
           class="font-product-sans text-sm text-center text-white/90"
-          data-aos="fade-up"
+          data-aos="text-focus-fade-up"
+          data-aos-delay="300"
+          data-aos-duration="800"
         >
           Here's a collection of work where I turned pain points into purposeful
           products through <br />
@@ -383,17 +391,30 @@ import Navmobile from "../components/navmobile.astro";
         background="transparent"
         id="firstLottie"
         class="sm:top-10 h-1/2 w-64 sm:w-1/2 z-10"
-        data-aos="fade-up"
+        data-aos="text-focus-fade-up"
+        data-aos-delay="400"
+        data-aos-duration="800"
       >
       </lottie-player>
 
-<Projects client:only="react">
+<!-- <Projects>
   <ChevronRight size="18" class="text-accent" />
-</Projects>
-       
+</Projects> -->
+<Button
+  text="View All Projects"
+  href="/projects"
+  data_aos="text-focus-fade-up"
+  data_aos_delay="500"
+  aria_label="View all projects"
+>
+  <ChevronRight size="18" class="text-accent" />
+</Button>
+    </div>
+    <div>
+
     </div>
     <footer class="flex justify-center" role="contentinfo">
-      <Navbar page="index" />
+      <Navbar page="index" data_aos="text-focus-fade-up" data_aos_delay="600" />
     </footer>
     <script type="module" src="/script.js"></script>
   </body>

@@ -1,0 +1,246 @@
+---
+import { supabase } from "../lib/supabaseClient";
+
+// Define valid project tab types
+type ProjectTabName = "selected_web_projects" | "selected_ui_projects" | "selected_graphics_projects";
+
+// Props with type annotation
+const { activeTab = "selected_web_projects" } = Astro.props as { activeTab?: ProjectTabName };
+
+// Fetch data for each tab statically at build time
+const webProjects = await supabase.from("selected_web_projects").select("*");
+const uiProjects = await supabase.from("selected_ui_projects").select("*");
+const graphicsProjects = await supabase.from("selected_graphics_projects").select("*");
+
+// Handle potential errors
+if (webProjects.error) console.error("Supabase error:", webProjects.error);
+if (uiProjects.error) console.error("Supabase error:", uiProjects.error);
+if (graphicsProjects.error) console.error("Supabase error:", graphicsProjects.error);
+
+// Create a map of project types to their data
+const projectsData = {
+  "selected_web_projects": webProjects.data || [],
+  "selected_ui_projects": uiProjects.data || [],
+  "selected_graphics_projects": graphicsProjects.data || []
+};
+---
+
+<section>
+  <div class="flex flex-col items-center justify-center gap-8 p-3 w-full rounded-4xl" data-aos="fade-up">
+    <div class="shadow-accent w-fit rounded-full bg-gradient-to-l from-transparent via-[#a098ff]/40 to-transparent z-99 mt-4 flex justify-center gap-1 sm:gap-2 p-1 sm:p-2 flex-wrap">
+      <div 
+        class={`px-2 sm:px-4 py-1 sm:py-2 rounded-full cursor-pointer transition-all duration-300 ease-in-out text-xs sm:text-sm md:text-base ${
+          activeTab === "selected_web_projects" ? "shadow-accent bg-accent/10" : "bg-transparent shadow-accent-x"
+        }`} 
+        data-tab="selected_web_projects"
+      >
+        <span class="hidden sm:inline">Web Project</span>
+        <span class="sm:hidden">Web</span>
+      </div>
+      <div 
+        class={`px-2 sm:px-4 py-1 sm:py-2 rounded-full cursor-pointer transition-all duration-300 ease-in-out text-xs sm:text-sm md:text-base ${
+          activeTab === "selected_ui_projects" ? "shadow-accent bg-accent/10" : "bg-transparent shadow-accent-x"
+        }`} 
+        data-tab="selected_ui_projects"
+      >
+        <span class="hidden sm:inline">UI/UX Projects</span>
+        <span class="sm:hidden">UI/UX</span>
+      </div>
+      <div 
+        class={`px-2 sm:px-4 py-1 sm:py-2 rounded-full cursor-pointer transition-all duration-300 ease-in-out text-xs sm:text-sm md:text-base ${
+          activeTab === "selected_graphics_projects" ? "shadow-accent bg-accent/10" : "bg-transparent shadow-accent-x"
+        }`} 
+        data-tab="selected_graphics_projects"
+      >
+        <span class="hidden sm:inline">Graphics Design Projects</span>
+        <span class="sm:hidden">Graphics</span>
+      </div>
+    </div>
+
+    <!-- Web Projects -->
+    <div id="selected_web_projects" class={`w-full transition-all duration-500 ease-in-out ${activeTab === "selected_web_projects" ? "block" : "hidden"}`}>
+      {projectsData.selected_web_projects.map((project, index) => (
+        <div
+          class="project-card text-white  p-4 rounded-3xl shadow-lg flex sm:flex-row flex-col shadow-accent items-start gap-4 sm:w-[90%] w-full mb-8 animate-fadeIn"
+          data-aos="zoom-in"
+          style={`animation-delay: ${index * 100}ms`}
+        >
+          <div class="w-1/2 h-64">
+            <lottie-player
+              src={project.img}
+              background="transparent"
+              id={`lottie-${project.id}`}
+              data-aos="text-focus-fade-up"
+              data-aos-delay="400"
+              autoplay
+              data-aos-duration="800"
+            ></lottie-player>
+          </div>
+          <div>
+            <div class="flex flex-col gap-1">
+              <img src={project.icon} alt="" class="w-15 h-15" />
+              <h3 class="text-3xl font-semibold text-white font-recoleta">
+                {project.name}
+              </h3>
+              <p class="text-sm text-white">{project.description}</p>
+            </div>
+
+            <div class="flex justify-between items-center h-full">
+              <div class="relative mt-4 flex items-center justify-between w-fit">
+                <a
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="relative z-10"
+                >
+                  <button
+                    class="w-fit bg-gradient-to-r from-accent/5 to-bg-black/5 border text-accent sm:px-3 px-3 py-2 border-accent rounded-full backdrop-blur-2xl hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer sm:text-base text-sm flex justify-center items-center gap-2"
+                    aria-label="View Project"
+                  >
+                    View Project
+                    <div class="bg-gradient-to-r to-black/0 p-2 text-white shadow-accent rounded-full flex items-center justify-center w-auto">
+                      <slot />
+                    </div>
+                  </button>
+                </a>
+              </div>
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-accent hover:underline"
+              >
+                Github
+              </a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- UI Projects -->
+    <div id="selected_ui_projects" class={`w-full transition-all duration-500 ease-in-out ${activeTab === "selected_ui_projects" ? "block" : "hidden"}`}>
+      {projectsData.selected_ui_projects.map((project, index) => (
+        <div
+          class="project-card text-white bg-black border border-accent p-4 rounded-3xl shadow-lg flex sm:flex-row flex-col shadow-accent items-start gap-4 sm:w-[90%] w-full mb-8 animate-fadeIn"
+          data-aos="zoom-in"
+          style={`animation-delay: ${index * 100}ms`}
+        >
+          <div class="w-1/3">
+            <lottie-player
+              src={project.img}
+              background="transparent"
+              id={`lottie-${project.id}`}
+              class="sm:top-10 h-1/2 w-64 sm:w-1/2 z-10"
+              data-aos="text-focus-fade-up"
+              data-aos-delay="400"
+              autoplay
+              data-aos-duration="800"
+            ></lottie-player>
+          </div>
+          <div>
+            <div class="flex flex-col gap-1">
+              <img src={project.icon} alt="" class="w-15 h-15" />
+              <h3 class="text-3xl font-semibold text-white font-recoleta">
+                {project.name}
+              </h3>
+              <p class="text-sm text-white">{project.description}</p>
+            </div>
+
+            <div class="flex justify-between items-center h-full">
+              <div class="relative mt-4 flex items-center justify-between w-fit">
+                <a
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="relative z-10"
+                >
+                  <button
+                    class="w-fit bg-gradient-to-r from-accent/5 to-bg-black/5 border text-accent sm:px-3 px-3 py-2 border-accent rounded-full backdrop-blur-2xl hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer sm:text-base text-sm flex justify-center items-center gap-2"
+                    aria-label="View Project"
+                  >
+                    View Project
+                    <div class="bg-gradient-to-r to-black/0 p-2 text-white shadow-accent rounded-full flex items-center justify-center w-auto">
+                      <slot />
+                    </div>
+                  </button>
+                </a>
+              </div>
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-accent hover:underline"
+              >
+                Github
+              </a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Graphics Projects -->
+    <div id="selected_graphics_projects" class={`w-full transition-all duration-500 ease-in-out ${activeTab === "selected_graphics_projects" ? "block" : "hidden"}`}>
+      {projectsData.selected_graphics_projects.map((project, index) => (
+        <div
+          class="project-card text-white bg-black border border-accent p-4 rounded-3xl shadow-lg flex sm:flex-row flex-col shadow-accent items-start gap-4 sm:w-[90%] w-full mb-8 animate-fadeIn"
+          data-aos="zoom-in"
+          style={`animation-delay: ${index * 100}ms`}
+        >
+          <div>
+            <lottie-player
+              src={project.img}
+              background="transparent"
+              id={`lottie-${project.id}`}
+              class="sm:top-10 h-1/2 w-64 sm:w-1/2 z-10"
+              data-aos="text-focus-fade-up"
+              data-aos-delay="400"
+              autoplay
+              data-aos-duration="800"
+            ></lottie-player>
+          </div>
+          <div>
+            <div class="flex flex-col gap-1">
+              <img src={project.icon} alt="" class="w-15 h-15" />
+              <h3 class="text-3xl font-semibold text-white font-recoleta">
+                {project.name}
+              </h3>
+              <p class="text-sm text-white">{project.description}</p>
+            </div>
+
+            <div class="flex justify-between items-center h-full">
+              <div class="relative mt-4 flex items-center justify-between w-fit">
+                <a
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="relative z-10"
+                >
+                  <button
+                    class="w-fit bg-gradient-to-r from-accent/5 to-bg-black/5 border text-accent sm:px-3 px-3 py-2 border-accent rounded-full backdrop-blur-2xl hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer sm:text-base text-sm flex justify-center items-center gap-2"
+                    aria-label="View Project"
+                  >
+                    View Project
+                    <div class="bg-gradient-to-r to-black/0 p-2 text-white shadow-accent rounded-full flex items-center justify-center w-auto">
+                      <slot />
+                    </div>
+                  </button>
+                </a>
+              </div>
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-accent hover:underline"
+              >
+                Github
+              </a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
