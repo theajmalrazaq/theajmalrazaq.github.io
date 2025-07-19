@@ -27,10 +27,10 @@ const projectsData = {
 
 <section>
   <div class="flex flex-col items-center justify-center gap-8 p-3 w-full rounded-4xl" data-aos="fade-up">
-    <div class="shadow-accent w-fit rounded-full bg-gradient-to-l from-transparent via-[#a098ff]/40 to-transparent z-99 mt-4 flex justify-center gap-1 sm:gap-2 p-1 sm:p-2 flex-wrap">
+    <div class="shadow-accent-soft w-fit rounded-full bg-gradient-to-l from-transparent via-[#a098ff]/40 to-transparent z-99 mt-4 flex justify-center gap-1 sm:gap-2 p-1 sm:p-2 flex-wrap">
       <div 
-        class={`px-2 sm:px-4 py-1 sm:py-2 rounded-full cursor-pointer transition-all duration-300 ease-in-out text-xs sm:text-sm md:text-base ${
-          activeTab === "selected_web_projects" ? "shadow-accent bg-accent/10" : "bg-transparent shadow-accent-x"
+        class={`px-4  py-2 rounded-full cursor-pointer transition-all duration-300 ease-in-out  ${
+          activeTab === "selected_web_projects" ? "shadow-accent-soft bg-accent/10" : "bg-transparent shadow-accent-soft-x"
         }`} 
         data-tab="selected_web_projects"
       >
@@ -38,8 +38,8 @@ const projectsData = {
         <span class="sm:hidden">Web</span>
       </div>
       <div 
-        class={`px-2 sm:px-4 py-1 sm:py-2 rounded-full cursor-pointer transition-all duration-300 ease-in-out text-xs sm:text-sm md:text-base ${
-          activeTab === "selected_ui_projects" ? "shadow-accent bg-accent/10" : "bg-transparent shadow-accent-x"
+        class={`px-4  py-2 rounded-full cursor-pointer transition-all duration-300 ease-in-out  ${
+          activeTab === "selected_ui_projects" ? "shadow-accent-soft bg-accent/10" : "bg-transparent shadow-accent-soft-x"
         }`} 
         data-tab="selected_ui_projects"
       >
@@ -47,8 +47,8 @@ const projectsData = {
         <span class="sm:hidden">UI/UX</span>
       </div>
       <div 
-        class={`px-2 sm:px-4 py-1 sm:py-2 rounded-full cursor-pointer transition-all duration-300 ease-in-out text-xs sm:text-sm md:text-base ${
-          activeTab === "selected_graphics_projects" ? "shadow-accent bg-accent/10" : "bg-transparent shadow-accent-x"
+        class={`px-4 py-2 rounded-full cursor-pointer transition-all duration-300 ease-in-out  ${
+          activeTab === "selected_graphics_projects" ? "shadow-accent-soft bg-accent/10" : "bg-transparent shadow-accent-soft-x"
         }`} 
         data-tab="selected_graphics_projects"
       >
@@ -61,11 +61,11 @@ const projectsData = {
     <div id="selected_web_projects" class={`w-full transition-all duration-500 ease-in-out ${activeTab === "selected_web_projects" ? "block" : "hidden"}`}>
       {projectsData.selected_web_projects.map((project, index) => (
         <div
-          class="project-card text-white  p-4 rounded-3xl shadow-lg flex sm:flex-row flex-col shadow-accent items-start gap-4 sm:w-[90%] w-full mb-8 animate-fadeIn"
+          class="project-card text-white  p-4 rounded-3xl shadow-lg flex sm:flex-row flex-col shadow-accent-soft items-start gap-4 sm:w-[90%] w-full mb-8 animate-fadeIn border-2 border-white/10"
           data-aos="zoom-in"
           style={`animation-delay: ${index * 100}ms`}
         >
-          <div class="w-1/2 h-64">
+          <div class="w-1/2 h-64 rounded-3xl">
             <lottie-player
               src={project.img}
               background="transparent"
@@ -98,7 +98,7 @@ const projectsData = {
                     aria-label="View Project"
                   >
                     View Project
-                    <div class="bg-gradient-to-r to-black/0 p-2 text-white shadow-accent rounded-full flex items-center justify-center w-auto">
+                    <div class="bg-gradient-to-r to-black/0 p-2 text-white shadow-accent-soft rounded-full flex items-center justify-center w-auto">
                       <slot />
                     </div>
                   </button>
@@ -122,7 +122,7 @@ const projectsData = {
     <div id="selected_ui_projects" class={`w-full transition-all duration-500 ease-in-out ${activeTab === "selected_ui_projects" ? "block" : "hidden"}`}>
       {projectsData.selected_ui_projects.map((project, index) => (
         <div
-          class="project-card text-white bg-black border border-accent p-4 rounded-3xl shadow-lg flex sm:flex-row flex-col shadow-accent items-start gap-4 sm:w-[90%] w-full mb-8 animate-fadeIn"
+          class="project-card text-white bg-black border border-accent p-4 rounded-3xl shadow-lg flex sm:flex-row flex-col shadow-accent-soft items-start gap-4 sm:w-[90%] w-full mb-8 animate-fadeIn"
           data-aos="zoom-in"
           style={`animation-delay: ${index * 100}ms`}
         >
@@ -160,7 +160,7 @@ const projectsData = {
                     aria-label="View Project"
                   >
                     View Project
-                    <div class="bg-gradient-to-r to-black/0 p-2 text-white shadow-accent rounded-full flex items-center justify-center w-auto">
+                    <div class="bg-gradient-to-r to-black/0 p-2 text-white shadow-accent-soft rounded-full flex items-center justify-center w-auto">
                       <slot />
                     </div>
                   </button>
@@ -184,7 +184,7 @@ const projectsData = {
     <div id="selected_graphics_projects" class={`w-full transition-all duration-500 ease-in-out ${activeTab === "selected_graphics_projects" ? "block" : "hidden"}`}>
       {projectsData.selected_graphics_projects.map((project, index) => (
         <div
-          class="project-card text-white bg-black border border-accent p-4 rounded-3xl shadow-lg flex sm:flex-row flex-col shadow-accent items-start gap-4 sm:w-[90%] w-full mb-8 animate-fadeIn"
+          class="project-card text-white bg-black border border-accent p-4 rounded-3xl shadow-lg flex sm:flex-row flex-col shadow-accent-soft items-start gap-4 sm:w-[90%] w-full mb-8 animate-fadeIn"
           data-aos="zoom-in"
           style={`animation-delay: ${index * 100}ms`}
         >
@@ -222,7 +222,7 @@ const projectsData = {
                     aria-label="View Project"
                   >
                     View Project
-                    <div class="bg-gradient-to-r to-black/0 p-2 text-white shadow-accent rounded-full flex items-center justify-center w-auto">
+                    <div class="bg-gradient-to-r to-black/0 p-2 text-white shadow-accent-soft rounded-full flex items-center justify-center w-auto">
                       <slot />
                     </div>
                   </button>

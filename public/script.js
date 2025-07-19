@@ -172,7 +172,7 @@ if (typeof LottieInteractivity !== "undefined") {
         {
           visibility: [0, 1],
           type: "seek",
-          frames: [0, 25],
+          frames: [0, 100],
         },
       ],
     });
