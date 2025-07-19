@@ -65,9 +65,13 @@ import Highlights from '../components/highlights.astro';
     </div>
     
     <!-- Lottie Background Animation -->
-
-    <header class="h-lvh w-full flex justify-center relative z-99" data-aos="text-focus-fade-up">
-     <div class="absolute sm:top-50 top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-accent/10 rounded-full blur-[120px] -z-10 animate-pulse"></div>
+     <div class="flex items-center justify-center z-[999]">
+      <Navmobile />
+    </div>
+    
+    
+    <header class="relative h-lvh w-full flex justify-center overflow-hidden z-99" data-aos="text-focus-fade-up">
+      <div class="absolute top-50 left-1/2 -translate-x-1/2 w-96 h-96 bg-accent/10 rounded-full blur-[120px] -z-10 animate-pulse"></div>
       <lottie-player
         src="images/up.json"
         background="transparent"
@@ -95,7 +99,7 @@ import Highlights from '../components/highlights.astro';
       >
       </lottie-player>
 
-      <Navmobile />
+    
  
 
       <div class="flex flex-col items-center w-full relative z-10">
@@ -377,6 +381,7 @@ import Highlights from '../components/highlights.astro';
             >careful research, intuitive design, and scalable development.</span
           >
         </p>
+       
       </div>
       <lottie-player
         src="images/click.json"
