@@ -1,17 +1,13 @@
 ---
-import  {Rocket,MessageCircle,Folder, ChevronRight,Github, Code, Palette, Layers, Clock} from "@lucide/astro";
+import {MessageCircle, Code, Palette, Clock} from "@lucide/astro";
 ---
-
 <div class="relative">
    <!-- Gradient overlay - left side -->
    <div class="absolute -left-64 top-32 w-96 h-96 bg-accent/20 rounded-full blur-[120px] -z-10 animate-pulse"></div>
-   
-
-   
    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         
         <!-- Card 1: Collaboration -->
-        <div class="bg-black relative overflow-hidden rounded-4xl shadow-accent border border-accent/10 p-6 sm:p-8 col-span-1 row-span-1 pixel-card backdrop-blur-md "
+        <div class="shadow-accent-soft relative overflow-hidden rounded-4xl border border-accent/10 p-6 sm:p-8 col-span-1 row-span-1 pixel-card backdrop-blur-md "
           data-aos="fade-up"
           data-aos-delay="100"
           data-aos-duration="800"
@@ -22,12 +18,8 @@ import  {Rocket,MessageCircle,Folder, ChevronRight,Github, Code, Palette, Layers
               data-aos="text-focus-fade-up"
               data-aos-delay="200"
               data-aos-duration="1000">
-              <div class="p-3 rounded-full transition-all duration-300 collaboration-icon bg-white/5 border border-accent/10">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white/70">
-                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                  <polyline points="3.29 7 12 12 20.71 7"></polyline>
-                  <line x1="12" y1="22" x2="12" y2="12"></line>
-                </svg>
+              <div class="p-3 rounded-full transition-all duration-300 collaboration-icon shadow-accent-soft border border-accent/10">
+                <MessageCircle size="24" class="text-white/70" />
               </div>
             </div>
             
@@ -91,7 +83,7 @@ import  {Rocket,MessageCircle,Folder, ChevronRight,Github, Code, Palette, Layers
         </div>
         
         <!-- Card 2: Frontend Development -->
-        <div class="relative overflow-hidden rounded-4xl shadow-accent border border-accent/10 p-6 sm:p-8 col-span-1 row-span-1 pixel-card backdrop-blur-md bg-black"
+        <div class="relative overflow-hidden rounded-4xl border border-accent/10 p-6 sm:p-8 col-span-1 row-span-1 pixel-card backdrop-blur-md shadow-accent-soft"
           data-aos="fade-up"
           data-aos-delay="200"
           data-aos-duration="800"
@@ -102,7 +94,7 @@ import  {Rocket,MessageCircle,Folder, ChevronRight,Github, Code, Palette, Layers
               data-aos="text-focus-fade-up"
               data-aos-delay="200"
               data-aos-duration="1000">
-              <div class="p-3 rounded-full bg-white/5 border border-accent/10 transition-all duration-300">
+              <div class="p-3 rounded-full shadow-accent-soft border border-accent/10 transition-all duration-300">
                 <Code size="24" class="text-white/70" />
               </div>
             </div>
@@ -126,15 +118,15 @@ import  {Rocket,MessageCircle,Folder, ChevronRight,Github, Code, Palette, Layers
               <div class="grid grid-cols-2 gap-2">
                 <div class="flex items-center gap-1">
                   <div class="w-2 h-2 rounded-full bg-accent"></div>
+                  <span class="text-xs text-white/60">HTML/CSS</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <div class="w-2 h-2 rounded-full bg-accent"></div>
+                  <span class="text-xs text-white/60">JavaScript</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <div class="w-2 h-2 rounded-full bg-accent"></div>
                   <span class="text-xs text-white/60">React</span>
-                </div>
-                <div class="flex items-center gap-1">
-                  <div class="w-2 h-2 rounded-full bg-accent"></div>
-                  <span class="text-xs text-white/60">Next.js</span>
-                </div>
-                <div class="flex items-center gap-1">
-                  <div class="w-2 h-2 rounded-full bg-accent"></div>
-                  <span class="text-xs text-white/60">Tailwind</span>
                 </div>
                 <div class="flex items-center gap-1">
                   <div class="w-2 h-2 rounded-full bg-accent"></div>
@@ -150,7 +142,7 @@ import  {Rocket,MessageCircle,Folder, ChevronRight,Github, Code, Palette, Layers
         </div>
         
         <!-- Card 3: UI/UX Design -->
-        <div class="relative overflow-hidden rounded-4xl shadow-accent border border-accent/10 p-6 sm:p-8 col-span-1 row-span-1 pixel-card backdrop-blur-md bg-black"
+        <div class="relative overflow-hidden rounded-4xl  border border-accent/10 p-6 sm:p-8 col-span-1 row-span-1 pixel-card backdrop-blur-md shadow-accent-soft"
           data-aos="fade-up"
           data-aos-delay="300"
           data-aos-duration="800"
@@ -161,7 +153,7 @@ import  {Rocket,MessageCircle,Folder, ChevronRight,Github, Code, Palette, Layers
               data-aos="text-focus-fade-up"
               data-aos-delay="200"
               data-aos-duration="1000">
-              <div class="p-3 rounded-full bg-white/5 border border-accent/10 transition-all duration-300">
+              <div class="p-3 rounded-full shadow-accent-soft border border-accent/10 transition-all duration-300">
                 <Palette size="24" class="text-white/70" />
               </div>
             </div>
@@ -189,15 +181,15 @@ import  {Rocket,MessageCircle,Folder, ChevronRight,Github, Code, Palette, Layers
                 </div>
                 <div class="flex items-center gap-1">
                   <div class="w-2 h-2 rounded-full bg-accent"></div>
-                  <span class="text-xs text-white/60">Sketch</span>
+                  <span class="text-xs text-white/60">Adobe XD</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <div class="w-2 h-2 rounded-full bg-accent"></div>
+                  <span class="text-xs text-white/60">Wireframing</span>
                 </div>
                 <div class="flex items-center gap-1">
                   <div class="w-2 h-2 rounded-full bg-accent"></div>
                   <span class="text-xs text-white/60">Prototyping</span>
-                </div>
-                <div class="flex items-center gap-1">
-                  <div class="w-2 h-2 rounded-full bg-accent"></div>
-                  <span class="text-xs text-white/60">User Research</span>
                 </div>
               </div>
             </div>
@@ -211,7 +203,7 @@ import  {Rocket,MessageCircle,Folder, ChevronRight,Github, Code, Palette, Layers
        
         
         <!-- Card 5: Technology stack -->
-        <div class="relative overflow-hidden rounded-4xl shadow-accent border border-accent/10 p-6 sm:p-8 col-span-1 row-span-1 sm:col-span-2 pixel-card backdrop-blur-md bg-black"
+        <div class="relative overflow-hidden rounded-4xl  border border-accent/10 p-6 sm:p-8 col-span-1 row-span-1 sm:col-span-2 pixel-card backdrop-blur-md shadow-accent-soft"
           data-aos="fade-up"
           data-aos-delay="500"
           data-aos-duration="800"
@@ -222,7 +214,7 @@ import  {Rocket,MessageCircle,Folder, ChevronRight,Github, Code, Palette, Layers
               data-aos="text-focus-fade-up"
               data-aos-delay="200"
               data-aos-duration="1000">
-              <div class="p-3 rounded-full bg-white/5 border border-accent/10 transition-all duration-300">
+              <div class="p-3 rounded-full shadow-accent-soft border border-accent/10 transition-all duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white/70">
                   <rect width="18" height="18" x="3" y="3" rx="2"/>
                   <path d="M9 14v1"/>
@@ -251,17 +243,17 @@ import  {Rocket,MessageCircle,Folder, ChevronRight,Github, Code, Palette, Layers
                 data-aos="text-focus-fade-up"
                 data-aos-delay="500"
                 data-aos-duration="1000">
-                <div class="tech-badge flex items-center gap-2 rounded-full py-2 px-4 bg-white/5 border border-accent/10 hover:bg-accent/20 hover:border-accent/10/30 transition-all duration-300 cursor-pointer" data-tech="frontend">
+                <div class="tech-badge flex items-center gap-2 justify-center rounded-full py-2 px-4 shadow-accent-soft border border-accent/10 hover:bg-accent/20 hover:border-accent/10/30 transition-all duration-300 cursor-pointer" data-tech="frontend">
                   <span class="text-white/90">Tailwind CSS</span>
                 </div>
-                <div class="tech-badge flex items-center gap-2 rounded-full py-2 px-4 bg-white/5 border border-accent/10 hover:bg-accent/20 hover:border-accent/10/30 transition-all duration-300 cursor-pointer" data-tech="frontend">
+                <div class="tech-badge flex items-center justify-center gap-2 rounded-full py-2 px-4 shadow-accent-soft border border-accent/10 hover:bg-accent/20 hover:border-accent/10/30 transition-all duration-300 cursor-pointer" data-tech="frontend">
                   <span class="text-white/90">React.js</span>
                 </div>
-                <div class="tech-badge flex items-center gap-2 rounded-full py-2 px-4 bg-white/5 border border-accent/10 hover:bg-accent/20 hover:border-accent/10/30 transition-all duration-300 cursor-pointer" data-tech="tools">
-                  <span class="text-white/90">Next.js</span>
-                </div>
-                <div class="tech-badge flex items-center gap-2 rounded-full py-2 px-4 bg-white/5 border border-accent/10 hover:bg-accent/20 hover:border-accent/10/30 transition-all duration-300 cursor-pointer" data-tech="tools">
+                <div class="tech-badge flex items-center justify-center gap-2 rounded-full py-2 px-4 shadow-accent-soft border border-accent/10 hover:bg-accent/20 hover:border-accent/10/30 transition-all duration-300 cursor-pointer" data-tech="tools">
                   <span class="text-white/90">Astro</span>
+                </div>
+                <div class="tech-badge flex items-center justify-center gap-2 rounded-full py-2 px-4 shadow-accent-soft border border-accent/10 hover:bg-accent/20 hover:border-accent/10/30 transition-all duration-300 cursor-pointer" data-tech="tools">
+                  <span class="text-white/90">SCSS</span>
                 </div>
               </div>
               
@@ -269,29 +261,27 @@ import  {Rocket,MessageCircle,Folder, ChevronRight,Github, Code, Palette, Layers
                 data-aos="text-focus-fade-up"
                 data-aos-delay="600"
                 data-aos-duration="1000">
-                <div class="tech-badge flex items-center gap-2 rounded-full py-2 px-4 bg-white/5 border border-accent/10 hover:bg-accent/20 hover:border-accent/10/30 transition-all duration-300 cursor-pointer" data-tech="backend">
-                  <span class="text-white/90">NodeJS</span>
+                <div class="tech-badge flex items-center justify-center gap-2 rounded-full py-2 px-4 shadow-accent-soft border border-accent/10 hover:bg-accent/20 hover:border-accent/10/30 transition-all duration-300 cursor-pointer" data-tech="backend">
+                  <span class="text-white/90">Node.js</span>
                 </div>
-                <div class="tech-badge flex items-center gap-2 rounded-full py-2 px-4 bg-white/5 border border-accent/10 hover:bg-accent/20 hover:border-accent/10/30 transition-all duration-300 cursor-pointer" data-tech="backend">
-                  <span class="text-white/90">TypeScript</span>
-                </div>
-                <div class="tech-badge flex items-center gap-2 rounded-full py-2 px-4 bg-white/5 border border-accent/10 hover:bg-accent/20 hover:border-accent/10/30 transition-all duration-300 cursor-pointer" data-tech="backend">
+                <div class="tech-badge flex items-center justify-center gap-2 rounded-full py-2 px-4 shadow-accent-soft border border-accent/10 hover:bg-accent/20 hover:border-accent/10/30 transition-all duration-300 cursor-pointer" data-tech="backend">
                   <span class="text-white/90">PostgreSQL</span>
                 </div>
-                <div class="tech-badge flex items-center gap-2 rounded-full py-2 px-4 bg-white/5 border border-accent/10 hover:bg-accent/20 hover:border-accent/10/30 transition-all duration-300 cursor-pointer" data-tech="backend">
-                  <span class="text-white/90">MongoDB</span>
+                <div class="tech-badge flex items-center justify-center gap-2 rounded-full py-2 px-4 shadow-accent-soft border border-accent/10 hover:bg-accent/20 hover:border-accent/10/30 transition-all duration-300 cursor-pointer" data-tech="backend">
+                  <span class="text-white/90">Supabase</span>
+                </div>
+                <div class="tech-badge flex items-center justify-center gap-2 rounded-full py-2 px-4 shadow-accent-soft border border-accent/10 hover:bg-accent/20 hover:border-accent/10/30 transition-all duration-300 cursor-pointer" data-tech="backend">
+                  <span class="text-white/90">Git/GitHub</span>
                 </div>
               </div>
             </div>
             
-            <!-- Animated Elements -->
-            <div class="absolute -bottom-6 -right-6 w-24 h-24 bg-accent/5 rounded-full blur-xl"></div>
-            <div class="absolute -top-6 -left-6 w-20 h-20 bg-accent/5 rounded-full blur-xl"></div>
+        
           </div>
         </div>
         
         <!-- Card 6: Time zone -->
-        <div class="relative overflow-hidden rounded-4xl shadow-accent border border-accent/10 p-6 sm:p-8 col-span-1 row-span-1 pixel-card backdrop-blur-md bg-black"
+        <div class="relative overflow-hidden rounded-4xl  border border-accent/10 p-6 sm:p-8 col-span-1 row-span-1 pixel-card backdrop-blur-md shadow-accent-soft"
           data-aos="fade-up"
           data-aos-delay="600"
           data-aos-duration="800"
@@ -302,7 +292,7 @@ import  {Rocket,MessageCircle,Folder, ChevronRight,Github, Code, Palette, Layers
               data-aos="text-focus-fade-up"
               data-aos-delay="200"
               data-aos-duration="1000">
-              <div class="p-3 rounded-full bg-white/5 border border-accent/10 transition-all duration-300">
+              <div class="p-3 rounded-full shadow-accent-soft border border-accent/10 transition-all duration-300">
                 <Clock size="24" class="text-white/70" />
               </div>
             </div>
@@ -335,12 +325,12 @@ import  {Rocket,MessageCircle,Folder, ChevronRight,Github, Code, Palette, Layers
               data-aos="text-focus-fade-up"
               data-aos-delay="600"
               data-aos-duration="1000">
-              <div class="flex items-center gap-2 rounded-full py-2 px-4 bg-white/5 border border-accent/10 hover:bg-accent/20 hover:border-accent/10/30 transition-all duration-300 cursor-pointer timezone-badge" data-offset="0">
+              <div class="flex items-center gap-2 rounded-full py-2 px-4 shadow-accent-soft border border-accent/10 hover:bg-accent/20 hover:border-accent/10/30 transition-all duration-300 cursor-pointer timezone-badge" data-offset="0">
                 <span class="text-white/90">UK</span>
                 <span class="text-xs text-white/50 timezone-time">--:--</span>
               </div>
            
-              <div class="flex items-center gap-2 rounded-full py-2 px-4 bg-white/5 border border-accent/10 hover:bg-accent/20 hover:border-accent/10/30 transition-all duration-300 cursor-pointer timezone-badge" data-offset="-5">
+              <div class="flex items-center gap-2 rounded-full py-2 px-4 shadow-accent-soft border border-accent/10 hover:bg-accent/20 hover:border-accent/10/30 transition-all duration-300 cursor-pointer timezone-badge" data-offset="-5">
                 <span class="text-white/90">USA</span>
                 <span class="text-xs text-white/50 timezone-time">--:--</span>
               </div>

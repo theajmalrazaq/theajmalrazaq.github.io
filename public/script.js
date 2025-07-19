@@ -25,7 +25,7 @@ bentoCards.forEach((card) => {
     "opacity-0"
   );
   shine.style.background =
-    "radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(73, 69, 118, 0.3) 0%, rgba(73, 69, 118, 0.06) 50%)";
+    "radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(73, 69, 118, 0.2) 0%, rgba(73, 69, 118, 0.02) 50%)";
   shine.style.transition = "opacity 0.3s ease";
   card.style.position = "relative";
   card.style.overflow = "hidden";
@@ -108,72 +108,6 @@ document.addEventListener("DOMContentLoaded", function () {
         anchorPlacement: "top-bottom",
       });
 
-      // Enhance text-focus-fade-up animations for elements not using AOS
-      const enhanceTextFocusElements = () => {
-        const textFocusElements = document.querySelectorAll(
-          ".text-focus-fade-up"
-        );
-
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.style.opacity = "0";
-                entry.target.style.transform = "translateY(30px)";
-                entry.target.style.filter = "blur(12px)";
-
-                setTimeout(() => {
-                  entry.target.style.transition =
-                    "opacity 1s ease, transform 1s ease, filter 1s ease";
-                  entry.target.style.opacity = "1";
-                  entry.target.style.transform = "translateY(0)";
-                  entry.target.style.filter = "blur(0)";
-                }, 100);
-
-                observer.unobserve(entry.target);
-              }
-            });
-          },
-          { threshold: 0.1 }
-        );
-
-        textFocusElements.forEach((element) => {
-          observer.observe(element);
-        });
-      };
-
-      enhanceTextFocusElements();
-
-      // Initialize bento grid interactions after page loads
-      function addBentoInteractions() {
-        const bentoCards = document.querySelectorAll(".pixel-card");
-        bentoCards.forEach((card) => {
-          // Add focus styles for keyboard navigation
-          card.addEventListener("focus", () => {
-            card.classList.add("ring-2", "ring-accent", "ring-opacity-60");
-          });
-
-          card.addEventListener("blur", () => {
-            card.classList.remove("ring-2", "ring-accent", "ring-opacity-60");
-          });
-        });
-      }
-
-      addBentoInteractions();
-
-      // Add staggered animation to tech badges
-      const techBadges = document.querySelectorAll(".tech-badge");
-      if (techBadges.length) {
-        techBadges.forEach((badge, index) => {
-          setTimeout(() => {
-            badge.classList.add("animate-pulse-once");
-            setTimeout(() => {
-              badge.classList.remove("animate-pulse-once");
-            }, 1000);
-          }, index * 100);
-        });
-      }
-
       // Initialize clock for timezone card
       const localTimeElement = document.getElementById("local-time");
       if (localTimeElement) {
@@ -244,35 +178,3 @@ if (typeof LottieInteractivity !== "undefined") {
     });
   }
 }
-
-// Book Call button functionality
-document.addEventListener("DOMContentLoaded", () => {
-  const bookCallBtn = document.getElementById("book-call-btn");
-
-  if (bookCallBtn) {
-    bookCallBtn.addEventListener("click", () => {
-      // You can replace this URL with your actual calendar booking link
-      const calendarLink = "https://calendly.com/theajmalrazaq/30min";
-
-      // Open the calendar booking link in a new tab
-      window.open(calendarLink, "_blank");
-
-      // Optional: Track the booking click with analytics
-      if (window.gtag) {
-        gtag("event", "book_call_click", {
-          event_category: "engagement",
-          event_label: "Collaboration Card",
-        });
-      }
-    });
-
-    // Add hover animation
-    bookCallBtn.addEventListener("mouseenter", () => {
-      bookCallBtn.classList.add("animate-pulse");
-    });
-
-    bookCallBtn.addEventListener("mouseleave", () => {
-      bookCallBtn.classList.remove("animate-pulse");
-    });
-  }
-});
