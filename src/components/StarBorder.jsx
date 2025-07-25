@@ -30,7 +30,7 @@ const StarBorder = ({
           animationDuration: speed,
         }}
       ></div>
-      <div className="inner-content shadow-accent  border border-white/10">
+      <div className="inner-content border shadow-accent border-white/10">
         {children}
       </div>
     </Component>

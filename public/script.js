@@ -100,12 +100,12 @@ document.addEventListener("DOMContentLoaded", function () {
     setTimeout(() => {
       loadingOverlay.style.display = "none";
       document.body.style.overflow = "auto";
+      window.scrollTo(0, 0);
       AOS.init({
         duration: 800,
         easing: "ease",
         once: false,
         mirror: false,
-        anchorPlacement: "top-bottom",
       });
 
       // Initialize clock for timezone card

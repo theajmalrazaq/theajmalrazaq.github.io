@@ -6,12 +6,33 @@ import {MessageCircle, Code, Palette, Clock} from "@lucide/astro";
    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         
         <!-- Card 1: Collaboration -->
-        <div class="shadow-accent-soft relative overflow-hidden rounded-3xl border border-white/10 p-6 sm:p-8 col-span-1 row-span-1 pixel-card backdrop-blur-md "
+        <div class="shadow-accent-soft card relative overflow-hidden rounded-3xl border border-white/10 p-6 sm:p-8 col-span-1 row-span-1 pixel-card backdrop-blur-md "
           data-aos="fade-up"
           data-aos-delay="100"
           data-aos-duration="800"
           id="collaboration-card"
           tabindex="0">
+
+          <!-- Updated image container to cover entire card -->
+          <div class="absolute inset-0 z-0" data-framer-background-image-wrapper="true">
+            <img 
+              decoding="async" 
+              loading="lazy" 
+              width="1920" 
+              height="1330"
+              sizes="100vw"
+              srcset="https://framerusercontent.com/images/2ZTM81mdCXeMIbSWfvdh4X7JIGg.png?scale-down-to=512 512w,
+                      https://framerusercontent.com/images/2ZTM81mdCXeMIbSWfvdh4X7JIGg.png?scale-down-to=1024 1024w,
+                      https://framerusercontent.com/images/2ZTM81mdCXeMIbSWfvdh4X7JIGg.png 1920w" 
+              src="https://framerusercontent.com/images/2ZTM81mdCXeMIbSWfvdh4X7JIGg.png" 
+              alt="Collaboration background" 
+              class="block w-full h-full object-cover object-center opacity-5"
+            />
+     
+          </div>
+
+
+          
           <div class="h-full flex flex-col relative z-10">
             <div class="flex items-start gap-4 mb-4"
               data-aos="text-focus-fade-up"
@@ -82,7 +103,7 @@ import {MessageCircle, Code, Palette, Clock} from "@lucide/astro";
         </div>
         
         <!-- Card 2: Frontend Development -->
-        <div class="relative overflow-hidden rounded-3xl border border-white/10 p-6 sm:p-8 col-span-1 row-span-1 pixel-card backdrop-blur-md shadow-accent-soft"
+        <div class="relative  card overflow-hidden rounded-3xl border border-white/10 p-6 sm:p-8 col-span-1 row-span-1 pixel-card backdrop-blur-md shadow-accent-soft"
           data-aos="fade-up"
           data-aos-delay="200"
           data-aos-duration="800"
@@ -141,7 +162,7 @@ import {MessageCircle, Code, Palette, Clock} from "@lucide/astro";
         </div>
         
         <!-- Card 3: UI/UX Design -->
-        <div class="relative overflow-hidden rounded-3xl  border border-white/10 p-6 sm:p-8 col-span-1 row-span-1 pixel-card backdrop-blur-md shadow-accent-soft"
+        <div class="relative card overflow-hidden rounded-3xl  border border-white/10 p-6 sm:p-8 col-span-1 row-span-1 pixel-card backdrop-blur-md shadow-accent-soft"
           data-aos="fade-up"
           data-aos-delay="300"
           data-aos-duration="800"
@@ -202,7 +223,7 @@ import {MessageCircle, Code, Palette, Clock} from "@lucide/astro";
        
         
         <!-- Card 5: Technology stack -->
-        <div class="relative overflow-hidden rounded-3xl  border border-white/10 p-6 sm:p-8 col-span-1 row-span-1 sm:col-span-2 pixel-card backdrop-blur-md shadow-accent-soft"
+        <div class="relative card overflow-hidden rounded-3xl  border border-white/10 p-6 sm:p-8 col-span-1 row-span-1 sm:col-span-2 pixel-card backdrop-blur-md shadow-accent-soft"
           data-aos="fade-up"
           data-aos-delay="500"
           data-aos-duration="800"
@@ -280,7 +301,7 @@ import {MessageCircle, Code, Palette, Clock} from "@lucide/astro";
         </div>
         
         <!-- Card 6: Time zone -->
-        <div class="relative overflow-hidden rounded-3xl  border border-white/10 p-6 sm:p-8 col-span-1 row-span-1 pixel-card backdrop-blur-md shadow-accent-soft"
+        <div class="relative  card overflow-hidden rounded-3xl  border border-white/10 p-6 sm:p-8 col-span-1 row-span-1 pixel-card backdrop-blur-md shadow-accent-soft"
           data-aos="fade-up"
           data-aos-delay="600"
           data-aos-duration="800"

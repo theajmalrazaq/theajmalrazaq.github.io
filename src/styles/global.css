@@ -22,6 +22,16 @@
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: "OffBit 101 Bold";
+  src: url("https://framerusercontent.com/assets/ssb60VZMb2aPtoBMu6Dz4rbbk.otf");
+  font-display: swap;
+}
+@font-face {
+  font-family: OffBit Regular;
+  src: url("https://framerusercontent.com/assets/ndz4KVwboEqdkjlzPPmY0ftCrqg.otf");
+  font-display: swap;
+}
 
 @theme {
   --bg-accent: #a098ff;
@@ -29,6 +39,8 @@
   --font-nexus: "Nexus";
   --font-product-sans: "Product Sans", sans-serif;
   --font-recoleta: "Recoleta Regular", serif;
+  --font-offbit: "OffBit 101 Bold", sans-serif;
+  --font-offbit-regular: "OffBit Regular", sans-serif;
 }
 
 * {
@@ -1292,5 +1304,20 @@ body[data-aos-easing="ease-in-out-quart"] [data-aos] {
   }
   100% {
     transform: translateY(0);
+  }
+}
+
+.pixel-button:hover {
+  background: var(--color-accent) url(../../public/images/pixel.png);
+  transition-delay: 0.8s;
+  background-size: 180px;
+  animation: animate 0.8s steps(8) forwards;
+}
+@keyframes animate {
+  0% {
+    background-position-y: 0;
+  }
+  100% {
+    background-position-y: -480px;
   }
 }

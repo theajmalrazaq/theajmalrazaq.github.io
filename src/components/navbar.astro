@@ -8,7 +8,7 @@ const isActive = (path: string) => {
 };
 ---
 <nav
-        class="bg-white/5 text-white rounded-2xl px-7 sm:py-1 py-4 mt-5 backdrop-blur-lg sm:w-fit w-full/2 gap-4 fixed justify-between sm:justify-center items-center z-99 text-normal bottom-5 sm:flex hidden"
+        class="bg-white/5 text-white rounded-2xl px-7 sm:py-2 py-4 mt-5 backdrop-blur-lg sm:w-fit w-full/2 gap-4 fixed justify-between sm:justify-center items-center z-99 text-normal bottom-5 sm:flex hidden "
         role="navigation"
         aria-label="Main navigation"
       >
@@ -26,22 +26,11 @@ const isActive = (path: string) => {
           </a>
         </div>
 
-        <div class="sm:hidden flex justify-center items-center">
-          <ul class="flex gap-1 sm:gap-3 bg-black/10 p-1 sm:p-2 rounded-full">
-            <li>
-              <a
-                href="https://example.com/page1"
-                class={`${isActive('menu') ? 'bg-accent' : 'bg-white/5'} flex justify-center items-center px-2 py-1 rounded-full hover:bg-white/20 transition-colors`}
-                aria-label="Menu"
-                >Menu</a
-              >
-            </li>
-          </ul>
-        </div>
+       
 
-        <div class="sm:flex justify-center items-center gap-2 sm:gap-4 hidden">
+        <div class="flex justify-center items-center gap-2 sm:gap-4 ">
           <div>
-            <ul class="flex gap-1 sm:gap-3 bg-black/10 p-1 sm:p-2 rounded-full">
+            <ul class="flex gap-1 sm:gap-3 bg-black/50 backdrop-blur-md border border-white/5 p-1 sm:p-2 rounded-full">
               <li>
                 <a
                   href="https://example.com/page1"
