@@ -1,6 +1,50 @@
 import Lenis from "https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.39/dist/lenis.mjs";
 import AOS from "https://cdn.jsdelivr.net/npm/aos@2.3.4/+esm";
 
+// Cursor Tracker
+const cursorTracker = document.getElementById("cursor-tracker");
+let mouseX = 0;
+let mouseY = 0;
+let trackerX = 0;
+let trackerY = 0;
+
+document.querySelectorAll("a, button").forEach((element) => {
+  element.addEventListener("mouseenter", () => {
+    if (cursorTracker) {
+      cursorTracker.classList.remove("bg-accent");
+      cursorTracker.classList.add("bg-black");
+    }
+  });
+
+  element.addEventListener("mouseleave", () => {
+    if (cursorTracker) {
+      cursorTracker.classList.add("bg-accent");
+      cursorTracker.classList.remove("bg-black");
+    }
+  });
+});
+
+document.addEventListener("mousemove", (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+});
+
+function animateCursor() {
+  // Add smooth movement with lerp (linear interpolation)
+  const speed = 0.15;
+  trackerX += (mouseX - trackerX) * speed;
+  trackerY += (mouseY - trackerY) * speed;
+
+  if (cursorTracker) {
+    cursorTracker.style.left = `${trackerX}px`;
+    cursorTracker.style.top = `${trackerY}px`;
+  }
+
+  requestAnimationFrame(animateCursor);
+}
+
+animateCursor();
+
 const lenis = new Lenis({
   lerp: 0.08,
   wheelMultiplier: 1.2,
