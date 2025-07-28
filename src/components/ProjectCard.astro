@@ -1,0 +1,65 @@
+---
+export interface ProjectProps {
+  name: string;
+  description: string;
+  img: string;
+  icon: string;
+  color: string;
+  url: string;
+  github?: string;
+}
+
+const { project } = Astro.props;
+---
+
+<div
+  class={`project-card text-white p-4 rounded-[0px] flex flex-col bg-neutral-900-soft gap-4 h-[500px] w-80 animate-fadeIn border-2 border-white/10 hover:border-white/30 hover:shadow-lg hover:shadow-white/5 hover:scale-[1.02] transition-all duration-300 ease-in-out`}
+  data-aos="text-focus-fade-up"
+  style={`background-color: ${project.color};`}
+>
+  <div class="relative flex justify-center items-center h-64 rounded-[0px]">
+    <img src={project.img} alt={project.name} class="w-full h-full object-cover rounded-[0px]" data-aos="text-focus-fade-up" />
+    <img src={project.icon} alt="" class="absolute -bottom-3 w-16 h-16" data-aos="text-focus-fade-up" />
+  </div>
+  <div class="flex flex-col justify-between h-full">
+    <div class="flex flex-col gap-1 items-center">
+      <h3 class="text-3xl text-white font-nixel tracking-[1px]" data-aos="text-focus-fade-up">
+        {project.name}
+      </h3>
+      <p class="text-sm text-white text-center line-clamp-3" data-aos="text-focus-fade-up">{project.description}</p>
+    </div>
+
+    <div class="flex justify-between items-center mt-auto pt-4">
+      <a
+        href={project.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="relative z-10 overflow-hidden group"
+      >
+        <button
+          class="w-fit font-nixel tracking-[1px] text-white bg-black sm:px-3 px-3 py-2 border border-white/10 hover:border-white/30 backdrop-blur-2xl hover:scale-105 hover:shadow-lg hover:shadow-white/5 transition-all duration-300 ease-in-out cursor-pointer text-xl flex justify-center items-center gap-2 relative"
+          data-aos="text-focus-fade-up"
+          aria-label="View Project"
+        >
+          <span class="relative z-10">view project</span>
+          <span class="absolute inset-0 bg-white/10 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></span>
+        </button>
+      </a>
+
+      <a
+        href={project.github || project.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="relative z-10 overflow-hidden group"
+      >
+        <button
+          class="w-fit font-nixel tracking-[1px] text-black bg-white sm:px-3 px-3 py-2 border border-black/10 hover:border-black/30 backdrop-blur-2xl hover:scale-105 hover:shadow-lg hover:shadow-black/5 transition-all duration-300 ease-in-out cursor-pointer text-xl flex justify-center items-center gap-2 relative"
+          data-aos="text-focus-fade-up"
+          aria-label="View Project"
+        >
+          <span class="relative z-10">live demo</span>
+        </button>
+      </a>
+    </div>
+  </div>
+</div>

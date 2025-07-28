@@ -169,11 +169,11 @@ tabs.forEach((tab) => {
     // Update active tab styling
     tabs.forEach((t) => {
       if (t.getAttribute("data-tab") === tabId) {
-        t.classList.add("shadow-accent", "bg-accent/10");
-        t.classList.remove("bg-transparent", "shadow-accent-x");
+        t.classList.add("bg-accent");
+        t.classList.remove("bg-white/10");
       } else {
-        t.classList.remove("shadow-accent", "bg-accent/10");
-        t.classList.add("bg-transparent", "shadow-accent-x");
+        t.classList.remove("bg-accent");
+        t.classList.add("bg-white/10");
       }
     });
 

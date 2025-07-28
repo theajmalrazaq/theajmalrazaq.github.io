@@ -1,5 +1,7 @@
 ---
 import logoimg from '../../public/images/logo.svg';
+import arrow_right from '../../public/images/arrow_right.svg';
+import StarBorder from "../components/StarBorder.jsx";
 const { page } = Astro.props;
 
 // Helper function to determine if a link is active
@@ -8,7 +10,7 @@ const isActive = (path: string) => {
 };
 ---
 <nav
-        class="bg-white/5 text-white rounded-2xl px-7 sm:py-2 py-4 mt-5 backdrop-blur-lg sm:w-fit w-full/2 gap-4 fixed justify-between sm:justify-center items-center z-99 text-normal bottom-5 sm:flex hidden "
+        class="bg-white/5 text-white px-7 sm:py-2 py-4 mt-5 backdrop-blur-lg sm:w-fit w-full/2 gap-4 fixed justify-between sm:justify-center items-center z-99 text-normal bottom-5 sm:flex hidden "
         role="navigation"
         aria-label="Main navigation"
       >
@@ -30,11 +32,11 @@ const isActive = (path: string) => {
 
         <div class="flex justify-center items-center gap-2 sm:gap-4 ">
           <div>
-            <ul class="flex gap-1 sm:gap-3 bg-black/50 backdrop-blur-md border border-white/5 p-1 sm:p-2 rounded-full">
+            <ul class="flex gap-1 sm:gap-3 bg-black/50 backdrop-blur-md border border-white/5 p-1 sm:p-2 rounded-[0px]">
               <li>
                 <a
                   href="https://example.com/page1"
-                  class={`${isActive('about') ? 'bg-accent' : 'bg-white/5'} flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full hover:bg-white/20 transition-colors text-xs sm:text-base`}
+                  class={`${isActive('about') ? 'bg-accent' : 'bg-white/5'} flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-[0px] hover:bg-white/20 transition-colors text-xs sm:text-base`}
                   aria-label="About me"
                   >About</a
                 >
@@ -42,7 +44,7 @@ const isActive = (path: string) => {
               <li>
                 <a
                   href="#projects"
-                  class={`${isActive('projects') ? 'bg-accent' : 'bg-white/5'} flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full hover:bg-white/20 transition-colors text-xs sm:text-base`}
+                  class={`${isActive('projects') ? 'bg-accent' : 'bg-white/5'} flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-[0px] hover:bg-white/20 transition-colors text-xs sm:text-base`}
                   aria-label="View my projects"
                   >Projects</a
                 >
@@ -50,7 +52,7 @@ const isActive = (path: string) => {
               <li>
                 <a
                   href="https://example.com/page1"
-                  class={`${isActive('blogs') ? 'bg-accent' : 'bg-white/5'} flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full hover:bg-white/20 transition-colors text-xs sm:text-base`}
+                  class={`${isActive('blogs') ? 'bg-accent' : 'bg-white/5'} flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-[0px] hover:bg-white/20 transition-colors text-xs sm:text-base`}
                   aria-label="Read my blog posts"
                   >Blogs</a
                 >
@@ -58,12 +60,27 @@ const isActive = (path: string) => {
               <li>
                 <a
                   href="https://example.com/page1"
-                  class={`${isActive('shorts') ? 'bg-accent' : 'bg-white/5'} flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full hover:bg-white/20 transition-colors text-xs sm:text-base`}
+                  class={`${isActive('shorts') ? 'bg-accent' : 'bg-white/5'} flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-[0px] hover:bg-white/20 transition-colors text-xs sm:text-base`}
                   aria-label="View my shorts content"
                   >Shorts</a
                 >
               </li>
             </ul>
           </div>
+          <div class="flex items-center justify-center gap-2 relative group" data-aos="text-focus-fade-up" data-aos-delay="1400">
+             <StarBorder
+              as="button"
+              className="group/button"
+              color="#a098ff"
+              speed="1s"
+            >
+          <div class="flex items-center gap-2 cursor-none">
+ 
+  <a href="javascript:void(0);" class="pixel-button relative h-[50px] w-[160px] text-white gap-2 margin-[20px] pl-1 flex justify-center items-center rounded-[0px] font-nixel leading-loose text-xl tracking-[1px] cursor-none">let's chat
+                  <img src={arrow_right.src} alt="" class="w-4">
+                </a>
+            </div>
+            
+            </div> 
         </div>
       </nav>

@@ -1,17 +1,6 @@
 ---
 import { supabase } from "../lib/supabaseClient";
-import { 
-  Code2, 
-  Database, 
-  Github, 
-  Server, 
-  FileJson, 
-  Palette, 
-  PencilRuler, 
-  Clock,
-  Eye,
-  MonitorSmartphone
-} from "@lucide/astro";
+import ProjectCard from "./ProjectCard.astro";
 
 // Define valid project tab types
 type ProjectTabName = "selected_web_projects" | "selected_ui_projects" | "selected_graphics_projects";
@@ -35,72 +24,37 @@ const projectsData = {
   "selected_ui_projects": uiProjects.data || [],
   "selected_graphics_projects": graphicsProjects.data || []
 };
-
-// Function to get the appropriate icon component for each tool
-const getToolIcon = (tool: string) => {
-  const toolMap: Record<string, any> = {
-    "react": Code2,
-    "vue": Code2,
-    "angular": Code2,
-    "nextjs": Server,
-    "astro": Code2,
-    "tailwind": Palette,
-    "bootstrap": Palette,
-    "typescript": Code2,
-    "javascript": FileJson,
-    "nodejs": Server,
-    "express": Server,
-    "html": Code2,
-    "css": Palette,
-    "figma": Eye,
-    "photoshop": PencilRuler,
-    "illustrator": PencilRuler,
-    "xd": Eye,
-    "github": Github,
-    "git": Github,
-    "firebase": Database,
-    "supabase": Database,
-    "mongodb": Database,
-    "postgresql": Database,
-    "mysql": Database,
-    "responsive": MonitorSmartphone,
-    "animation": Clock
-  };
-  
-  // Convert tool name to lowercase for case-insensitive matching
-  const toolLower = tool.toLowerCase();
-  
-  // Return the mapped icon or default to Code2 if not found
-  return toolMap[toolLower] || Code2;
-};
 ---
 
 <section>
   <div class="flex flex-col items-center justify-center gap-8 p-3 w-full rounded-4xl" data-aos="fade-up">
-    <div class="shadow-accent w-fit rounded-full bg-gradient-to-l from-transparent via-[#a098ff]/40 to-transparent z-99 mt-4 flex justify-center gap-1 sm:gap-2 p-1 sm:p-2 flex-wrap">
+    <div class=" bg-black backdrop-blur-lg text-sm font-product-sans text-white border border-white/10 w-fit rounded-[0px] z-99 mt-4 flex justify-center gap-1 sm:gap-2 p-1 sm:p-2 flex-wrap" data-aos="text-focus-fade-up">
       <div 
-        class={`px-4  py-2 rounded-full cursor-none transition-all duration-300 ease-in-out  ${
-          activeTab === "selected_web_projects" ? "shadow-accent bg-accent/10" : "bg-transparent shadow-accent-x"
+        class={`px-4  py-2 rounded-[0px] cursor-pointer transition-all duration-300 ease-in-out  ${
+          activeTab === "selected_web_projects" ? "bg-accent" : "bg-white/10"
         }`} 
         data-tab="selected_web_projects"
+        data-aos="text-focus-fade-up"
       >
-        <span class="hidden sm:inline">Web Project</span>
-        <span class="sm:hidden">Web</span>
+        <span class="hidden sm:inline" data-aos="text-focus-fade-up">Web Project</span>
+        <span class="sm:hidden" data-aos="text-focus-fade-up">Web</span>
       </div>
       <div 
-        class={`px-4  py-2 rounded-full cursor-none transition-all duration-300 ease-in-out  ${
-          activeTab === "selected_ui_projects" ? "shadow-accent bg-accent/10" : "bg-transparent shadow-accent-x"
+        class={`px-4  py-2 rounded-[0px] cursor-pointer transition-all duration-300 ease-in-out  ${
+          activeTab === "selected_ui_projects" ? "bg-accent" : "bg-white/10"
         }`} 
         data-tab="selected_ui_projects"
+        data-aos="text-focus-fade-up"
       >
         <span class="hidden sm:inline">UI/UX Projects</span>
         <span class="sm:hidden">UI/UX</span>
       </div>
       <div 
-        class={`px-4 py-2 rounded-full cursor-none transition-all duration-300 ease-in-out  ${
-          activeTab === "selected_graphics_projects" ? "shadow-accent bg-accent/10" : "bg-transparent shadow-accent-x"
+        class={`px-4 py-2 rounded-[0px] cursor-pointer transition-all duration-300 ease-in-out  ${
+          activeTab === "selected_graphics_projects" ? "bg-accent" : "bg-white/10"
         }`} 
         data-tab="selected_graphics_projects"
+        data-aos="text-focus-fade-up"
       >
         <span class="hidden sm:inline">Graphics Design Projects</span>
         <span class="sm:hidden">Graphics</span>
@@ -108,234 +62,33 @@ const getToolIcon = (tool: string) => {
     </div>
 
     <!-- Web Projects -->
-    <div id="selected_web_projects" class={`w-full transition-all duration-500 ease-in-out ${activeTab === "selected_web_projects" ? "block" : "hidden"}`}>
+    <div id="selected_web_projects" class={`m-auto transition-all duration-500 ease-in-out flex sm:flex-row flex-col gap-5  ${activeTab === "selected_web_projects" ? "block" : "hidden"}`}>
       {projectsData.selected_web_projects.map((project, index) => (
-        <div
-          class="project-card text-white  p-4 rounded-3xl shadow-lg flex sm:flex-row flex-col shadow-accent-soft items-start gap-4 sm:w-[90%] w-full mb-8 animate-fadeIn border border-white/10"
-          data-aos="zoom-in"
-          style={`animation-delay: ${index * 100}ms`}
-        >
-          <div class="sm:w-1/2 w-f h-64 rounded-3xl">
-            <lottie-player
-              src={project.img}
-              background="transparent"
-              id={`lottie-${project.id}`}
-              data-aos="text-focus-fade-up"
-              data-aos-delay="400"
-              autoplay
-              data-aos-duration="800"
-            ></lottie-player>
-          </div>
-          <div>
-            <div class="flex flex-col gap-1">
-              <img src={project.icon} alt="" class="w-15 h-15" />
-              <h3 class="text-3xl font-semibold text-white font-recoleta">
-                {project.name}
-              </h3>
-              <p class="text-sm text-white">{project.description}</p>
-              
-              {/* Display tools if available */}
-              {project.tools && (
-                <div class="flex flex-wrap gap-2 mt-3">
-                  {project.tools.map((tool: string) => {
-                    const ToolIcon = getToolIcon(tool);
-                    return (
-                      <div class="flex items-center gap-1 bg-accent/10 px-2 py-1 rounded-md text-xs">
-                        <ToolIcon size={14} />
-                        <span>{tool}</span>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-
-            <div class="flex justify-between items-center h-full">
-              <div class="relative mt-4 flex items-center justify-between w-fit">
-                <a
-                  href={project.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="relative z-10"
-                >
-                  <button
-                    class="w-fit bg-gradient-to-r from-accent/5 to-bg-black/5 border text-accent sm:px-3 px-3 py-2 border-accent/10 rounded-full backdrop-blur-2xl hover:scale-105 transition-all duration-300 ease-in-out cursor-none sm:text-base text-sm flex justify-center items-center gap-2"
-                    aria-label="View Project"
-                  >
-                    View Project
-                    <div class="bg-gradient-to-r to-black/0 p-2 text-white shadow-accent rounded-full flex items-center justify-center w-auto">
-                      <slot />
-                    </div>
-                  </button>
-                </a>
-              </div>
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-accent hover:underline"
-              >
-                Github
-              </a>
-            </div>
-          </div>
+        <div style={`animation-delay: ${index * 100}ms`}>
+          <ProjectCard project={project} />
         </div>
       ))}
     </div>
 
     <!-- UI Projects -->
-    <div id="selected_ui_projects" class={`w-full transition-all duration-500 ease-in-out ${activeTab === "selected_ui_projects" ? "block" : "hidden"}`}>
+    <div id="selected_ui_projects" class={`m-auto transition-all duration-500 ease-in-out flex sm:flex-row flex-col gap-5 ${activeTab === "selected_ui_projects" ? "block" : "hidden"}`}>
       {projectsData.selected_ui_projects.map((project, index) => (
-        <div
-          class="project-card text-white bg-black border border-accent p-4 rounded-3xl shadow-lg flex sm:flex-row flex-col shadow-accent-soft items-start gap-4 sm:w-[90%] w-full mb-8 animate-fadeIn"
-          data-aos="zoom-in"
-          style={`animation-delay: ${index * 100}ms`}
-        >
-          <div class="w-1/3">
-            <lottie-player
-              src={project.img}
-              background="transparent"
-              id={`lottie-${project.id}`}
-              class="sm:top-10 h-1/2 w-64 sm:w-1/2 z-10"
-              data-aos="text-focus-fade-up"
-              data-aos-delay="400"
-              autoplay
-              data-aos-duration="800"
-            ></lottie-player>
-          </div>
-          <div>
-            <div class="flex flex-col gap-1">
-              <img src={project.icon} alt="" class="w-15 h-15" />
-              <h3 class="text-3xl font-semibold text-white font-recoleta">
-                {project.name}
-              </h3>
-              <p class="text-sm text-white">{project.description}</p>
-              
-              {/* Display tools if available */}
-              {project.tools && (
-                <div class="flex flex-wrap gap-2 mt-3">
-                  {project.tools.map((tool: string) => {
-                    const ToolIcon = getToolIcon(tool);
-                    return (
-                      <div class="flex items-center gap-1 bg-accent/10 px-2 py-1 rounded-md text-xs">
-                        <ToolIcon size={14} />
-                        <span>{tool}</span>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-
-            <div class="flex justify-between items-center h-full">
-              <div class="relative mt-4 flex items-center justify-between w-fit">
-                <a
-                  href={project.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="relative z-10"
-                >
-                  <button
-                    class="w-fit bg-gradient-to-r from-accent/5 to-bg-black/5 border text-accent sm:px-3 px-3 py-2 border-accent/10 rounded-full backdrop-blur-2xl hover:scale-105 transition-all duration-300 ease-in-out cursor-none sm:text-base text-sm flex justify-center items-center gap-2"
-                    aria-label="View Project"
-                  >
-                    View Project
-                    <div class="bg-gradient-to-r to-black/0 p-2 text-white shadow-accent rounded-full flex items-center justify-center w-auto">
-                      <slot />
-                    </div>
-                  </button>
-                </a>
-              </div>
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-accent hover:underline"
-              >
-                Github
-              </a>
-            </div>
-          </div>
+        <div style={`animation-delay: ${index * 100}ms`}>
+          <ProjectCard project={project} />
         </div>
       ))}
     </div>
 
     <!-- Graphics Projects -->
-    <div id="selected_graphics_projects" class={`w-full transition-all duration-500 ease-in-out ${activeTab === "selected_graphics_projects" ? "block" : "hidden"}`}>
+    <div id="selected_graphics_projects" class={`m-auto transition-all duration-500 ease-in-out flex sm:flex-row flex-col gap-5 ${activeTab === "selected_graphics_projects" ? "block" : "hidden"}`}>
       {projectsData.selected_graphics_projects.map((project, index) => (
-        <div
-          class="project-card text-white bg-black border border-accent p-4 rounded-3xl shadow-lg flex sm:flex-row flex-col shadow-accent-soft items-start gap-4 sm:w-[90%] w-full mb-8 animate-fadeIn"
-          data-aos="zoom-in"
-          style={`animation-delay: ${index * 100}ms`}
-        >
-          <div>
-            <lottie-player
-              src={project.img}
-              background="transparent"
-              id={`lottie-${project.id}`}
-              class="sm:top-10 h-1/2 w-64 sm:w-1/2 z-10"
-              data-aos="text-focus-fade-up"
-              data-aos-delay="400"
-              autoplay
-              data-aos-duration="800"
-            ></lottie-player>
-          </div>
-          <div>
-            <div class="flex flex-col gap-1">
-              <img src={project.icon} alt="" class="w-15 h-15" />
-              <h3 class="text-3xl font-semibold text-white font-recoleta">
-                {project.name}
-              </h3>
-              <p class="text-sm text-white">{project.description}</p>
-              
-              {/* Display tools if available */}
-              {project.tools && (
-                <div class="flex flex-wrap gap-2 mt-3">
-                  {project.tools.map((tool: string) => {
-                    const ToolIcon = getToolIcon(tool);
-                    return (
-                      <div class="flex items-center gap-1 bg-accent/10 px-2 py-1 rounded-md text-xs">
-                        <ToolIcon size={14} />
-                        <span>{tool}</span>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-
-            <div class="flex justify-between items-center h-full">
-              <div class="relative mt-4 flex items-center justify-between w-fit">
-                <a
-                  href={project.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="relative z-10"
-                >
-                  <button
-                    class="w-fit bg-gradient-to-r from-accent/5 to-bg-black/5 border text-accent sm:px-3 px-3 py-2 border-accent rounded-full backdrop-blur-2xl hover:scale-105 transition-all duration-300 ease-in-out cursor-none sm:text-base text-sm flex justify-center items-center gap-2"
-                    aria-label="View Project"
-                  >
-                    View Project
-                    <div class="bg-gradient-to-r to-black/0 p-2 text-white shadow-accent-soft rounded-full flex items-center justify-center w-auto">
-                      <slot />
-                    </div>
-                  </button>
-                </a>
-              </div>
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-accent hover:underline"
-              >
-                Github
-              </a>
-            </div>
-          </div>
+        <div style={`animation-delay: ${index * 100}ms`}>
+          <ProjectCard project={project} />
         </div>
       ))}
     </div>
+
   </div>
 </section>
+
 
