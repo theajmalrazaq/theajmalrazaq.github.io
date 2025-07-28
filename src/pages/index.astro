@@ -65,8 +65,8 @@ import halfpixel from '../../public/images/halfpixel.svg';
   </head>
   <body class="bg-black">
     <!-- Cursor Tracker -->
-    <div id="cursor-tracker" class="fixed w-4 h-4 rounded-full pointer-events-none z-[9999] flex items-center bg-accent justify-center" style="transform: translate(-50%, -50%)">
-      <div class="w-1.5 h-1.5 rounded-full bg-white mix-blend-difference"></div>
+    <div id="cursor-tracker" class="fixed w-4 h-4 rounded-full pointer-events-none z-[9999] flex items-center border-2 border-white/10 backdrop-blur-2xl bg-accent justify-center" style="transform: translate(-50%, -50%)">
+     <h1 class="font-nixel font-3xl" id="cursor-icon">a</h1>
     </div>
     
     <!-- Loading overlay -->
@@ -121,33 +121,26 @@ import halfpixel from '../../public/images/halfpixel.svg';
                 https://framerusercontent.com/images/2ZTM81mdCXeMIbSWfvdh4X7JIGg.png 1920w"
         src="https://framerusercontent.com/images/2ZTM81mdCXeMIbSWfvdh4X7JIGg.png" 
         alt="Background pattern"
-        class="w-full h-full object-cover object-center opacity-50 animate-pulse"
+        class="w-full h-full object-cover object-center opacity-50 animate-pulse z-0"
       />
     </div>
  
 
       <div class="flex flex-col items-center w-full relative z-10">
-        <div
-          class="sm:mt-2 mt-22 flex items-center justify-center rounded-full py-[6px] px-[6px] text-center bg-gradient-to-b from-transparent via-accent/20 to-transparent  backdrop-blur-3xl bg-accent-light text-white/90 transition-all duration-300 ease-in-out cursor-none"
-          data-aos="text-focus-fade-up"
-          data-aos-delay="200"
-          data-aos-duration="800"
-          role="status"
-          aria-live="polite"
-        >
-           <div class="p-3 border border-white/10 flex items-center justify-center rounded-full py-2 px-3 text-center backdrop-blur-md  bg-accent-light bg-black text-white transition-all duration-300 ease-in-out cursor-none">
+      
+           <div class="sm:mt-2 mt-22  p-3 border border-white/10 flex items-center justify-center rounded-full py-2 px-3 text-center backdrop-blur-2xl bg-accent-light bg-black text-white/60 transition-all duration-300 ease-in-out cursor-none">
           <div
             class="relative mr-2.5 flex h-3.5 w-3.5 items-center justify-center"
             aria-hidden="true"
           >
-            <div class="h-2.5 w-2.5 rounded-full bg-lime-500 glow-sm"></div>
+            <div class="h-2.5 w-2.5 rounded-full bg-accent glow-sm"></div>
             <div
-              class="absolute h-full w-full animate-ping rounded-full bg-lime-500 opacity-60"
+              class="absolute h-full w-full animate-ping rounded-full bg-accent opacity-60"
             ></div>
           </div>
-          <p class="sm:text-sm text-xs">Avaliable for New Opportunities</p>
+          <p class="text-[10px] sm:text-xs font-product-sans tracking-[0.2px]">Avaliable for New Opportunities</p>
         </div>
-        </div>
+      
         <div
           class="flex flex-col gap-2 items-center justify-center mt-4 w-full"
           data-aos="text-focus-fade-up"
@@ -208,7 +201,7 @@ import halfpixel from '../../public/images/halfpixel.svg';
           data-aos-delay="500"
         >
           <div
-            class="flex items-center justify-center gap-2 mt-2 bg-black backdrop-blur-lg p-2 rounded-full text-accent border border-white/10"
+            class="flex items-center justify-center gap-2 mt-2 bg-black backdrop-blur-lg p-2 rounded-full text-sm font-product-sans text-accent border border-white/10"
             data-aos="text-focus-fade-up"
             data-aos-delay="700"
             role="navigation"
@@ -267,7 +260,7 @@ import halfpixel from '../../public/images/halfpixel.svg';
             </a>
           </div>
           <p
-            class="font-product-sans text-sm text-center  text-white/90"
+            class="font-product-sans text-center  text-white/90"
             data-aos="text-focus-fade-up"
             data-aos-delay="1200"
           >
@@ -280,7 +273,7 @@ import halfpixel from '../../public/images/halfpixel.svg';
               as="button"
               className="group/button"
               color="#a098ff"
-              speed="3s"
+              speed="1s"
             >
           <div class="flex items-center gap-2 cursor-none">
  
@@ -318,7 +311,7 @@ import halfpixel from '../../public/images/halfpixel.svg';
             aria-hidden="true"
           />
       <h1
-  class="text-white text-2xl sm:text-4xl md:text-5xl -top-2 z-10 absolute font-nixel tracking-[1px] text-center flex gap-2 flex-wrap justify-center"
+  class="text-white text-3xl sm:text-5xl md:text-7xl  z-10 absolute font-nixel tracking-[1px] text-center flex gap-2 flex-wrap justify-center"
   data-aos="text-focus-fade-up"
   data-aos-delay="200"
   data-aos-duration="800"
@@ -328,9 +321,9 @@ import halfpixel from '../../public/images/halfpixel.svg';
   <div class="text-accent">i</div>
   <div>and</div>
   <div>what</div>
+    <div class="text-accent">i</div>
   <div class="text-accent">do</div>
-  <div>i</div>
-  <div>create</div>
+
 </h1>
 
         </div>
@@ -401,7 +394,7 @@ import halfpixel from '../../public/images/halfpixel.svg';
         class="relative flex flex-col items-center justify-center gap-3 w-full"
       >
         <h1
-          class="text-white text-2xl sm:text-4xl md:text-5xl font-nixel trackig-[1px] flex gap-2 text-center"
+          class="text-white text-3xl sm:text-5xl md:text-7xl font-nixel trackig-[1px] flex gap-2 text-center"
           data-aos="text-focus-fade-up"
           data-aos-delay="200"
           data-aos-duration="800"

@@ -7,19 +7,18 @@ let mouseX = 0;
 let mouseY = 0;
 let trackerX = 0;
 let trackerY = 0;
+let cursoricon = cursorTracker.querySelector("#cursor-icon");
 
-document.querySelectorAll("a, button").forEach((element) => {
+document.querySelectorAll("a, button, img").forEach((element) => {
   element.addEventListener("mouseenter", () => {
     if (cursorTracker) {
-      cursorTracker.classList.remove("bg-accent");
-      cursorTracker.classList.add("bg-black");
+      cursoricon.classList.add("invert");
     }
   });
 
   element.addEventListener("mouseleave", () => {
     if (cursorTracker) {
-      cursorTracker.classList.add("bg-accent");
-      cursorTracker.classList.remove("bg-black");
+      cursoricon.classList.remove("invert");
     }
   });
 });

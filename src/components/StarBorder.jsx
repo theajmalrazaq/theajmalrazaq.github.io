@@ -30,9 +30,7 @@ const StarBorder = ({
           animationDuration: speed,
         }}
       ></div>
-      <div className="inner-content border shadow-accent border-white/10">
-        {children}
-      </div>
+      <div className="inner-content border t border-white/10">{children}</div>
     </Component>
   );
 };
