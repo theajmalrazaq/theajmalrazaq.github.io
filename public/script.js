@@ -30,7 +30,7 @@ document.addEventListener("mousemove", (e) => {
 
 function animateCursor() {
   // Add smooth movement with lerp (linear interpolation)
-  const speed = 0.15;
+  const speed = 0.55;
   trackerX += (mouseX - trackerX) * speed;
   trackerY += (mouseY - trackerY) * speed;
 

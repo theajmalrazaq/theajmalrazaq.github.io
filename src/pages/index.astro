@@ -4,6 +4,7 @@ import  {Rocket,MessageCircle,ChevronRight,} from "@lucide/astro";
 import  Button from "../components/button.astro";
 import { Seo } from "astro-seo-meta"
 import Projects from '../components/Projects.astro'; 
+import Blog from '../components/blog.astro';
 import devimg from '../../public/images/dev.webp';
 import buildimg from '../../public/images/build.svg';
 import eclipseimg from '../../public/images/eclipse.svg';
@@ -440,7 +441,7 @@ import halfpixel from '../../public/images/halfpixel.svg';
   <ChevronRight size="18" class="text-accent" />
 </Projects>
 <Button
-  text="View All Projects"
+  text="view all projects"
   href="/projects"
   data_aos="text-focus-fade-up"
   data_aos_delay="500"
@@ -449,9 +450,12 @@ import halfpixel from '../../public/images/halfpixel.svg';
   <ChevronRight size="18" class="text-accent" />
 </Button>
     </div>
-    <div>
-
+    
+    <!-- Featured Blog Section -->
+    <div class="mt-20">
+      <Blog />
     </div>
+    
     <footer class="flex justify-center" role="contentinfo">
       <Navbar page="index" data_aos="text-focus-fade-up" data_aos_delay="600" />
     </footer>
