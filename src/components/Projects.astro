@@ -27,34 +27,34 @@ const projectsData = {
 ---
 
 <section>
-  <div class="flex flex-col items-center justify-center gap-8 p-3 w-full rounded-4xl" data-aos="fade-up">
-    <div class=" bg-black backdrop-blur-lg text-sm font-product-sans text-white border border-white/10 w-fit rounded-[0px] z-99 mt-4 flex justify-center gap-1 sm:gap-2 p-1 sm:p-2 flex-wrap" data-aos="text-focus-fade-up">
+  <div class="flex flex-col items-center justify-center gap-8 p-3 w-full rounded-4xl" data-aos="focus-up">
+    <div class="shadow-accent backdrop-blur-lg text-sm font-product-sans text-white border border-white/10 w-fit rounded-full z-99 mt-4 flex justify-center gap-1 sm:gap-2 p-1 sm:p-2 flex-wrap" data-aos="focus-up">
       <div 
-        class={`px-4  py-2 rounded-[0px] cursor-pointer transition-all duration-300 ease-in-out  ${
-          activeTab === "selected_web_projects" ? "bg-accent" : "bg-white/10"
+        class={`px-4  py-2 rounded-full cursor-pointer transition-all duration-300 ease-in-out  ${
+          activeTab === "selected_web_projects" ? "shadow-accent" : "bg-transparent"
         }`} 
         data-tab="selected_web_projects"
-        data-aos="text-focus-fade-up"
+        data-aos="focus-up"
       >
-        <span class="hidden sm:inline" data-aos="text-focus-fade-up">Web Project</span>
-        <span class="sm:hidden" data-aos="text-focus-fade-up">Web</span>
+        <span class="hidden sm:inline" data-aos="focus-up">Web Project</span>
+        <span class="sm:hidden" data-aos="focus-up">Web</span>
       </div>
       <div 
-        class={`px-4  py-2 rounded-[0px] cursor-pointer transition-all duration-300 ease-in-out  ${
-          activeTab === "selected_ui_projects" ? "bg-accent" : "bg-white/10"
+        class={`px-4  py-2 rounded-full cursor-pointer transition-all duration-300 ease-in-out  ${
+          activeTab === "selected_ui_projects" ? "shadow-accent" : "bg-transparent"
         }`} 
         data-tab="selected_ui_projects"
-        data-aos="text-focus-fade-up"
+        data-aos="focus-up"
       >
         <span class="hidden sm:inline">UI/UX Projects</span>
         <span class="sm:hidden">UI/UX</span>
       </div>
       <div 
-        class={`px-4 py-2 rounded-[0px] cursor-pointer transition-all duration-300 ease-in-out  ${
-          activeTab === "selected_graphics_projects" ? "bg-accent" : "bg-white/10"
+        class={`px-4 py-2 rounded-full cursor-pointer transition-all duration-300 ease-in-out  ${
+          activeTab === "selected_graphics_projects" ? "shadow-accent" : "bg-transparent"
         }`} 
         data-tab="selected_graphics_projects"
-        data-aos="text-focus-fade-up"
+        data-aos="focus-up"
       >
         <span class="hidden sm:inline">Graphics Design Projects</span>
         <span class="sm:hidden">Graphics</span>

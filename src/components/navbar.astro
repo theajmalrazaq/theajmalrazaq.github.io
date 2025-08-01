@@ -8,7 +8,7 @@ const isActive = (path: string) => {
 };
 ---
 <nav
-        class="bg-white/5 text-white px-7 sm:py-2 py-4 mt-5 backdrop-blur-lg sm:w-fit w-full/2 gap-4 fixed justify-between sm:justify-center items-center z-99 text-normal bottom-5 sm:flex hidden "
+        class="bg-white/5 text-white px-7 rounded-full sm:py-2 py-4 mt-5 backdrop-blur-lg sm:w-fit w-full/2 gap-4 fixed justify-between sm:justify-center items-center z-99 text-normal top-0 sm:flex hidden "
         role="navigation"
         aria-label="Main navigation"
       >
@@ -30,44 +30,44 @@ const isActive = (path: string) => {
 
         <div class="flex justify-center items-center gap-2 sm:gap-4 ">
           <div>
-            <ul class="flex gap-1 sm:gap-3 bg-black/50 backdrop-blur-md border border-white/5 p-1 sm:p-2 rounded-[0px]">
+            <ul class="flex gap-1 sm:gap-3 bg-black/50 backdrop-blur-md border border-white/5 p-1 sm:p-2 rounded-full">
               <li>
                 <a
-                  href="https://example.com/page1"
-                  class={`${isActive('about') ? 'bg-accent' : 'bg-white/5'} flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-[0px] hover:bg-white/20 transition-colors text-xs sm:text-base`}
+                  href="/"
+                  class={`${isActive('home') ? 'bg-accent' : 'bg-white/5'} flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full hover:bg-white/20 transition-colors text-xs sm:text-base`}
                   aria-label="About me"
-                  >About</a
+                  >Home</a
                 >
               </li>
               <li>
                 <a
-                  href="#projects"
-                  class={`${isActive('projects') ? 'bg-accent' : 'bg-white/5'} flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-[0px] hover:bg-white/20 transition-colors text-xs sm:text-base`}
+                  href="/projects"
+                  class={`${isActive('projects') ? 'bg-accent' : 'bg-white/5'} flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full hover:bg-white/20 transition-colors text-xs sm:text-base`}
                   aria-label="View my projects"
                   >Projects</a
                 >
               </li>
               <li>
                 <a
-                  href="https://example.com/page1"
-                  class={`${isActive('blogs') ? 'bg-accent' : 'bg-white/5'} flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-[0px] hover:bg-white/20 transition-colors text-xs sm:text-base`}
+                  href="/blog"
+                  class={`${isActive('blogs') ? 'bg-accent' : 'bg-white/5'} flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full hover:bg-white/20 transition-colors text-xs sm:text-base`}
                   aria-label="Read my blog posts"
-                  >Blogs</a
+                  >Blog</a
                 >
               </li>
               <li>
                 <a
                   href="https://example.com/page1"
-                  class={`${isActive('shorts') ? 'bg-accent' : 'bg-white/5'} flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-[0px] hover:bg-white/20 transition-colors text-xs sm:text-base`}
+                  class={`${isActive('about') ? 'bg-accent' : 'bg-white/5'} flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full hover:bg-white/20 transition-colors text-xs sm:text-base`}
                   aria-label="View my shorts content"
-                  >Shorts</a
+                  >About</a
                 >
               </li>
             </ul>
           </div>
           <a
                   href="https://example.com/page1"
-                  class="bg-accent flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-[0px] hover:bg-white/20 transition-colors text-xs sm:text-base"
+                  class="bg-accent flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full hover:bg-white/20 transition-colors text-xs sm:text-base"
                   aria-label="Contact me"
                   >Let's Chat</a
                 >

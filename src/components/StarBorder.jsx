@@ -9,7 +9,7 @@ const StarBorder = ({
 }) => {
   return (
     <Component
-      className={`star-border-container  ${className}`}
+      className={`star-border-container ${className}`}
       style={{
         padding: `${thickness}px 0`,
         ...rest.style,
@@ -30,7 +30,9 @@ const StarBorder = ({
           animationDuration: speed,
         }}
       ></div>
-      <div className="inner-content border t border-white/10">{children}</div>
+      <div className="inner-content shadow-accent border rounded-full border-white/10">
+        {children}
+      </div>
     </Component>
   );
 };

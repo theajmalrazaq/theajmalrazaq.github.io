@@ -1,6 +1,6 @@
 ---
 import "../styles/global.css";
-import  {Rocket,MessageCircle,ChevronRight,} from "@lucide/astro";
+import  {Rocket,MessageCircle,ChevronRight,Mail} from "@lucide/astro";
 import  Button from "../components/button.astro";
 import { Seo } from "astro-seo-meta"
 import Projects from '../components/Projects.astro'; 
@@ -17,7 +17,9 @@ import Highlights from '../components/highlights.astro';
 import arrow_right from '../../public/images/arrow_right.svg';
 import star from '../../public/images/star.svg';
 import name from '../../public/images/name.svg';
-import halfpixel from '../../public/images/halfpixel.svg';
+import Newsletter from "../components/Newsletter.jsx";
+import Footer from "../components/footer.astro"
+import seeyaa from "../../public/images/seeyaa.svg"
 ---
 
 
@@ -66,22 +68,24 @@ import halfpixel from '../../public/images/halfpixel.svg';
   </head>
   <body class="bg-black">
     <!-- Cursor Tracker -->
-    <div id="cursor-tracker" class="fixed w-4 h-4 rounded-[0px] pointer-events-none z-[9999] flex items-center border-2 border-white/10 backdrop-blur-2xl bg-accent justify-center" style="transform: translate(-50%, -50%)">
+    <div id="cursor-tracker" class="fixed w-4 h-4 rounded-xl pointer-events-none z-[9999] flex items-center border-2 border-white/10 backdrop-blur-2xl bg-accent justify-center" style="transform: translate(-50%, -50%)" data-aos="focus-up">
      <h1 class="font-nixel font-3xl" id="cursor-icon">a</h1>
     </div>
     
     <!-- Loading overlay -->
-    <div id="loading-overlay" class="fixed top-0 left-0 w-full h-full flex items-center justify-center z-[9999] bg-black">
+    <div id="loading-overlay" class="fixed top-0 left-0 w-full h-full flex items-center justify-center z-[9999] bg-black" data-aos="focus-up">
       <Loading />
     </div>
     
     <!-- Lottie Background Animation -->
-     <div class="flex items-center justify-center z-[999]">
+     <div class="flex items-center justify-center z-[999]" data-aos="focus-up">
+      <Navbar page="home" data_aos="focus-up" data_aos_delay="1000" data_aos_duration="800" />
       <Navmobile />
     </div>
     
     
-    <header class="relative h-lvh w-full flex justify-center overflow-hidden z-99" data-aos="text-focus-fade-up">
+    <header class="relative h-lvh w-full flex justify-center overflow-hidden z-99" data-aos="focus-up" data-aos-delay="500"
+        data-aos-duration="1000">
       <lottie-player
         src="images/up.json"
         background="transparent"
@@ -89,9 +93,9 @@ import halfpixel from '../../public/images/halfpixel.svg';
         speed="0.3"
         loop
         autoplay
-        data-aos="text-focus-fade-up"
-        data-aos-delay="300"
-        data-aos-duration="1000"
+        data-aos="slide-left"
+        data-aos-delay="600"
+        data-aos-duration="800"
         aria-hidden="true"
       >
       </lottie-player>
@@ -102,15 +106,15 @@ import halfpixel from '../../public/images/halfpixel.svg';
         speed="0.3"
         loop
         autoplay
-        data-aos="text-focus-fade-up"
-        data-aos-delay="300"
-        data-aos-duration="1000"
+        data-aos="slide-right"
+        data-aos-delay="600"
+        data-aos-duration="800"
         aria-hidden="true"
       >
       </lottie-player>
 
       <!-- Background Pattern -->
-    <div class="absolute w-full h-full animate-pulse -top-10 inset-0 pointer-events-none" aria-hidden="true">
+    <div class="absolute w-full h-full animate-pulse -top-10 inset-0 pointer-events-none" aria-hidden="true" data-aos="focus-up">
       <img 
         decoding="async" 
         loading="lazy" 
@@ -127,9 +131,9 @@ import halfpixel from '../../public/images/halfpixel.svg';
     </div>
  
 
-      <div class="flex flex-col items-center w-full relative z-10">
+      <div class="flex flex-col items-center justify-center w-full relative z-10">
       
-           <div class="sm:mt-3 mt-26 p-3 border border-white/10 flex items-center justify-center rounded-[0px] py-2 px-3 text-center backdrop-blur-2xl bg-accent-light bg-black text-white/60 transition-all duration-300 ease-in-out cursor-none">
+           <!-- <div class="mt-25 p-3 border border-white/10 flex items-center justify-center rounded-xl py-2 px-3 text-center backdrop-blur-2xl bg-accent-light bg-black text-white/60 transition-all duration-300 ease-in-out cursor-none" data-aos="focus-up">
           <div
             class="relative mr-2.5 flex h-3.5 w-3.5 items-center justify-center"
             aria-hidden="true"
@@ -139,19 +143,20 @@ import halfpixel from '../../public/images/halfpixel.svg';
               class="absolute h-full w-full animate-ping rounded-full bg-accent opacity-60"
             ></div>
           </div>
-          <p class="text-[10px] sm:text-xs font-product-sans tracking-[0.2px]">Avaliable for New Opportunities</p>
+          <p class="text-[10px] text-sm font-product-sans tracking-[0.2px]">Avaliable for New Opportunities</p>
           <svg width="5" height="5" viewBox="0 0 5 5" class="absolute top-[-2px] left-[-2px] fill-accent"><path d="M2 0h1v2h2v1h-2v2h-1v-2h-2v-1h2z"></path></svg><svg width="5" height="5" viewBox="0 0 5 5" class="absolute top-[-2px] right-[-2px] fill-accent "><path d="M2 0h1v2h2v1h-2v2h-1v-2h-2v-1h2z"></path></svg><svg width="5" height="5" viewBox="0 0 5 5" class="absolute bottom-[-2px] left-[-2px] fill-accent "><path d="M2 0h1v2h2v1h-2v2h-1v-2h-2v-1h2z"></path></svg><svg width="5" height="5" viewBox="0 0 5 5" class="absolute right-[-2px] bottom-[-2px] fill-accent "><path d="M2 0h1v2h2v1h-2v2h-1v-2h-2v-1h2z"></path></svg>
-        </div>
+        </div> -->
       
         <div
           class="flex flex-col gap-2 items-center justify-center mt-4 w-full"
-          data-aos="text-focus-fade-up"
-          data-aos-delay="400"
+          data-aos="focus-up"
+          data-aos-delay="700"
+          data-aos-duration="1000"
         >
           <div class="relative flex items-center justify-center">
 
 
-      <div class="group cursor-none relative w-[180px] h-[180px]">
+      <div class="group cursor-none relative w-[180px] h-[180px]" data-aos="focus-up">
 
   <!-- Front Image -->
   <img
@@ -175,9 +180,9 @@ import halfpixel from '../../public/images/halfpixel.svg';
 
 
             <div
-              class="w-fit bg-black/60 border text-accent sm:px-4 px-2 py-2 border-white/10 rounded-[0px] absolute top-5 sm:-left-25 -left-20 backdrop-blur-2xl animate-float hover:scale-105 transition-all duration-300 flex justify-center items-center ease-in-out  z-20 cursor-none sm:text-base text-sm"
+              class="w-fit bg-black/60 border text-accent sm:px-4 px-2 py-2 border-white/10 rounded-xl absolute top-5 sm:-left-25 -left-20 backdrop-blur-2xl animate-float hover:scale-105 transition-all duration-300 flex justify-center items-center ease-in-out  z-20 cursor-none sm:text-base text-sm"
               data-aos="fade-right"
-              data-aos-delay="600"
+              data-aos-delay="1000"
               data-aos-duration="800"
               aria-label="Skill: Frontend Development"
             >
@@ -185,9 +190,9 @@ import halfpixel from '../../public/images/halfpixel.svg';
               Frontend Dev
             </div>
             <div
-              class="w-fit bg-black/60 border text-accent sm:px-4 px-2 py-2 border-white/10 rounded-[0px] absolute top-30 sm:-right-30 -right-20 backdrop-blur-2xl animate-float hover:scale-105 transition-all duration-300 z-20 flex justify-center items-center ease-in-out cursor-none sm:text-base text-sm"
+              class="w-fit bg-black/60 border text-accent sm:px-4 px-2 py-2 border-white/10 rounded-xl absolute top-30 sm:-right-30 -right-20 backdrop-blur-2xl animate-float hover:scale-105 transition-all duration-300 z-20 flex justify-center items-center ease-in-out cursor-none sm:text-base text-sm"
               data-aos="fade-left"
-              data-aos-delay="800"
+              data-aos-delay="1200"
               data-aos-duration="800"
               aria-label="Skill: Junior Product Design"
             >
@@ -195,17 +200,19 @@ import halfpixel from '../../public/images/halfpixel.svg';
               Jr. Product Designer
             </div>
           </div>
-        <img src={name.src} alt="Name" class="p-2" />
+        <img src={name.src} alt="Name" class="p-2" data-aos="focus-up" />
         </div>
         <div
           class="flex flex-col gap-5 items-center"
-          data-aos="text-focus-fade-up"
-          data-aos-delay="500"
+          data-aos="focus-up"
+          data-aos-delay="800"
+          data-aos-duration="1000"
         >
           <div
-            class="flex items-center justify-center gap-2 mt-2 bg-black backdrop-blur-lg p-2 rounded-[0px] text-sm font-product-sans text-accent border border-white/10"
-            data-aos="text-focus-fade-up"
-            data-aos-delay="700"
+            class="flex items-center justify-center gap-2 mt-2 bg-black backdrop-blur-lg p-2 rounded-full text-sm font-product-sans text-accent border border-white/10"
+            data-aos="focus-up"
+            data-aos-delay="1100"
+            data-aos-duration="800"
             role="navigation"
             aria-label="Social media links"
           >
@@ -213,9 +220,9 @@ import halfpixel from '../../public/images/halfpixel.svg';
               href="https://github.com/theajmalrazaq"
               target="_blank"
               rel="noopener noreferrer"
-              class="text-white/70 hover:color-accentflex items-center gap-1 bg-white/5 backdrop-blur-md px-2 py-1 rounded-[0px]  glow-s hover:shadow-lg hover:bg-accent transition-all duration-400 cursor-none"
+              class="text-white/70 hover:color-accentflex items-center gap-1 bg-white/5 backdrop-blur-md px-2 py-1 rounded-full  glow-s hover:shadow-lg hover:bg-accent transition-all duration-400 cursor-none"
               data-aos="flip-up"
-              data-aos-delay="800"
+              data-aos-delay="1300"
               data-aos-duration="600"
               aria-label="GitHub profile"
             >
@@ -226,9 +233,9 @@ import halfpixel from '../../public/images/halfpixel.svg';
               href="https://linkedin.com/in/theajmalrazaq"
               target="_blank"
               rel="noopener noreferrer"
-              class="text-white/70 hover:color-accentflex items-center gap-1 bg-white/5 px-2 py-1 backdrop-blur-md rounded-[0px]  glow-s hover:shadow-lg hover:bg-accent transition-all duration-400 cursor-none"
+              class="text-white/70 hover:color-accentflex items-center gap-1 bg-white/5 px-2 py-1 backdrop-blur-md rounded-full  glow-s hover:shadow-lg hover:bg-accent transition-all duration-400 cursor-none"
               data-aos="flip-up"
-              data-aos-delay="900"
+              data-aos-delay="1400"
               data-aos-duration="600"
               aria-label="LinkedIn profile"
             >
@@ -239,9 +246,9 @@ import halfpixel from '../../public/images/halfpixel.svg';
               href="https://x.com/theajmalrazaq"
               target="_blank"
               rel="noopener noreferrer"
-              class="text-white/70 hover:color-accentflex items-center gap-1 bg-white/5 px-2 py-1 backdrop-blur-md rounded-[0px] glow-s hover:shadow-lg hover:bg-accent transition-all duration-400 cursor-none"
+              class="text-white/70 hover:color-accentflex items-center gap-1 bg-white/5 px-2 py-1 backdrop-blur-md rounded-full glow-s hover:shadow-lg hover:bg-accent transition-all duration-400 cursor-none"
               data-aos="flip-up"
-              data-aos-delay="1000"
+              data-aos-delay="1500"
               data-aos-duration="600"
               aria-label="X (Twitter) profile"
             >
@@ -252,25 +259,20 @@ import halfpixel from '../../public/images/halfpixel.svg';
               href="https://behance.net/theajmalrazaq"
               target="_blank"
               rel="noopener noreferrer"
-              class="text-white/70 hover:color-accentflex items-center gap-1 bg-white/5 px-2 py-1 backdrop-blur-md rounded-[0px]  glow-s hover:shadow-lg hover:bg-accent transition-all duration-400 cursor-none"
+              class="text-white/70 hover:color-accentflex items-center gap-1 bg-white/5 px-2 py-1 backdrop-blur-md rounded-full glow-s hover:shadow-lg hover:bg-accent transition-all duration-400 cursor-none"
               data-aos="flip-up"
-              data-aos-delay="1100"
+              data-aos-delay="1600"
               data-aos-duration="600"
               aria-label="Behance portfolio"
             >
               <span>Behance</span>
             </a>
           </div>
-          <p
-            class="font-product-sans text-center  text-white/90"
-            data-aos="text-focus-fade-up"
-            data-aos-delay="1200"
-          >
-           Most designers avoid logic. Most devs avoid emotion. I bring both to life.
-           <br>
-          </p>
 
-          <div class="flex items-center justify-center gap-2 relative group" data-aos="text-focus-fade-up" data-aos-delay="1400">
+           <p data-fade="3" class="b1 mt-3" data-aos="focus-up" data-aos-delay="900" data-aos-duration="1000"><span class="text-center transition-colors bg-gradient-to-r from-neutral-300/[35%] via-neutral-300/90 to-neutral-300/[35%] bg-clip-text text-transparent font-product-sans">Most designers avoid logic. Most devs avoid emotion. I bring both to life.</span></p>
+
+
+          <div class="flex items-center justify-center gap-2 relative group" data-aos="focus-up" data-aos-delay="1800" data-aos-duration="800">
              <StarBorder
               as="button"
               className="group/button"
@@ -279,7 +281,7 @@ import halfpixel from '../../public/images/halfpixel.svg';
             >
           <div class="flex items-center gap-2 cursor-none">
  
-  <a href="javascript:void(0);" class="pixel-button relative h-[50px] w-[160px] text-white gap-2 margin-[20px] pl-1 flex justify-center items-center rounded-[0px] font-nixel leading-loose text-xl tracking-[1px] cursor-none">let's chat
+  <a href="javascript:void(0);" class="pixel-button relative h-[50px] w-[160px] text-white gap-2 margin-[20px] pl-1 flex justify-center items-center rounded-full font-nixel leading-loose text-xl tracking-[1px] cursor-none">let's chat
                   <img src={arrow_right.src} alt="" class="w-4">
                 </a>
             </div>
@@ -295,10 +297,13 @@ import halfpixel from '../../public/images/halfpixel.svg';
         alt="Decorative eclipse background"
         class="absolute sm:-top-50 -top-40 w-full -z-10"
         aria-hidden="true"
-        data-aos="text-focus-fade-up"
+        data-aos="focus-up"
+        data-aos-duration="1200"
       />
       <div
         class="flex items-center justify-center w-full flex-col gap-3 sm:gap-5 px-4 sm:px-0"
+        data-aos="focus-up"
+        data-aos-duration="1000"
       >
         <div class="relative w-full flex items-center justify-center">
           <img
@@ -307,16 +312,14 @@ import halfpixel from '../../public/images/halfpixel.svg';
             class="absolute w-3/5 sm:w-auto"
             data-rotate
             data-speed="0.3"
-            data-aos="text-focus-fade-up"
-            data-aos-delay="100"
-            data-aos-duration="800"
+            data-aos="focus-up"
+            data-aos-duration="1000"
             aria-hidden="true"
           />
       <h1
   class="text-white text-3xl sm:text-5xl md:text-7xl  z-10 absolute font-nixel tracking-[1px] text-center flex gap-2 flex-wrap justify-center"
-  data-aos="text-focus-fade-up"
-  data-aos-delay="200"
-  data-aos-duration="800"
+  data-aos="focus-up"
+  data-aos-duration="1200"
 >
   <div>who</div>
   <div>am</div>
@@ -331,12 +334,14 @@ import halfpixel from '../../public/images/halfpixel.svg';
         </div>
         <div
           class="sm:mt-6 mt-4 z-10 flex flex-col items-center justify-center gap-4 w-full"
+          data-aos="focus-up"
+          data-aos-duration="1000"
         >
+         
           <p
             class="font-product-sans text-sm text-center text-white/90 max-w-prose mx-auto leading-relaxed w-full sm:w-4/5 md:w-3/4 lg:w-2/3"
-            data-aos="text-focus-fade-up"
-            data-aos-delay="300"
-            data-aos-duration="800"
+            data-aos="focus-up"
+            data-aos-duration="1200"
           >
             I'm Ajmal Razaq — a design-focused frontend developer based in <span class="font-semibold">Pakistan.</span><br><br>
             
@@ -345,10 +350,10 @@ import halfpixel from '../../public/images/halfpixel.svg';
             Not just sleek UIs — real UX that scales and performs.<br><br>
             
           </p>
-         <Button 
-            text="let's build"
-            data_aos="text-focus-fade-up"
-            data_aos_delay="400"
+        <Button 
+            text="more about me"
+            data_aos="focus-up"
+            data_aos_duration="800"
             aria_label="Contact me to discuss a project"
           >
             <Rocket size="18" class="text-accent" />
@@ -360,15 +365,15 @@ import halfpixel from '../../public/images/halfpixel.svg';
       <!-- <div
         class="w-[70%] h-[1px] bg-gradient-to-l from-transparent via-[#a098ff]/40 to-transparent z-99"
         aria-hidden="true"
-        data-aos="fade-up"
+        data-aos="focus-up"
         data-aos-delay="200"
         data-aos-duration="800"
       ></div> -->
     </div>
 
     <!-- Highlight Bento: What I Can Do -->
-    <div class="relative  w-full sm:px-15 px-6 overflow-hidden flex justify-center items-center" id="about-me">
-    <Highlights />
+    <div class="relative  w-full sm:px-15 px-6 overflow-hidden flex justify-center items-center" id="about-me" data-aos="focus-up">
+    <Highlights data-aos="focus-up" data-aos-duration="1200" />
     </div>
 
 
@@ -380,6 +385,7 @@ import halfpixel from '../../public/images/halfpixel.svg';
       id="projects"
       role="region"
       aria-labelledby="projects-heading"
+      data-aos="focus-up"
     >
       <!-- <div class="absolute -top-25  w-full h-full object-cover object-center overflow-hidden">
         <img 
@@ -390,16 +396,15 @@ import halfpixel from '../../public/images/halfpixel.svg';
         />
       </div> -->
       
-      <img src="images/Projects.svg" alt="Projects section decorative illustration" class="absolute sm:w-1/3 w-67 sm:-top-15 -top-7 duration-1000 ease-in-out" id="projecticons" data-aos="text-focus-fade-up" data-aos-delay="100" data-aos-duration="800" aria-hidden="true" />
+      <img src="images/Projects.svg" alt="Projects section decorative illustration" class="absolute sm:w-1/3 w-67 sm:-top-15 -top-7 duration-1000 ease-in-out" id="projecticons" data-aos="focus-up" data-aos-duration="1000" aria-hidden="true" />
 
       <div
         class="relative flex flex-col items-center justify-center gap-3 w-full"
       >
         <h1
           class="text-white text-3xl sm:text-5xl md:text-7xl font-nixel trackig-[1px] flex gap-2 text-center"
-          data-aos="text-focus-fade-up"
-          data-aos-delay="200"
-          data-aos-duration="800"
+          data-aos="focus-up"
+          data-aos-duration="1200"
           id="projects-heading"
         >
         
@@ -411,12 +416,10 @@ import halfpixel from '../../public/images/halfpixel.svg';
   <div class="text-accent">on</div>
 </h1>
        
-         
         <p
           class="font-product-sans text-sm text-center text-white/90"
-          data-aos="text-focus-fade-up"
-          data-aos-delay="300"
-          data-aos-duration="800"
+          data-aos="focus-up"
+          data-aos-duration="1000"
         >
           Here's a collection of work where I turned pain points into purposeful
           products through <br />
@@ -431,20 +434,19 @@ import halfpixel from '../../public/images/halfpixel.svg';
         background="transparent"
         id="firstLottie"
         class="sm:top-10 h-1/2 w-[90%] sm:w-1/2 z-10"
-        data-aos="text-focus-fade-up"
-        data-aos-delay="400"
-        data-aos-duration="800"
+        data-aos="focus-up"
+        data-aos-duration="1000"
       >
       </lottie-player>
 
-<Projects>
+<Projects data-aos="focus-up">
   <ChevronRight size="18" class="text-accent" />
 </Projects>
 <Button
   text="view all projects"
   href="/projects"
-  data_aos="text-focus-fade-up"
-  data_aos_delay="500"
+  data_aos="focus-up"
+  data_aos_duration="800"
   aria_label="View all projects"
 >
   <ChevronRight size="18" class="text-accent" />
@@ -452,13 +454,62 @@ import halfpixel from '../../public/images/halfpixel.svg';
     </div>
     
     <!-- Featured Blog Section -->
-    <div class="mt-20">
+    <div class="mt-20" data-aos="focus-up" data-aos-duration="1200">
       <Blog />
     </div>
-    
-    <footer class="flex justify-center" role="contentinfo">
-      <Navbar page="index" data_aos="text-focus-fade-up" data_aos_delay="600" />
-    </footer>
+
+    <!-- Contact Section -->
+    <section class="relative mt-20 w-full flex flex-col items-center justify-center px-6 sm:px-15 pb-12" id="contact" role="region" aria-labelledby="contact-heading" data-aos="focus-up" data-aos-duration="1000">
+      <!-- Background decoration -->
+      <div class="absolute inset-0 w-full h-full overflow-hidden pointer-events-none" aria-hidden="true">
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-accent/5 rounded-full blur-3xl"></div>
+      </div>
+
+      <div class="relative z-10 flex flex-col items-center justify-center gap-6 w-full max-w-3xl">
+        <!-- Heading -->
+        <div class="flex flex-col items-center justify-center gap-3" data-aos="focus-up" data-aos-duration="1000">
+          <img src={seeyaa.src} class="w-4/5 sm:w-auto" data-aos="focus-up"/>
+          <p class="font-product-sans text-base text-center text-white/80 max-w-xl">
+            Got a project in mind? Let's create something amazing together.
+          </p>
+        </div>
+
+     
+
+        <!-- Email with Copy Function -->
+        <div class="flex flex-col items-center justify-center gap-4 w-full" data-aos="focus-up" data-aos-duration="1000">
+          <div class="group relative">
+            <button 
+              id="email-copy-btn"
+              class="flex items-center gap-3 px-4 py-3 border border-white/20 rounded-xl backdrop-blur-2xl bg-black/50 hover:bg-black/70 hover:border-accent/50 transition-all duration-300 ease-in-out cursor-none group"
+              aria-label="Copy email address"
+            >
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center">
+                 <Mail size="20" class="text-accent" />
+                </div>
+                <div class="text-left">
+                  <p class="text-white font-product-sans text-base" id="email-text">hello@theajmalrazaq.tech</p>
+                  <p class="text-white/60 text-xs">Click to copy</p>
+                </div>
+              </div>
+              <svg class="w-4 h-4 text-white/60 group-hover:text-accent transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+              </svg>
+            </button>
+            
+            <!-- Copy Success Message -->
+            <div id="copy-success" class="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-accent text-black px-2 py-1 rounded-md text-xs font-product-sans opacity-0 transition-opacity duration-300 pointer-events-none">
+              Copied to clipboard!
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <Footer data-aos="focus-up"/>
+
     <script type="module" src="/script.js"></script>
+    
   </body>
 </html>

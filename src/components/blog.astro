@@ -14,11 +14,11 @@ if (error) console.error("Supabase error:", error);
 
 <section class="relative flex flex-col justify-center items-center w-full mt-25 mb-15 px-4 sm:px-15" id="featured-blogs">
      
-      <img src="images/post.svg" alt="Projects section decorative illustration" class="absolute sm:w-1/5 w-36 sm:-top-10 -top-7 duration-1000 ease-in-out" id="projecticons" data-aos="text-focus-fade-up" data-aos-delay="100" data-aos-duration="800" aria-hidden="true" />
+      <img src="images/post.svg" alt="Projects section decorative illustration" class="absolute sm:w-1/5 w-36 sm:-top-10 -top-7 duration-1000 ease-in-out" id="projecticons" data-aos="focus-up" data-aos-delay="100" data-aos-duration="800" aria-hidden="true" />
   <div class="flex flex-col items-center justify-center gap-3 w-full mb-8">
     <h1
       class="text-white text-3xl sm:text-5xl md:text-7xl z-10 font-nixel tracking-[1px] text-center flex gap-2 flex-wrap justify-center"
-      data-aos="text-focus-fade-up"
+      data-aos="focus-up"
       data-aos-delay="200"
       data-aos-duration="800"
     >
@@ -29,7 +29,7 @@ if (error) console.error("Supabase error:", error);
     
     <p
       class="font-product-sans text-sm text-center text-white/90 max-w-prose mx-auto leading-relaxed"
-      data-aos="text-focus-fade-up"
+      data-aos="focus-up"
       data-aos-delay="300"
       data-aos-duration="800"
     >
@@ -40,8 +40,8 @@ if (error) console.error("Supabase error:", error);
     {blogs && blogs.map((blog) => (
       <a
         href={`/blog/${blog.slug}`} 
-        class="blog-card group  border-2 border-white/10  rounded-[0px]  overflow-hidden flex flex-col h-full  transition-all duration-300 ease-in-out group"
-        data-aos="text-focus-fade-up"
+        class="blog-card group rounded-3xl border-2 border-white/10   overflow-hidden flex flex-col h-full transition-all duration-300 ease-in-out group"
+        data-aos="focus-up"
       > 
         <div class="p-5 flex sm:flex-row flex-col-reverse justify-between gap-6">
           <div class="flex flex-col sm:w-1/2 w-full justify-between ">
@@ -66,7 +66,7 @@ if (error) console.error("Supabase error:", error);
              
             </div>
           </div>
-          <img src={blog.img} alt={blog.title} class="sm:w-[200px] w-full aspect-video  transition-transform duration-500" />
+          <img src={blog.img} alt={blog.title} class="sm:w-[200px] w-full aspect-video  transition-transform duration-500 rounded-2xl" />
         </div>
       </a>
     ))}
@@ -82,7 +82,7 @@ if (error) console.error("Supabase error:", error);
     <a 
       href="/blog" 
       class="w-fit font-nixel tracking-[1px] text-white bg-black sm:px-3 px-3 py-2 border border-white/10 hover:border-white/30 backdrop-blur-2xl hover:scale-105 hover:shadow-lg hover:shadow-white/5 transition-all duration-300 ease-in-out cursor-pointer text-xl flex justify-center items-center gap-2 relative"
-      data-aos="text-focus-fade-up"
+      data-aos="focus-up"
     >
       <span class="relative z-10">view all posts</span>
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-accent">

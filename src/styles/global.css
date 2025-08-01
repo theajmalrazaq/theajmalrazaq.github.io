@@ -76,7 +76,7 @@
 .star-border-container {
   display: inline-block;
   position: relative;
-  border-radius: 0px;
+  border-radius: 99px;
   overflow: hidden;
 }
 
@@ -87,7 +87,7 @@
   opacity: 0.7;
   bottom: -12px;
   right: -250%;
-
+  border-radius: 99px;
   animation: star-movement-bottom linear infinite alternate;
   z-index: 0;
 }
@@ -99,6 +99,7 @@
   height: 50%;
   top: -12px;
   left: -250%;
+  border-radius: 99px;
   animation: star-movement-top linear infinite alternate;
   z-index: 0;
 }
@@ -126,14 +127,14 @@
   opacity: 1;
 }
 
-[data-aos="text-focus-fade-up"] {
+[data-aos="focus-up"] {
   -webkit-filter: blur(12px);
   filter: blur(12px);
   opacity: 0;
   transform: translateY(30px);
   transition-property: filter, opacity, transform;
 }
-[data-aos="text-focus-fade-up"].aos-animate {
+[data-aos="focus-up"].aos-animate {
   -webkit-filter: blur(0px);
   filter: blur(0px);
   opacity: 1;
@@ -146,11 +147,9 @@
   animation: text-focus-in 1s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
 }
 
-.text-focus-fade-up {
-  -webkit-animation: text-focus-fade-up 1s cubic-bezier(0.55, 0.085, 0.68, 0.53)
-    both;
-  animation: text-focus-fade-up 1s cubic-bezier(0.55, 0.085, 0.68, 0.53) 10s
-    both;
+.focus-up {
+  -webkit-animation: focus-up 1s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+  animation: focus-up 1s cubic-bezier(0.55, 0.085, 0.68, 0.53) 10s both;
 }
 
 /* ----------------------------------------------
@@ -192,10 +191,10 @@
 
 /**
  * ----------------------------------------
- * animation text-focus-fade-up
+ * animation focus-up
  * ----------------------------------------
  */
-@-webkit-keyframes text-focus-fade-up {
+@-webkit-keyframes focus-up {
   0% {
     -webkit-filter: blur(12px);
     filter: blur(12px);
@@ -211,7 +210,7 @@
     transform: translateY(0);
   }
 }
-@keyframes text-focus-fade-up {
+@keyframes focus-up {
   0% {
     -webkit-filter: blur(12px);
     filter: blur(12px);
@@ -1185,7 +1184,7 @@ body[data-aos-easing="ease-in-out-quart"] [data-aos] {
     box-shadow: 0px 0px 39px -22px #a098ff inset;
   }
   100% {
-    box-shadow: 0px 0px 39px -px #a098ff inset;
+    box-shadow: 0px 0px 39px -12px #a098ff inset;
   }
 }
 .animate-float {

@@ -169,11 +169,11 @@ tabs.forEach((tab) => {
     // Update active tab styling
     tabs.forEach((t) => {
       if (t.getAttribute("data-tab") === tabId) {
-        t.classList.add("bg-accent");
-        t.classList.remove("bg-white/10");
+        t.classList.add("shadow-accent");
+        t.classList.remove("bg-transparent");
       } else {
-        t.classList.remove("bg-accent");
-        t.classList.add("bg-white/10");
+        t.classList.remove("shadow-accent");
+        t.classList.add("bg-transparent");
       }
     });
 
@@ -201,21 +201,6 @@ if (typeof LottieInteractivity !== "undefined") {
           visibility: [0, 1],
           type: "seek",
           frames: [0, 70],
-        },
-      ],
-    });
-  }
-
-  const lottie1Element = document.querySelector("#lottie-1");
-  if (lottie1Element) {
-    LottieInteractivity.create({
-      player: "#lottie-1",
-      mode: "scroll",
-      actions: [
-        {
-          visibility: [0, 1],
-          type: "seek",
-          frames: [0, 100],
         },
       ],
     });
