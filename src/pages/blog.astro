@@ -1,28 +1,34 @@
 ---
 import "../styles/global.css";
-import { supabase } from '../lib/supabaseClient';
-import Navbar from '../components/navbar.astro';
-import Navmobile from '../components/navmobile.astro';
+import { supabase } from "../lib/supabaseClient";
+import Navbar from "../components/Navbar.astro";
+import Navmobile from "../components/NavMobile.astro";
 import { Seo } from "astro-seo-meta";
-import Loading from '../components/loading.astro';
-import Footer from '../components/footer.astro';
+import Loading from "../components/Loading.astro";
+import Footer from "../components/Footer.astro";
 
 // Get all blog posts
 const { data: blogs, error } = await supabase
-  .from('blogs')
-  .select('*')
-  .order('created_at', { ascending: false });
+  .from("blogs")
+  .select("*")
+  .order("created_at", { ascending: false });
 
-if (error) console.error('Error fetching blogs:', error);
+if (error) console.error("Error fetching blogs:", error);
 
-const allTags = blogs 
-  ? [...new Set(blogs
-      .filter(blog => blog.tags) // Filter out blogs without tags
-      .flatMap(blog => blog.tags.split(',').map((tag: string) => tag.trim())))] // Split each tag string and trim whitespace
+const allTags = blogs
+  ? [
+      ...new Set(
+        blogs
+          .filter((blog) => blog.tags) // Filter out blogs without tags
+          .flatMap((blog) =>
+            blog.tags.split(",").map((tag: string) => tag.trim())
+          )
+      ),
+    ] // Split each tag string and trim whitespace
   : [];
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class="lenis lenis--smooth select-none cursor-none">
   <head>
     <meta charset="UTF-8" />
@@ -30,7 +36,13 @@ const allTags = blogs
     <Seo
       title="Blog | Ajmal Razaq Bhatti"
       description="Articles and thoughts by Ajmal Razaq Bhatti on frontend development, UI/UX design, and more."
-      keywords={["blog", "articles", "frontend development", "UI/UX design", "ajmal razaq bhatti"]}
+      keywords={[
+        "blog",
+        "articles",
+        "frontend development",
+        "UI/UX design",
+        "ajmal razaq bhatti",
+      ]}
       icon="/favicon/favicon.ico"
       themeColor="#000000"
       colorScheme="dark"
@@ -46,357 +58,546 @@ const allTags = blogs
         card: "summary_large_image",
       }}
     />
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-    <script src="https://unpkg.com/@lottiefiles/lottie-interactivity@latest/dist/lottie-interactivity.min.js"></script>
+    <script
+      src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"
+    ></script>
+    <script
+      src="https://unpkg.com/@lottiefiles/lottie-interactivity@latest/dist/lottie-interactivity.min.js"
+    ></script>
   </head>
   <body class="bg-black min-h-screen flex flex-col">
     <!-- Cursor Tracker -->
-    <div id="cursor-tracker" class="fixed w-4 h-4 rounded-[0px] pointer-events-none z-[9999] flex items-center border-2 border-white/10 backdrop-blur-2xl bg-accent justify-center" style="transform: translate(-50%, -50%)">
+    <div
+      id="cursor-tracker"
+      class="fixed w-4 h-4 rounded-[0px] pointer-events-none z-[9999] flex items-center border-2 border-white/10 backdrop-blur-2xl bg-accent justify-center"
+      style="transform: translate(-50%, -50%)"
+    >
       <h1 class="font-nixel font-3xl" id="cursor-icon">a</h1>
     </div>
-    
+
     <!-- Loading overlay -->
-    <div id="loading-overlay" class="fixed top-0 left-0 w-full h-full flex items-center justify-center z-[9999] bg-black">
+    <div
+      id="loading-overlay"
+      class="fixed top-0 left-0 w-full h-full flex items-center justify-center z-[9999] bg-black"
+    >
       <Loading />
     </div>
-    
+
     <Navmobile />
 
     <main class="max-w-6xl mx-auto px-4 py-16 text-white flex-grow">
-      
-         <!-- Background Pattern -->
-    <div class="absolute w-full h-full animate-pulse -top-50 inset-0 pointer-events-none z-[1]" aria-hidden="true">
-      <img 
-        decoding="async" 
-        loading="lazy" 
-        width="1920" 
-        height="1330"
-        sizes="100vw" 
-        srcset="https://framerusercontent.com/images/2ZTM81mdCXeMIbSWfvdh4X7JIGg.png?scale-down-to=512 512w,
+      <!-- Background Pattern -->
+      <div
+        class="absolute w-full h-full animate-pulse -top-50 inset-0 pointer-events-none z-[1]"
+        aria-hidden="true"
+      >
+        <img
+          decoding="async"
+          loading="lazy"
+          width="1920"
+          height="1330"
+          sizes="100vw"
+          srcset="https://framerusercontent.com/images/2ZTM81mdCXeMIbSWfvdh4X7JIGg.png?scale-down-to=512 512w,
                 https://framerusercontent.com/images/2ZTM81mdCXeMIbSWfvdh4X7JIGg.png?scale-down-to=1024 1024w,
                 https://framerusercontent.com/images/2ZTM81mdCXeMIbSWfvdh4X7JIGg.png 1920w"
-        src="https://framerusercontent.com/images/2ZTM81mdCXeMIbSWfvdh4X7JIGg.png" 
-        alt="Background pattern"
-        class="w-full h-full object-cover opacity-50 animate-pulse"
-      />
-    </div>
+          src="https://framerusercontent.com/images/2ZTM81mdCXeMIbSWfvdh4X7JIGg.png"
+          alt="Background pattern"
+          class="w-full h-full object-cover opacity-50 animate-pulse"
+        />
+      </div>
 
       <!-- Hero Section -->
-      <div class="relative flex flex-col justify-center items-center w-full mb-12 text-center z-[2]" data-aos="text-focus-fade-up" data-aos-delay="200">
-        <div class="isolate before:transition-opacity glass-icon size-11 rounded-xl flex items-center justify-center relative bg-white/5 backdrop-blur-sm gradient-box_gradientBorder__H_SK6" data-fade="1" style="--borderWidth: 1; --background: linear-gradient(to bottom right, rgba(23, 23, 23, 70%) 0%, #525252 62%, rgba(23, 23, 23, 70%) 100%); border: 1px solid transparent;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-text size-[45%]"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path><path d="M8 7h6"></path><path d="M8 11h8"></path></svg></div>
-        <div class="bg-gradient-to-b from-white from-20%  to-accent to-70% bg-clip-text text-transparent">
-        <h1 class="text-5xl sm:text-6xl md:text-7xl font-nixel tracking-[1px]" style="word-spacing: -7px;">
-          ajmal's blogs
-        </h1></div>
-        <p data-fade="3" class="b1 mt-3"><span class="transition-colors bg-gradient-to-r from-neutral-300/[35%] via-neutral-300/90 to-neutral-300/[35%] bg-clip-text text-transparent font-product-sans">Thoughts, tutorials, and insights on frontend development and design</span></p>
+      <div
+        class="relative flex flex-col justify-center items-center w-full mb-12 text-center z-[2]"
+        data-aos="text-focus-fade-up"
+        data-aos-delay="200"
+      >
+        <div
+          class="isolate before:transition-opacity glass-icon size-11 rounded-xl flex items-center justify-center relative bg-white/5 backdrop-blur-sm gradient-box_gradientBorder__H_SK6"
+          data-fade="1"
+          style="--borderWidth: 1; --background: linear-gradient(to bottom right, rgba(23, 23, 23, 70%) 0%, #525252 62%, rgba(23, 23, 23, 70%) 100%); border: 1px solid transparent;"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-book-text size-[45%]"
+            ><path
+              d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"
+            ></path><path d="M8 7h6"></path><path d="M8 11h8"></path></svg
+          >
+        </div>
+        <div
+          class="bg-gradient-to-b from-white from-20% to-accent to-70% bg-clip-text text-transparent"
+        >
+          <h1
+            class="text-5xl sm:text-6xl md:text-7xl font-nixel tracking-[1px]"
+            style="word-spacing: -7px;"
+          >
+            ajmal's blogs
+          </h1>
+        </div>
+        <p data-fade="3" class="b1 mt-3">
+          <span
+            class="transition-colors bg-gradient-to-r from-neutral-300/[35%] via-neutral-300/90 to-neutral-300/[35%] bg-clip-text text-transparent font-product-sans"
+            >Thoughts, tutorials, and insights on frontend development and
+            design</span
+          >
+        </p>
       </div>
-      
+
       <!-- Search Bar with Filter -->
-      <div class="max-w-2xl mx-auto mb-12 relative z-[2]" data-aos="text-focus-fade-up" data-aos-delay="300">
+      <div
+        class="max-w-2xl mx-auto mb-12 relative z-[2]"
+        data-aos="text-focus-fade-up"
+        data-aos-delay="300"
+      >
         <div class="relative flex">
-          <input 
-            type="text" 
+          <input
+            type="text"
             id="search-input"
-            placeholder="Search articles..." 
+            placeholder="Search articles..."
             class="w-full px-5 py-3 border border-white/10 rounded-l-[0px] text-white focus:outline-none bg-black focus:border-accent/50 transition-all"
           />
-          <button id="search-button" class="absolute right-14 top-1/2 -translate-y-1/2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white/50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          <button
+            id="search-button"
+            class="absolute right-14 top-1/2 -translate-y-1/2"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 text-white/50"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
             </svg>
           </button>
-          <button 
-            id="filter-button" 
+          <button
+            id="filter-button"
             class="px-4 flex items-center justify-center border border-white/10 border-l-0 rounded-r-[0px] bg-black hover:bg-white/5 focus:outline-none transition-all"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white/70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 text-white/70"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
+              ></path>
             </svg>
           </button>
         </div>
-        
+
         <!-- Filter Dropdown -->
-        <div id="filter-dropdown" class="absolute right-0 mt-2 w-64 bg-black border border-white/10 rounded-[0px] shadow-lg z-[1000] hidden">
+        <div
+          id="filter-dropdown"
+          class="absolute right-0 mt-2 w-64 bg-black border border-white/10 rounded-[0px] shadow-lg z-[1000] hidden"
+        >
           <div class="p-4">
             <!-- Sort Options -->
             <div class="mb-4">
               <h4 class="text-sm text-white/50 uppercase mb-2">Sort By</h4>
               <div class="space-y-2">
-                <button id="sort-newest" class="text-white hover:text-accent transition-colors block sort-active w-full text-left">
+                <button
+                  id="sort-newest"
+                  class="text-white hover:text-accent transition-colors block sort-active w-full text-left"
+                >
                   <span class="flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7l4-4m0 0l4 4m-4-4v18" />
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-4 w-4 mr-2"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M8 7l4-4m0 0l4 4m-4-4v18"></path>
                     </svg>
                     Newest First
                   </span>
                 </button>
-                <button id="sort-oldest" class="text-white/80 hover:text-accent transition-colors block w-full text-left">
+                <button
+                  id="sort-oldest"
+                  class="text-white/80 hover:text-accent transition-colors block w-full text-left"
+                >
                   <span class="flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 17l-4 4m0 0l-4-4m4 4V3" />
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-4 w-4 mr-2"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M16 17l-4 4m0 0l-4-4m4 4V3"></path>
                     </svg>
                     Oldest First
                   </span>
                 </button>
-                <button id="sort-popular" class="text-white/80 hover:text-accent transition-colors block w-full text-left">
+                <button
+                  id="sort-popular"
+                  class="text-white/80 hover:text-accent transition-colors block w-full text-left"
+                >
                   <span class="flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-4 w-4 mr-2"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                      ></path>
                     </svg>
                     Most Views
                   </span>
                 </button>
-                <button id="sort-likes" class="text-white/80 hover:text-accent transition-colors block w-full text-left">
+                <button
+                  id="sort-likes"
+                  class="text-white/80 hover:text-accent transition-colors block w-full text-left"
+                >
                   <span class="flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-4 w-4 mr-2"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                      ></path>
                     </svg>
                     Most Likes
                   </span>
                 </button>
               </div>
             </div>
-            
+
             <!-- Topic Filter -->
             <div>
-              <h4 class="text-sm text-white/50 uppercase mb-2">Filter By Topic</h4>
+              <h4 class="text-sm text-white/50 uppercase mb-2">
+                Filter By Topic
+              </h4>
               <div class="flex flex-wrap gap-2">
-                <button id="filter-all" class="text-xs px-2 py-1 rounded-[0px] border border-accent bg-accent/10 text-accent filter-active">
+                <button
+                  id="filter-all"
+                  class="text-xs px-2 py-1 rounded-[0px] border border-accent bg-accent/10 text-accent filter-active"
+                >
                   All
                 </button>
-                {allTags.map((tag) => (
-                  <button 
-                    class="text-xs px-2 py-1 rounded-[0px] border border-white/10 hover:border-accent/30 hover:bg-accent/10 hover:text-accent transition-colors filter-tag" 
-                    data-tag={tag}>
-                    {tag}
-                  </button>
-                ))}
+                {
+                  allTags.map((tag) => (
+                    <button
+                      class="text-xs px-2 py-1 rounded-[0px] border border-white/10 hover:border-accent/30 hover:bg-accent/10 hover:text-accent transition-colors filter-tag"
+                      data-tag={tag}
+                    >
+                      {tag}
+                    </button>
+                  ))
+                }
               </div>
             </div>
           </div>
         </div>
       </div>
-      
+
       <!-- Two-column Layout -->
       <div class="flex flex-col z-[2] gap-8">
         <!-- Left Column: Blog Posts -->
-          {blogs && blogs.map((blog) => (
-      <a
-        href={`/blog/${blog.slug}`} 
-        class="blog-card group rounded-3xl border-2 border-white/10   overflow-hidden flex flex-col h-full transition-all duration-300 ease-in-out group"
-        data-aos="focus-up"
-      > 
-        <div class="p-5 flex sm:flex-row flex-col-reverse justify-between gap-6">
-          <div class="flex flex-col sm:w-1/2 w-full justify-between ">
-            <div class="flex justify-between items-center text-xs text-white/60 mb-2">
-              <span>{new Date(blog.created_at).toLocaleDateString('en-US', { month: 'long', day: '2-digit', year: 'numeric' })}</span>
-              
-            </div>
-            <h2 class="text-2xl font-nixel tracking-[1px] text-white mb-2 group-hover:text-accent" style="word-spacing: -7px;">{blog.title}</h2>
-            <p class="text-sm text-white/80 mb-4 line-clamp-3 flex-grow">{blog.excerpt}</p>
-            <div class="flex justify-between items-center mt-auto pt-4 text-xs text-white/60 border-t border-white/10">
-              <div class="flex items-center gap-1">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
-                  <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
-                  <circle cx="12" cy="12" r="3" />
-                </svg>
-                <div class="flex items-center gap-6">
-                   <span>{blog.views_count} views</span>
-                <span>{blog.avg_read_time} min read</span>
+        {
+          blogs &&
+            blogs.map((blog) => (
+              <a
+                href={`/blog/${blog.slug}`}
+                class="blog-card group rounded-3xl border-2 border-white/10   overflow-hidden flex flex-col h-full transition-all duration-300 ease-in-out group"
+                data-aos="focus-up"
+              >
+                <div class="p-5 flex sm:flex-row flex-col-reverse justify-between gap-6">
+                  <div class="flex flex-col sm:w-1/2 w-full justify-between ">
+                    <div class="flex justify-between items-center text-xs text-white/60 mb-2">
+                      <span>
+                        {new Date(blog.created_at).toLocaleDateString("en-US", {
+                          month: "long",
+                          day: "2-digit",
+                          year: "numeric",
+                        })}
+                      </span>
+                    </div>
+                    <h2
+                      class="text-2xl font-nixel tracking-[1px] text-white mb-2 group-hover:text-accent"
+                      style="word-spacing: -7px;"
+                    >
+                      {blog.title}
+                    </h2>
+                    <p class="text-sm text-white/80 mb-4 line-clamp-3 flex-grow">
+                      {blog.excerpt}
+                    </p>
+                    <div class="flex justify-between items-center mt-auto pt-4 text-xs text-white/60 border-t border-white/10">
+                      <div class="flex items-center gap-1">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          class="w-4 h-4"
+                        >
+                          <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                          <circle cx="12" cy="12" r="3" />
+                        </svg>
+                        <div class="flex items-center gap-6">
+                          <span>{blog.views_count} views</span>
+                          <span>{blog.avg_read_time} min read</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <img
+                    src={blog.img}
+                    alt={blog.title}
+                    class="sm:w-[200px] w-full aspect-video  transition-transform duration-500 rounded-2xl"
+                  />
                 </div>
-               
-              </div>
-             
-            </div>
-          </div>
-          <img src={blog.img} alt={blog.title} class="sm:w-[200px] w-full aspect-video  transition-transform duration-500 rounded-2xl" />
-        </div>
-      </a>
-    ))}
-    
-      
+              </a>
+            ))
+        }
       </div>
     </main>
 
     <!-- New Footer Component -->
     <Footer />
-    
+
     <!-- Navigation at bottom -->
     <div class="flex justify-center mb-10" role="contentinfo">
       <Navbar page="blogs" data_aos="text-focus-fade-up" data_aos_delay="600" />
     </div>
-    
+
     <script type="module" src="/script.js"></script>
-    
+
     <script is:inline>
-      document.addEventListener('DOMContentLoaded', () => {
+      document.addEventListener("DOMContentLoaded", () => {
         // Check if page is already loaded - hide loading overlay
-        const loadingOverlay = document.getElementById('loading-overlay');
+        const loadingOverlay = document.getElementById("loading-overlay");
         if (loadingOverlay) {
           setTimeout(() => {
-            loadingOverlay.style.opacity = '0';
+            loadingOverlay.style.opacity = "0";
             setTimeout(() => {
-              loadingOverlay.style.display = 'none';
+              loadingOverlay.style.display = "none";
             }, 300);
           }, 1000);
         }
-        
+
         // Filter dropdown functionality
-        const filterButton = document.getElementById('filter-button');
-        const filterDropdown = document.getElementById('filter-dropdown');
-        
+        const filterButton = document.getElementById("filter-button");
+        const filterDropdown = document.getElementById("filter-dropdown");
+
         if (filterButton && filterDropdown) {
-          filterButton.addEventListener('click', () => {
-            filterDropdown.classList.toggle('hidden');
+          filterButton.addEventListener("click", () => {
+            filterDropdown.classList.toggle("hidden");
           });
-          
+
           // Close dropdown when clicking outside
-          document.addEventListener('click', (e) => {
-            if (!filterButton.contains(e.target) && !filterDropdown.contains(e.target)) {
-              filterDropdown.classList.add('hidden');
+          document.addEventListener("click", (e) => {
+            if (
+              !filterButton.contains(e.target) &&
+              !filterDropdown.contains(e.target)
+            ) {
+              filterDropdown.classList.add("hidden");
             }
           });
         }
-        
+
         // Search functionality
-        const searchInput = document.getElementById('search-input');
-        const blogItems = document.querySelectorAll('.blog-card');
-        
+        const searchInput = document.getElementById("search-input");
+        const blogItems = document.querySelectorAll(".blog-card");
+
         if (searchInput) {
-          searchInput.addEventListener('input', (e) => {
+          searchInput.addEventListener("input", (e) => {
             const searchTerm = e.target.value.toLowerCase();
-            
-            blogItems.forEach(item => {
-              const title = item.querySelector('h2').textContent.toLowerCase();
-              const excerpt = item.querySelector('p').textContent.toLowerCase();
-              
+
+            blogItems.forEach((item) => {
+              const title = item.querySelector("h2").textContent.toLowerCase();
+              const excerpt = item.querySelector("p").textContent.toLowerCase();
+
               if (title.includes(searchTerm) || excerpt.includes(searchTerm)) {
-                item.style.display = 'block';
+                item.style.display = "block";
               } else {
-                item.style.display = 'none';
+                item.style.display = "none";
               }
             });
           });
         }
-        
+
         // Sorting functionality
-        const sortNewest = document.getElementById('sort-newest');
-        const sortOldest = document.getElementById('sort-oldest');
-        const sortPopular = document.getElementById('sort-popular');
-        const sortLikes = document.getElementById('sort-likes');
-        const blogContainer = document.querySelector('.flex.flex-col.z-\\[2\\].gap-8');
-        
-        if (sortNewest && sortOldest && sortPopular && sortLikes && blogContainer) {
-          sortNewest.addEventListener('click', () => {
+        const sortNewest = document.getElementById("sort-newest");
+        const sortOldest = document.getElementById("sort-oldest");
+        const sortPopular = document.getElementById("sort-popular");
+        const sortLikes = document.getElementById("sort-likes");
+        const blogContainer = document.querySelector(
+          ".flex.flex-col.z-\\[2\\].gap-8"
+        );
+
+        if (
+          sortNewest &&
+          sortOldest &&
+          sortPopular &&
+          sortLikes &&
+          blogContainer
+        ) {
+          sortNewest.addEventListener("click", () => {
             setActiveSortButton(sortNewest);
-            sortBlogItems('desc');
+            sortBlogItems("desc");
           });
-          
-          sortOldest.addEventListener('click', () => {
+
+          sortOldest.addEventListener("click", () => {
             setActiveSortButton(sortOldest);
-            sortBlogItems('asc');
+            sortBlogItems("asc");
           });
-          
-          sortPopular.addEventListener('click', () => {
+
+          sortPopular.addEventListener("click", () => {
             setActiveSortButton(sortPopular);
             // This would require view count data to be implemented
             // For now, we'll just close the dropdown
-            filterDropdown.classList.add('hidden');
+            filterDropdown.classList.add("hidden");
           });
-          
-          sortLikes.addEventListener('click', () => {
+
+          sortLikes.addEventListener("click", () => {
             setActiveSortButton(sortLikes);
             // This would require likes data to be implemented
             // For now, we'll just close the dropdown
-            filterDropdown.classList.add('hidden');
+            filterDropdown.classList.add("hidden");
           });
-          
+
           function setActiveSortButton(button) {
-            [sortNewest, sortOldest, sortPopular, sortLikes].forEach(btn => {
-              btn.classList.remove('sort-active');
-              btn.classList.remove('text-accent');
-              btn.classList.add('text-white/80');
+            [sortNewest, sortOldest, sortPopular, sortLikes].forEach((btn) => {
+              btn.classList.remove("sort-active");
+              btn.classList.remove("text-accent");
+              btn.classList.add("text-white/80");
             });
-            button.classList.add('sort-active');
-            button.classList.add('text-accent');
-            button.classList.remove('text-white/80');
+            button.classList.add("sort-active");
+            button.classList.add("text-accent");
+            button.classList.remove("text-white/80");
           }
-          
+
           function sortBlogItems(direction) {
             const items = Array.from(blogItems);
             items.sort((a, b) => {
-              const dateA = new Date(a.querySelector('span').textContent);
-              const dateB = new Date(b.querySelector('span').textContent);
-              
-              return direction === 'asc' 
-                ? dateA - dateB 
-                : dateB - dateA;
+              const dateA = new Date(a.querySelector("span").textContent);
+              const dateB = new Date(b.querySelector("span").textContent);
+
+              return direction === "asc" ? dateA - dateB : dateB - dateA;
             });
-            
-            items.forEach(item => blogContainer.appendChild(item));
-            filterDropdown.classList.add('hidden');
+
+            items.forEach((item) => blogContainer.appendChild(item));
+            filterDropdown.classList.add("hidden");
           }
         }
-        
+
         // Filter functionality
-        const filterAll = document.getElementById('filter-all');
-        const filterTags = document.querySelectorAll('.filter-tag');
-        
+        const filterAll = document.getElementById("filter-all");
+        const filterTags = document.querySelectorAll(".filter-tag");
+
         if (filterAll && filterTags.length > 0) {
-          filterAll.addEventListener('click', () => {
+          filterAll.addEventListener("click", () => {
             setActiveFilterButton(filterAll);
             showAllBlogItems();
           });
-          
-          filterTags.forEach(tag => {
-            tag.addEventListener('click', () => {
+
+          filterTags.forEach((tag) => {
+            tag.addEventListener("click", () => {
               setActiveFilterButton(tag);
               filterBlogsByTag(tag.dataset.tag);
             });
           });
-          
+
           function setActiveFilterButton(button) {
-            [filterAll, ...filterTags].forEach(btn => {
-              btn.classList.remove('filter-active');
-              btn.classList.remove('bg-accent/10', 'border-accent', 'text-accent');
-              btn.classList.add('border-white/10');
+            [filterAll, ...filterTags].forEach((btn) => {
+              btn.classList.remove("filter-active");
+              btn.classList.remove(
+                "bg-accent/10",
+                "border-accent",
+                "text-accent"
+              );
+              btn.classList.add("border-white/10");
             });
-            button.classList.add('filter-active');
-            button.classList.add('bg-accent/10', 'border-accent', 'text-accent');
-            button.classList.remove('border-white/10');
+            button.classList.add("filter-active");
+            button.classList.add(
+              "bg-accent/10",
+              "border-accent",
+              "text-accent"
+            );
+            button.classList.remove("border-white/10");
           }
-          
+
           function showAllBlogItems() {
-            blogItems.forEach(item => {
-              item.style.display = 'block';
+            blogItems.forEach((item) => {
+              item.style.display = "block";
             });
-            filterDropdown.classList.add('hidden');
+            filterDropdown.classList.add("hidden");
           }
-          
+
           function filterBlogsByTag(tag) {
-            blogItems.forEach(item => {
+            blogItems.forEach((item) => {
               // Handle comma-separated tags
-              const tagsText = item.dataset.tags || '';
-              const tags = tagsText.split(',').map(t => t.trim());
-              
+              const tagsText = item.dataset.tags || "";
+              const tags = tagsText.split(",").map((t) => t.trim());
+
               if (tags.includes(tag)) {
-                item.style.display = 'block';
+                item.style.display = "block";
               } else {
-                item.style.display = 'none';
+                item.style.display = "none";
               }
             });
-            filterDropdown.classList.add('hidden');
+            filterDropdown.classList.add("hidden");
           }
         }
       });
     </script>
-    
+
     <style>
       .sort-active {
         font-weight: 600;
       }
-      
+
       .filter-active {
         font-weight: 600;
       }

@@ -68,7 +68,7 @@ bentoCards.forEach((card) => {
     "opacity-0"
   );
   shine.style.background =
-    "radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(73, 69, 118, 0.2) 0%, rgba(73, 69, 118, 0.02) 50%)";
+    "radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(73, 69, 118, 0.1) 0%, rgba(73, 69, 118, 0.01) 50%)";
   shine.style.transition = "opacity 0.3s ease";
   card.style.position = "relative";
   card.style.overflow = "hidden";
