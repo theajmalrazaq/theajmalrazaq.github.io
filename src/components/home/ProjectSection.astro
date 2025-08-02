@@ -1,7 +1,7 @@
 ---
-import { supabase } from "../lib/supabaseClient";
-import ProjectCard from "./ProjectCard.astro";
-import Button from "./button.astro";
+import { supabase } from "../../lib/supabaseClient";
+import ProjectCard from "./subcomponents/ProjectCard.astro";
+import Button from "../Button.astro";
 import { ChevronRight } from "@lucide/astro";
 // Define valid project tab types
 type ProjectTabName =
@@ -35,65 +35,63 @@ const projectsData = {
 };
 ---
 
-<section>
-  <div
-    class="relative mt-25 w-full flex flex-col items-center justify-center gap-5"
-    id="projects"
-    role="region"
-    aria-labelledby="projects-heading"
+<section
+  class="relative mt-40 w-full sm:px-15 px-6 flex flex-col items-center justify-center gap-5"
+  data-aos="focus-up"
+  data-aos-duration="1200"
+  id="projects"
+  role="region"
+  aria-labelledby="projects-heading"
+>
+  <img
+    src="images/Projects.svg"
+    alt="Projects section decorative illustration"
+    class="absolute sm:w-1/3 w-67 sm:-top-15 -top-7 duration-1000 ease-in-out"
+    id="projecticons"
     data-aos="focus-up"
-  >
-    <img
-      src="images/Projects.svg"
-      alt="Projects section decorative illustration"
-      class="absolute sm:w-1/3 w-67 sm:-top-15 -top-7 duration-1000 ease-in-out"
-      id="projecticons"
+    data-aos-duration="1000"
+    aria-hidden="true"
+  />
+
+  <div class="relative flex flex-col items-center justify-center gap-3 w-full">
+    <h1
+      class="text-white text-3xl sm:text-5xl md:text-7xl font-nixel trackig-[1px] flex gap-2 text-center"
       data-aos="focus-up"
-      data-aos-duration="1000"
-      aria-hidden="true"
-    />
-
-    <div
-      class="relative flex flex-col items-center justify-center gap-3 w-full"
+      data-aos-duration="1200"
+      id="projects-heading"
     >
-      <h1
-        class="text-white text-3xl sm:text-5xl md:text-7xl font-nixel trackig-[1px] flex gap-2 text-center"
-        data-aos="focus-up"
-        data-aos-duration="1200"
-        id="projects-heading"
-      >
-        <div>projects</div>
-        <div>that</div>
-        <div class="text-accent">i</div>
-        <div>have</div>
-        <div>worked</div>
-        <div class="text-accent">on</div>
-      </h1>
+      <div>projects</div>
+      <div>that</div>
+      <div class="text-accent">i</div>
+      <div>have</div>
+      <div>worked</div>
+      <div class="text-accent">on</div>
+    </h1>
 
-      <p
-        class="font-product-sans text-sm text-center text-white/90"
-        data-aos="focus-up"
-        data-aos-duration="1000"
-      >
-        Here's a collection of work where I turned pain points into purposeful
-        products through <br />
-        <span class="text-accent"
-          >careful research, intuitive design, and scalable development.</span
-        >
-      </p>
-    </div>
-    <lottie-player
-      src="images/click.json"
-      background="transparent"
-      id="firstLottie"
-      class="sm:top-10 h-1/2 w-[90%] sm:w-1/2 z-10"
+    <p
+      class="font-product-sans text-sm text-center text-white/90"
       data-aos="focus-up"
       data-aos-duration="1000"
     >
-    </lottie-player>
+      Here's a collection of work where I turned pain points into purposeful
+      products through <br />
+      <span class="text-accent"
+        >careful research, intuitive design, and scalable development.</span
+      >
+    </p>
   </div>
+  <lottie-player
+    src="animations/projectsicon.json"
+    background="transparent"
+    id="firstLottie"
+    class="sm:top-10 h-1/2 w-[90%] sm:w-1/2 z-10"
+    data-aos="focus-up"
+    data-aos-duration="1000"
+  >
+  </lottie-player>
+
   <div
-    class="flex flex-col items-center justify-center gap-8 p-3 w-full rounded-4xl"
+    class="flex flex-col items-center justify-center gap-8 w-full rounded-4xl"
   >
     <div
       class="shadow-accent backdrop-blur-lg text-sm font-product-sans text-white border border-white/10 w-fit rounded-full z-99 mt-4 flex justify-center gap-2 p-2 flex-wrap"
@@ -138,7 +136,7 @@ const projectsData = {
     <!-- Web Projects -->
     <div
       id="selected_web_projects"
-      class={`m-auto transition-all duration-500 ease-in-out flex sm:flex-row flex-col gap-5  ${activeTab === "selected_web_projects" ? "block" : "hidden"}`}
+      class={`transition-all duration-500 ease-in-out flex sm:flex-row flex-col gap-5  ${activeTab === "selected_web_projects" ? "block" : "hidden"}`}
     >
       {
         projectsData.selected_web_projects.map((project, index) => (
@@ -152,7 +150,7 @@ const projectsData = {
     <!-- UI Projects -->
     <div
       id="selected_ui_projects"
-      class={`m-auto transition-all duration-500 ease-in-out flex sm:flex-row flex-col gap-5 ${activeTab === "selected_ui_projects" ? "block" : "hidden"}`}
+      class={` transition-all duration-500 ease-in-out flex sm:flex-row flex-col gap-5 ${activeTab === "selected_ui_projects" ? "block" : "hidden"}`}
     >
       {
         projectsData.selected_ui_projects.map((project, index) => (
@@ -166,7 +164,7 @@ const projectsData = {
     <!-- Graphics Projects -->
     <div
       id="selected_graphics_projects"
-      class={`m-auto transition-all duration-500 ease-in-out flex sm:flex-row flex-col gap-5 ${activeTab === "selected_graphics_projects" ? "block" : "hidden"}`}
+      class={` transition-all duration-500 ease-in-out flex sm:flex-row flex-col gap-5 ${activeTab === "selected_graphics_projects" ? "block" : "hidden"}`}
     >
       {
         projectsData.selected_graphics_projects.map((project, index) => (
@@ -177,7 +175,7 @@ const projectsData = {
       }
     </div>
     <Button
-      text="view all projects"
+      text="view all"
       href="/projects"
       data_aos="focus-up"
       data_aos_duration="800"

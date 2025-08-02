@@ -2,12 +2,10 @@
 import "../../styles/global.css";
 import { supabase } from "../../lib/supabaseClient";
 import { marked } from "marked";
-import Navbar from "../../components/Navbar.astro";
-import Navmobile from "../../components/Navmobile.astro";
-import { Seo } from "astro-seo-meta";
+import NavbarSection from "../../components/NavbarSection.astro";
 import Loading from "../../components/Loading.astro";
-import StarBorder from "../../components/StarBorder.jsx";
-import Footer from "../../components/Footer.astro";
+import FooterSection from "../../components/FooterSection.astro";
+import MetaSection from "../../components/MetaSection.astro";
 
 // Get all blog posts for navigation
 export async function getStaticPaths() {
@@ -33,57 +31,20 @@ const html = marked(blog.content);
 
 <!doctype html>
 <html lang="en" class="lenis lenis--smooth select-none cursor-none">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <Seo
-      title={`${blog.title} | Ajmal Razaq Bhatti`}
-      description={blog.excerpt || "An article by Ajmal Razaq Bhatti"}
-      keywords={[
-        "blog",
-        "article",
-        "frontend development",
-        "UI/UX design",
-        "ajmal razaq bhatti",
-      ]}
-      icon="/favicon/favicon.ico"
-      themeColor="#000000"
-      colorScheme="dark"
-      robots="index, follow"
-      facebook={{
-        image: blog.img || "/images/social-share.png",
-        url: `https://theajmalrazaq.github.io/blog/${slug}`,
-        type: "article",
-      }}
-      twitter={{
-        image: blog.img || "/images/social-share.png",
-        site: "@theajmalrazaq",
-        card: "summary_large_image",
-      }}
-    />
-    <script
-      src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"
-    ></script>
-    <script
-      src="https://unpkg.com/@lottiefiles/lottie-interactivity@latest/dist/lottie-interactivity.min.js"
-    ></script>
-    <style>
-      .img-blur {
-        position: relative;
-        overflow: hidden;
-      }
-      .img-blur img {
-        transition: transform 0.5s ease;
-        filter: blur(8px);
-        transform: scale(1.05);
-      }
-      .img-container {
-        position: relative;
-        margin-bottom: 4rem;
-        min-height: 16rem;
-      }
-    </style>
-  </head>
+  <MetaSection
+    title={`${blog.title} | Ajmal Razaq `}
+    description={blog.excerpt || "An article by Ajmal Razaq "}
+    keywords={[
+      "blog",
+      "article",
+      "frontend development",
+      "UI/UX design",
+      "ajmal razaq ",
+    ]}
+    socialImage={blog.img || "/images/social-share.png"}
+    url={`https://theajmalrazaq.github.io/blog/${slug}`}
+    type="article"
+  />
   <body class="bg-black min-h-screen flex flex-col">
     <!-- Cursor Tracker -->
     <div
@@ -102,7 +63,7 @@ const html = marked(blog.content);
       <Loading />
     </div>
 
-    <Navmobile />
+    <NavbarSection />
 
     <main class="max-w-4xl mx-auto px-4 py-16 text-white flex-grow">
       <!-- Back to blogs link -->
@@ -166,9 +127,7 @@ const html = marked(blog.content);
             <span class="text-accent font-nixel">a</span>
           </div>
           <div>
-            <p class="text-sm font-product-sans text-white">
-              Ajmal Razaq Bhatti
-            </p>
+            <p class="text-sm font-product-sans text-white">Ajmal Razaq</p>
             <p class="text-xs font-product-sans text-white/60">
               Published on {
                 new Date(blog.created_at).toLocaleDateString("en-US", {
@@ -207,57 +166,6 @@ const html = marked(blog.content);
         set:html={html}
       />
 
-      <div class="w-full h-px bg-white/10 my-12"></div>
-
-      <!-- Like button section -->
-      <div
-        class="flex justify-center my-12"
-        data-aos="focus-up"
-        data-aos-delay="600"
-      >
-        <button
-          class="like-button group relative flex flex-col items-center"
-          data-slug={slug}
-          data-likes={blog.likes_count || 0}
-        >
-          <div
-            class="relative overflow-hidden rounded-full border border-white/10 bg-black/50 p-6 backdrop-blur-sm transition-all group-hover:scale-105"
-          >
-            <svg
-              width="32"
-              height="28"
-              viewBox="0 0 56 48"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              class="heart-icon transition-all"
-            >
-              <path
-                d="M56 15.51C56 33.01 30.0525 47.175 28.9475 47.76C28.6563 47.9167 28.3307 47.9987 28 47.9987C27.6693 47.9987 27.3437 47.9167 27.0525 47.76C25.9475 47.175 0 33.01 0 15.51C0.00463184 11.4006 1.63915 7.46078 4.54496 4.55497C7.45077 1.64916 11.3906 0.0146416 15.5 0.0100098C20.6625 0.0100098 25.1825 2.23001 28 5.98251C30.8175 2.23001 35.3375 0.0100098 40.5 0.0100098C44.6094 0.0146416 48.5492 1.64916 51.455 4.55497C54.3609 7.46078 55.9954 11.4006 56 15.51Z"
-                fill="currentColor"
-                class="text-white/20 transition-colors group-hover:text-accent/50"
-              ></path>
-            </svg>
-          </div>
-          <span
-            class="mt-2 text-sm text-white/60 transition-colors group-hover:text-accent"
-            >{blog.likes_count || 0} likes</span
-          >
-        </button>
-      </div>
-
-      <!-- Article End Separator -->
-      <div class="w-full flex items-center justify-center my-12">
-        <StarBorder
-          as="div"
-          className="w-full max-w-xl"
-          color="#a098ff"
-          speed="3s"
-          client:load
-        >
-          <div class="h-4"></div>
-        </StarBorder>
-      </div>
-
       <!-- Related articles section -->
       <div class="mt-16 mb-12">
         <h3 class="text-2xl font-nixel text-white mb-6">More from the blog</h3>
@@ -287,106 +195,10 @@ const html = marked(blog.content);
           </div>
         </div>
       </div>
-
-      <!-- Content Authentication Check Example (inspired from inspo.html) -->
-      <script is:inline>
-        document.addEventListener("DOMContentLoaded", () => {
-          // Check if page is already loaded - hide loading overlay
-          const loadingOverlay = document.getElementById("loading-overlay");
-          if (loadingOverlay) {
-            setTimeout(() => {
-              loadingOverlay.style.opacity = "0";
-              setTimeout(() => {
-                loadingOverlay.style.display = "none";
-              }, 300);
-            }, 1000);
-          }
-
-          // Like button functionality
-          const likeButton = document.querySelector(".like-button");
-          if (likeButton) {
-            let likesCount = parseInt(likeButton.dataset.likes) || 0;
-            const slug = likeButton.dataset.slug;
-            const likeCountDisplay = likeButton.querySelector("span");
-
-            // Check if user has already liked
-            const likedPosts = JSON.parse(
-              localStorage.getItem("likedPosts") || "{}"
-            );
-            if (likedPosts[slug]) {
-              likeButton.classList.add("liked");
-              likeButton
-                .querySelector(".heart-icon")
-                .classList.add("text-accent");
-            }
-
-            likeButton.addEventListener("click", async function () {
-              try {
-                const isLiked = likeButton.classList.contains("liked");
-
-                if (!isLiked) {
-                  // Like the post
-                  likeButton.classList.add("liked");
-                  likeButton
-                    .querySelector(".heart-icon")
-                    .classList.add("text-accent");
-                  likesCount++;
-                  likedPosts[slug] = true;
-
-                  // Animation for like
-                  likeButton
-                    .querySelector(".heart-icon")
-                    .classList.add("scale-125");
-                  setTimeout(() => {
-                    likeButton
-                      .querySelector(".heart-icon")
-                      .classList.remove("scale-125");
-                  }, 300);
-                } else {
-                  // Unlike the post
-                  likeButton.classList.remove("liked");
-                  likeButton
-                    .querySelector(".heart-icon")
-                    .classList.remove("text-accent");
-                  likesCount = Math.max(0, likesCount - 1);
-                  delete likedPosts[slug];
-                }
-
-                // Update display
-                likeCountDisplay.textContent = `${likesCount} likes`;
-                localStorage.setItem("likedPosts", JSON.stringify(likedPosts));
-
-                // Update in database (you'll need to create this API endpoint)
-                const response = await fetch("/api/like-post", {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify({
-                    slug,
-                    action: isLiked ? "decrement" : "increment",
-                  }),
-                });
-
-                if (!response.ok) {
-                  console.error("Failed to update like count");
-                }
-              } catch (error) {
-                console.error("Error updating like count:", error);
-              }
-            });
-          }
-        });
-      </script>
     </main>
 
     <!-- New Footer Component -->
-    <Footer />
-
-    <!-- Navigation at bottom -->
-    <div class="flex justify-center mb-10" role="contentinfo">
-      <Navbar page="blogs" data_aos="focus-up" data_aos_delay="600" />
-    </div>
+    <FooterSection />
 
     <script type="module" src="/script.js"></script>
   </body>

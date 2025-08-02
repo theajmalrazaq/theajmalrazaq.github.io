@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { supabase } from "../lib/supabaseClient";
 
-export default function Newsletter({ direction = "flex-col" }) {
+export default function Newsletter() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState("idle"); // idle, loading, success, error
   const [message, setMessage] = useState("");
@@ -51,42 +51,29 @@ export default function Newsletter({ direction = "flex-col" }) {
   };
 
   return (
-    <section className="relative flex justify-center items-center w-full px-4 sm:px-0">
-      {/* Background decoration */}
-
+    <section className="relative w-full">
       <div className="w-full max-w-2xl mx-auto">
         <form
           onSubmit={handleSubmit}
-          className={`space-y-4 w-full flex ${direction} justify-center items-center gap-4`}
+          className="space-y-4 md:space-y-0 w-full flex flex-col sm:flex-row justify-center items-center gap-2 md:gap-4"
         >
-          <div
-            className={`relative ${
-              direction === "flex-row" ? "flex-1" : "w-full"
-            }`}
-          >
+          <div className="relative justify-center items-center w-full">
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email address"
-              className="w-full px-6 py-3 rounded-full bg-black/50 border border-white/10 text-white placeholder-white/50 focus:border-accent focus:outline-none transition-all duration-300 font-product-sans backdrop-blur-md shadow-accent-soft"
+              className="w-full px-4 sm:px-6 py-2.5 sm:py-3 rounded-full bg-black/50 border border-white/10 text-white placeholder-white/50 focus:border-accent focus:outline-none transition-all duration-300 font-product-sans backdrop-blur-md shadow-accent-soft text-sm sm:text-base"
               disabled={status === "loading"}
               required
-              data-aos="focus-up"
-              data-aos-delay="500"
-              data-aos-duration="800"
             />
           </div>
 
           <button
             type="submit"
             disabled={status === "loading"}
-            className={`font-nixel tracking-[1px] text-white bg-accent hover:bg-accent/90 disabled:bg-accent/50 px-6 py-3 ${
-              direction === "flex-row" ? "w-auto whitespace-nowrap" : "w-full"
-            } rounded-full transition-all duration-300 ease-in-out hover:scale-105 disabled:scale-100 cursor-pointer text-base flex justify-center items-center gap-2 relative shadow-accent-soft border border-accent/20`}
-            data-aos="focus-up"
-            data-aos-delay="500"
-            data-aos-duration="800"
+            className={`font-nixel tracking-[1px] text-white bg-accent hover:bg-accent/90 disabled:bg-accent/50 px-4 py-3 rounded-full transition-all duration-300 ease-in-out hover:scale-105 disabled:scale-100 cursor-pointer text-sm sm:text-base flex justify-center items-center gap-2 relative shadow-accent-soft border border-accent/20`}
+       
             style={{ wordSpacing: "-7px" }}
           >
             {status === "loading" ? (
@@ -110,7 +97,7 @@ export default function Newsletter({ direction = "flex-col" }) {
                   <rect width="20" height="16" x="2" y="4" rx="2" />
                   <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
                 </svg>
-                subscribe now
+                subscribe
               </>
             )}
           </button>
@@ -126,8 +113,6 @@ export default function Newsletter({ direction = "flex-col" }) {
                 ? "bg-red-500/10 border-red-500/20 text-red-400"
                 : "bg-white/5 border-white/10 text-white/70"
             }`}
-            data-aos="focus-up"
-            data-aos-duration="300"
           >
             <p className="text-sm font-product-sans text-center">{message}</p>
           </div>
@@ -136,9 +121,8 @@ export default function Newsletter({ direction = "flex-col" }) {
         {/* Additional info */}
         <div
           className="mt-4 text-center"
-          data-aos="focus-up"
-          data-aos-delay="500"
-          data-aos-duration="800"
+       
+          data-aos-duration="500"
         >
           <p className="text-xs text-white/50 font-product-sans">
             No spam, unsubscribe at any time. Privacy respected.

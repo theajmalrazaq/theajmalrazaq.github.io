@@ -1,0 +1,233 @@
+---
+import arrow_right from "../../../public/images/arrow_right.svg";
+import star from "../../../public/images/star.svg";
+import name from "../../../public/images/name.svg";
+import StarBorder from "../../components/StarBorder.jsx";
+import devimg from "../../../public/images/dev.webp";
+import logowhite from "../../../public/images/logowhite.svg";
+---
+
+<header
+  class="relative h-lvh w-full flex justify-center overflow-hidden z-10"
+  data-aos="focus-up"
+  data-aos-duration="800"
+  data-aos-delay="200"
+>
+  <lottie-player
+    src="animations/logoleft.json"
+    background="transparent"
+    class="absolute right-0 -top-25 h-1/2 sm:top-10 w-64 sm:w-auto z-10"
+    speed="0.3"
+    loop
+    autoplay
+    data-aos="slide-left"
+    data-aos-duration="1000"
+    data-aos-delay="400"
+    aria-hidden="true"
+  >
+  </lottie-player>
+  <lottie-player
+    src="animations/logoright.json"
+    background="transparent"
+    class="absolute left-0 -top-25 sm:top-10 h-1/2 w-64 sm:w-auto z-10"
+    speed="0.3"
+    loop
+    autoplay
+    data-aos="slide-right"
+    data-aos-duration="1000"
+    data-aos-delay="400"
+    aria-hidden="true"
+  >
+  </lottie-player>
+
+  <!-- Background Pattern -->
+  <div
+    class="absolute w-full h-full animate-pulse -top-10 inset-0 pointer-events-none"
+    aria-hidden="true"
+    data-aos="fade"
+    data-aos-duration="1200"
+    data-aos-delay="300"
+  >
+    <img
+      decoding="async"
+      loading="lazy"
+      width="1920"
+      height="1330"
+      sizes="100vw"
+      srcset="https://framerusercontent.com/images/2ZTM81mdCXeMIbSWfvdh4X7JIGg.png?scale-down-to=512 512w,
+                https://framerusercontent.com/images/2ZTM81mdCXeMIbSWfvdh4X7JIGg.png?scale-down-to=1024 1024w,
+                https://framerusercontent.com/images/2ZTM81mdCXeMIbSWfvdh4X7JIGg.png 1920w"
+      src="https://framerusercontent.com/images/2ZTM81mdCXeMIbSWfvdh4X7JIGg.png"
+      alt="Background pattern"
+      class="w-full h-full object-cover object-center opacity-40 animate-pulse z-0"
+    />
+  </div>
+
+  <div class="flex flex-col items-center justify-center w-full relative z-10">
+    <div
+      class="flex flex-col gap-2 items-center justify-center mt-4 w-full"
+      data-aos="focus-up"
+      data-aos-duration="1000"
+      data-aos-delay="600"
+    >
+      <div class="relative flex items-center justify-center">
+        <div
+          class="group cursor-none relative w-[180px] h-[180px]"
+          data-aos="focus-up"
+          data-aos-duration="1200"
+          data-aos-delay="700"
+        >
+          <!-- Front Image -->
+          <img
+            src={devimg.src}
+            alt="Developer Front"
+            class="absolute w-full h-full transition-all duration-700 ease-in-out z-20 opacity-100
+           group-hover:z-10 group-hover:opacity-0 group-hover:translate-x-5 group-hover:rotate-[15deg]"
+          />
+
+          <!-- Back Image -->
+          <img
+            src={logowhite.src}
+            alt="Developer Back"
+            class="absolute w-full h-full transition-all duration-700 ease-in-out z-10 opacity-0
+           translate-x-5 rotate-[15deg]
+           group-hover:z-20 group-hover:opacity-100 group-hover:translate-x-0 group-hover:rotate-0"
+          />
+        </div>
+
+        <div
+          class="w-fit bg-black/60 border text-accent sm:px-4 px-2 py-2 border-white/10 rounded-xl absolute top-5 sm:-left-25 -left-20 backdrop-blur-2xl animate-float hover:scale-105 transition-all duration-300 flex justify-center items-center ease-in-out z-20 cursor-none sm:text-base text-sm"
+          data-aos="fade-right"
+          data-aos-duration="1000"
+          data-aos-delay="900"
+          aria-label="Skill: Frontend Development"
+        >
+          <img src={star.src} alt="Star icon" class="w-4 mr-1 animate-pulse" />
+          Frontend Dev
+        </div>
+        <div
+          class="w-fit bg-black/60 border text-accent sm:px-4 px-2 py-2 border-white/10 rounded-xl absolute top-30 sm:-right-30 -right-20 backdrop-blur-2xl animate-float hover:scale-105 transition-all duration-300 z-20 flex justify-center items-center ease-in-out cursor-none sm:text-base text-sm"
+          data-aos="fade-left"
+          data-aos-duration="1000"
+          data-aos-delay="900"
+          aria-label="Skill: Junior Product Design"
+        >
+          <img src={star.src} alt="Star icon" class="w-4 mr-1 animate-pulse" />
+          Jr. Product Designer
+        </div>
+      </div>
+      <img
+        src={name.src}
+        alt="Name"
+        class="p-2"
+        data-aos="focus-up"
+        data-aos-duration="1000"
+        data-aos-delay="800"
+      />
+    </div>
+    <div
+      class="flex flex-col gap-5 items-center"
+      data-aos="focus-up"
+      data-aos-duration="1000"
+      data-aos-delay="1000"
+    >
+      <div
+        class="flex items-center justify-center gap-2 mt-2 bg-black backdrop-blur-lg p-2 rounded-full text-sm font-product-sans text-accent border border-white/10"
+        data-aos="focus-up"
+        data-aos-duration="800"
+        data-aos-delay="1100"
+        role="navigation"
+        aria-label="Social media links"
+      >
+        <a
+          href="https://github.com/theajmalrazaq"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-white/70 hover:color-accentflex items-center gap-1 bg-white/5 backdrop-blur-md px-2 py-1 rounded-full glow-s hover:shadow-lg hover:bg-accent transition-all duration-400 cursor-none"
+          data-aos="flip-up"
+          data-aos-duration="600"
+          data-aos-delay="1200"
+          aria-label="GitHub profile"
+        >
+          <span>GitHub</span>
+        </a>
+        /
+        <a
+          href="https://linkedin.com/in/theajmalrazaq"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-white/70 hover:color-accentflex items-center gap-1 bg-white/5 px-2 py-1 backdrop-blur-md rounded-full glow-s hover:shadow-lg hover:bg-accent transition-all duration-400 cursor-none"
+          data-aos="flip-up"
+          data-aos-duration="600"
+          data-aos-delay="1300"
+          aria-label="LinkedIn profile"
+        >
+          <span>LinkedIn</span>
+        </a>
+        /
+        <a
+          href="https://x.com/theajmalrazaq"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-white/70 hover:color-accentflex items-center gap-1 bg-white/5 px-2 py-1 backdrop-blur-md rounded-full glow-s hover:shadow-lg hover:bg-accent transition-all duration-400 cursor-none"
+          data-aos="flip-up"
+          data-aos-duration="600"
+          data-aos-delay="1400"
+          aria-label="X (Twitter) profile"
+        >
+          <span>X</span>
+        </a>
+        /
+        <a
+          href="https://behance.net/theajmalrazaq"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-white/70 hover:color-accentflex items-center gap-1 bg-white/5 px-2 py-1 backdrop-blur-md rounded-full glow-s hover:shadow-lg hover:bg-accent transition-all duration-400 cursor-none"
+          data-aos="flip-up"
+          data-aos-duration="600"
+          data-aos-delay="1500"
+          aria-label="Behance portfolio"
+        >
+          <span>Behance</span>
+        </a>
+      </div>
+
+      <p
+        data-fade="3"
+        class="b1 mt-3 text-center"
+        data-aos="focus-up"
+        data-aos-duration="1000"
+        data-aos-delay="1600"
+      >
+        <span
+          class="text-center transition-colors bg-gradient-to-r from-neutral-300/[35%] via-neutral-300/90 to-neutral-300/[35%] bg-clip-text text-transparent font-product-sans"
+          >Most designers avoid logic. Most devs avoid emotion. I bring both to
+          life.</span
+        >
+      </p>
+
+      <div
+        class="flex items-center justify-center gap-2 relative group"
+        data-aos="focus-up"
+        data-aos-duration="1000"
+        data-aos-delay="1800"
+      >
+        <StarBorder
+          as="button"
+          className="group/button"
+          color="#a098ff"
+          speed="1s"
+        >
+          <div class="flex items-center gap-2 cursor-none">
+            <a
+              href="javascript:void(0);"
+              class="pixel-button relative h-[50px] w-[160px] text-white gap-2 margin-[20px] pl-1 flex justify-center items-center rounded-full font-nixel leading-loose text-xl tracking-[1px] cursor-none"
+              >let's chat
+              <img src={arrow_right.src} alt="" class="w-4" />
+            </a>
+          </div>
+        </StarBorder>
+      </div>
+    </div>
+  </div>
+</header>

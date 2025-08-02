@@ -1,0 +1,184 @@
+---
+import logowhite from "../../public/images/logowhite.svg";
+import Newsletter from "./Newsletter.jsx";
+
+interface Props {
+  showNewsletter?: boolean;
+}
+
+const { showNewsletter = true } = Astro.props;
+---
+
+<footer
+  class="relative w-full bg-black/50 border-t border-white/10 backdrop-blur-xl"
+  role="contentinfo"
+  data-aos="focus-up"
+  data-aos-delay="500"
+  data-aos-duration="800"
+>
+  <div class="w-full max-w-6xl mx-auto px-6 sm:px-15 py-12">
+    <!-- Main Footer Content -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+      <!-- Brand Section -->
+      <div class="md:col-span-2">
+        <div class="flex items-center gap-3 mb-4">
+          <img src={logowhite.src} alt="Logo" class="w-8 h-8" />
+          <span class="text-white font-nixel text-3xl">ajmal razaq</span>
+        </div>
+        <p
+          class="text-white/70 font-product-sans text-sm max-w-md leading-relaxed"
+        >
+          Frontend Developer & Junior Product Designer crafting exceptional
+          digital experiences with a focus on performance, accessibility, and
+          user-centered design.
+        </p>
+
+        <!-- Availability Status -->
+        <div class="flex items-center justify-start mt-4">
+          <div
+            class="px-3 py-2 border border-white/10 flex items-center justify-center rounded-lg backdrop-blur-2xl bg-black/40 text-white/80 transition-all duration-300 ease-in-out"
+          >
+            <div
+              class="relative mr-2 flex h-3 w-3 items-center justify-center"
+              aria-hidden="true"
+            >
+              <div class="h-2 w-2 rounded-full bg-green-500 glow-sm"></div>
+              <div
+                class="absolute h-full w-full animate-ping rounded-full bg-green-500 opacity-60"
+              >
+              </div>
+            </div>
+            <p class="text-xs font-product-sans tracking-[0.2px]">
+              Open to New Opportunities
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-between items-start md:col-span-2">
+        <!-- Quick Links -->
+        <div>
+          <h3 class="text-white font-nixel text-2xl">quick links</h3>
+          <ul class="space-y-2">
+            <li>
+              <a
+                href="#about-me"
+                class="text-white/70 hover:text-accent transition-colors duration-300 font-product-sans text-sm cursor-none"
+                >About</a
+              >
+            </li>
+            <li>
+              <a
+                href="#projects"
+                class="text-white/70 hover:text-accent transition-colors duration-300 font-product-sans text-sm cursor-none"
+                >Projects</a
+              >
+            </li>
+            <li>
+              <a
+                href="/blog"
+                class="text-white/70 hover:text-accent transition-colors duration-300 font-product-sans text-sm cursor-none"
+                >Blog</a
+              >
+            </li>
+            <li>
+              <a
+                href="#contact"
+                class="text-white/70 hover:text-accent transition-colors duration-300 font-product-sans text-sm cursor-none"
+                >Contact</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <!-- Social Links -->
+        <div>
+          <h3 class="text-white font-nixel text-2xl">connect</h3>
+          <ul class="space-y-2">
+            <li>
+              <a
+                href="https://github.com/theajmalrazaq"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-white/70 hover:text-accent transition-colors duration-300 font-product-sans text-sm cursor-none"
+                >GitHub</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://linkedin.com/in/theajmalrazaq"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-white/70 hover:text-accent transition-colors duration-300 font-product-sans text-sm cursor-none"
+                >LinkedIn</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://x.com/theajmalrazaq"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-white/70 hover:text-accent transition-colors duration-300 font-product-sans text-sm cursor-none"
+                >X (Twitter)</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://behance.net/theajmalrazaq"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-white/70 hover:text-accent transition-colors duration-300 font-product-sans text-sm cursor-none"
+                >Behance</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Newsletter Section -->
+    {
+      showNewsletter && (
+        <div class="mb-8 mt-4">
+          <div class="rounded-xl border border-white/10 bg-black/30 backdrop-blur-md p-4 md:p-5">
+            <div class="text-center mb-3">
+              <h3
+                class="text-white font-nixel text-2xl mb-1 tracking[1px]"
+                style="word-spacing: -7px;"
+              >
+                stay updated
+              </h3>
+              <p class="text-white/70 font-product-sans text-xs max-w-lg mx-auto">
+                Subscribe for articles, tips, and project updates.
+              </p>
+            </div>
+            <Newsletter client:load />
+          </div>
+        </div>
+      )
+    }
+
+    <!-- Footer Bottom -->
+    <div
+      class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4"
+    >
+      <p
+        class="text-white/60 font-product-sans text-sm text-center md:text-left"
+      >
+        © 2024 Ajmal Razaq . All rights reserved.
+      </p>
+      <div class="flex items-center gap-6">
+        <a
+          href="/privacy"
+          class="text-white/60 hover:text-white transition-colors duration-300 font-product-sans text-sm cursor-none"
+          >Privacy Policy</a
+        >
+        <a
+          href="/terms"
+          class="text-white/60 hover:text-white transition-colors duration-300 font-product-sans text-sm cursor-none"
+          >Terms</a
+        >
+      </div>
+    </div>
+  </div>
+</footer>

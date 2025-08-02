@@ -1,0 +1,82 @@
+---
+import buildimg from "../../../public/images/build2.svg";
+import eclipseimg from "../../../public/images/eclipse.svg";
+import Button from "../Button.astro";
+import { User } from "@lucide/astro";
+---
+
+<section class="relative w-full mt-8 sm:mt-14">
+  <img
+    src={eclipseimg.src}
+    alt="Decorative eclipse background"
+    class="absolute sm:-top-55 -top-40 w-full -z-10"
+    aria-hidden="true"
+    data-aos="focus-up"
+    data-aos-duration="1200"
+  />
+  <div
+    class="flex items-center justify-center w-full flex-col gap-3 sm:gap-5 px-4 sm:px-0"
+    data-aos="focus-up"
+    data-aos-duration="1000"
+  >
+    <div class="relative w-full flex items-center justify-center">
+      <img
+        src={buildimg.src}
+        alt="Decorative build illustration"
+        class="absolute -top-17 w-3/5 sm:w-auto"
+        data-aos="focus-up"
+        data-aos-duration="1000"
+        aria-hidden="true"
+      />
+      <h1
+        class="text-white text-3xl sm:text-5xl md:text-7xl z-10 absolute font-nixel tracking-[1px] text-center flex gap-2 flex-wrap justify-center"
+        data-aos="focus-up"
+        data-aos-duration="1200"
+      >
+        <div>who</div>
+        <div>am</div>
+        <div class="text-accent">i</div>
+        <div>and</div>
+        <div>what</div>
+        <div class="text-accent">i</div>
+        <div class="text-accent">do</div>
+      </h1>
+    </div>
+    <div
+      class="sm:mt-6 mt-4 z-10 flex flex-col items-center justify-center gap-4 w-full"
+      data-aos="focus-up"
+      data-aos-duration="1000"
+    >
+      <p
+        class="font-product-sans text-sm text-center text-white/90 max-w-prose mx-auto leading-relaxed w-full sm:w-4/5 md:w-3/4 lg:w-2/3"
+        data-aos="focus-up"
+        data-aos-duration="1200"
+      >
+        <span
+          class="text-center transition-colors bg-gradient-to-r from-neutral-300/[35%] via-neutral-300/90 to-neutral-300/[35%] bg-clip-text text-transparent font-product-sans"
+          >I'm Ajmal Razaq — a design-focused frontend developer based in
+          Pakistan.
+        </span>
+      </p>
+      <p
+        class="font-product-sans text-sm text-center text-white/90 max-w-prose mx-auto leading-relaxed w-full sm:w-4/5 md:w-3/4 lg:w-2/3"
+        data-aos="focus-up"
+        data-aos-duration="1200"
+      >
+        <span class="font-semibold text-accent">What do I actually do?</span><br
+        />
+        I take clunky web experiences and reimagine them into fast, accessible, intuitive
+        products. <br />
+        Not just sleek UIs — real UX that scales and performs.<br />
+      </p>
+      <Button
+        text="about me"
+        data_aos="focus-up"
+        data_aos_duration="800"
+        aria_label="Contact me to discuss a project"
+      >
+        <User size="18" />
+      </Button>
+    </div>
+  </div>
+</section>

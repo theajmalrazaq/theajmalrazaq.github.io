@@ -1,9 +1,13 @@
 ---
 import { MessageCircle, Code, Palette, Clock, Layers } from "@lucide/astro";
-import Button from "./Button.astro";
+import Button from "../Button.astro";
 ---
 
-<div class="relative">
+<section
+  class="relative mt-40 w-full sm:px-15 px-6 overflow-hidden"
+  id="about-me"
+  data-aos="focus-up"
+>
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
     <!-- Card 1: Collaboration -->
     <div
@@ -626,7 +630,7 @@ import Button from "./Button.astro";
       </div>
     </div>
   </div>
-</div>
+</section>
 
 <style>
   @keyframes marquee {

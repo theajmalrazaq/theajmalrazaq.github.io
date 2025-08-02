@@ -1,0 +1,158 @@
+---
+import seeyaa from "../../../public/images/seeyaa.svg";
+import { Mail, Copy } from "@lucide/astro";
+import Newsletter from "../Newsletter.jsx";
+---
+
+<section
+  class="relative mt-40 w-full flex flex-col items-center justify-center px-6 sm:px-15 pb-10"
+  id="contact"
+  role="region"
+  aria-labelledby="contact-heading"
+>
+  <div
+    class="relative z-10 flex flex-col items-center justify-center gap-4 w-full max-w-4xl"
+  >
+    <!-- Heading -->
+    <div class="flex flex-col items-center justify-center gap-3 relative">
+      <img
+        src={seeyaa.src}
+        class="w-3/5 sm:w-3/4 transform transition-all hover:scale-105 duration-500 absolute -top-10"
+        data-aos="focus-up"
+        alt="See you soon illustration"
+      />
+
+      <p class="b1 mt-1 text-center max-w-md" data-aos="focus-up">
+        <span
+          class="text-center transition-all duration-300 bg-gradient-to-r from-neutral-300/30 via-neutral-300/95 to-neutral-300/30 bg-clip-text text-transparent font-product-sans text-base leading-relaxed hover:from-accent/40 hover:via-accent/80 hover:to-accent/40"
+          >Got a project in mind? Reach out directly or subscribe to my
+          newsletter for updates.</span
+        >
+      </p>
+    </div>
+
+    <!-- Two-Column Contact Layout -->
+    <div
+      class="flex flex-col md:flex-row gap-6 w-full mt-4"
+      data-aos="fade-up"
+      data-aos-duration="1200"
+    >
+      <!-- Opportunities Card -->
+      <div class="w-full">
+        <div
+          class="rounded-xl border border-white/10 bg-black/30 backdrop-blur-md p-4 md:p-5 h-full flex flex-col"
+        >
+          <div class="mb-3">
+            <h3
+              class="text-white font-nixel text-2xl mb-1 tracking-[1px] md:text-left text-center"
+              style="word-spacing: -7px;"
+            >
+              open for opportunities
+            </h3>
+            <p
+              class="text-white/70 font-product-sans text-xs md:mx-0 mx-auto md:text-left text-center"
+            >
+              Available for the following work arrangements:
+            </p>
+          </div>
+
+          <!-- Work Types -->
+          <div
+            class="flex flex-wrap gap-2 mb-4 md:justify-start justify-center"
+          >
+            <span
+              class="px-3 py-1 bg-accent/10 border border-accent/20 rounded-full text-xs text-white/90 font-product-sans"
+            >
+              Full-time
+            </span>
+            <span
+              class="px-3 py-1 bg-accent/10 border border-accent/20 rounded-full text-xs text-white/90 font-product-sans"
+            >
+              Part-time
+            </span>
+            <span
+              class="px-3 py-1 bg-accent/10 border border-accent/20 rounded-full text-xs text-white/90 font-product-sans"
+            >
+              Contract
+            </span>
+            <span
+              class="px-3 py-1 bg-accent/10 border border-accent/20 rounded-full text-xs text-white/90 font-product-sans"
+            >
+              Freelance
+            </span>
+          </div>
+
+          <!-- Email Copy Button -->
+          <div class="mt-auto">
+            <p
+              class="text-white/70 font-product-sans text-xs mb-2 md:text-left text-center"
+            >
+              Get in touch directly:
+            </p>
+            <div class="group relative">
+              <button
+                id="email-copy-btn"
+                class="w-full flex items-center justify-between px-4 py-3 border border-white/20 rounded-xl backdrop-blur-2xl bg-black/50 hover:bg-black/70 hover:border-accent/50 transition-all duration-300 ease-in-out cursor-none group"
+                aria-label="Copy email address"
+              >
+                <div class="flex items-center gap-3">
+                  <div
+                    class="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center"
+                  >
+                    <Mail size="20" class="text-accent" />
+                  </div>
+                  <div class="text-left">
+                    <p
+                      class="text-white font-product-sans text-base"
+                      id="email-text"
+                    >
+                      hello@theajmalrazaq.tech
+                    </p>
+                    <p class="text-white/60 text-xs">Click to copy</p>
+                  </div>
+                </div>
+                <div
+                  class="w-4 h-4 text-white/60 group-hover:text-accent transition-colors duration-300"
+                >
+                  <Copy size="16" />
+                </div>
+              </button>
+
+              <!-- Copy Success Message -->
+              <div
+                id="copy-success"
+                class="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-accent text-black px-2 py-1 rounded-md text-xs font-product-sans opacity-0 transition-opacity duration-300 pointer-events-none"
+              >
+                Copied to clipboard!
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Newsletter Section -->
+      <div class="w-full">
+        <div
+          class="rounded-xl border border-white/10 bg-black/30 backdrop-blur-md p-4 md:p-5 h-full flex flex-col"
+        >
+          <div class="mb-3">
+            <h3
+              class="text-white font-nixel text-2xl mb-1 tracking-[1px] md:text-left text-center"
+              style="word-spacing: -7px;"
+            >
+              stay updated
+            </h3>
+            <p
+              class="text-white/70 font-product-sans text-xs md:mx-0 mx-auto md:text-left text-center"
+            >
+              Subscribe for articles, tips, and project updates.
+            </p>
+          </div>
+          <div class="mt-auto">
+            <Newsletter client:load />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

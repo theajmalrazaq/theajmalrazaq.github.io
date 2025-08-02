@@ -1,0 +1,71 @@
+---
+import { Seo } from "astro-seo-meta";
+const {
+  title = "Ajmal Razaq ",
+  description = "An online portfolio and blog by Ajmal Razaq . Showcasing my projects, and sharing thoughts on frontend development and UI/UX design.",
+  keywords = [
+    "website",
+    "blog",
+    "portfolio",
+    "frontend developer",
+    "junior product designer",
+    "ajmal razaq ",
+    "ajmalrazaq",
+    "theajmalrazaq",
+    "theajmalrazaq.github.io",
+  ],
+  socialImage = "/images/social-share.png",
+  url = "https://theajmalrazaq.github.io",
+  type = "website",
+  jobTitle = "Frontend Developer & Junior Product Designer",
+  organization = "Freelance",
+} = Astro.props;
+---
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <Seo
+    title={title}
+    description={description}
+    keywords={keywords}
+    icon="favicon/favicon.ico"
+    themeColor="#000000"
+    colorScheme="dark"
+    robots="index, follow"
+    facebook={{
+      image: socialImage,
+      url: url,
+      type: type,
+    }}
+    twitter={{
+      image: socialImage,
+      site: "@theajmalrazaq",
+      card: "summary_large_image",
+    }}
+  />
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      name: "Ajmal Razaq ",
+      url: url,
+      sameAs: [
+        "https://github.com/theajmalrazaq",
+        "https://linkedin.com/in/theajmalrazaq",
+      ],
+      jobTitle: jobTitle,
+      worksFor: {
+        "@type": "Organization",
+        name: organization,
+      },
+    })}
+  />
+  <script
+    src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"
+  ></script>
+  <script
+    src="https://unpkg.com/@lottiefiles/lottie-interactivity@latest/dist/lottie-interactivity.min.js"
+  ></script>
+</head>

@@ -1,0 +1,111 @@
+---
+import logoimg from "../../public/images/logo.svg";
+import { ChevronDown } from "@lucide/astro";
+const { page } = Astro.props;
+
+// Helper function to determine if a link is active
+const isActive = (path: string) => {
+  return page === path;
+};
+---
+
+<!-- Desktop Navigation -->
+<div class="flex items-center justify-center z-[99]">
+  <nav
+    class="bg-white/5 text-white px-7 rounded-full sm:py-2 py-4 mt-5 backdrop-blur-lg sm:w-fit w-full/2 gap-4 fixed justify-between sm:justify-center items-center tracking-[1px] z-[99] font-nixel top-0 sm:flex hidden"
+    role="navigation"
+    aria-label="Main navigation"
+  >
+    <div>
+      <a href="/" class="logo" aria-label="Home">
+        <img
+          src={logoimg.src}
+          alt="Ajmal Razaq  Logo"
+          class="logo-image w-10"
+          data-rotate
+          data-speed="0.2"
+          fetchpriority="high"
+          aria-hidden="true"
+        />
+      </a>
+    </div>
+
+    <div class="flex justify-center items-center gap-2 sm:gap-4">
+      <div>
+        <ul
+          class="flex gap-1 sm:gap-3 bg-black/50 backdrop-blur-md border border-white/5 p-1 sm:p-2 rounded-full"
+        >
+          <li>
+            <a
+              href="/"
+              class={`${isActive("home") ? "bg-accent" : "bg-white/5"} flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full hover:bg-white/20 transition-colors text-lg sm:text-lg`}
+              aria-label="About me">home</a
+            >
+          </li>
+          <li>
+            <a
+              href="/projects"
+              class={`${isActive("projects") ? "bg-accent" : "bg-white/5"} flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full hover:bg-white/20 transition-colors text-lg sm:text-lg`}
+              aria-label="View my projects">projects</a
+            >
+          </li>
+          <li>
+            <a
+              href="/blog"
+              class={`${isActive("blogs") ? "bg-accent" : "bg-white/5"} flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full hover:bg-white/20 transition-colors text-lg sm:text-lg`}
+              aria-label="Read my blog posts">blog</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://example.com/page1"
+              class={`${isActive("about") ? "bg-accent" : "bg-white/5"} flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full hover:bg-white/20 transition-colors text-lg sm:text-lg`}
+              aria-label="View my shorts content">about</a
+            >
+          </li>
+        </ul>
+      </div>
+      <a
+        href="https://example.com/page1"
+        class="bg-accent flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full hover:bg-white/20 transition-colors text-lg sm:text-lg"
+        aria-label="Contact me">let's chat</a
+      >
+    </div>
+  </nav>
+
+  <!-- Mobile Navigation -->
+  <nav
+    class="bg-white/5 text-white rounded-2xl px-7 sm:py-1 py-4 mt-3 backdrop-blur-lg w-11/12 gap-2 fixed justify-between items-center z-[999] text-normal top-0 sm:hidden flex"
+    data-aos="fade-down"
+    data-aos-duration="800"
+    role="navigation"
+    aria-label="Mobile navigation"
+  >
+    <div>
+      <a href="/" class="logo" aria-label="Home">
+        <img
+          src={logoimg.src}
+          alt="Ajmal Razaq  Logo"
+          class="logo-image w-10"
+          data-rotate
+          data-speed="0.2"
+        />
+      </a>
+    </div>
+
+    <div class="sm:hidden flex justify-center items-center">
+      <ul class="flex gap-1 sm:gap-3 bg-black/10 p-1 sm:p-2 rounded-[0px]">
+        <li
+          class="bg-white/5 flex justify-center items-center px-2 py-1 rounded-[0px] hover:bg-white/20 transition-colors"
+          aria-label="Menu"
+        >
+          Menu
+          <ChevronDown
+            class="text-white w-4 h-4 sm:w-5 sm:h-5"
+            aria-hidden="true"
+          />
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>

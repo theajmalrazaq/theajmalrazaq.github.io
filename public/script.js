@@ -141,14 +141,21 @@ document.addEventListener("DOMContentLoaded", function () {
   document.body.style.overflow = "hidden";
   if (loadingOverlay) {
     setTimeout(() => {
-      loadingOverlay.style.display = "none";
-      document.body.style.overflow = "auto";
-      window.scrollTo(0, 0);
+      loadingOverlay.style.opacity = "0";
+      loadingOverlay.style.transition = "opacity 0.5s ease-out";
+      
+      setTimeout(() => {
+        loadingOverlay.style.display = "none";
+        document.body.style.overflow = "auto";
+        window.scrollTo(0, 0);
+      }, 500);
       AOS.init({
         duration: 800,
-        easing: "ease",
+        easing: "ease-out",
         once: false,
         mirror: false,
+        anchorPlacement: 'top-bottom',
+        disable: 'mobile',
       });
 
       // Initialize clock for timezone card
@@ -156,7 +163,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (localTimeElement) {
         updateClock();
       }
-    }, 1000);
+    }, 1500);
   }
 });
 
