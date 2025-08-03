@@ -1,7 +1,6 @@
 ---
 import seeyaa from "../../../public/images/seeyaa.svg";
 import { Mail, Copy } from "@lucide/astro";
-import Newsletter from "../Newsletter.jsx";
 ---
 
 <section
@@ -17,7 +16,7 @@ import Newsletter from "../Newsletter.jsx";
     <div class="flex flex-col items-center justify-center gap-3 relative">
       <img
         src={seeyaa.src}
-        class="w-3/5 sm:w-3/4 transform transition-all hover:scale-105 duration-500 absolute -top-10"
+        class="w-3/5 sm:w-1/2 transform transition-all hover:scale-105 duration-500 absolute -top-15"
         data-aos="focus-up"
         alt="See you soon illustration"
       />
@@ -25,8 +24,7 @@ import Newsletter from "../Newsletter.jsx";
       <p class="b1 mt-1 text-center max-w-md" data-aos="focus-up">
         <span
           class="text-center transition-all duration-300 bg-gradient-to-r from-neutral-300/30 via-neutral-300/95 to-neutral-300/30 bg-clip-text text-transparent font-product-sans text-base leading-relaxed hover:from-accent/40 hover:via-accent/80 hover:to-accent/40"
-          >Got a project in mind? Reach out directly or subscribe to my
-          newsletter for updates.</span
+          >Got a project in mind? Reach out directly.</span
         >
       </p>
     </div>
@@ -126,30 +124,6 @@ import Newsletter from "../Newsletter.jsx";
                 Copied to clipboard!
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Newsletter Section -->
-      <div class="w-full">
-        <div
-          class="rounded-xl border border-white/10 bg-black/30 backdrop-blur-md p-4 md:p-5 h-full flex flex-col"
-        >
-          <div class="mb-3">
-            <h3
-              class="text-white font-nixel text-2xl mb-1 tracking-[1px] md:text-left text-center"
-              style="word-spacing: -7px;"
-            >
-              stay updated
-            </h3>
-            <p
-              class="text-white/70 font-product-sans text-xs md:mx-0 mx-auto md:text-left text-center"
-            >
-              Subscribe for articles, tips, and project updates.
-            </p>
-          </div>
-          <div class="mt-auto">
-            <Newsletter client:load />
           </div>
         </div>
       </div>

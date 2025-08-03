@@ -12,7 +12,7 @@ const isActive = (path: string) => {
 <!-- Desktop Navigation -->
 <div class="flex items-center justify-center z-[99]">
   <nav
-    class="bg-white/5 text-white px-7 rounded-full sm:py-2 py-4 mt-5 backdrop-blur-lg sm:w-fit w-full/2 gap-4 fixed justify-between sm:justify-center items-center tracking-[1px] z-[99] font-nixel top-0 sm:flex hidden"
+    class="shadow-accent-transparent text-white px-7 rounded-full sm:py-2 py-4 mt-5 backdrop-blur-lg sm:w-fit w-full/2 gap-4 fixed justify-between sm:justify-center items-center tracking-[1px] z-[99] font-nixel top-0 sm:flex hidden"
     role="navigation"
     aria-label="Main navigation"
   >
@@ -33,33 +33,33 @@ const isActive = (path: string) => {
     <div class="flex justify-center items-center gap-2 sm:gap-4">
       <div>
         <ul
-          class="flex gap-1 sm:gap-3 bg-black/50 backdrop-blur-md border border-white/5 p-1 sm:p-2 rounded-full"
+          class="flex gap-1 sm:gap-3 bg-black/10 backdrop-blur-md border border-white/5 p-1 sm:p-2 rounded-full"
         >
           <li>
             <a
               href="/"
-              class={`${isActive("home") ? "bg-accent" : "bg-white/5"} flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full hover:bg-white/20 transition-colors text-lg sm:text-lg`}
+              class={`${isActive("home") ? "shadow-accent-transparent" : "bg-white/0"} flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full shadow-accent-hover transition-colors text-lg sm:text-lg`}
               aria-label="About me">home</a
             >
           </li>
           <li>
             <a
               href="/projects"
-              class={`${isActive("projects") ? "bg-accent" : "bg-white/5"} flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full hover:bg-white/20 transition-colors text-lg sm:text-lg`}
+              class={`${isActive("projects") ? "shadow-accent-transparent" : "bg-white/0"} flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full shadow-accent-hover  transition-colors text-lg sm:text-lg`}
               aria-label="View my projects">projects</a
             >
           </li>
           <li>
             <a
               href="/blog"
-              class={`${isActive("blogs") ? "bg-accent" : "bg-white/5"} flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full hover:bg-white/20 transition-colors text-lg sm:text-lg`}
+              class={`${isActive("blog") ? "shadow-accent-transparent" : "bg-white/0"} flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full shadow-accent-hover  transition-colors text-lg sm:text-lg`}
               aria-label="Read my blog posts">blog</a
             >
           </li>
           <li>
             <a
               href="https://example.com/page1"
-              class={`${isActive("about") ? "bg-accent" : "bg-white/5"} flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full hover:bg-white/20 transition-colors text-lg sm:text-lg`}
+              class={`${isActive("about") ? "shadow-accent-transparent" : "bg-white/0"} flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full shadow-accent-hover transition-colors text-lg sm:text-lg`}
               aria-label="View my shorts content">about</a
             >
           </li>
@@ -67,7 +67,7 @@ const isActive = (path: string) => {
       </div>
       <a
         href="https://example.com/page1"
-        class="bg-accent flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full hover:bg-white/20 transition-colors text-lg sm:text-lg"
+        class="bg-accent flex justify-center items-center px-2 sm:px-5 py-1 sm:py-2 rounded-full hover:shadow-accent transition-colors text-lg sm:text-lg"
         aria-label="Contact me">let's chat</a
       >
     </div>
@@ -75,7 +75,7 @@ const isActive = (path: string) => {
 
   <!-- Mobile Navigation -->
   <nav
-    class="bg-white/5 text-white rounded-2xl px-7 sm:py-1 py-4 mt-3 backdrop-blur-lg w-11/12 gap-2 fixed justify-between items-center z-[999] text-normal top-0 sm:hidden flex"
+    class="bg-white/0 text-white rounded-2xl px-7 sm:py-1 py-4 mt-3 backdrop-blur-lg w-11/12 gap-2 fixed justify-between items-center z-[999] text-normal top-0 sm:hidden flex"
     data-aos="fade-down"
     data-aos-duration="800"
     role="navigation"
@@ -96,7 +96,7 @@ const isActive = (path: string) => {
     <div class="sm:hidden flex justify-center items-center">
       <ul class="flex gap-1 sm:gap-3 bg-black/10 p-1 sm:p-2 rounded-[0px]">
         <li
-          class="bg-white/5 flex justify-center items-center px-2 py-1 rounded-[0px] hover:bg-white/20 transition-colors"
+          class="bg-white/0 flex justify-center items-center px-2 py-1 rounded-[0px] hover:shadow-accent transition-colors"
           aria-label="Menu"
         >
           Menu

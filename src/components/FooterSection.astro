@@ -1,12 +1,5 @@
 ---
 import logowhite from "../../public/images/logowhite.svg";
-import Newsletter from "./Newsletter.jsx";
-
-interface Props {
-  showNewsletter?: boolean;
-}
-
-const { showNewsletter = true } = Astro.props;
 ---
 
 <footer
@@ -23,7 +16,10 @@ const { showNewsletter = true } = Astro.props;
       <div class="md:col-span-2">
         <div class="flex items-center gap-3 mb-4">
           <img src={logowhite.src} alt="Logo" class="w-8 h-8" />
-          <span class="text-white font-nixel text-3xl">ajmal razaq</span>
+          <span
+            class="text-white font-nixel text-3xl tracking-[1px]"
+            style="word-spacing:-7px;">ajmal razaq</span
+          >
         </div>
         <p
           class="text-white/70 font-product-sans text-sm max-w-md leading-relaxed"
@@ -58,7 +54,9 @@ const { showNewsletter = true } = Astro.props;
       <div class="flex justify-between items-start md:col-span-2">
         <!-- Quick Links -->
         <div>
-          <h3 class="text-white font-nixel text-2xl">quick links</h3>
+          <h3 class="text-white font-nixel text-2xl tracking-[1px]">
+            quick links
+          </h3>
           <ul class="space-y-2">
             <li>
               <a
@@ -93,7 +91,7 @@ const { showNewsletter = true } = Astro.props;
 
         <!-- Social Links -->
         <div>
-          <h3 class="text-white font-nixel text-2xl">connect</h3>
+          <h3 class="text-white font-nixel text-2xl tracking-[1px]">connect</h3>
           <ul class="space-y-2">
             <li>
               <a
@@ -135,28 +133,6 @@ const { showNewsletter = true } = Astro.props;
         </div>
       </div>
     </div>
-
-    <!-- Newsletter Section -->
-    {
-      showNewsletter && (
-        <div class="mb-8 mt-4">
-          <div class="rounded-xl border border-white/10 bg-black/30 backdrop-blur-md p-4 md:p-5">
-            <div class="text-center mb-3">
-              <h3
-                class="text-white font-nixel text-2xl mb-1 tracking[1px]"
-                style="word-spacing: -7px;"
-              >
-                stay updated
-              </h3>
-              <p class="text-white/70 font-product-sans text-xs max-w-lg mx-auto">
-                Subscribe for articles, tips, and project updates.
-              </p>
-            </div>
-            <Newsletter client:load />
-          </div>
-        </div>
-      )
-    }
 
     <!-- Footer Bottom -->
     <div

@@ -5,22 +5,24 @@ import NavbarSection from "../components/NavbarSection.astro";
 import Loading from "../components/Loading.astro";
 import FooterSection from "../components/FooterSection.astro";
 import CursorTracker from "../components/CursorTracker.astro";
-import Newsletter from "../components/Newsletter.jsx";
+import blogImage from "../../public/images/blog.svg";
 import MetaSection from "../components/MetaSection.astro";
+import { Eye, Search, HeartHandshake } from "@lucide/astro";
+import ViewsCount from "../components/blog/ViewsCount.jsx";
+import LikesCount from "../components/blog/LikesCount.jsx";
 
-// Get all blog posts
-const { data: blogs, error } = await supabase
-  .from("blogs")
+// Get all blog posts (static data at build time)
+const { data: blog, error } = await supabase
+  .from("blog")
   .select("*")
   .order("created_at", { ascending: false });
+if (error) console.error("Error fetching blog:", error);
 
-if (error) console.error("Error fetching blogs:", error);
-
-const allTags = blogs
+const allTags = blog
   ? [
       ...new Set(
-        blogs
-          .filter((blog) => blog.tags) // Filter out blogs without tags
+        blog
+          .filter((blog) => blog.tags) // Filter out blog without tags
           .flatMap((blog) =>
             blog.tags.split(",").map((tag: string) => tag.trim())
           )
@@ -30,7 +32,7 @@ const allTags = blogs
 ---
 
 <!doctype html>
-<html lang="en" class="lenis lenis--smooth select-none cursor-none">
+<html lang="en" class="lenis lenis--smooth select-none">
   <MetaSection
     title="Blog | Ajmal Razaq "
     description="Articles and thoughts by Ajmal Razaq  on frontend development, UI/UX design, and more."
@@ -44,13 +46,20 @@ const allTags = blogs
     url="https://theajmalrazaq.github.io/blog"
     type="website"
   />
+
+  <!-- Supabase configuration for client-side scripts -->
+  <meta name="supabase-url" content={import.meta.env.PUBLIC_SUPABASE_URL} />
+  <meta
+    name="supabase-key"
+    content={import.meta.env.PUBLIC_SUPABASE_ANON_KEY}
+  />
   <body class="bg-black min-h-screen flex flex-col">
     <!-- Cursor Tracker -->
     <CursorTracker />
     <!-- Loading overlay -->
     <Loading />
     <!--Navbar -->
-    <NavbarSection />
+    <NavbarSection page="blog" />
 
     <main class="max-w-6xl mx-auto px-4 py-16 text-white flex-grow">
       <!-- Background Pattern -->
@@ -82,12 +91,14 @@ const allTags = blogs
         <div
           class="bg-gradient-to-b from-white from-20% to-accent to-70% bg-clip-text text-transparent"
         >
-          <h1
-            class="text-5xl sm:text-6xl md:text-7xl font-nixel tracking-[1px]"
-            style="word-spacing: -7px;"
-          >
-            ajmal's blogs
-          </h1>
+          <img
+            src={blogImage.src}
+            alt="Blog Image"
+            class="p-2"
+            data-aos="focus-up"
+            data-aos-duration="1000"
+            data-aos-delay="800"
+          />
         </div>
         <p data-fade="3" class="b1 mt-3">
           <span
@@ -96,474 +107,166 @@ const allTags = blogs
             design</span
           >
         </p>
-      </div>
 
-      <!-- Horizontal Line -->
-      <div class="max-w-5xl mx-auto mb-8 relative z-[2]">
-        <hr class="border-white/10 border-t" />
-      </div>
+        <!-- Search Bar -->
+        <div
+          class="max-w-2xl w-full mx-auto mt-8"
+          data-aos="text-focus-fade-up"
+          data-aos-delay="300"
+        >
+          <div class="relative flex">
+            <input
+              type="text"
+              id="search-input"
+              placeholder="Search articles..."
+              class="w-full px-5 py-3 border border-white/10 rounded-full text-white focus:outline-none bg-black shadow-accent focus:border-accent/50 transition-all"
+            />
+            <button
+              id="search-button"
+              class="absolute right-4 top-1/2 -translate-y-1/2"
+            >
+              <Search class="h-5 w-5 text-white/50" />
+            </button>
+          </div>
 
-      <!-- Search Bar with Filter -->
-      <div
-        class="max-w-2xl mx-auto mb-12 relative z-[2]"
-        data-aos="text-focus-fade-up"
-        data-aos-delay="300"
-      >
-        <div class="relative flex">
-          <input
-            type="text"
-            id="search-input"
-            placeholder="Search articles..."
-            class="w-full px-5 py-3 border border-white/10 rounded-l-[0px] text-white focus:outline-none bg-black focus:border-accent/50 transition-all"
-          />
-          <button
-            id="search-button"
-            class="absolute right-14 top-1/2 -translate-y-1/2"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5 text-white/50"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+          <!-- Tag Pills -->
+          <div class="flex flex-wrap gap-3 mt-6 justify-center">
+            <button
+              id="filter-all"
+              class="text-sm px-4 py-2 rounded-full border border-accent bg-accent text-white filter-active"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-            </svg>
-          </button>
-          <button
-            id="filter-button"
-            class="px-4 flex items-center justify-center border border-white/10 border-l-0 rounded-r-[0px] bg-black hover:bg-white/5 focus:outline-none transition-all"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5 text-white/70"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
-              ></path>
-            </svg>
-          </button>
+              All
+            </button>
+            {
+              allTags.map((tag, index) => {
+                return (
+                  <button
+                    class={`text-sm px-4 py-2 rounded-full border border-white/10  hover:bg-accent hover:text-white hover:scale-[1.01] transition-colors filter-tag shadow-accent`}
+                    data-tag={tag}
+                    data-aos="focus-up"
+                  >
+                    {tag}
+                  </button>
+                );
+              })
+            }
+          </div>
         </div>
 
-        <!-- Filter Dropdown -->
-        <div
-          id="filter-dropdown"
-          class="absolute right-0 mt-2 w-64 bg-black border border-white/10 rounded-[0px] shadow-lg z-[1000] hidden"
-        >
-          <div class="p-4">
-            <!-- Sort Options -->
-            <div class="mb-4">
-              <h4 class="text-sm text-white/50 uppercase mb-2">Sort By</h4>
-              <div class="space-y-2">
-                <button
-                  id="sort-newest"
-                  class="text-white hover:text-accent transition-colors block sort-active w-full text-left"
-                >
-                  <span class="flex items-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-4 w-4 mr-2"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M8 7l4-4m0 0l4 4m-4-4v18"></path>
-                    </svg>
-                    Newest First
-                  </span>
-                </button>
-                <button
-                  id="sort-oldest"
-                  class="text-white/80 hover:text-accent transition-colors block w-full text-left"
-                >
-                  <span class="flex items-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-4 w-4 mr-2"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M16 17l-4 4m0 0l-4-4m4 4V3"></path>
-                    </svg>
-                    Oldest First
-                  </span>
-                </button>
-                <button
-                  id="sort-popular"
-                  class="text-white/80 hover:text-accent transition-colors block w-full text-left"
-                >
-                  <span class="flex items-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-4 w-4 mr-2"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                      ></path>
-                    </svg>
-                    Most Views
-                  </span>
-                </button>
-                <button
-                  id="sort-likes"
-                  class="text-white/80 hover:text-accent transition-colors block w-full text-left"
-                >
-                  <span class="flex items-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-4 w-4 mr-2"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                      ></path>
-                    </svg>
-                    Most Likes
-                  </span>
-                </button>
-              </div>
-            </div>
-
-            <!-- Topic Filter -->
-            <div>
-              <h4 class="text-sm text-white/50 uppercase mb-2">
-                Filter By Topic
-              </h4>
-              <div class="flex flex-wrap gap-2">
-                <button
-                  id="filter-all"
-                  class="text-xs px-2 py-1 rounded-[0px] border border-accent bg-accent/10 text-accent filter-active"
-                >
-                  All
-                </button>
-                {
-                  allTags.map((tag) => (
-                    <button
-                      class="text-xs px-2 py-1 rounded-[0px] border border-white/10 hover:border-accent/30 hover:bg-accent/10 hover:text-accent transition-colors filter-tag"
-                      data-tag={tag}
-                    >
-                      {tag}
-                    </button>
-                  ))
-                }
-              </div>
-            </div>
-          </div>
+        <!-- Horizontal Line -->
+        <div class="w-full max-w-5xl mx-auto mt-8">
+          <hr class="border-white/10 border-t" />
         </div>
       </div>
 
       <!-- Two-column Layout -->
       <div class="flex flex-col z-[2] gap-8">
+        <!-- No Results Message -->
+        <div id="no-results-message" class="hidden text-center py-10">
+          <Search class="h-12 w-12 mx-auto text-white/30 mb-4" />
+          <h3
+            class="text-2xl font-nixel tracking-[1px] text-white/70 mb-2"
+            style="word-spacing: -7px;"
+          >
+            no results found
+          </h3>
+          <p class="text-white/50">Try different keywords or remove filters</p>
+        </div>
+
         <!-- Left Column: Blog Posts -->
-        {
-          blogs &&
-            blogs.map((blog) => (
-              <a
-                href={`/blog/${blog.slug}`}
-                class="blog-card group rounded-3xl border-2 border-white/10   overflow-hidden flex flex-col h-full transition-all duration-300 ease-in-out group"
-                data-aos="focus-up"
-              >
-                <div class="p-5 flex sm:flex-row flex-col-reverse justify-between gap-6">
-                  <div class="flex flex-col sm:w-1/2 w-full justify-between ">
-                    <div class="flex justify-between items-center text-xs text-white/60 mb-2">
-                      <span>
-                        {new Date(blog.created_at).toLocaleDateString("en-US", {
-                          month: "long",
-                          day: "2-digit",
-                          year: "numeric",
-                        })}
-                      </span>
-                    </div>
-                    <h2
-                      class="text-2xl font-nixel tracking-[1px] text-white mb-2 group-hover:text-accent"
-                      style="word-spacing: -7px;"
-                    >
-                      {blog.title}
-                    </h2>
-                    <p class="text-sm text-white/80 mb-4 line-clamp-3 flex-grow">
-                      {blog.excerpt}
-                    </p>
-                    <div class="flex justify-between items-center mt-auto pt-4 text-xs text-white/60 border-t border-white/10">
-                      <div class="flex items-center gap-1">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          class="w-4 h-4"
-                        >
-                          <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
-                          <circle cx="12" cy="12" r="3" />
-                        </svg>
+        <div id="blog-posts-container">
+          {
+            blog &&
+              blog.map((blog) => (
+                <a
+                  href={`/blog/${blog.slug}`}
+                  class="blog-card group rounded-3xl border border-white/10 overflow-hidden flex flex-col h-full transition-all duration-300 ease-in-out group mb-8 shadow-accent-soft"
+                  data-aos="focus-up"
+                  data-tags={blog.tags}
+                  data-blog-id={blog.id}
+                >
+                  <div class="p-5 flex sm:flex-row flex-col-reverse justify-between gap-6">
+                    <div class="flex flex-col sm:w-1/2 w-full justify-between">
+                      <div class="flex justify-between items-center text-xs text-white/60 mb-2">
+                        <span>
+                          {new Date(blog.created_at).toLocaleDateString(
+                            "en-US",
+                            {
+                              month: "long",
+                              day: "2-digit",
+                              year: "numeric",
+                            }
+                          )}
+                        </span>
+                      </div>
+                      <h2
+                        class="text-2xl font-nixel tracking-[1px] text-white mb-2 group-hover:text-accent"
+                        style="word-spacing: -7px;"
+                      >
+                        {blog.title}
+                      </h2>
+                      <p class="text-sm text-white/80 mb-4 line-clamp-3 flex-grow">
+                        {blog.excerpt}
+                      </p>
+                      <div class="flex justify-between items-center mt-auto pt-4 text-xs text-white/60 border-t border-white/10">
                         <div class="flex items-center gap-6">
-                          <span>{blog.views_count} views</span>
+                          <div class="flex items-center gap-1">
+                            🙄
+                            <ViewsCount blogId={blog.id} client:load />
+                          </div>
+                          <div class="flex items-center gap-1">
+                            🫶
+                            <LikesCount blogId={blog.id} client:load />
+                          </div>
                           <span>{blog.avg_read_time} min read</span>
                         </div>
                       </div>
                     </div>
+                    <img
+                      src={blog.img}
+                      alt={blog.title}
+                      class="sm:w-[200px] w-full aspect-video transition-transform duration-500 rounded-2xl"
+                    />
                   </div>
-                  <img
-                    src={blog.img}
-                    alt={blog.title}
-                    class="sm:w-[200px] w-full aspect-video  transition-transform duration-500 rounded-2xl"
-                  />
-                </div>
-              </a>
-            ))
-        }
+                </a>
+              ))
+          }
+        </div>
+
+        <!-- Load More Button -->
+        <div
+          id="load-more-container"
+          class="flex justify-center mt-12"
+          data-aos="focus-up"
+          data-aos-delay="100"
+        >
+          <button
+            id="load-more-btn"
+            class="hidden px-8 py-3 rounded-full border border-white/10 bg-black/50 text-white hover:bg-accent hover:border-accent hover:text-white transition-all duration-300 hover:scale-[1.02] font-medium"
+          >
+            Load More
+          </button>
+
+          <!-- Loading State -->
+          <div id="loading-indicator" class="hidden">
+            <div class="flex items-center gap-3">
+              <div
+                class="animate-spin rounded-full h-5 w-5 border-2 border-accent border-t-transparent"
+              >
+              </div>
+              <span class="text-white/70">Loading more articles...</span>
+            </div>
+          </div>
+
+          <!-- End of Posts Message -->
+          <div id="end-of-posts" class="hidden text-center py-6">
+            <p class="text-white/50">You've reached the end of our articles</p>
+          </div>
+        </div>
       </div>
     </main>
-    <div class="mx-auto px-4 pb-16 pt-8 relative z-[2]">
-      <div
-        class="rounded-xl border border-white/10 bg-black/30 backdrop-blur-md p-4 md:p-5"
-      >
-        <div class="text-center mb-3">
-          <h3
-            class="text-white font-nixel text-2xl mb-1 tracking[1px]"
-            style="word-spacing: -7px;"
-          >
-            stay updated
-          </h3>
-          <p class="text-white/70 font-product-sans text-xs max-w-lg mx-auto">
-            Subscribe for articles, tips, and project updates.
-          </p>
-        </div>
-        <Newsletter client:load />
-      </div>
-    </div>
     <!-- New Footer Component -->
-    <FooterSection showNewsletter={false} />
-
+    <FooterSection />
     <script type="module" src="/script.js"></script>
-
-    <script is:inline>
-      document.addEventListener("DOMContentLoaded", () => {
-        // Check if page is already loaded - hide loading overlay
-        const loadingOverlay = document.getElementById("loading-overlay");
-        if (loadingOverlay) {
-          setTimeout(() => {
-            loadingOverlay.style.opacity = "0";
-            setTimeout(() => {
-              loadingOverlay.style.display = "none";
-            }, 300);
-          }, 1000);
-        }
-
-        // Filter dropdown functionality
-        const filterButton = document.getElementById("filter-button");
-        const filterDropdown = document.getElementById("filter-dropdown");
-
-        if (filterButton && filterDropdown) {
-          filterButton.addEventListener("click", () => {
-            filterDropdown.classList.toggle("hidden");
-          });
-
-          // Close dropdown when clicking outside
-          document.addEventListener("click", (e) => {
-            if (
-              !filterButton.contains(e.target) &&
-              !filterDropdown.contains(e.target)
-            ) {
-              filterDropdown.classList.add("hidden");
-            }
-          });
-        }
-
-        // Search functionality
-        const searchInput = document.getElementById("search-input");
-        const blogItems = document.querySelectorAll(".blog-card");
-
-        if (searchInput) {
-          searchInput.addEventListener("input", (e) => {
-            const searchTerm = e.target.value.toLowerCase();
-
-            blogItems.forEach((item) => {
-              const title = item.querySelector("h2").textContent.toLowerCase();
-              const excerpt = item.querySelector("p").textContent.toLowerCase();
-
-              if (title.includes(searchTerm) || excerpt.includes(searchTerm)) {
-                item.style.display = "block";
-              } else {
-                item.style.display = "none";
-              }
-            });
-          });
-        }
-
-        // Sorting functionality
-        const sortNewest = document.getElementById("sort-newest");
-        const sortOldest = document.getElementById("sort-oldest");
-        const sortPopular = document.getElementById("sort-popular");
-        const sortLikes = document.getElementById("sort-likes");
-        const blogContainer = document.querySelector(
-          ".flex.flex-col.z-\\[2\\].gap-8"
-        );
-
-        if (
-          sortNewest &&
-          sortOldest &&
-          sortPopular &&
-          sortLikes &&
-          blogContainer
-        ) {
-          sortNewest.addEventListener("click", () => {
-            setActiveSortButton(sortNewest);
-            sortBlogItems("desc");
-          });
-
-          sortOldest.addEventListener("click", () => {
-            setActiveSortButton(sortOldest);
-            sortBlogItems("asc");
-          });
-
-          sortPopular.addEventListener("click", () => {
-            setActiveSortButton(sortPopular);
-            // This would require view count data to be implemented
-            // For now, we'll just close the dropdown
-            filterDropdown.classList.add("hidden");
-          });
-
-          sortLikes.addEventListener("click", () => {
-            setActiveSortButton(sortLikes);
-            // This would require likes data to be implemented
-            // For now, we'll just close the dropdown
-            filterDropdown.classList.add("hidden");
-          });
-
-          function setActiveSortButton(button) {
-            [sortNewest, sortOldest, sortPopular, sortLikes].forEach((btn) => {
-              btn.classList.remove("sort-active");
-              btn.classList.remove("text-accent");
-              btn.classList.add("text-white/80");
-            });
-            button.classList.add("sort-active");
-            button.classList.add("text-accent");
-            button.classList.remove("text-white/80");
-          }
-
-          function sortBlogItems(direction) {
-            const items = Array.from(blogItems);
-            items.sort((a, b) => {
-              const dateA = new Date(a.querySelector("span").textContent);
-              const dateB = new Date(b.querySelector("span").textContent);
-
-              return direction === "asc" ? dateA - dateB : dateB - dateA;
-            });
-
-            items.forEach((item) => blogContainer.appendChild(item));
-            filterDropdown.classList.add("hidden");
-          }
-        }
-
-        // Filter functionality
-        const filterAll = document.getElementById("filter-all");
-        const filterTags = document.querySelectorAll(".filter-tag");
-
-        if (filterAll && filterTags.length > 0) {
-          filterAll.addEventListener("click", () => {
-            setActiveFilterButton(filterAll);
-            showAllBlogItems();
-          });
-
-          filterTags.forEach((tag) => {
-            tag.addEventListener("click", () => {
-              setActiveFilterButton(tag);
-              filterBlogsByTag(tag.dataset.tag);
-            });
-          });
-
-          function setActiveFilterButton(button) {
-            [filterAll, ...filterTags].forEach((btn) => {
-              btn.classList.remove("filter-active");
-              btn.classList.remove(
-                "bg-accent/10",
-                "border-accent",
-                "text-accent"
-              );
-              btn.classList.add("border-white/10");
-            });
-            button.classList.add("filter-active");
-            button.classList.add(
-              "bg-accent/10",
-              "border-accent",
-              "text-accent"
-            );
-            button.classList.remove("border-white/10");
-          }
-
-          function showAllBlogItems() {
-            blogItems.forEach((item) => {
-              item.style.display = "block";
-            });
-            filterDropdown.classList.add("hidden");
-          }
-
-          function filterBlogsByTag(tag) {
-            blogItems.forEach((item) => {
-              // Handle comma-separated tags
-              const tagsText = item.dataset.tags || "";
-              const tags = tagsText.split(",").map((t) => t.trim());
-
-              if (tags.includes(tag)) {
-                item.style.display = "block";
-              } else {
-                item.style.display = "none";
-              }
-            });
-            filterDropdown.classList.add("hidden");
-          }
-        }
-      });
-    </script>
-
-    <style>
-      .sort-active {
-        font-weight: 600;
-      }
-
-      .filter-active {
-        font-weight: 600;
-      }
-    </style>
   </body>
 </html>

@@ -213,3 +213,259 @@ if (typeof LottieInteractivity !== "undefined") {
     });
   }
 }
+
+// Blog-specific functionality
+function initializeBlogPage() {
+  // Search functionality
+  const searchInput = document.getElementById("search-input");
+  const blogItems = document.querySelectorAll(".blog-card");
+  const noResultsMessage = document.getElementById("no-results-message");
+
+  if (searchInput) {
+    searchInput.addEventListener("input", (e) => {
+      const searchTerm = e.target.value.toLowerCase();
+      let hasResults = false;
+
+      blogItems.forEach((item) => {
+        const title = item.querySelector("h2").textContent.toLowerCase();
+        const excerpt = item.querySelector("p").textContent.toLowerCase();
+
+        if (title.includes(searchTerm) || excerpt.includes(searchTerm)) {
+          item.style.display = "block";
+          hasResults = true;
+        } else {
+          item.style.display = "none";
+        }
+      });
+
+      // Show or hide the no results message
+      if (hasResults || searchTerm === "") {
+        noResultsMessage.classList.add("hidden");
+      } else {
+        noResultsMessage.classList.remove("hidden");
+      }
+      
+      // Reset pagination when searching
+      resetPagination();
+    });
+  }
+
+  // Filter functionality
+  const filterAll = document.getElementById("filter-all");
+  const filterTags = document.querySelectorAll(".filter-tag");
+
+  if (filterAll && filterTags.length > 0) {
+    filterAll.addEventListener("click", () => {
+      setActiveFilterButton(filterAll);
+      showAllBlogItems();
+    });
+
+    filterTags.forEach((tag) => {
+      tag.addEventListener("click", () => {
+        setActiveFilterButton(tag);
+        filterblogByTag(tag.dataset.tag);
+      });
+    });
+
+    function setActiveFilterButton(button) {
+      [filterAll, ...filterTags].forEach((btn) => {
+        btn.classList.add("shadow-accent");
+        btn.classList.remove(
+          "bg-accent",
+          "text-white"
+        );
+      });
+      button.classList.remove("shadow-accent");
+      button.classList.add(
+        "bg-accent",
+        "text-white"
+      );
+    }
+
+    function showAllBlogItems() {
+      blogItems.forEach((item) => {
+        item.style.display = "block";
+      });
+      noResultsMessage.classList.add("hidden");
+      resetPagination();
+      hideExtraPosts();
+    }
+
+    function filterblogByTag(tag) {
+      let hasResults = false;
+
+      blogItems.forEach((item) => {
+        // Get tags from data attribute
+        const tagsText = item.dataset.tags || "";
+        const tags = tagsText.split(",").map((t) => t.trim());
+
+        if (tags.includes(tag)) {
+          item.style.display = "block";
+          hasResults = true;
+        } else {
+          item.style.display = "none";
+        }
+      });
+
+      // Show or hide the no results message for tag filtering
+      if (hasResults) {
+        noResultsMessage.classList.add("hidden");
+      } else {
+        noResultsMessage.classList.remove("hidden");
+      }
+      
+      resetPagination();
+    }
+  }
+
+  // Load More functionality
+  const loadMoreBtn = document.getElementById("load-more-btn");
+  const loadingIndicator = document.getElementById("loading-indicator");
+  const endOfPosts = document.getElementById("end-of-posts");
+  const blogPostsContainer = document.getElementById("blog-posts-container");
+  
+  // Configuration for pagination
+  let currentOffset = 0;
+  const postsPerPage = 6; // Adjust this based on your needs
+  let allPosts = []; // Will store all blog posts
+  let isLoading = false;
+
+  // Initialize load more functionality
+  if (loadMoreBtn && blogPostsContainer) {
+    // Store initial posts
+    allPosts = Array.from(blogItems);
+    
+    // Show load more button if there are more than postsPerPage posts
+    if (allPosts.length > postsPerPage) {
+      // Hide posts beyond the initial load
+      hideExtraPosts();
+      loadMoreBtn.classList.remove("hidden");
+    }
+
+    loadMoreBtn.addEventListener("click", loadMorePosts);
+  }
+
+  function hideExtraPosts() {
+    allPosts.forEach((post, index) => {
+      if (index >= postsPerPage) {
+        post.style.display = "none";
+      }
+    });
+    currentOffset = postsPerPage;
+  }
+
+  function loadMorePosts() {
+    if (isLoading) return;
+    
+    isLoading = true;
+    loadMoreBtn.classList.add("hidden");
+    loadingIndicator.classList.remove("hidden");
+
+    // Simulate loading delay (remove this in production if fetching from API)
+    setTimeout(() => {
+      const nextPosts = allPosts.slice(currentOffset, currentOffset + postsPerPage);
+      
+      nextPosts.forEach((post, index) => {
+        setTimeout(() => {
+          post.style.display = "block";
+          // Trigger AOS animation for newly shown posts
+          if (typeof AOS !== 'undefined') {
+            AOS.refresh();
+          }
+        }, index * 100); // Stagger the appearance
+      });
+
+      currentOffset += postsPerPage;
+      
+      // Check if there are more posts to load
+      setTimeout(() => {
+        loadingIndicator.classList.add("hidden");
+        
+        if (currentOffset >= allPosts.length) {
+          // No more posts to load
+          endOfPosts.classList.remove("hidden");
+        } else {
+          // More posts available
+          loadMoreBtn.classList.remove("hidden");
+        }
+        
+        isLoading = false;
+      }, 800);
+    }, 1000);
+  }
+
+  // Reset pagination when filtering
+  function resetPagination() {
+    currentOffset = 0;
+    loadMoreBtn.classList.add("hidden");
+    loadingIndicator.classList.add("hidden");
+    endOfPosts.classList.add("hidden");
+    
+    // Show appropriate posts based on current filter
+    const visiblePosts = allPosts.filter(post => post.style.display !== "none");
+    if (visiblePosts.length > postsPerPage) {
+      loadMoreBtn.classList.remove("hidden");
+    }
+  }
+}
+
+// Check if we're on the blog page and initialize blog functionality
+if (window.location.pathname === '/blog' || window.location.pathname.includes('/blog')) {
+  document.addEventListener("DOMContentLoaded", initializeBlogPage);
+}
+
+// Email Copy Functionality
+document.addEventListener("DOMContentLoaded", () => {
+  const emailCopyBtn = document.getElementById("email-copy-btn");
+  const copySuccess = document.getElementById("copy-success");
+  const emailText = "hello@theajmalrazaq.tech";
+
+  if (emailCopyBtn && copySuccess) {
+    emailCopyBtn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(emailText);
+        
+        // Show success message
+        copySuccess.style.opacity = "1";
+        copySuccess.style.transform = "translate(-50%, -10px)";
+        
+        // Add bounce effect to button
+        emailCopyBtn.style.transform = "scale(0.98)";
+        
+        setTimeout(() => {
+          emailCopyBtn.style.transform = "scale(1)";
+        }, 150);
+        
+        // Hide success message after 2 seconds
+        setTimeout(() => {
+          copySuccess.style.opacity = "0";
+          copySuccess.style.transform = "translate(-50%, 0)";
+        }, 2000);
+        
+      } catch (err) {
+        console.error("Failed to copy email: ", err);
+        
+        // Fallback for older browsers
+        const textArea = document.createElement("textarea");
+        textArea.value = emailText;
+        document.body.appendChild(textArea);
+        textArea.select();
+        
+        try {
+          document.execCommand("copy");
+          copySuccess.style.opacity = "1";
+          copySuccess.innerHTML = "✅ Copied!";
+          
+          setTimeout(() => {
+            copySuccess.style.opacity = "0";
+            copySuccess.innerHTML = "✅ Copied to clipboard!";
+          }, 2000);
+        } catch (fallbackErr) {
+          console.error("Fallback copy failed: ", fallbackErr);
+        }
+        
+        document.body.removeChild(textArea);
+      }
+    });
+  }
+});

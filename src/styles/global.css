@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin '@tailwindcss/typography';
 @font-face {
   font-family: "Product Sans";
   font-style: normal;
@@ -65,8 +66,18 @@
   background: black;
   box-shadow: 0px 0px 45px -22px #444171 inset;
 }
+.shadow-accent-hover:hover {
+  box-shadow: 0px 0px 45px -22px #444171 inset;
+}
+.shadow-accent-transparent {
+  box-shadow: 0px 0px 45px -22px #444171 inset;
+}
+
 .shadow-accent-soft {
   background: black;
+  box-shadow: 0px 0px 45px -22px #1e1d2f inset;
+}
+.shadow-accent-soft-transparent {
   box-shadow: 0px 0px 45px -22px #1e1d2f inset;
 }
 .shadow-accent-x:hover {
@@ -1215,4 +1226,108 @@ body[data-aos-easing="ease-in-out-quart"] [data-aos] {
   100% {
     background-position-y: -480px;
   }
+}
+
+/* Modern Contact Section Enhancements */
+@keyframes float-particles {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-10px) rotate(120deg);
+  }
+  66% {
+    transform: translateY(5px) rotate(240deg);
+  }
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes subtle-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(160, 152, 255, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(160, 152, 255, 0.2);
+  }
+}
+
+.contact-card-hover {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.contact-card-hover:hover {
+  transform: translateY(-4px);
+  animation: subtle-glow 2s ease-in-out infinite;
+}
+
+.floating-particles > div {
+  animation: float-particles 6s ease-in-out infinite;
+}
+
+.floating-particles > div:nth-child(2) {
+  animation-delay: -2s;
+}
+
+.floating-particles > div:nth-child(3) {
+  animation-delay: -4s;
+}
+
+/* Glassmorphism enhancement */
+.glass-effect {
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.125);
+}
+
+/* Modern button hover effects */
+.modern-button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modern-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(160, 152, 255, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.modern-button:hover::before {
+  left: 100%;
+}
+
+/* Pulse animation for status indicators */
+@keyframes status-pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  }
+  
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+  }
+  
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+}
+
+.status-indicator {
+  animation: status-pulse 2s infinite;
 }

@@ -2,10 +2,12 @@
 import { supabase } from "../../lib/supabaseClient";
 import Button from "../Button.astro";
 import { ChevronRight } from "@lucide/astro";
+import LikesCount from "../blog/LikesCount";
+import ViewsCount from "../blog/ViewsCount";
 
-// Fetch the 3 latest blogs from Supabase
-const { data: blogs, error } = await supabase
-  .from("blogs")
+// Fetch the 3 latest blog from Supabase
+const { data: blog, error } = await supabase
+  .from("blog")
   .select("*")
   .order("created_at", { ascending: false })
   .limit(3);
@@ -18,7 +20,7 @@ if (error) console.error("Supabase error:", error);
   class="relative mt-40 w-full sm:px-15 px-6 flex flex-col justify-center items-center"
   data-aos="focus-up"
   data-aos-duration="1200"
-  id="featured-blogs"
+  id="featured-blog"
 >
   <img
     src="images/post.svg"
@@ -50,15 +52,17 @@ if (error) console.error("Supabase error:", error);
   </div>
   <div class="flex m-auto flex-wrap justify-center items-center gap-4">
     {
-      blogs &&
-        blogs.map((blog) => (
+      blog &&
+        blog.map((blog) => (
           <a
             href={`/blog/${blog.slug}`}
-            class="blog-card group rounded-3xl border-2 border-white/10   overflow-hidden flex flex-col h-full transition-all duration-300 ease-in-out group"
+            class="blog-card group rounded-3xl border border-white/10 overflow-hidden flex flex-col h-full transition-all duration-300 ease-in-out group mb-8 shadow-accent-soft"
             data-aos="focus-up"
+            data-tags={blog.tags}
+            data-blog-id={blog.id}
           >
             <div class="p-5 flex sm:flex-row flex-col-reverse justify-between gap-6">
-              <div class="flex flex-col sm:w-1/2 w-full justify-between ">
+              <div class="flex flex-col sm:w-1/2 w-full justify-between">
                 <div class="flex justify-between items-center text-xs text-white/60 mb-2">
                   <span>
                     {new Date(blog.created_at).toLocaleDateString("en-US", {
@@ -78,33 +82,23 @@ if (error) console.error("Supabase error:", error);
                   {blog.excerpt}
                 </p>
                 <div class="flex justify-between items-center mt-auto pt-4 text-xs text-white/60 border-t border-white/10">
-                  <div class="flex items-center gap-1">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="w-4 h-4"
-                    >
-                      <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
-                      <circle cx="12" cy="12" r="3" />
-                    </svg>
-                    <div class="flex items-center gap-6">
-                      <span>{blog.views_count} views</span>
-                      <span>{blog.avg_read_time} min read</span>
+                  <div class="flex items-center gap-6">
+                    <div class="flex items-center gap-1">
+                      🙄
+                      <ViewsCount blogId={blog.id} client:load />
                     </div>
+                    <div class="flex items-center gap-1">
+                      🫶
+                      <LikesCount blogId={blog.id} client:load />
+                    </div>
+                    <span>{blog.avg_read_time} min read</span>
                   </div>
                 </div>
               </div>
               <img
                 src={blog.img}
                 alt={blog.title}
-                class="sm:w-[200px] w-full aspect-video  transition-transform duration-500 rounded-2xl"
+                class="sm:w-[200px] w-full aspect-video transition-transform duration-500 rounded-2xl"
               />
             </div>
           </a>
@@ -113,8 +107,8 @@ if (error) console.error("Supabase error:", error);
   </div>
 
   {
-    !blogs ||
-      (blogs.length === 0 && (
+    !blog ||
+      (blog.length === 0 && (
         <div class="flex items-center justify-center h-48 text-white/60 text-center">
           <p>Coming soon! Check back for exciting content.</p>
         </div>
