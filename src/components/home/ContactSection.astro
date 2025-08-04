@@ -10,24 +10,14 @@ import { Mail, Copy } from "@lucide/astro";
   aria-labelledby="contact-heading"
 >
   <div
-    class="relative z-10 flex flex-col items-center justify-center gap-4 w-full max-w-4xl"
+    class="relative z-10 flex flex-col items-center justify-center w-full max-w-4xl"
   >
-    <!-- Heading -->
-    <div class="flex flex-col items-center justify-center gap-3 relative">
-      <img
-        src={seeyaa.src}
-        class="w-3/5 sm:w-1/2 transform transition-all hover:scale-105 duration-500 absolute -top-15"
-        data-aos="focus-up"
-        alt="See you soon illustration"
-      />
-
-      <p class="b1 mt-1 text-center max-w-md" data-aos="focus-up">
-        <span
-          class="text-center transition-all duration-300 bg-gradient-to-r from-neutral-300/30 via-neutral-300/95 to-neutral-300/30 bg-clip-text text-transparent font-product-sans text-base leading-relaxed hover:from-accent/40 hover:via-accent/80 hover:to-accent/40"
-          >Got a project in mind? Reach out directly.</span
-        >
-      </p>
-    </div>
+    <img
+      src={seeyaa.src}
+      class="sm:w-1/2 w-full absolute -top-9"
+      data-aos="focus-up"
+      alt="See you soon illustration"
+    />
 
     <!-- Two-Column Contact Layout -->
     <div
@@ -38,7 +28,7 @@ import { Mail, Copy } from "@lucide/astro";
       <!-- Opportunities Card -->
       <div class="w-full">
         <div
-          class="rounded-xl border border-white/10 bg-black/30 backdrop-blur-md p-4 md:p-5 h-full flex flex-col"
+          class="rounded-3xl border border-white/10 shadow-accent-soft backdrop-blur-xs p-4 md:p-5 h-full flex flex-col"
         >
           <div class="mb-3">
             <h3
@@ -90,7 +80,7 @@ import { Mail, Copy } from "@lucide/astro";
             <div class="group relative">
               <button
                 id="email-copy-btn"
-                class="w-full flex items-center justify-between px-4 py-3 border border-white/20 rounded-xl backdrop-blur-2xl bg-black/50 hover:bg-black/70 hover:border-accent/50 transition-all duration-300 ease-in-out cursor-none group"
+                class="w-full flex items-center justify-between px-4 py-3 border border-white/10 rounded-2xl backdrop-blur-2xl shadow-accent-soft hover:bg-black/70 hover:border-accent/50 transition-all duration-300 ease-in-out cursor-none group"
                 aria-label="Copy email address"
               >
                 <div class="flex items-center gap-3">

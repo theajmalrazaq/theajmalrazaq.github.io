@@ -1,5 +1,6 @@
 ---
 import "../../styles/global.css";
+import dev from "../../../public/images/dev.webp";
 import { supabase } from "../../lib/supabaseClient";
 import { marked } from "marked";
 import NavbarSection from "../../components/NavbarSection.astro";
@@ -7,9 +8,11 @@ import Loading from "../../components/Loading.astro";
 import CursorTracker from "../../components/CursorTracker.astro";
 import FooterSection from "../../components/FooterSection.astro";
 import MetaSection from "../../components/MetaSection.astro";
-import LikeView from "../../components/blog/LikeView.jsx";
 import ViewsCount from "../../components/blog/ViewsCount.jsx";
 import LikesCount from "../../components/blog/LikesCount.jsx";
+import LikeView from "../../components/blog/LikeView.jsx";
+import Button from "../../components/Button.astro";
+import { ChevronRight, ChevronLeft } from "@lucide/astro";
 
 // Get all blog posts for navigation
 export async function getStaticPaths() {
@@ -29,6 +32,38 @@ const { data: blog, error } = await supabase
   .single();
 
 if (!blog) throw new Error("blog not found");
+
+// Get random related posts (excluding current post)
+const { data: allPosts } = await supabase
+  .from("blog")
+  .select("*")
+  .neq("id", blog.id)
+  .limit(10); // Get more posts to randomize from
+
+// Shuffle and take 2 random posts
+const randomPosts = allPosts
+  ? allPosts.sort(() => 0.5 - Math.random()).slice(0, 2)
+  : [];
+
+// Get all posts ordered by creation date for navigation
+const { data: allPostsOrdered } = await supabase
+  .from("blog")
+  .select("id, slug, title, created_at")
+  .order("created_at", { ascending: true });
+
+// Find current post index and get previous/next posts
+let previousPost = null;
+let nextPost = null;
+
+if (allPostsOrdered) {
+  const currentIndex = allPostsOrdered.findIndex((post) => post.id === blog.id);
+  if (currentIndex > 0) {
+    previousPost = allPostsOrdered[currentIndex - 1];
+  }
+  if (currentIndex < allPostsOrdered.length - 1) {
+    nextPost = allPostsOrdered[currentIndex + 1];
+  }
+}
 
 const html = marked(blog.content);
 ---
@@ -58,7 +93,7 @@ const html = marked(blog.content);
 
     <main class="flex-grow">
       <!-- Hero Section with Cover Image -->
-      <section class="relative">
+      <main class="relative">
         {
           blog.img && (
             <div>
@@ -82,13 +117,13 @@ const html = marked(blog.content);
                   </div>
                 </div>
               </figure>
-              <div class="absolute left-0 top-0 h-[16rem] w-full bg-gradient-to-b from-black/60 to-black z-[-1]" />
+              <div class="absolute left-0 sm:top-0 -top-10 h-[16rem] w-full bg-gradient-to-b from-black/60 to-black z-[-1]" />
             </div>
           )
         }
 
         <!-- Header Content -->
-        <div class="max-w-4xl mx-auto px-4 pb-12 pt-32 md:pb-20 md:pt-64">
+        <div class="max-w-4xl mx-auto px-4 pb-4 pt-40">
           <div class="pb-4" data-aos="focus-up" data-aos-delay="300">
             <div class="flex flex-wrap gap-x-2 gap-y-1 text-sm">
               {
@@ -97,7 +132,7 @@ const html = marked(blog.content);
                     .split(",")
                     .map((tag: string) => tag.trim())
                     .map((tag: string) => (
-                      <button class="blog-tag cursor-auto inline-block rounded-md px-1.5 py-0.5 font-medium bg-white/10 text-white/70 border border-white/20 disabled:opacity-40">
+                      <button class="blog-tag cursor-auto inline-block rounded-full px-3 py-2 font-medium bg-accent text-white border border-white/10 disabled:opacity-40">
                         {tag}
                       </button>
                     ))
@@ -115,119 +150,253 @@ const html = marked(blog.content);
             {
               blog.excerpt && (
                 <p
-                  class="text-lg font-product-sans text-white/90 mt-1"
+                  class="text-normal font-product-sans text-white/90 mt-1"
                   data-aos="focus-up"
                   data-aos-delay="500"
                 >
-                  {blog.excerpt}
+                  <span class="text-center transition-colors bg-gradient-to-r from-neutral-300/[35%] via-neutral-300/90 to-neutral-300/[35%] bg-clip-text text-transparent font-product-sans">
+                    {blog.excerpt}
+                  </span>
                 </p>
               )
             }
 
             <div
-              class="mt-12 flex gap-3 items-center"
+              class="mt-8 flex gap-3 items-center justify-between flex-wrap"
               data-aos="focus-up"
               data-aos-delay="600"
             >
-              <div class="w-10 h-10 rounded-full overflow-hidden">
-                <div
-                  class="w-full h-full bg-accent/20 backdrop-blur-md flex items-center justify-center"
-                >
-                  <span class="text-accent font-nixel text-lg">a</span>
+              <div class="flex gap-3 items-center">
+                <div class="w-10 h-10 rounded-full overflow-hidden">
+                  <img
+                    src={dev.src}
+                    alt="Ajmal Razaq"
+                    class="w-full h-full object-cover"
+                  />
+                </div>
+                <div class="flex-1">
+                  <p class="text-sm font-product-sans text-white">
+                    Ajmal Razaq
+                  </p>
+                  <p class="text-xs font-product-sans text-white/60">
+                    {
+                      new Date(blog.created_at).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })
+                    }
+                  </p>
+
+                  <!-- Like and Share Buttons -->
                 </div>
               </div>
-              <div>
-                <p class="text-sm font-product-sans text-white">Ajmal Razaq</p>
-                <p class="text-xs font-product-sans text-white/60">
-                  {
-                    new Date(blog.created_at).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })
-                  }
-                </p>
+
+              <div class="flex items-center gap-4 text-xs text-white/60">
+                <div class="flex gap-2">
+                  <button
+                    id="share-btn"
+                    class="flex items-center gap-1 px-3 py-1 text-xs bg-white/10 hover:bg-white/20 rounded-full border border-white/10 transition-colors"
+                  >
+                    <span>📤</span>
+                    <span>Share</span>
+                  </button>
+                  <LikeView blogId={blog.id} client:load />
+                </div>
+                <div class="flex items-center gap-1">
+                  🙄
+                  <ViewsCount blogId={blog.id} client:load /> views
+                </div>
+
+                <div class="flex items-center gap-1">
+                  <span>🕒</span>
+                  <span>{blog.avg_read_time || 5} min read</span>
+                </div>
               </div>
             </div>
+          </div>
+        </div>
 
-            <div
-              class="mt-12 py-4 bg-black border border-white/10 rounded-3xl px-3 flex items-center gap-5 flex-wrap"
+        <!-- Article Content Section -->
+        <section class="max-w-4xl mx-auto px-4 pb-20">
+          <!-- Main Content Column -->
+          <div class="min-w-0">
+            <article
+              class="mdx prose mt-4 max-w-4xl transition-colors dark:prose-invert prose-p:text-neutral-500 prose-img:rounded-2xl prose-a:text-accent prose-a:underline prose-a:decoration-accent prose-a:decoration-2 prose-a:hover:decoration-4"
               data-aos="focus-up"
-              data-aos-delay="700"
-            >
-              <p class="text-xs text-white/60 flex items-center gap-2">
-                🙄
-                <ViewsCount blogId={blog.id} client:load /> views
-              </p>
+              data-aos-delay="500"
+              set:html={html}
+            />
+          </div>
+        </section>
 
-              <p class="text-xs text-white/60 flex items-center gap-2 ml-auto">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="w-4 h-4 text-white/40"
+        <!-- Navigation Buttons Section -->
+        <section class="max-w-4xl mx-auto px-4 pb-12">
+          <div
+            class="flex justify-between items-center gap-4 border-t border-white/10 pt-8"
+          >
+            <div class="flex-1">
+              <a href="/blog" class="block w-full">
+                <Button
+                  text="back to blog"
+                  data_aos="focus-up"
+                  data_aos_delay="200"
+                  aria_label="Back to Blog Page"
                 >
-                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-                </svg>
-                <span>{blog.avg_read_time || 5} min read</span>
-              </p>
+                  <ChevronLeft
+                    class="w-5 h-5 transition-transform duration-300"
+                  />
+                </Button>
+              </a>
+            </div>
 
-              <div class="flex items-center gap-2">
-                🫶
-                <span class="text-xs text-white/60">
-                  <LikesCount blogId={blog.id} client:load /> likes
-                </span>
-              </div>
+            <div class="flex-1 flex justify-end">
+              {
+                nextPost ? (
+                  <a href={`/blog/${nextPost.slug}`} class="block w-full">
+                    <Button
+                      text={`next: ${nextPost.title.toLowerCase()}`}
+                      data_aos="focus-up"
+                      data_aos_delay="400"
+                      aria_label={`Next post: ${nextPost.title}`}
+                    >
+                      <ChevronRight class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
+                    </Button>
+                  </a>
+                ) : (
+                  <div />
+                )
+              }
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- Article Content Section -->
-      <section class="mt-6">
-        <div class="max-w-7xl mx-auto px-4">
-          <div class="max-w-4xl mx-auto">
-            <!-- Main Content Column -->
-            <div class="min-w-0">
-              <article
-                class="prose prose-base max-w-none font-product-sans prose-headings:font-nixel prose-headings:text-white prose-headings:lowercase prose-headings:tracking-[1px]
-                prose-p:text-white/90 prose-p:text-sm prose-p:leading-relaxed prose-a:text-accent hover:prose-a:text-accent/80
-                prose-strong:text-white prose-code:text-white/80 prose-code:text-sm
-                prose-code:bg-white/10 prose-code:p-1 prose-code:rounded-[0px] prose-pre:bg-white/5 prose-pre:border
-                prose-pre:border-white/10 prose-pre:rounded-[0px] prose-pre:text-sm prose-img:rounded-[0px] prose-img:border
-                prose-img:border-white/10 prose-blockquote:border-l-accent prose-blockquote:bg-white/5
-                prose-blockquote:border-white/10 prose-blockquote:rounded-[0px] prose-blockquote:p-4 prose-blockquote:text-sm
-                prose-h1:mt-8 prose-h2:mt-6 prose-h3:mt-4 prose-h2:text-xl prose-h3:text-lg prose-h4:text-base
-                prose-headings:scroll-mt-24 prose-li:text-sm prose-ul:text-sm prose-ol:text-sm"
-                data-aos="focus-up"
-                data-aos-delay="500"
-                set:html={html}
-              />
+        <!-- You Might Like Section -->
+        {
+          randomPosts.length > 0 && (
+            <section class="max-w-4xl mx-auto px-4 mt-16">
+              <div class="border-t border-white/10 pt-12">
+                <h2
+                  class="text-2xl sm:text-3xl font-nixel tracking-[1px] text-white mb-8 text-center"
+                  style="word-spacing: -7px;"
+                  data-aos="focus-up"
+                >
+                  you might also <span class="text-accent">like</span>
+                </h2>
 
-              <!-- Like and View Component -->
-              <div class="mt-12 mb-8" data-aos="focus-up" data-aos-delay="600">
-                <LikeView
-                  client:load
-                  blogId={blog.id}
-                  initialViews={blog.views_count || 0}
-                  initialLikes={blog.likes_count || 0}
-                />
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {randomPosts.map((post, index) => (
+                    <a
+                      href={`/blog/${post.slug}`}
+                      class="blog-card group rounded-3xl border border-white/10 overflow-hidden flex flex-col h-full transition-all duration-300 ease-in-out hover:scale-[1.02] shadow-accent-soft"
+                      data-aos="focus-up"
+                      data-aos-delay={index * 100}
+                    >
+                      <div class="p-5">
+                        {post.img && (
+                          <img
+                            src={post.img}
+                            alt={post.title}
+                            class="w-full aspect-video transition-transform duration-500 rounded-2xl mb-4 group-hover:scale-105"
+                          />
+                        )}
+
+                        <div class="flex flex-col justify-between h-full">
+                          <div>
+                            <div class="flex justify-between items-center text-xs text-white/60 mb-2">
+                              <span>
+                                {new Date(post.created_at).toLocaleDateString(
+                                  "en-US",
+                                  {
+                                    month: "long",
+                                    day: "2-digit",
+                                    year: "numeric",
+                                  }
+                                )}
+                              </span>
+                            </div>
+
+                            <h3
+                              class="text-xl font-nixel tracking-[1px] text-white mb-2 group-hover:text-accent line-clamp-2"
+                              style="word-spacing: -7px;"
+                            >
+                              {post.title}
+                            </h3>
+
+                            <p class="text-sm text-white/80 mb-4 line-clamp-3">
+                              {post.excerpt}
+                            </p>
+                          </div>
+
+                          <div class="flex justify-between items-center pt-4 text-xs text-white/60 border-t border-white/10">
+                            <div class="flex items-center gap-4">
+                              <div class="flex items-center gap-1">
+                                🙄
+                                <ViewsCount blogId={post.id} client:load />
+                              </div>
+                              <div class="flex items-center gap-1">
+                                🌀
+                                <LikesCount blogId={post.id} client:load /> Aura
+                              </div>
+                              <span>{post.avg_read_time || 5} min read</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  ))}
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-        <!-- New Footer Component -->
-        <FooterSection />
+            </section>
+          )
+        }
+      </main>
+      <!-- New Footer Component -->
+      <FooterSection />
+      <script type="module" src="/script.js"></script>
 
-        <script type="module" src="/script.js"></script>
-      </section>
+      <style>
+        /* Custom styles for blog cards */
+        .line-clamp-1 {
+          display: -webkit-box;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+      </style>
+
+      <script define:vars={{ blogId: blog.id }}>
+        // Share functionality only
+        document.addEventListener("DOMContentLoaded", function () {
+          const shareBtn = document.getElementById("share-btn");
+
+          if (!shareBtn) return;
+
+          // Share button functionality
+          shareBtn.addEventListener("click", function () {
+            const url = window.location.href;
+            const titleElement = document.querySelector("h1");
+            const title = titleElement
+              ? titleElement.textContent
+              : "Check out this blog post";
+
+            if (navigator.share) {
+              navigator.share({
+                title: title || "Blog Post",
+                url: url,
+              });
+            } else {
+              // Fallback to clipboard
+              navigator.clipboard.writeText(url).then(function () {
+                shareBtn.textContent = "✓ Copied!";
+                setTimeout(() => {
+                  shareBtn.innerHTML = "<span>📤</span><span>Share</span>";
+                }, 2000);
+              });
+            }
+          });
+        });
+      </script>
     </main>
   </body>
 </html>
