@@ -1,13 +1,14 @@
 ---
 import "../styles/global.css";
+import { Image } from "astro:assets";
 import { supabase } from "../lib/supabaseClient";
 import NavbarSection from "../components/NavbarSection.astro";
 import Loading from "../components/Loading.astro";
 import FooterSection from "../components/FooterSection.astro";
 import CursorTracker from "../components/CursorTracker.astro";
-import blogImage from "../../public/images/blog.svg";
+import blogImage from "../images/blog.svg";
 import MetaSection from "../components/MetaSection.astro";
-import { Eye, Search, HeartHandshake } from "@lucide/astro";
+import { Search } from "@lucide/astro";
 import ViewsCount from "../components/blog/ViewsCount.jsx";
 import LikesCount from "../components/blog/LikesCount.jsx";
 
@@ -47,12 +48,6 @@ const allTags = blog
     type="website"
   />
 
-  <!-- Supabase configuration for client-side scripts -->
-  <meta name="supabase-url" content={import.meta.env.PUBLIC_SUPABASE_URL} />
-  <meta
-    name="supabase-key"
-    content={import.meta.env.PUBLIC_SUPABASE_ANON_KEY}
-  />
   <body class="bg-black min-h-screen flex flex-col">
     <!-- Cursor Tracker -->
     <CursorTracker />
@@ -67,15 +62,12 @@ const allTags = blog
         class="absolute w-full h-full animate-pulse -top-50 inset-0 pointer-events-none z-[1]"
         aria-hidden="true"
       >
-        <img
+        <Image
+          inferSize={true}
           decoding="async"
           loading="lazy"
           width="1920"
           height="1330"
-          sizes="100vw"
-          srcset="https://framerusercontent.com/images/2ZTM81mdCXeMIbSWfvdh4X7JIGg.png?scale-down-to=512 512w,
-                https://framerusercontent.com/images/2ZTM81mdCXeMIbSWfvdh4X7JIGg.png?scale-down-to=1024 1024w,
-                https://framerusercontent.com/images/2ZTM81mdCXeMIbSWfvdh4X7JIGg.png 1920w"
           src="https://framerusercontent.com/images/2ZTM81mdCXeMIbSWfvdh4X7JIGg.png"
           alt="Background pattern"
           class="w-full h-full object-cover opacity-50 animate-pulse"
@@ -85,20 +77,14 @@ const allTags = blog
       <!-- Hero Section -->
       <div
         class="relative flex flex-col justify-center mt-20 items-center w-full mb-12 text-center z-[2]"
-        data-aos="text-focus-focus-up"
+        data-aos="focus-up"
         data-aos-delay="200"
+        data-aos-duration="1000"
       >
         <div
           class="bg-gradient-to-b from-white from-20% to-accent to-70% bg-clip-text text-transparent"
         >
-          <img
-            src={blogImage.src}
-            alt="Blog Image"
-            class="p-2"
-            data-aos="focus-up"
-            data-aos-duration="1000"
-            data-aos-delay="800"
-          />
+          <Image src={blogImage} alt="Blog Image" class="p-2" />
         </div>
         <p data-fade="3" class="b1 mt-3">
           <span
@@ -111,8 +97,8 @@ const allTags = blog
         <!-- Search Bar -->
         <div
           class="max-w-2xl w-full mx-auto mt-8"
-          data-aos="text-focus-focus-up"
-          data-aos-delay="300"
+          data-aos-delay="600"
+          data-aos-duration="1000"
         >
           <div class="relative flex">
             <input
@@ -144,6 +130,8 @@ const allTags = blog
                     class={`text-sm px-4 py-2 rounded-full border border-white/10  hover:bg-accent hover:text-white hover:scale-[1.01] transition-colors filter-tag shadow-accent`}
                     data-tag={tag}
                     data-aos="focus-up"
+                    data-aos-delay="200"
+                    data-aos-duration="1000"
                   >
                     {tag}
                   </button>
@@ -174,7 +162,12 @@ const allTags = blog
         </div>
 
         <!-- Left Column: Blog Posts -->
-        <div id="blog-posts-container">
+        <div
+          id="blog-posts-container"
+          data-aos="focus-up"
+          data-aos-delay="200"
+          data-aos-duration="1000"
+        >
           {
             blog &&
               blog.map((blog) => (

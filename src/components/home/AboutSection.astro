@@ -1,13 +1,14 @@
 ---
-import buildimg from "../../../public/images/build2.svg";
-import eclipseimg from "../../../public/images/eclipse.svg";
+import { Image } from "astro:assets";
+import buildimg from "../../images/build2.svg";
+import eclipseimg from "../../images/eclipse.svg";
 import Button from "../Button.astro";
 import { User } from "@lucide/astro";
 ---
 
 <section class="relative w-full mt-8 sm:mt-14">
-  <img
-    src={eclipseimg.src}
+  <Image
+    src={eclipseimg}
     alt="Decorative eclipse background"
     class="absolute sm:-top-55 -top-40 w-full -z-10 invert dark:invert-0"
     aria-hidden="true"
@@ -20,8 +21,8 @@ import { User } from "@lucide/astro";
     data-aos-duration="1000"
   >
     <div class="relative w-full flex items-center justify-center">
-      <img
-        src={buildimg.src}
+      <Image
+        src={buildimg}
         alt="Decorative build illustration"
         class="absolute -top-17 w-3/5 sm:w-auto invert dark:invert-0"
         data-aos="focus-up"

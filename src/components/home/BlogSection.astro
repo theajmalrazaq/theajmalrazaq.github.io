@@ -1,9 +1,11 @@
 ---
+import { Image } from "astro:assets";
+import postimg from "../../images/post.svg";
 import { supabase } from "../../lib/supabaseClient";
 import Button from "../Button.astro";
 import { ChevronRight } from "@lucide/astro";
-import LikesCount from "../blog/LikesCount";
-import ViewsCount from "../blog/ViewsCount";
+import LikesCount from "../blog/LikesCount.jsx";
+import ViewsCount from "../blog/ViewsCount.jsx";
 
 // Fetch the 3 latest blog from Supabase
 const { data: blog, error } = await supabase
@@ -22,8 +24,8 @@ if (error) console.error("Supabase error:", error);
   data-aos-duration="1200"
   id="featured-blog"
 >
-  <img
-    src="images/post.svg"
+  <Image
+    src={postimg}
     alt="Projects section decorative illustration"
     class="absolute sm:w-1/5 w-36 sm:-top-10 -top-7 duration-1000 ease-in-out"
     id="projecticons"

@@ -1,5 +1,6 @@
 ---
-import seeyaa from "../../../public/images/seeyaa.svg";
+import { Image } from "astro:assets";
+import seeyaa from "../../images/seeyaa.svg";
 import { Mail, Copy } from "@lucide/astro";
 ---
 
@@ -12,8 +13,8 @@ import { Mail, Copy } from "@lucide/astro";
   <div
     class="relative z-10 flex flex-col items-center justify-center w-full max-w-4xl"
   >
-    <img
-      src={seeyaa.src}
+    <Image
+      src={seeyaa}
       class="sm:w-1/2 w-full absolute -top-9"
       data-aos="focus-up"
       alt="See you soon illustration"

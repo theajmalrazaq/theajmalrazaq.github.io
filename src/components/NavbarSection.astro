@@ -1,5 +1,6 @@
 ---
-import logoimg from "../../public/images/logo.svg";
+import { Image } from "astro:assets";
+import logoimg from "../images/logo.svg";
 import { ChevronDown } from "@lucide/astro";
 const { page } = Astro.props;
 
@@ -18,8 +19,8 @@ const isActive = (path: string) => {
   >
     <div>
       <a href="/" class="logo" aria-label="Home">
-        <img
-          src={logoimg.src}
+        <Image
+          src={logoimg}
           alt="Ajmal Razaq  Logo"
           class="logo-image w-10"
           data-rotate
@@ -83,8 +84,8 @@ const isActive = (path: string) => {
   >
     <div>
       <a href="/" class="logo" aria-label="Home">
-        <img
-          src={logoimg.src}
+        <Image
+          src={logoimg}
           alt="Ajmal Razaq  Logo"
           class="logo-image w-10"
           data-rotate

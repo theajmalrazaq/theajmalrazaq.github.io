@@ -17,31 +17,6 @@
   font-display: swap;
 }
 
-@font-face {
-  font-family: "Recoleta Regular";
-  src: url(https://nmanumr.com/fonts/Recoleta-Regular.woff2) format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Nexus";
-  src: url(https://nexus.zentry.com/_next/static/media/ef279d25efe713b4-s.p.ttf)
-    format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "OffBit 101 Bold";
-  src: url("https://framerusercontent.com/assets/ssb60VZMb2aPtoBMu6Dz4rbbk.otf");
-  font-display: swap;
-}
-@font-face {
-  font-family: OffBit Regular;
-  src: url("https://framerusercontent.com/assets/ndz4KVwboEqdkjlzPPmY0ftCrqg.otf");
-  font-display: swap;
-}
 
 @theme {
   --bg-accent: #a098ff;
@@ -57,6 +32,46 @@
 * {
   box-sizing: border-box;
 }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-marquee {
+    animation: marquee 20s linear infinite;
+  }
+
+  .pause-marquee:hover {
+    animation-play-state: paused;
+  }
+
+  & :is(:where(h1, h2, h3, h4, h5, h6, th):not(:where([class~="not-prose"],[class~="not-prose"] *))){
+    word-spacing: -7px;
+  }
+
+
+
+  .marquee-container {
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 20px,
+      black calc(100% - 20px),
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 20px,
+      black calc(100% - 20px),
+      transparent
+    );
+  }
 
 .shadow-accent-animate {
   box-shadow: 0px 0px 39px -22px #a198ff39 inset;

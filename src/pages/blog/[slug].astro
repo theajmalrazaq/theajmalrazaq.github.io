@@ -1,6 +1,7 @@
 ---
 import "../../styles/global.css";
-import dev from "../../../public/images/dev.webp";
+import { Image } from "astro:assets";
+import dev from "../..//images/dev.webp";
 import { supabase } from "../../lib/supabaseClient";
 import { marked } from "marked";
 import NavbarSection from "../../components/NavbarSection.astro";
@@ -38,23 +39,6 @@ const { data: allPosts } = await supabase
 const randomPosts = allPosts
   ? allPosts.sort(() => 0.5 - Math.random()).slice(0, 2)
   : [];
-const { data: allPostsOrdered } = await supabase
-  .from("blog")
-  .select("id, slug, title, created_at")
-  .order("created_at", { ascending: true });
-
-let previousPost = null;
-let nextPost = null;
-
-if (allPostsOrdered) {
-  const currentIndex = allPostsOrdered.findIndex((post) => post.id === blog.id);
-  if (currentIndex > 0) {
-    previousPost = allPostsOrdered[currentIndex - 1];
-  }
-  if (currentIndex < allPostsOrdered.length - 1) {
-    nextPost = allPostsOrdered[currentIndex + 1];
-  }
-}
 
 const html = marked(blog.content);
 ---
@@ -159,8 +143,8 @@ const html = marked(blog.content);
             >
               <div class="flex gap-3 items-center">
                 <div class="w-10 h-10 rounded-full overflow-hidden">
-                  <img
-                    src={dev.src}
+                  <Image
+                    src={dev}
                     alt="Ajmal Razaq"
                     class="w-full h-full object-cover"
                   />
@@ -206,7 +190,7 @@ const html = marked(blog.content);
           <!-- Main Content Column -->
           <div class="min-w-0">
             <article
-              class="mdx prose mt-4 max-w-4xl transition-colors font-product-sans dark:prose-invert prose-p:text-neutral-500 prose-img:rounded-2xl prose-a:text-accent prose-a:underline prose-a:decoration-accent prose-a:decoration-2 prose-a:hover:decoration-4 prose-headings:text-white prose-headings:font-product-sans"
+              class="mdx prose mt-4 max-w-4xl transition-colors font-product-sans prose-p:text-neutral-500 prose-img:rounded-2xl prose-a:text-accent prose-a:underline prose-a:decoration-accent prose-a:decoration-2 prose-ul:text-neutral-500 prose-ol:text-neutral-500 prose-li:text-neutral-500 prose-headings:font-black prose-a:hover:decoration-4 prose-headings:text-white prose-headings:font-nixel prose-headings:tracking-[1px] prose-headings:leading-tight prose-pre:bg-neutral-900 prose-pre:rounded-lg prose-pre:p-4 prose-pre:font-mono prose-pre:text-sm prose-code:bg-neutral-800 prose-code:text-accent prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:font-mono prose-code:text-sm prose-blockquote:border-l-4 prose-blockquote:border-accent prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-neutral-400 prose-strong:text-white prose-em:text-neutral-300 prose-em:italic prose-hr:border-white/20 prose-table:border-collapse prose-thead:border-b-2 prose-thead:border-white/30 prose-th:text-white prose-th:font-bold prose-th:px-4 prose-th:py-2 prose-td:text-neutral-400 prose-td:px-4 prose-td:py-2 prose-td:border-b prose-td:border-white/10 prose-headings:lowercase"
               data-aos="focus-up"
               data-aos-delay="500"
               set:html={html}
