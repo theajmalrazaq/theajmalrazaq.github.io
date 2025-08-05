@@ -7,16 +7,24 @@ const { project } = Astro.props;
   data-aos="focus-up"
   style={`background-color: ${project.color};`}
 >
-  <div class="relative flex justify-center items-center h-64 rounded-[0px]">
+  <div
+    class="relative flex justify-center items-center h-64 rounded-[0px]"
+    role="img"
+    aria-label={`Project preview: ${project.name}`}
+  >
     <img
       src={project.img}
-      alt={project.name}
+      alt={`Screenshot of ${project.name} project showing the main interface`}
+      loading="lazy"
+      decoding="async"
       class="w-full h-full object-cover rounded-[0px]"
       data-aos="focus-up"
     />
     <img
       src={project.icon}
-      alt=""
+      alt={`${project.name} project icon`}
+      loading="lazy"
+      decoding="async"
       class="absolute -bottom-3 w-16 h-16"
       data-aos="focus-up"
     />

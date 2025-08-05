@@ -13,7 +13,7 @@ import ViewsCount from "../../components/blog/ViewsCount.jsx";
 import LikesCount from "../../components/blog/LikesCount.jsx";
 import LikeView from "../../components/blog/LikeView.jsx";
 import Button from "../../components/Button.astro";
-import { ChevronRight, ChevronLeft } from "@lucide/astro";
+import { ChevronLeft } from "@lucide/astro";
 
 // Get all blog posts for navigation
 export async function getStaticPaths() {
@@ -68,7 +68,7 @@ const html = marked(blog.content);
 
     <main class="flex-grow">
       <!-- Hero Section with Cover Image -->
-      <main class="relative">
+      <article class="relative" role="main">
         {
           blog.img && (
             <div>
@@ -79,9 +79,10 @@ const html = marked(blog.content);
                 >
                   <div class="absolute inset-0 top-1/2">
                     <img
-                      alt={blog.title}
+                      alt={`Cover image for article: ${blog.title}`}
                       title={blog.title}
                       fetchpriority="high"
+                      loading="eager"
                       width="1200"
                       height="480"
                       decoding="async"
@@ -92,27 +93,36 @@ const html = marked(blog.content);
                   </div>
                 </div>
               </figure>
-              <div class="absolute left-0 sm:top-0 -top-10 h-[14rem] sm:h-[11rem]  w-full bg-gradient-to-b from-black/60 to-black z-[-1]" />
+              <div
+                class="absolute left-0 sm:top-0 -top-10 h-[14rem] sm:h-[11rem]  w-full bg-gradient-to-b from-black/60 to-black z-[-1]"
+                aria-hidden="true"
+              />
             </div>
           )
         }
 
         <!-- Header Content -->
-        <div class="max-w-4xl mx-auto px-4 pb-4 pt-40">
+        <header class="max-w-4xl mx-auto px-4 pb-4 pt-40">
           <div class="pb-4" data-aos="focus-up" data-aos-delay="300">
-            <div class="flex flex-wrap gap-x-2 gap-y-1 text-sm">
+            <nav
+              class="flex flex-wrap gap-x-2 gap-y-1 text-sm"
+              aria-label="Article tags"
+            >
               {
                 blog.tags &&
                   blog.tags
                     .split(",")
                     .map((tag: string) => tag.trim())
                     .map((tag: string) => (
-                      <button class="blog-tag cursor-auto inline-block rounded-full px-3 py-2 font-medium bg-accent text-white border border-white/10 disabled:opacity-40">
+                      <span
+                        class="blog-tag cursor-auto inline-block rounded-full px-3 py-2 font-medium bg-accent text-white border border-white/10 disabled:opacity-40"
+                        aria-label={`Tag: ${tag}`}
+                      >
                         {tag}
-                      </button>
+                      </span>
                     ))
               }
-            </div>
+            </nav>
             <h1
               class="gradient-text text-3xl sm:text-4xl md:text-5xl font-nixel tracking-[1px] mt-6 leading-tight lowercase"
               style="word-spacing: -7px;"
@@ -145,7 +155,8 @@ const html = marked(blog.content);
                 <div class="w-10 h-10 rounded-full overflow-hidden">
                   <Image
                     src={dev}
-                    alt="Ajmal Razaq"
+                    alt="Ajmal Razaq - Author profile photo"
+                    loading="eager"
                     class="w-full h-full object-cover"
                   />
                 </div>
@@ -153,7 +164,11 @@ const html = marked(blog.content);
                   <p class="text-sm font-product-sans text-white">
                     Ajmal Razaq
                   </p>
-                  <p class="text-xs font-product-sans text-white/60">
+                  <time
+                    class="text-xs font-product-sans text-white/60"
+                    datetime={blog.created_at}
+                    aria-label={`Published on ${new Date(blog.created_at).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}`}
+                  >
                     {
                       new Date(blog.created_at).toLocaleDateString("en-US", {
                         year: "numeric",
@@ -161,36 +176,47 @@ const html = marked(blog.content);
                         day: "numeric",
                       })
                     }
-                  </p>
+                  </time>
 
                   <!-- Like and Share Buttons -->
                 </div>
               </div>
 
-              <div class="flex items-center gap-4 text-xs text-white/60">
+              <div
+                class="flex items-center gap-4 text-xs text-white/60"
+                role="group"
+                aria-label="Article statistics"
+              >
                 <div class="flex gap-2">
                   <LikeView blogId={blog.id} client:load />
                 </div>
-                <div class="flex items-center gap-1">
-                  🙄
-                  <ViewsCount blogId={blog.id} client:load /> views
+                <div
+                  class="flex items-center gap-1"
+                  aria-label={`Article has been viewed ${blog.views || 0} times`}
+                >
+                  <span aria-hidden="true">🙄</span>
+                  <ViewsCount blogId={blog.id} client:load />
+                  <span>views</span>
                 </div>
 
-                <div class="flex items-center gap-1">
-                  <span>🕒</span>
+                <div
+                  class="flex items-center gap-1"
+                  aria-label={`Estimated reading time: ${blog.avg_read_time || 5} minutes`}
+                >
+                  <span aria-hidden="true">🕒</span>
                   <span>{blog.avg_read_time || 5} min read</span>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </header>
 
         <!-- Article Content Section -->
         <section class="max-w-4xl mx-auto px-4 pb-20">
           <!-- Main Content Column -->
           <div class="min-w-0">
             <article
-              class="mdx prose mt-4 max-w-4xl transition-colors font-product-sans prose-p:text-neutral-500 prose-img:rounded-2xl prose-a:text-accent prose-a:underline prose-a:decoration-accent prose-a:decoration-2 prose-ul:text-neutral-500 prose-ol:text-neutral-500 prose-li:text-neutral-500 prose-headings:font-black prose-a:hover:decoration-4 prose-headings:text-white prose-headings:font-nixel prose-headings:tracking-[1px] prose-headings:leading-tight prose-pre:bg-neutral-900 prose-pre:rounded-lg prose-pre:p-4 prose-pre:font-mono prose-pre:text-sm prose-code:bg-neutral-800 prose-code:text-accent prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:font-mono prose-code:text-sm prose-blockquote:border-l-4 prose-blockquote:border-accent prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-neutral-400 prose-strong:text-white prose-em:text-neutral-300 prose-em:italic prose-hr:border-white/20 prose-table:border-collapse prose-thead:border-b-2 prose-thead:border-white/30 prose-th:text-white prose-th:font-bold prose-th:px-4 prose-th:py-2 prose-td:text-neutral-400 prose-td:px-4 prose-td:py-2 prose-td:border-b prose-td:border-white/10 prose-headings:lowercase"
+              class="mdx prose mt-4 max-w-4xl transition-colors prose-p:font-product-sans prose-p:text-neutral-500 prose-img:rounded-2xl prose-a:text-accent prose-a:underline prose-a:decoration-accent prose-a:decoration-2 prose-ul:text-neutral-500 prose-ol:text-neutral-500 prose-li:text-neutral-500 prose-headings:font-bold prose-a:hover:decoration-4 prose-headings:text-white prose-pre:bg-neutral-900 prose-pre:rounded-lg prose-pre:p-4 prose-pre:font-mono prose-pre:text-sm prose-code:bg-neutral-800 prose-code:text-accent prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:font-mono prose-code:text-sm prose-blockquote:border-l-4 prose-blockquote:border-accent prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-neutral-400 prose-strong:text-white prose-em:text-neutral-300 prose-em:italic prose-hr:border-white/20 prose-table:border-collapse prose-thead:border-b-2 prose-thead:border-white/30 prose-th:text-white prose-th:font-bold prose-th:px-4 prose-th:py-2 prose-td:text-neutral-400 prose-td:px-4 prose-td:py-2 prose-td:border-b prose-td:border-white/10"
               data-aos="focus-up"
               data-aos-delay="500"
               set:html={html}
@@ -199,11 +225,18 @@ const html = marked(blog.content);
         </section>
 
         <!-- Navigation Buttons Section -->
-        <section class="max-w-4xl mx-auto px-4 pb-12">
+        <nav
+          class="max-w-4xl mx-auto px-4 pb-12"
+          aria-label="Article navigation"
+        >
           <div
             class="flex justify-between items-center gap-4 border-t border-white/10 pt-8"
           >
-            <a href="/blog" class="block w-full">
+            <a
+              href="/blog"
+              class="block w-full"
+              aria-label="Return to blog listing page"
+            >
               <Button
                 text="back to all blogs"
                 data_aos="focus-up"
@@ -213,16 +246,20 @@ const html = marked(blog.content);
               >
                 <ChevronLeft
                   class="w-5 h-5 transition-transform duration-300"
+                  aria-hidden="true"
                 />
               </Button>
             </a>
           </div>
-        </section>
+        </nav>
 
         <!-- You Might Like Section -->
         {
           randomPosts.length > 0 && (
-            <section class="max-w-4xl mx-auto px-4 mt-16">
+            <aside
+              class="max-w-4xl mx-auto px-4 mt-16"
+              aria-label="Related articles"
+            >
               <div class="border-t border-white/10 pt-12">
                 <h2
                   class="text-2xl sm:text-3xl font-nixel tracking-[1px] text-white mb-8 text-center"
@@ -234,17 +271,22 @@ const html = marked(blog.content);
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {randomPosts.map((post, index) => (
-                    <a
-                      href={`/blog/${post.slug}`}
+                    <article
                       class="blog-card group rounded-3xl border border-white/10 overflow-hidden flex flex-col h-full transition-all duration-300 ease-in-out hover:scale-[1.02] shadow-accent-soft"
                       data-aos="focus-up"
                       data-aos-delay={index * 100}
                     >
-                      <div class="p-5">
+                      <a
+                        href={`/blog/${post.slug}`}
+                        class="p-5 flex flex-col h-full"
+                        aria-label={`Read related article: ${post.title}`}
+                      >
                         {post.img && (
                           <img
                             src={post.img}
-                            alt={post.title}
+                            alt={`Cover image for related article: ${post.title}`}
+                            loading="lazy"
+                            decoding="async"
                             class="w-full aspect-video transition-transform duration-500 rounded-2xl mb-4 group-hover:scale-105"
                           />
                         )}
@@ -252,7 +294,10 @@ const html = marked(blog.content);
                         <div class="flex flex-col justify-between h-full">
                           <div>
                             <div class="flex justify-between items-center text-xs text-white/60 mb-2">
-                              <span>
+                              <time
+                                datetime={post.created_at}
+                                aria-label={`Published on ${new Date(post.created_at).toLocaleDateString("en-US", { month: "long", day: "2-digit", year: "numeric" })}`}
+                              >
                                 {new Date(post.created_at).toLocaleDateString(
                                   "en-US",
                                   {
@@ -261,7 +306,7 @@ const html = marked(blog.content);
                                     year: "numeric",
                                   }
                                 )}
-                              </span>
+                              </time>
                             </div>
 
                             <h3
@@ -278,27 +323,38 @@ const html = marked(blog.content);
 
                           <div class="flex justify-between items-center pt-4 text-xs text-white/60 border-t border-white/10">
                             <div class="flex items-center gap-4">
-                              <div class="flex items-center gap-1">
-                                🙄
+                              <div
+                                class="flex items-center gap-1"
+                                aria-label={`${post.views || 0} views`}
+                              >
+                                <span aria-hidden="true">🙄</span>
                                 <ViewsCount blogId={post.id} client:load />
                               </div>
-                              <div class="flex items-center gap-1">
-                                🌀
-                                <LikesCount blogId={post.id} client:load /> Aura
+                              <div
+                                class="flex items-center gap-1"
+                                aria-label={`${post.likes || 0} likes`}
+                              >
+                                <span aria-hidden="true">🌀</span>
+                                <LikesCount blogId={post.id} client:load />
+                                <span>Aura</span>
                               </div>
-                              <span>{post.avg_read_time || 5} min read</span>
+                              <span
+                                aria-label={`${post.avg_read_time || 5} minute read`}
+                              >
+                                {post.avg_read_time || 5} min read
+                              </span>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </a>
+                      </a>
+                    </article>
                   ))}
                 </div>
               </div>
-            </section>
+            </aside>
           )
         }
-      </main>
+      </article>
       <!-- New Footer Component -->
       <FooterSection />
       <script type="module" src="/script.js"></script>

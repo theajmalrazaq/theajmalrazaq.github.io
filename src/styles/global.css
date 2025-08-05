@@ -18,15 +18,13 @@
 }
 
 
+
 @theme {
   --bg-accent: #a098ff;
   --font-nixel: "Nixel", sans-serif;
   --color-accent: #a098ff;
-  --font-nexus: "Nexus";
   --font-product-sans: "Product Sans", sans-serif;
   --font-recoleta: "Recoleta Regular", serif;
-  --font-offbit: "OffBit 101 Bold", sans-serif;
-  --font-offbit-regular: "OffBit Regular", sans-serif;
 }
 
 * {
@@ -50,9 +48,9 @@
     animation-play-state: paused;
   }
 
-  & :is(:where(h1, h2, h3, h4, h5, h6, th):not(:where([class~="not-prose"],[class~="not-prose"] *))){
+  /* & :is(:where(h1, h2, h3, h4, h5, h6, th):not(:where([class~="not-prose"],[class~="not-prose"] *))){
     word-spacing: -7px;
-  }
+  } */
 
 
 
@@ -1130,7 +1128,7 @@ body[data-aos-easing="ease-in-out-quart"] [data-aos] {
 }
 
 .pixel-button:hover {
-  background: var(--color-accent) url(../../public/images/pixel.png);
+  background: var(--color-accent) url(../images/pixel.png);
   transition-delay: 0.8s;
   background-size: 180px;
   animation: animate 0.8s steps(8) forwards;
@@ -1144,87 +1142,6 @@ body[data-aos-easing="ease-in-out-quart"] [data-aos] {
   }
 }
 
-/* Modern Contact Section Enhancements */
-@keyframes float-particles {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  33% {
-    transform: translateY(-10px) rotate(120deg);
-  }
-  66% {
-    transform: translateY(5px) rotate(240deg);
-  }
-}
-
-@keyframes gradient-shift {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-@keyframes subtle-glow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(160, 152, 255, 0.1);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(160, 152, 255, 0.2);
-  }
-}
-
-.contact-card-hover {
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.contact-card-hover:hover {
-  transform: translateY(-4px);
-  animation: subtle-glow 2s ease-in-out infinite;
-}
-
-.floating-particles > div {
-  animation: float-particles 6s ease-in-out infinite;
-}
-
-.floating-particles > div:nth-child(2) {
-  animation-delay: -2s;
-}
-
-.floating-particles > div:nth-child(3) {
-  animation-delay: -4s;
-}
-
-/* Glassmorphism enhancement */
-.glass-effect {
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  background-color: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.125);
-}
-
-/* Modern button hover effects */
-.modern-button {
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.modern-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(160, 152, 255, 0.1), transparent);
-  transition: left 0.5s;
-}
-
-.modern-button:hover::before {
-  left: 100%;
-}
 
 /* Pulse animation for status indicators */
 @keyframes status-pulse {
@@ -1248,42 +1165,3 @@ body[data-aos-easing="ease-in-out-quart"] [data-aos] {
   animation: status-pulse 2s infinite;
 }
 
-/* Animation Toggle Button Styles */
-#animation-toggle,
-#animation-toggle-mobile {
-  position: relative;
-  overflow: hidden;
-  user-select: none;
-  transition: all 0.3s ease;
-}
-
-#animation-toggle:hover,
-#animation-toggle-mobile:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(160, 152, 255, 0.3);
-}
-
-#animation-toggle:active,
-#animation-toggle-mobile:active {
-  transform: translateY(0);
-}
-
-/* Disabled animations state indicator */
-.animations-disabled {
-  filter: grayscale(100%);
-  opacity: 0.7;
-}
-
-.animations-disabled * {
-  animation-play-state: paused !important;
-  transition: none !important;
-}
-
-/* Add smooth transition for animation state changes */
-body {
-  transition: filter 0.3s ease;
-}
-
-body.animations-disabled {
-  filter: grayscale(20%);
-}

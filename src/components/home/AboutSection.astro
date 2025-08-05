@@ -6,12 +6,14 @@ import Button from "../Button.astro";
 import { User } from "@lucide/astro";
 ---
 
-<section class="relative w-full mt-8 sm:mt-14">
+<section class="relative w-full mt-8 sm:mt-14" aria-labelledby="about-heading">
   <Image
     src={eclipseimg}
-    alt="Decorative eclipse background"
+    alt="Decorative eclipse background pattern"
+    loading="lazy"
     class="absolute sm:-top-55 -top-40 w-full -z-10 invert dark:invert-0"
     aria-hidden="true"
+    role="presentation"
     data-aos="focus-up"
     data-aos-duration="1200"
   />
@@ -20,29 +22,32 @@ import { User } from "@lucide/astro";
     data-aos="focus-up"
     data-aos-duration="1000"
   >
-    <div class="relative w-full flex items-center justify-center">
+    <header class="relative w-full flex items-center justify-center">
       <Image
         src={buildimg}
-        alt="Decorative build illustration"
+        alt="Decorative build and development illustration"
+        loading="lazy"
         class="absolute -top-17 w-3/5 sm:w-auto invert dark:invert-0"
         data-aos="focus-up"
         data-aos-duration="1000"
         aria-hidden="true"
+        role="presentation"
       />
       <h1
+        id="about-heading"
         class="text-white text-3xl sm:text-5xl md:text-7xl z-10 absolute font-nixel tracking-[1px] text-center flex gap-2 flex-wrap justify-center"
         data-aos="focus-up"
         data-aos-duration="1200"
       >
-        <div>who</div>
-        <div>am</div>
-        <div class="text-accent">i</div>
-        <div>and</div>
-        <div>what</div>
-        <div class="text-accent">i</div>
-        <div class="text-accent">do</div>
+        <span>who</span>
+        <span>am</span>
+        <span class="text-accent">i</span>
+        <span>and</span>
+        <span>what</span>
+        <span class="text-accent">i</span>
+        <span class="text-accent">do</span>
       </h1>
-    </div>
+    </header>
     <div
       class="sm:mt-6 mt-4 z-10 flex flex-col items-center justify-center gap-4 w-full"
       data-aos="focus-up"
@@ -74,9 +79,9 @@ import { User } from "@lucide/astro";
         text="about me"
         data_aos="focus-up"
         data_aos_duration="800"
-        aria_label="Contact me to discuss a project"
+        aria_label="Learn more about Ajmal Razaq's background and experience"
       >
-        <User size="18" />
+        <User size="18" aria-hidden="true" />
       </Button>
     </div>
   </div>

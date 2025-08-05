@@ -61,6 +61,7 @@ const allTags = blog
       <div
         class="absolute w-full h-full animate-pulse -top-50 inset-0 pointer-events-none z-[1]"
         aria-hidden="true"
+        role="presentation"
       >
         <Image
           inferSize={true}
@@ -69,23 +70,32 @@ const allTags = blog
           width="1920"
           height="1330"
           src="https://framerusercontent.com/images/2ZTM81mdCXeMIbSWfvdh4X7JIGg.png"
-          alt="Background pattern"
+          alt="Decorative background pattern with geometric shapes"
           class="w-full h-full object-cover opacity-50 animate-pulse"
         />
       </div>
 
       <!-- Hero Section -->
-      <div
+      <section
         class="relative flex flex-col justify-center mt-20 items-center w-full mb-12 text-center z-[2]"
         data-aos="focus-up"
         data-aos-delay="200"
         data-aos-duration="1000"
+        aria-labelledby="blog-heading"
       >
-        <div
+        <header
           class="bg-gradient-to-b from-white from-20% to-accent to-70% bg-clip-text text-transparent"
         >
-          <Image src={blogImage} alt="Blog Image" class="p-2" />
-        </div>
+          <Image
+            src={blogImage}
+            alt="Blog section icon representing articles and thoughts"
+            loading="eager"
+            class="p-2"
+          />
+          <h1 id="blog-heading" class="sr-only">
+            Blog Articles by Ajmal Razaq
+          </h1>
+        </header>
         <p data-fade="3" class="b1 mt-3">
           <span
             class="transition-colors bg-gradient-to-r from-neutral-300/[35%] via-neutral-300/90 to-neutral-300/[35%] bg-clip-text text-transparent font-product-sans"
@@ -99,27 +109,43 @@ const allTags = blog
           class="max-w-2xl w-full mx-auto mt-8"
           data-aos-delay="600"
           data-aos-duration="1000"
+          role="search"
+          aria-label="Search articles"
         >
           <div class="relative flex">
+            <label for="search-input" class="sr-only"
+              >Search articles by title or content</label
+            >
             <input
               type="text"
               id="search-input"
               placeholder="Search articles..."
               class="w-full px-5 py-3 border border-white/10 rounded-full text-white focus:outline-none bg-black shadow-accent focus:border-accent/50 transition-all"
+              aria-describedby="search-help"
             />
             <button
               id="search-button"
               class="absolute right-4 top-1/2 -translate-y-1/2"
+              aria-label="Submit search"
             >
-              <Search class="h-5 w-5 text-white/50" />
+              <Search class="h-5 w-5 text-white/50" aria-hidden="true" />
             </button>
+          </div>
+          <div id="search-help" class="sr-only">
+            Search through article titles and content to find relevant posts
           </div>
 
           <!-- Tag Pills -->
-          <div class="flex flex-wrap gap-3 mt-6 justify-center">
+          <div
+            class="flex flex-wrap gap-3 mt-6 justify-center"
+            role="group"
+            aria-label="Filter articles by category"
+          >
             <button
               id="filter-all"
               class="text-sm px-4 py-2 rounded-full border border-accent bg-accent text-white filter-active"
+              aria-pressed="true"
+              aria-label="Show all articles"
             >
               All
             </button>
@@ -132,6 +158,8 @@ const allTags = blog
                     data-aos="focus-up"
                     data-aos-delay="200"
                     data-aos-duration="1000"
+                    aria-pressed="false"
+                    aria-label={`Filter articles by ${tag}`}
                   >
                     {tag}
                   </button>
@@ -145,43 +173,58 @@ const allTags = blog
         <div class="w-full max-w-5xl mx-auto mt-8">
           <hr class="border-white/10 border-t" />
         </div>
-      </div>
+      </section>
 
       <!-- Two-column Layout -->
       <div class="flex flex-col z-[2] gap-8">
         <!-- No Results Message -->
-        <div id="no-results-message" class="hidden text-center py-10">
-          <Search class="h-12 w-12 mx-auto text-white/30 mb-4" />
-          <h3
+        <div
+          id="no-results-message"
+          class="hidden text-center py-10"
+          role="status"
+          aria-live="polite"
+        >
+          <Search
+            class="h-12 w-12 mx-auto text-white/30 mb-4"
+            aria-hidden="true"
+          />
+          <h2
             class="text-2xl font-nixel tracking-[1px] text-white/70 mb-2"
             style="word-spacing: -7px;"
           >
             no results found
-          </h3>
+          </h2>
           <p class="text-white/50">Try different keywords or remove filters</p>
         </div>
 
         <!-- Left Column: Blog Posts -->
-        <div
+        <section
           id="blog-posts-container"
           data-aos="focus-up"
           data-aos-delay="200"
           data-aos-duration="1000"
+          aria-label="Blog articles list"
         >
           {
             blog &&
               blog.map((blog) => (
-                <a
-                  href={`/blog/${blog.slug}`}
+                <article
                   class="blog-card group rounded-3xl border border-white/10 overflow-hidden flex flex-col h-full transition-all duration-300 ease-in-out group mb-8 shadow-accent-soft"
                   data-aos="focus-up"
                   data-tags={blog.tags}
                   data-blog-id={blog.id}
                 >
-                  <div class="p-5 flex sm:flex-row flex-col-reverse justify-between gap-6">
+                  <a
+                    href={`/blog/${blog.slug}`}
+                    class="p-5 flex sm:flex-row flex-col-reverse justify-between gap-6 h-full"
+                    aria-label={`Read article: ${blog.title}`}
+                  >
                     <div class="flex flex-col sm:w-1/2 w-full justify-between">
                       <div class="flex justify-between items-center text-xs text-white/60 mb-2">
-                        <span>
+                        <time
+                          datetime={blog.created_at}
+                          aria-label={`Published on ${new Date(blog.created_at).toLocaleDateString("en-US", { month: "long", day: "2-digit", year: "numeric" })}`}
+                        >
                           {new Date(blog.created_at).toLocaleDateString(
                             "en-US",
                             {
@@ -190,7 +233,7 @@ const allTags = blog
                               year: "numeric",
                             }
                           )}
-                        </span>
+                        </time>
                       </div>
                       <h2
                         class="text-2xl font-nixel tracking-[1px] text-white mb-2 group-hover:text-accent"
@@ -203,30 +246,42 @@ const allTags = blog
                       </p>
                       <div class="flex justify-between items-center mt-auto pt-4 text-xs text-white/60 border-t border-white/10">
                         <div class="flex items-center gap-6">
-                          <div class="flex items-center gap-1">
-                            🙄
+                          <div
+                            class="flex items-center gap-1"
+                            aria-label={`${blog.views || 0} views`}
+                          >
+                            <span aria-hidden="true">🙄</span>
                             <ViewsCount blogId={blog.id} client:load />
-                            Views
+                            <span>Views</span>
                           </div>
-                          <div class="flex items-center gap-1">
-                            🌀
-                            <LikesCount blogId={blog.id} client:load /> Aura
-                            Point
+                          <div
+                            class="flex items-center gap-1"
+                            aria-label={`${blog.likes || 0} likes`}
+                          >
+                            <span aria-hidden="true">🌀</span>
+                            <LikesCount blogId={blog.id} client:load />
+                            <span>Aura Point</span>
                           </div>
-                          <span>{blog.avg_read_time} min read</span>
+                          <span
+                            aria-label={`${blog.avg_read_time} minute read`}
+                          >
+                            {blog.avg_read_time} min read
+                          </span>
                         </div>
                       </div>
                     </div>
                     <img
                       src={blog.img}
-                      alt={blog.title}
+                      alt={`Cover image for article: ${blog.title}`}
+                      loading="lazy"
+                      decoding="async"
                       class="sm:w-[200px] w-full aspect-video transition-transform duration-500 rounded-2xl"
                     />
-                  </div>
-                </a>
+                  </a>
+                </article>
               ))
           }
-        </div>
+        </section>
 
         <!-- Load More Button -->
         <div
@@ -234,19 +289,28 @@ const allTags = blog
           class="flex justify-center mt-12"
           data-aos="focus-up"
           data-aos-delay="100"
+          role="region"
+          aria-label="Load more articles"
         >
           <button
             id="load-more-btn"
             class="hidden px-8 py-3 rounded-full border border-white/10 bg-black/50 text-white hover:bg-accent hover:border-accent hover:text-white transition-all duration-300 hover:scale-[1.02] font-medium"
+            aria-label="Load more blog articles"
           >
             Load More
           </button>
 
           <!-- Loading State -->
-          <div id="loading-indicator" class="hidden">
+          <div
+            id="loading-indicator"
+            class="hidden"
+            role="status"
+            aria-live="polite"
+          >
             <div class="flex items-center gap-3">
               <div
                 class="animate-spin rounded-full h-5 w-5 border-2 border-accent border-t-transparent"
+                aria-hidden="true"
               >
               </div>
               <span class="text-white/70">Loading more articles...</span>
@@ -254,7 +318,7 @@ const allTags = blog
           </div>
 
           <!-- End of Posts Message -->
-          <div id="end-of-posts" class="hidden text-center py-6">
+          <div id="end-of-posts" class="hidden text-center py-6" role="status">
             <p class="text-white/50">You've reached the end of our articles</p>
           </div>
         </div>

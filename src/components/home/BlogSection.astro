@@ -99,7 +99,9 @@ if (error) console.error("Supabase error:", error);
               </div>
               <img
                 src={blog.img}
-                alt={blog.title}
+                alt={`Cover image for blog post: ${blog.title}`}
+                loading="lazy"
+                decoding="async"
                 class="sm:w-[200px] w-full aspect-video transition-transform duration-500 rounded-2xl"
               />
             </div>

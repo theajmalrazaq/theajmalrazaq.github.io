@@ -7,7 +7,13 @@ import Button from "../Button.astro";
   class="relative mt-40 w-full sm:px-15 px-6 overflow-hidden"
   id="about-me"
   data-aos="focus-up"
+  role="region"
+  aria-labelledby="highlight-section-heading"
 >
+  <!-- Screen reader only heading -->
+  <h2 id="highlight-section-heading" class="sr-only">
+    Skills and Capabilities Showcase
+  </h2>
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
     <!-- Card 1: Collaboration -->
     <div
@@ -19,13 +25,17 @@ import Button from "../Button.astro";
       tabindex="0"
     >
       <!-- Updated image container to cover entire card -->
-      <div class="absolute z-0 w-full object-cover opacity-50">
+      <div
+        class="absolute z-0 w-full object-cover opacity-50"
+        role="presentation"
+        aria-hidden="true"
+      >
         <img
           decoding="async"
           loading="lazy"
           class="w-full h-full scale-225"
           src="https://framerusercontent.com/images/2ZTM81mdCXeMIbSWfvdh4X7JIGg.png"
-          alt="Collaboration background"
+          alt="Decorative geometric pattern background for collaboration card"
         />
       </div>
 
@@ -101,19 +111,27 @@ import Button from "../Button.astro";
             >
               <div
                 class="w-8 h-8 rounded-full border-2 dark:border-[#121212] border-white bg-[#a098ff]/20 overflow-hidden hover:scale-110 transition-all duration-300"
+                role="img"
+                aria-label="Team collaboration member 1"
               >
                 <img
                   src="https://randomuser.me/api/portraits/men/32.jpg"
-                  alt="Team member"
+                  alt="Professional team member avatar representing collaboration"
+                  loading="lazy"
+                  decoding="async"
                   class="w-full h-full object-cover"
                 />
               </div>
               <div
                 class="w-8 h-8 rounded-full border-2 dark:border-[#121212] border-white bg-[#a098ff]/20 overflow-hidden hover:scale-110 transition-all duration-300"
+                role="img"
+                aria-label="Team collaboration member 2"
               >
                 <img
                   src="https://randomuser.me/api/portraits/women/44.jpg"
-                  alt="Team member"
+                  alt="Professional team member avatar representing collaboration"
+                  loading="lazy"
+                  decoding="async"
                   class="w-full h-full object-cover"
                 />
               </div>
@@ -138,13 +156,17 @@ import Button from "../Button.astro";
       tabindex="0"
     >
       <!-- Updated image container to cover entire card -->
-      <div class="absolute z-0 w-full object-cover opacity-50">
+      <div
+        class="absolute z-0 w-full object-cover opacity-50"
+        role="presentation"
+        aria-hidden="true"
+      >
         <img
           decoding="async"
           loading="lazy"
           class="w-full h-full scale-225"
           src="https://framerusercontent.com/images/2ZTM81mdCXeMIbSWfvdh4X7JIGg.png"
-          alt="Collaboration background"
+          alt="Decorative geometric pattern background for frontend development card"
         />
       </div>
 
@@ -235,13 +257,17 @@ import Button from "../Button.astro";
       tabindex="0"
     >
       <!-- Updated image container to cover entire card -->
-      <div class="absolute z-0 w-full object-cover opacity-50">
+      <div
+        class="absolute z-0 w-full object-cover opacity-50"
+        role="presentation"
+        aria-hidden="true"
+      >
         <img
           decoding="async"
           loading="lazy"
           class="w-full h-full scale-225"
           src="https://framerusercontent.com/images/2ZTM81mdCXeMIbSWfvdh4X7JIGg.png"
-          alt="Collaboration background"
+          alt="Decorative geometric pattern background for UX design card"
         />
       </div>
 
@@ -333,14 +359,18 @@ import Button from "../Button.astro";
       tabindex="0"
     >
       <!-- Updated image container to cover entire card -->
-      <div class="absolute z-0 w-full object-cover opacity-50">
+      <div
+        class="absolute z-0 w-full object-cover opacity-50"
+        role="presentation"
+        aria-hidden="true"
+      >
         <img
           decoding="async"
           loading="lazy"
           class="w-full h-full"
           srcset="https://framerusercontent.com/images/2ZTM81mdCXeMIbSWfvdh4X7JIGg.png?scale-down-to=512 512w, https://framerusercontent.com/images/2ZTM81mdCXeMIbSWfvdh4X7JIGg.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/2ZTM81mdCXeMIbSWfvdh4X7JIGg.png 1920w"
           src="https://framerusercontent.com/images/2ZTM81mdCXeMIbSWfvdh4X7JIGg.png"
-          alt="Collaboration background"
+          alt="Decorative geometric pattern background for tech stack card"
         />
       </div>
 
@@ -576,13 +606,17 @@ import Button from "../Button.astro";
       tabindex="0"
     >
       <!-- Updated image container to cover entire card -->
-      <div class="absolute z-0 w-full object-cover opacity-50">
+      <div
+        class="absolute z-0 w-full object-cover opacity-50"
+        role="presentation"
+        aria-hidden="true"
+      >
         <img
           decoding="async"
           loading="lazy"
           class="w-full h-full scale-225"
           src="https://framerusercontent.com/images/2ZTM81mdCXeMIbSWfvdh4X7JIGg.png"
-          alt="Collaboration background"
+          alt="Decorative geometric pattern background for timezone card"
         />
       </div>
 
