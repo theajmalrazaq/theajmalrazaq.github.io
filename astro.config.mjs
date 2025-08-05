@@ -1,6 +1,5 @@
 import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
-import PurgeCss from "astro-purgecss";
 import react from "@astrojs/react";
 import sitemap from "astro-sitemap";
 
@@ -13,5 +12,5 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   output: "static",
-  integrations: [PurgeCss(), react(), sitemap()],
+  integrations: [ react(), sitemap()],
 });
