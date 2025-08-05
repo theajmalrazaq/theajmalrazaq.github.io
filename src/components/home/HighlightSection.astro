@@ -11,7 +11,7 @@ import Button from "../Button.astro";
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
     <!-- Card 1: Collaboration -->
     <div
-      class="shadow-accent-soft card relative overflow-hidden rounded-3xl border border-white/10 p-6 sm:p-8 col-span-1 row-span-1 pixel-card backdrop-blur-md group"
+      class="shadow-accent-soft bg-white dark:bg-black card relative overflow-hidden rounded-3xl border dark:border-white/10 border-black/10 p-6 sm:p-8 col-span-1 row-span-1 pixel-card backdrop-blur-md group"
       data-aos="focus-up"
       data-aos-delay="100"
       data-aos-duration="800"
@@ -31,7 +31,7 @@ import Button from "../Button.astro";
 
       <!-- Button overlay that appears on hover -->
       <div
-        class="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20"
+        class="absolute inset-0 dark:bg-black/60 bg-white/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20"
       >
         <Button text="let's chat" aria_label="Contact me">
           <MessageCircle size="18" />
@@ -48,9 +48,9 @@ import Button from "../Button.astro";
           data-aos-duration="1000"
         >
           <div
-            class="p-3 rounded-3xl transition-all duration-300 collaboration-icon shadow-accent border border-white/10"
+            class="p-3 rounded-3xl transition-all duration-300 collaboration-icon shadow-accent border dark:border-white/10 border-black/10"
           >
-            <MessageCircle size="24" class="text-white/70" />
+            <MessageCircle size="24" class="dark:text-white/70 text-black/70" />
           </div>
         </div>
 
@@ -64,7 +64,7 @@ import Button from "../Button.astro";
           collaboration
         </h3>
         <p
-          class="text-sm text-white/70 font-product-sans mb-3"
+          class="text-sm dark:text-white/70 text-black/70 font-product-sans mb-3"
           data-aos="focus-up"
           data-aos-delay="400"
           data-aos-duration="1000"
@@ -79,7 +79,9 @@ import Button from "../Button.astro";
             data-aos-delay="500"
             data-aos-duration="1000"
           >
-            <span class="text-xs text-white/50">Communication</span>
+            <span class="text-xs dark:text-white/50 text-black/50"
+              >Communication</span
+            >
             <div class="flex">
               <span class="text-accent">★</span>
               <span class="text-accent">★</span>
@@ -98,7 +100,7 @@ import Button from "../Button.astro";
               data-aos-duration="1000"
             >
               <div
-                class="w-8 h-8 rounded-full border-2 border-[#121212] bg-[#a098ff]/20 overflow-hidden hover:scale-110 transition-all duration-300"
+                class="w-8 h-8 rounded-full border-2 dark:border-[#121212] border-white bg-[#a098ff]/20 overflow-hidden hover:scale-110 transition-all duration-300"
               >
                 <img
                   src="https://randomuser.me/api/portraits/men/32.jpg"
@@ -107,7 +109,7 @@ import Button from "../Button.astro";
                 />
               </div>
               <div
-                class="w-8 h-8 rounded-full border-2 border-[#121212] bg-[#a098ff]/20 overflow-hidden hover:scale-110 transition-all duration-300"
+                class="w-8 h-8 rounded-full border-2 dark:border-[#121212] border-white bg-[#a098ff]/20 overflow-hidden hover:scale-110 transition-all duration-300"
               >
                 <img
                   src="https://randomuser.me/api/portraits/women/44.jpg"
@@ -116,7 +118,7 @@ import Button from "../Button.astro";
                 />
               </div>
               <div
-                class="w-8 h-8 rounded-full border-2 border-[#121212] bg-[#a098ff]/20 overflow-hidden hover:scale-110 transition-all duration-300 flex items-center justify-center text-xs text-white"
+                class="w-8 h-8 rounded-full border-2 dark:border-[#121212] border-white bg-[#a098ff]/20 overflow-hidden hover:scale-110 transition-all duration-300 flex items-center justify-center text-xs dark:text-white text-black"
               >
                 +3
               </div>
@@ -128,7 +130,7 @@ import Button from "../Button.astro";
 
     <!-- Card 2: Frontend Development -->
     <div
-      class="relative card overflow-hidden rounded-3xl border border-white/10 p-6 sm:p-8 col-span-1 row-span-1 pixel-card backdrop-blur-md shadow-accent-soft group"
+      class="relative card overflow-hidden rounded-3xl border dark:border-white/10 border-black/10 p-6 sm:p-8 col-span-1 row-span-1 pixel-card backdrop-blur-md shadow-accent-soft bg-white dark:bg-black group"
       data-aos="focus-up"
       data-aos-delay="200"
       data-aos-duration="800"
@@ -148,7 +150,7 @@ import Button from "../Button.astro";
 
       <!-- Button overlay that appears on hover -->
       <div
-        class="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20"
+        class="absolute inset-0 dark:bg-black/60 bg-white/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20"
       >
         <Button text="github" aria_label="View my GitHub projects">
           <Code size="18" />
@@ -165,9 +167,9 @@ import Button from "../Button.astro";
           data-aos-duration="1000"
         >
           <div
-            class="p-3 rounded-3xl shadow-accent border border-white/10 transition-all duration-300"
+            class="p-3 rounded-3xl shadow-accent border dark:border-white/10 border-black/10 transition-all duration-300"
           >
-            <Code size="24" class="text-white/70" />
+            <Code size="24" class="dark:text-white/70 text-black/70" />
           </div>
         </div>
 
@@ -181,7 +183,7 @@ import Button from "../Button.astro";
           frontend development
         </h3>
         <p
-          class="text-sm text-white/70 font-product-sans mb-3"
+          class="text-sm dark:text-white/70 text-black/70 font-product-sans mb-3"
           data-aos="focus-up"
           data-aos-delay="400"
           data-aos-duration="1000"
@@ -198,19 +200,25 @@ import Button from "../Button.astro";
           <div class="grid grid-cols-2 gap-2">
             <div class="flex items-center gap-1">
               <div class="w-2 h-2 rounded-3xl bg-accent"></div>
-              <span class="text-xs text-white/60">HTML/CSS</span>
+              <span class="text-xs dark:text-white/60 text-black/60"
+                >HTML/CSS</span
+              >
             </div>
             <div class="flex items-center gap-1">
               <div class="w-2 h-2 rounded-3xl bg-accent"></div>
-              <span class="text-xs text-white/60">JavaScript</span>
+              <span class="text-xs dark:text-white/60 text-black/60"
+                >JavaScript</span
+              >
             </div>
             <div class="flex items-center gap-1">
               <div class="w-2 h-2 rounded-3xl bg-accent"></div>
-              <span class="text-xs text-white/60">React</span>
+              <span class="text-xs dark:text-white/60 text-black/60">React</span
+              >
             </div>
             <div class="flex items-center gap-1">
               <div class="w-2 h-2 rounded-3xl bg-accent"></div>
-              <span class="text-xs text-white/60">Astro</span>
+              <span class="text-xs dark:text-white/60 text-black/60">Astro</span
+              >
             </div>
           </div>
         </div>
@@ -219,7 +227,7 @@ import Button from "../Button.astro";
 
     <!-- Card 3: UI/UX Design -->
     <div
-      class="relative card overflow-hidden rounded-3xl border border-white/10 p-6 sm:p-8 col-span-1 row-span-1 pixel-card backdrop-blur-md shadow-accent-soft group"
+      class="relative card overflow-hidden rounded-3xl border dark:border-white/10 border-black/10 p-6 sm:p-8 col-span-1 row-span-1 pixel-card backdrop-blur-md shadow-accent-soft bg-white dark:bg-black group"
       data-aos="focus-up"
       data-aos-delay="300"
       data-aos-duration="800"
@@ -239,7 +247,7 @@ import Button from "../Button.astro";
 
       <!-- Button overlay that appears on hover -->
       <div
-        class="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20"
+        class="absolute inset-0 dark:bg-black/60 bg-white/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20"
       >
         <Button text="behance" aria_label="View my design portfolio">
           <Palette size="18" />
@@ -256,9 +264,9 @@ import Button from "../Button.astro";
           data-aos-duration="1000"
         >
           <div
-            class="p-3 rounded-3xl shadow-accent border border-white/10 transition-all duration-300"
+            class="p-3 rounded-3xl shadow-accent border dark:border-white/10 border-black/10 transition-all duration-300"
           >
-            <Palette size="24" class="text-white/70" />
+            <Palette size="24" class="dark:text-white/70 text-black/70" />
           </div>
         </div>
 
@@ -272,7 +280,7 @@ import Button from "../Button.astro";
           ux design
         </h3>
         <p
-          class="text-sm text-white/70 font-product-sans mb-3"
+          class="text-sm dark:text-white/70 text-black/70 font-product-sans mb-3"
           data-aos="focus-up"
           data-aos-delay="400"
           data-aos-duration="1000"
@@ -289,19 +297,26 @@ import Button from "../Button.astro";
           <div class="grid grid-cols-2 gap-2">
             <div class="flex items-center gap-1">
               <div class="w-2 h-2 rounded-3xl bg-accent"></div>
-              <span class="text-xs text-white/60">Figma</span>
+              <span class="text-xs dark:text-white/60 text-black/60">Figma</span
+              >
             </div>
             <div class="flex items-center gap-1">
               <div class="w-2 h-2 rounded-3xl bg-accent"></div>
-              <span class="text-xs text-white/60">Adobe XD</span>
+              <span class="text-xs dark:text-white/60 text-black/60"
+                >Adobe XD</span
+              >
             </div>
             <div class="flex items-center gap-1">
               <div class="w-2 h-2 rounded-3xl bg-accent"></div>
-              <span class="text-xs text-white/60">Wireframing</span>
+              <span class="text-xs dark:text-white/60 text-black/60"
+                >Wireframing</span
+              >
             </div>
             <div class="flex items-center gap-1">
               <div class="w-2 h-2 rounded-3xl bg-accent"></div>
-              <span class="text-xs text-white/60">Prototyping</span>
+              <span class="text-xs dark:text-white/60 text-black/60"
+                >Prototyping</span
+              >
             </div>
           </div>
         </div>
@@ -310,7 +325,7 @@ import Button from "../Button.astro";
 
     <!-- Card 5: Technology stack -->
     <div
-      class="relative card overflow-hidden rounded-3xl border border-white/10 p-6 sm:p-8 col-span-1 row-span-1 sm:col-span-2 pixel-card backdrop-blur-md shadow-accent-soft"
+      class="relative card overflow-hidden rounded-3xl border dark:border-white/10 border-black/10 p-6 sm:p-8 col-span-1 row-span-1 sm:col-span-2 pixel-card backdrop-blur-md shadow-accent-soft bg-white dark:bg-black"
       data-aos="focus-up"
       data-aos-delay="500"
       data-aos-duration="800"
@@ -341,7 +356,7 @@ import Button from "../Button.astro";
           data-aos-duration="1000"
         >
           <div
-            class="p-3 rounded-3xl shadow-accent border border-white/10 transition-all duration-300"
+            class="p-3 rounded-3xl shadow-accent border dark:border-white/10 border-black/10 transition-all duration-300"
           >
             <Layers size={18} />
           </div>
@@ -357,7 +372,7 @@ import Button from "../Button.astro";
           tech stack
         </h3>
         <p
-          class="text-sm text-white/70 font-product-sans mb-3"
+          class="text-sm dark:text-white/70 text-black/70 font-product-sans mb-3"
           data-aos="focus-up"
           data-aos-delay="400"
           data-aos-duration="1000"
@@ -376,136 +391,176 @@ import Button from "../Button.astro";
             >
               <!-- First set of tech badges -->
               <div
-                class="tech-badge flex items-center gap-2 justify-center rounded-3xl py-3 px-6 shadow-accent-soft border border-white/10 hover:bg-accent/20 hover:border-accent/30 transition-all duration-300 cursor-none bg-white/5 backdrop-blur-sm whitespace-nowrap"
+                class="tech-badge flex items-center gap-2 justify-center rounded-3xl py-3 px-6 shadow-accent-soft bg-white dark:bg-black border dark:border-white/10 border-black/10 hover:bg-accent/20 hover:border-accent/30 transition-all duration-300 cursor-none dark:bg-white/5 bg-black/5 backdrop-blur-sm whitespace-nowrap"
                 data-tech="frontend"
               >
                 <div class="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
-                <span class="text-sm text-white/90 font-medium"
+                <span
+                  class="text-sm dark:text-white/90 text-black/90 font-medium"
                   >Tailwind CSS</span
                 >
               </div>
               <div
-                class="tech-badge flex items-center gap-2 justify-center rounded-3xl py-3 px-6 shadow-accent-soft border border-white/10 hover:bg-accent/20 hover:border-accent/30 transition-all duration-300 cursor-none bg-white/5 backdrop-blur-sm whitespace-nowrap"
+                class="tech-badge flex items-center gap-2 justify-center rounded-3xl py-3 px-6 shadow-accent-soft bg-white dark:bg-black border dark:border-white/10 border-black/10 hover:bg-accent/20 hover:border-accent/30 transition-all duration-300 cursor-none dark:bg-white/5 bg-black/5 backdrop-blur-sm whitespace-nowrap"
                 data-tech="frontend"
               >
                 <div class="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
-                <span class="text-sm text-white/90 font-medium">React.js</span>
-              </div>
-              <div
-                class="tech-badge flex items-center gap-2 justify-center rounded-3xl py-3 px-6 shadow-accent-soft border border-white/10 hover:bg-accent/20 hover:border-accent/30 transition-all duration-300 cursor-none bg-white/5 backdrop-blur-sm whitespace-nowrap"
-                data-tech="tools"
-              >
-                <div class="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
-                <span class="text-sm text-white/90 font-medium">Astro</span>
-              </div>
-              <div
-                class="tech-badge flex items-center gap-2 justify-center rounded-3xl py-3 px-6 shadow-accent-soft border border-white/10 hover:bg-accent/20 hover:border-accent/30 transition-all duration-300 cursor-none bg-white/5 backdrop-blur-sm whitespace-nowrap"
-                data-tech="tools"
-              >
-                <div class="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
-                <span class="text-sm text-white/90 font-medium">SCSS</span>
-              </div>
-              <div
-                class="tech-badge flex items-center gap-2 justify-center rounded-3xl py-3 px-6 shadow-accent-soft border border-white/10 hover:bg-accent/20 hover:border-accent/30 transition-all duration-300 cursor-none bg-white/5 backdrop-blur-sm whitespace-nowrap"
-                data-tech="backend"
-              >
-                <div class="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
-                <span class="text-sm text-white/90 font-medium">Node.js</span>
-              </div>
-              <div
-                class="tech-badge flex items-center gap-2 justify-center rounded-3xl py-3 px-6 shadow-accent-soft border border-white/10 hover:bg-accent/20 hover:border-accent/30 transition-all duration-300 cursor-none bg-white/5 backdrop-blur-sm whitespace-nowrap"
-                data-tech="backend"
-              >
-                <div class="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
-                <span class="text-sm text-white/90 font-medium">PostgreSQL</span
+                <span
+                  class="text-sm dark:text-white/90 text-black/90 font-medium"
+                  >React.js</span
                 >
               </div>
               <div
-                class="tech-badge flex items-center gap-2 justify-center rounded-3xl py-3 px-6 shadow-accent-soft border border-white/10 hover:bg-accent/20 hover:border-accent/30 transition-all duration-300 cursor-none bg-white/5 backdrop-blur-sm whitespace-nowrap"
-                data-tech="backend"
+                class="tech-badge flex items-center gap-2 justify-center rounded-3xl py-3 px-6 shadow-accent-soft bg-white dark:bg-black border dark:border-white/10 border-black/10 hover:bg-accent/20 hover:border-accent/30 transition-all duration-300 cursor-none dark:bg-white/5 bg-black/5 backdrop-blur-sm whitespace-nowrap"
+                data-tech="tools"
               >
                 <div class="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
-                <span class="text-sm text-white/90 font-medium">Supabase</span>
+                <span
+                  class="text-sm dark:text-white/90 text-black/90 font-medium"
+                  >Astro</span
+                >
               </div>
               <div
-                class="tech-badge flex items-center gap-2 justify-center rounded-3xl py-3 px-6 shadow-accent-soft border border-white/10 hover:bg-accent/20 hover:border-accent/30 transition-all duration-300 cursor-none bg-white/5 backdrop-blur-sm whitespace-nowrap"
+                class="tech-badge flex items-center gap-2 justify-center rounded-3xl py-3 px-6 shadow-accent-soft bg-white dark:bg-black border dark:border-white/10 border-black/10 hover:bg-accent/20 hover:border-accent/30 transition-all duration-300 cursor-none dark:bg-white/5 bg-black/5 backdrop-blur-sm whitespace-nowrap"
+                data-tech="tools"
+              >
+                <div class="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
+                <span
+                  class="text-sm dark:text-white/90 text-black/90 font-medium"
+                  >SCSS</span
+                >
+              </div>
+              <div
+                class="tech-badge flex items-center gap-2 justify-center rounded-3xl py-3 px-6 shadow-accent-soft bg-white dark:bg-black border dark:border-white/10 border-black/10 hover:bg-accent/20 hover:border-accent/30 transition-all duration-300 cursor-none dark:bg-white/5 bg-black/5 backdrop-blur-sm whitespace-nowrap"
                 data-tech="backend"
               >
                 <div class="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
-                <span class="text-sm text-white/90 font-medium">Git/GitHub</span
+                <span
+                  class="text-sm dark:text-white/90 text-black/90 font-medium"
+                  >Node.js</span
+                >
+              </div>
+              <div
+                class="tech-badge flex items-center gap-2 justify-center rounded-3xl py-3 px-6 shadow-accent-soft bg-white dark:bg-black border dark:border-white/10 border-black/10 hover:bg-accent/20 hover:border-accent/30 transition-all duration-300 cursor-none dark:bg-white/5 bg-black/5 backdrop-blur-sm whitespace-nowrap"
+                data-tech="backend"
+              >
+                <div class="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
+                <span
+                  class="text-sm dark:text-white/90 text-black/90 font-medium"
+                  >PostgreSQL</span
+                >
+              </div>
+              <div
+                class="tech-badge flex items-center gap-2 justify-center rounded-3xl py-3 px-6 shadow-accent-soft bg-white dark:bg-black border dark:border-white/10 border-black/10 hover:bg-accent/20 hover:border-accent/30 transition-all duration-300 cursor-none dark:bg-white/5 bg-black/5 backdrop-blur-sm whitespace-nowrap"
+                data-tech="backend"
+              >
+                <div class="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
+                <span
+                  class="text-sm dark:text-white/90 text-black/90 font-medium"
+                  >Supabase</span
+                >
+              </div>
+              <div
+                class="tech-badge flex items-center gap-2 justify-center rounded-3xl py-3 px-6 shadow-accent-soft bg-white dark:bg-black border dark:border-white/10 border-black/10 hover:bg-accent/20 hover:border-accent/30 transition-all duration-300 cursor-none dark:bg-white/5 bg-black/5 backdrop-blur-sm whitespace-nowrap"
+                data-tech="backend"
+              >
+                <div class="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
+                <span
+                  class="text-sm dark:text-white/90 text-black/90 font-medium"
+                  >Git/GitHub</span
                 >
               </div>
 
               <!-- Duplicate set for seamless loop -->
               <div
-                class="tech-badge flex items-center gap-2 justify-center rounded-3xl py-3 px-6 shadow-accent-soft border border-white/10 hover:bg-accent/20 hover:border-accent/30 transition-all duration-300 cursor-none bg-white/5 backdrop-blur-sm whitespace-nowrap"
+                class="tech-badge flex items-center gap-2 justify-center rounded-3xl py-3 px-6 shadow-accent-soft bg-white dark:bg-black border dark:border-white/10 border-black/10 hover:bg-accent/20 hover:border-accent/30 transition-all duration-300 cursor-none dark:bg-white/5 bg-black/5 backdrop-blur-sm whitespace-nowrap"
                 data-tech="frontend"
               >
                 <div class="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
-                <span class="text-sm text-white/90 font-medium"
+                <span
+                  class="text-sm dark:text-white/90 text-black/90 font-medium"
                   >Tailwind CSS</span
                 >
               </div>
               <div
-                class="tech-badge flex items-center gap-2 justify-center rounded-3xl py-3 px-6 shadow-accent-soft border border-white/10 hover:bg-accent/20 hover:border-accent/30 transition-all duration-300 cursor-none bg-white/5 backdrop-blur-sm whitespace-nowrap"
+                class="tech-badge flex items-center gap-2 justify-center rounded-3xl py-3 px-6 shadow-accent-soft bg-white dark:bg-black border dark:border-white/10 border-black/10 hover:bg-accent/20 hover:border-accent/30 transition-all duration-300 cursor-none dark:bg-white/5 bg-black/5 backdrop-blur-sm whitespace-nowrap"
                 data-tech="frontend"
               >
                 <div class="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
-                <span class="text-sm text-white/90 font-medium">React.js</span>
-              </div>
-              <div
-                class="tech-badge flex items-center gap-2 justify-center rounded-3xl py-3 px-6 shadow-accent-soft border border-white/10 hover:bg-accent/20 hover:border-accent/30 transition-all duration-300 cursor-none bg-white/5 backdrop-blur-sm whitespace-nowrap"
-                data-tech="tools"
-              >
-                <div class="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
-                <span class="text-sm text-white/90 font-medium">Astro</span>
-              </div>
-              <div
-                class="tech-badge flex items-center gap-2 justify-center rounded-3xl py-3 px-6 shadow-accent-soft border border-white/10 hover:bg-accent/20 hover:border-accent/30 transition-all duration-300 cursor-none bg-white/5 backdrop-blur-sm whitespace-nowrap"
-                data-tech="tools"
-              >
-                <div class="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
-                <span class="text-sm text-white/90 font-medium">SCSS</span>
-              </div>
-              <div
-                class="tech-badge flex items-center gap-2 justify-center rounded-3xl py-3 px-6 shadow-accent-soft border border-white/10 hover:bg-accent/20 hover:border-accent/30 transition-all duration-300 cursor-none bg-white/5 backdrop-blur-sm whitespace-nowrap"
-                data-tech="backend"
-              >
-                <div class="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
-                <span class="text-sm text-white/90 font-medium">Node.js</span>
-              </div>
-              <div
-                class="tech-badge flex items-center gap-2 justify-center rounded-3xl py-3 px-6 shadow-accent-soft border border-white/10 hover:bg-accent/20 hover:border-accent/30 transition-all duration-300 cursor-none bg-white/5 backdrop-blur-sm whitespace-nowrap"
-                data-tech="backend"
-              >
-                <div class="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
-                <span class="text-sm text-white/90 font-medium">PostgreSQL</span
+                <span
+                  class="text-sm dark:text-white/90 text-black/90 font-medium"
+                  >React.js</span
                 >
               </div>
               <div
-                class="tech-badge flex items-center gap-2 justify-center rounded-3xl py-3 px-6 shadow-accent-soft border border-white/10 hover:bg-accent/20 hover:border-accent/30 transition-all duration-300 cursor-none bg-white/5 backdrop-blur-sm whitespace-nowrap"
-                data-tech="backend"
+                class="tech-badge flex items-center gap-2 justify-center rounded-3xl py-3 px-6 shadow-accent-soft bg-white dark:bg-black border dark:border-white/10 border-black/10 hover:bg-accent/20 hover:border-accent/30 transition-all duration-300 cursor-none dark:bg-white/5 bg-black/5 backdrop-blur-sm whitespace-nowrap"
+                data-tech="tools"
               >
                 <div class="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
-                <span class="text-sm text-white/90 font-medium">Supabase</span>
+                <span
+                  class="text-sm dark:text-white/90 text-black/90 font-medium"
+                  >Astro</span
+                >
               </div>
               <div
-                class="tech-badge flex items-center gap-2 justify-center rounded-3xl py-3 px-6 shadow-accent-soft border border-white/10 hover:bg-accent/20 hover:border-accent/30 transition-all duration-300 cursor-none bg-white/5 backdrop-blur-sm whitespace-nowrap"
+                class="tech-badge flex items-center gap-2 justify-center rounded-3xl py-3 px-6 shadow-accent-soft bg-white dark:bg-black border dark:border-white/10 border-black/10 hover:bg-accent/20 hover:border-accent/30 transition-all duration-300 cursor-none dark:bg-white/5 bg-black/5 backdrop-blur-sm whitespace-nowrap"
+                data-tech="tools"
+              >
+                <div class="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
+                <span
+                  class="text-sm dark:text-white/90 text-black/90 font-medium"
+                  >SCSS</span
+                >
+              </div>
+              <div
+                class="tech-badge flex items-center gap-2 justify-center rounded-3xl py-3 px-6 shadow-accent-soft bg-white dark:bg-black border dark:border-white/10 border-black/10 hover:bg-accent/20 hover:border-accent/30 transition-all duration-300 cursor-none dark:bg-white/5 bg-black/5 backdrop-blur-sm whitespace-nowrap"
                 data-tech="backend"
               >
                 <div class="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
-                <span class="text-sm text-white/90 font-medium">Git/GitHub</span
+                <span
+                  class="text-sm dark:text-white/90 text-black/90 font-medium"
+                  >Node.js</span
+                >
+              </div>
+              <div
+                class="tech-badge flex items-center gap-2 justify-center rounded-3xl py-3 px-6 shadow-accent-soft bg-white dark:bg-black border dark:border-white/10 border-black/10 hover:bg-accent/20 hover:border-accent/30 transition-all duration-300 cursor-none dark:bg-white/5 bg-black/5 backdrop-blur-sm whitespace-nowrap"
+                data-tech="backend"
+              >
+                <div class="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
+                <span
+                  class="text-sm dark:text-white/90 text-black/90 font-medium"
+                  >PostgreSQL</span
+                >
+              </div>
+              <div
+                class="tech-badge flex items-center gap-2 justify-center rounded-3xl py-3 px-6 shadow-accent-soft bg-white dark:bg-black border dark:border-white/10 border-black/10 hover:bg-accent/20 hover:border-accent/30 transition-all duration-300 cursor-none dark:bg-white/5 bg-black/5 backdrop-blur-sm whitespace-nowrap"
+                data-tech="backend"
+              >
+                <div class="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
+                <span
+                  class="text-sm dark:text-white/90 text-black/90 font-medium"
+                  >Supabase</span
+                >
+              </div>
+              <div
+                class="tech-badge flex items-center gap-2 justify-center rounded-3xl py-3 px-6 shadow-accent-soft bg-white dark:bg-black border dark:border-white/10 border-black/10 hover:bg-accent/20 hover:border-accent/30 transition-all duration-300 cursor-none dark:bg-white/5 bg-black/5 backdrop-blur-sm whitespace-nowrap"
+                data-tech="backend"
+              >
+                <div class="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
+                <span
+                  class="text-sm dark:text-white/90 text-black/90 font-medium"
+                  >Git/GitHub</span
                 >
               </div>
             </div>
 
             <!-- Gradient overlays for smooth fade effect -->
             <div
-              class="absolute left-0 top-0 w-12 h-full bg-gradient-to-r from-black/80 to-transparent z-10 pointer-events-none"
+              class="absolute left-0 top-0 w-12 h-full bg-gradient-to-r dark:from-black/80 from-white/80 to-transparent z-10 pointer-events-none"
             >
             </div>
             <div
-              class="absolute right-0 top-0 w-12 h-full bg-gradient-to-l from-black/80 to-transparent z-10 pointer-events-none"
+              class="absolute right-0 top-0 w-12 h-full bg-gradient-to-l dark:from-black/80 from-white/80 to-transparent z-10 pointer-events-none"
             >
             </div>
           </div>
@@ -515,7 +570,7 @@ import Button from "../Button.astro";
 
     <!-- Card 6: Time zone -->
     <div
-      class="relative card overflow-hidden rounded-3xl border border-white/10 p-6 sm:p-8 col-span-1 row-span-1 pixel-card backdrop-blur-md shadow-accent-soft"
+      class="relative card overflow-hidden rounded-3xl border dark:border-white/10 border-black/10 p-6 sm:p-8 col-span-1 row-span-1 pixel-card backdrop-blur-md shadow-accent-soft bg-white dark:bg-black"
       data-aos="focus-up"
       data-aos-delay="600"
       data-aos-duration="800"
@@ -545,9 +600,9 @@ import Button from "../Button.astro";
           data-aos-duration="1000"
         >
           <div
-            class="p-3 rounded-3xl shadow-accent border border-white/10 transition-all duration-300"
+            class="p-3 rounded-3xl shadow-accent border dark:border-white/10 border-black/10 transition-all duration-300"
           >
-            <Clock size="24" class="text-white/70" />
+            <Clock size="24" class="dark:text-white/70 text-black/70" />
           </div>
         </div>
 
@@ -561,7 +616,7 @@ import Button from "../Button.astro";
           timezone flexible
         </h3>
         <p
-          class="text-sm text-white/70 font-product-sans mb-3"
+          class="text-sm dark:text-white/70 text-black/70 font-product-sans mb-3"
           data-aos="focus-up"
           data-aos-delay="400"
           data-aos-duration="1000"
@@ -576,16 +631,21 @@ import Button from "../Button.astro";
           data-aos-duration="1000"
         >
           <div class="flex justify-between items-center">
-            <div class="text-sm text-white/50 font-product-sans">
+            <div
+              class="text-sm dark:text-white/50 text-black/50 font-product-sans"
+            >
               My Local Time:
             </div>
-            <div class="text-sm text-white font-product-sans" id="local-time">
+            <div
+              class="text-sm dark:text-white text-black font-product-sans"
+              id="local-time"
+            >
               --:--
             </div>
           </div>
 
           <div
-            class="relative h-1 w-full bg-gray-800 rounded-3xl my-2 overflow-hidden"
+            class="relative h-1 w-full dark:bg-gray-800 bg-gray-200 rounded-3xl my-2 overflow-hidden"
           >
             <div
               class="absolute h-full bg-gradient-to-r from-accent to-accent rounded-3xl"
@@ -603,24 +663,28 @@ import Button from "../Button.astro";
           data-aos-duration="1000"
         >
           <div
-            class="flex items-center gap-2 rounded-3xl py-2 px-4 shadow-accent-soft border border-white/10 hover:bg-accent/20 hover:border-white/10/30 transition-all duration-300 cursor-none timezone-badge"
+            class="flex items-center gap-2 rounded-3xl py-2 px-4 shadow-accent-soft bg-white dark:bg-black border dark:border-white/10 border-black/10 hover:bg-accent/20 hover:border-white/10/30 transition-all duration-300 cursor-none timezone-badge"
             data-offset="0"
           >
-            <span class="text-sm text-white/90">UK</span>
-            <span class="text-xs text-white/50 timezone-time">--:--</span>
+            <span class="text-sm dark:text-white/90 text-black/90">UK</span>
+            <span class="text-xs dark:text-white/50 text-black/50 timezone-time"
+              >--:--</span
+            >
           </div>
 
           <div
-            class="flex items-center gap-2 rounded-3xl py-2 px-4 shadow-accent-soft border border-white/10 hover:bg-accent/20 hover:border-white/10/30 transition-all duration-300 cursor-none timezone-badge"
+            class="flex items-center gap-2 rounded-3xl py-2 px-4 shadow-accent-soft bg-white dark:bg-black border dark:border-white/10 border-black/10 hover:bg-accent/20 hover:border-white/10/30 transition-all duration-300 cursor-none timezone-badge"
             data-offset="-5"
           >
-            <span class="text-sm text-white/90">USA</span>
-            <span class="text-xs text-white/50 timezone-time">--:--</span>
+            <span class="text-sm dark:text-white/90 text-black/90">USA</span>
+            <span class="text-xs dark:text-white/50 text-black/50 timezone-time"
+              >--:--</span
+            >
           </div>
         </div>
 
         <div
-          class="mt-4 text-sm text-white/50 font-product-sans"
+          class="mt-4 text-sm dark:text-white/50 text-black/50 font-product-sans"
           data-aos="focus-up"
           data-aos-delay="700"
           data-aos-duration="1000"

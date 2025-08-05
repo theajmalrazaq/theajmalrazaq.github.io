@@ -17,7 +17,7 @@ export default function ViewsCount({ blogId }) {
     try {
       console.log("Fetching views for blogId:", blogId);
       const { data, error } = await supabase
-        .from("blog_data")
+        .from("blog")
         .select("views_count")
         .eq("id", blogId)
         .single();

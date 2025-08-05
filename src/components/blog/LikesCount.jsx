@@ -17,7 +17,7 @@ export default function LikesCount({ blogId }) {
     try {
       console.log("Fetching likes for blogId:", blogId);
       const { data, error } = await supabase
-        .from("blog_data")
+        .from("blog")
         .select("likes_count")
         .eq("id", blogId)
         .single();

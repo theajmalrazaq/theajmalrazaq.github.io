@@ -7,11 +7,7 @@ import devimg from "../../../public/images/dev.webp";
 import logowhite from "../../../public/images/logowhite.svg";
 ---
 
-<header
-  class="relative h-lvh w-full flex justify-center overflow-hidden z-10"
-  data-aos="focus-up"
-  data-aos-duration="1500"
->
+<header class="relative h-lvh w-full flex justify-center overflow-hidden z-10">
   <lottie-player
     src="/animations/logoleft.json"
     background="transparent"
@@ -20,7 +16,6 @@ import logowhite from "../../../public/images/logowhite.svg";
     loop
     autoplay
     data-aos="slide-left"
-    data-aos-duration="2000"
     aria-hidden="true"
   >
   </lottie-player>
@@ -32,7 +27,6 @@ import logowhite from "../../../public/images/logowhite.svg";
     loop
     autoplay
     data-aos="slide-right"
-    data-aos-duration="2000"
     aria-hidden="true"
   >
   </lottie-player>
@@ -42,7 +36,6 @@ import logowhite from "../../../public/images/logowhite.svg";
     class="absolute w-full h-full animate-pulse -top-10 inset-0 pointer-events-none"
     aria-hidden="true"
     data-aos="fade"
-    data-aos-duration="2500"
   >
     <img
       decoding="async"
@@ -55,21 +48,22 @@ import logowhite from "../../../public/images/logowhite.svg";
                 https://framerusercontent.com/images/2ZTM81mdCXeMIbSWfvdh4X7JIGg.png 1920w"
       src="https://framerusercontent.com/images/2ZTM81mdCXeMIbSWfvdh4X7JIGg.png"
       alt="Background pattern"
-      class="w-full h-full object-cover object-center opacity-40 animate-pulse z-0"
+      class="w-full invert dark:invert-0 h-full object-cover object-center dark:opacity-40 opacity-100 animate-pulse z-0"
     />
   </div>
 
   <div class="flex flex-col items-center justify-center w-full relative z-10">
-    <div
-      class="flex flex-col gap-2 items-center justify-center mt-4 w-full"
-      data-aos="focus-up"
-      data-aos-duration="2000"
-    >
-      <div class="relative flex items-center justify-center">
+    <div class="flex flex-col gap-2 items-center justify-center mt-4 w-full">
+      <div
+        class="relative flex items-center justify-center"
+        data-aos="focus-up"
+        data-aos-duration="800"
+      >
         <div
           class="group cursor-none relative w-[180px] h-[180px]"
           data-aos="focus-up"
-          data-aos-duration="2500"
+          data-aos-delay="100"
+          data-aos-duration="800"
         >
           <!-- Front Image -->
           <img
@@ -90,19 +84,21 @@ import logowhite from "../../../public/images/logowhite.svg";
         </div>
 
         <div
-          class="w-fit bg-black/60 border text-accent sm:px-4 px-2 py-2 border-white/10 rounded-xl absolute top-5 sm:-left-25 -left-20 backdrop-blur-2xl animate-float hover:scale-105 transition-all duration-300 flex justify-center items-center ease-in-out z-20 cursor-none sm:text-base text-sm"
-          data-aos="fade-right"
-          data-aos-duration="2000"
+          class="w-fit dark:bg-black/60 bg-white/60 border text-accent sm:px-4 px-2 py-2 dark:border-white/10 border-black/10 rounded-xl absolute top-5 sm:-left-25 -left-20 backdrop-blur-2xl animate-float hover:scale-105 transition-all duration-300 flex justify-center items-center ease-in-out z-20 cursor-none sm:text-base text-sm"
           aria-label="Skill: Frontend Development"
+          data-aos="fade-right"
+          data-aos-delay="200"
+          data-aos-duration="800"
         >
           <img src={star.src} alt="Star icon" class="w-4 mr-1 animate-pulse" />
           Frontend Dev
         </div>
         <div
-          class="w-fit bg-black/60 border text-accent sm:px-4 px-2 py-2 border-white/10 rounded-xl absolute top-30 sm:-right-30 -right-20 backdrop-blur-2xl animate-float hover:scale-105 transition-all duration-300 z-20 flex justify-center items-center ease-in-out cursor-none sm:text-base text-sm"
-          data-aos="fade-left"
-          data-aos-duration="2000"
+          class="w-fit dark:bg-black/60 bg-white/60 border text-accent sm:px-4 px-2 py-2 dark:border-white/10 border-black/10 rounded-xl absolute top-30 sm:-right-30 -right-20 backdrop-blur-2xl animate-float hover:scale-105 transition-all duration-300 z-20 flex justify-center items-center ease-in-out cursor-none sm:text-base text-sm"
           aria-label="Skill: Junior Product Design"
+          data-aos="fade-left"
+          data-aos-delay="400"
+          data-aos-duration="800"
         >
           <img src={star.src} alt="Star icon" class="w-4 mr-1 animate-pulse" />
           Jr. Product Designer
@@ -113,28 +109,24 @@ import logowhite from "../../../public/images/logowhite.svg";
         alt="Name"
         class="p-2"
         data-aos="focus-up"
-        data-aos-duration="2000"
+        data-aos-delay="600"
+        data-aos-duration="800"
       />
     </div>
-    <div
-      class="flex flex-col gap-5 items-center"
-      data-aos="focus-up"
-      data-aos-duration="2000"
-    >
+    <div class="flex flex-col gap-5 items-center">
       <div
-        class="flex items-center justify-center gap-2 mt-2 bg-black backdrop-blur-lg p-2 rounded-full text-sm font-product-sans text-accent border border-white/10"
-        data-aos="focus-up"
-        data-aos-duration="2000"
+        class="flex items-center justify-center gap-2 mt-2 dark:bg-black bg-white backdrop-blur-lg p-2 rounded-full text-sm font-product-sans text-accent border dark:border-white/10 border-black/10"
         role="navigation"
         aria-label="Social media links"
+        data-aos="focus-up"
+        data-aos-delay="800"
+        data-aos-duration="800"
       >
         <a
           href="https://github.com/theajmalrazaq"
           target="_blank"
           rel="noopener noreferrer"
-          class="text-white/70 hover:color-accentflex items-center gap-1 bg-white/5 backdrop-blur-md px-2 py-1 rounded-full glow-s hover:shadow-lg hover:bg-accent transition-all duration-400 cursor-none"
-          data-aos="flip-up"
-          data-aos-duration="1500"
+          class="dark:text-white/70 text-black/70 hover:color-accent flex items-center gap-1 dark:bg-white/5 bg-black/5 backdrop-blur-md px-2 py-1 rounded-full glow-s hover:shadow-lg hover:bg-accent transition-all duration-400 cursor-none"
           aria-label="GitHub profile"
         >
           <span>GitHub</span>
@@ -144,9 +136,7 @@ import logowhite from "../../../public/images/logowhite.svg";
           href="https://linkedin.com/in/theajmalrazaq"
           target="_blank"
           rel="noopener noreferrer"
-          class="text-white/70 hover:color-accentflex items-center gap-1 bg-white/5 px-2 py-1 backdrop-blur-md rounded-full glow-s hover:shadow-lg hover:bg-accent transition-all duration-400 cursor-none"
-          data-aos="flip-up"
-          data-aos-duration="1500"
+          class="dark:text-white/70 text-black/70 hover:color-accent flex items-center gap-1 dark:bg-white/5 bg-black/5 px-2 py-1 backdrop-blur-md rounded-full glow-s hover:shadow-lg hover:bg-accent transition-all duration-400 cursor-none"
           aria-label="LinkedIn profile"
         >
           <span>LinkedIn</span>
@@ -156,9 +146,7 @@ import logowhite from "../../../public/images/logowhite.svg";
           href="https://x.com/theajmalrazaq"
           target="_blank"
           rel="noopener noreferrer"
-          class="text-white/70 hover:color-accentflex items-center gap-1 bg-white/5 px-2 py-1 backdrop-blur-md rounded-full glow-s hover:shadow-lg hover:bg-accent transition-all duration-400 cursor-none"
-          data-aos="flip-up"
-          data-aos-duration="1500"
+          class="dark:text-white/70 text-black/70 hover:color-accent flex items-center gap-1 dark:bg-white/5 bg-black/5 px-2 py-1 backdrop-blur-md rounded-full glow-s hover:shadow-lg hover:bg-accent transition-all duration-400 cursor-none"
           aria-label="X (Twitter) profile"
         >
           <span>X</span>
@@ -168,9 +156,7 @@ import logowhite from "../../../public/images/logowhite.svg";
           href="https://behance.net/theajmalrazaq"
           target="_blank"
           rel="noopener noreferrer"
-          class="text-white/70 hover:color-accentflex items-center gap-1 bg-white/5 px-2 py-1 backdrop-blur-md rounded-full glow-s hover:shadow-lg hover:bg-accent transition-all duration-400 cursor-none"
-          data-aos="flip-up"
-          data-aos-duration="1500"
+          class="dark:text-white/70 text-black/70 hover:color-accent flex items-center gap-1 dark:bg-white/5 bg-black/5 px-2 py-1 backdrop-blur-md rounded-full glow-s hover:shadow-lg hover:bg-accent transition-all duration-400 cursor-none"
           aria-label="Behance portfolio"
         >
           <span>Behance</span>
@@ -181,10 +167,11 @@ import logowhite from "../../../public/images/logowhite.svg";
         data-fade="3"
         class="b1 mt-3 text-center"
         data-aos="focus-up"
-        data-aos-duration="2000"
+        data-aos-delay="1000"
+        data-aos-duration="800"
       >
         <span
-          class="text-center transition-colors bg-gradient-to-r from-neutral-300/[35%] via-neutral-300/90 to-neutral-300/[35%] bg-clip-text text-transparent font-product-sans"
+          class="text-center transition-colors bg-gradient-to-r dark:from-neutral-300/[35%] dark:via-neutral-300/90 dark:to-neutral-300/[35%] from-neutral-700/[35%] via-neutral-700/90 to-neutral-700/[35%] bg-clip-text text-transparent font-product-sans"
           >Most designers avoid logic. Most devs avoid emotion. I bring both to
           life.</span
         >
@@ -193,7 +180,8 @@ import logowhite from "../../../public/images/logowhite.svg";
       <div
         class="flex items-center justify-center gap-2 relative group"
         data-aos="focus-up"
-        data-aos-duration="2000"
+        data-aos-delay="1200"
+        data-aos-duration="800"
       >
         <StarBorder
           as="button"
@@ -204,9 +192,13 @@ import logowhite from "../../../public/images/logowhite.svg";
           <div class="flex items-center gap-2 cursor-none">
             <a
               href="javascript:void(0);"
-              class="pixel-button relative h-[50px] w-[160px] text-white gap-2 margin-[20px] pl-1 flex justify-center items-center rounded-full font-nixel leading-loose text-xl tracking-[1px] cursor-none"
+              class="pixel-button relative h-[50px] w-[160px] dark:bg-black bg-white dark:text-white text-black gap-2 margin-[20px] pl-1 flex justify-center items-center rounded-full font-nixel leading-loose text-xl tracking-[1px] cursor-none"
               >let's chat
-              <img src={arrow_right.src} alt="" class="w-4" />
+              <img
+                src={arrow_right.src}
+                alt=""
+                class="w-4 invert dark:invert-0"
+              />
             </a>
           </div>
         </StarBorder>

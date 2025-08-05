@@ -23,35 +23,26 @@ export async function getStaticPaths() {
 }
 
 const { slug } = Astro.params;
-
-// Get current blog post
 const { data: blog, error } = await supabase
   .from("blog")
   .select("*")
   .eq("slug", slug)
   .single();
-
 if (!blog) throw new Error("blog not found");
-
-// Get random related posts (excluding current post)
 const { data: allPosts } = await supabase
   .from("blog")
   .select("*")
   .neq("id", blog.id)
-  .limit(10); // Get more posts to randomize from
+  .limit(10);
 
-// Shuffle and take 2 random posts
 const randomPosts = allPosts
   ? allPosts.sort(() => 0.5 - Math.random()).slice(0, 2)
   : [];
-
-// Get all posts ordered by creation date for navigation
 const { data: allPostsOrdered } = await supabase
   .from("blog")
   .select("id, slug, title, created_at")
   .order("created_at", { ascending: true });
 
-// Find current post index and get previous/next posts
 let previousPost = null;
 let nextPost = null;
 
@@ -97,7 +88,7 @@ const html = marked(blog.content);
         {
           blog.img && (
             <div>
-              <figure class="overflow-hidden absolute left-0 top-0 z-[-1] h-[16rem] w-full pointer-events-none">
+              <figure class="overflow-hidden absolute left-0 top-0 z-[-1] h-[11rem] w-full pointer-events-none">
                 <div
                   class="img-blur lg:translate-y-[-20%]"
                   style="position: relative; height: 0px; padding-top: 40%;"
@@ -117,7 +108,7 @@ const html = marked(blog.content);
                   </div>
                 </div>
               </figure>
-              <div class="absolute left-0 sm:top-0 -top-10 h-[16rem] w-full bg-gradient-to-b from-black/60 to-black z-[-1]" />
+              <div class="absolute left-0 sm:top-0 -top-10 h-[14rem] sm:h-[11rem]  w-full bg-gradient-to-b from-black/60 to-black z-[-1]" />
             </div>
           )
         }
@@ -162,7 +153,7 @@ const html = marked(blog.content);
             }
 
             <div
-              class="mt-8 flex gap-3 items-center justify-between flex-wrap"
+              class="mt-8 flex gap-4 items-center justify-between flex-wrap"
               data-aos="focus-up"
               data-aos-delay="600"
             >
@@ -194,13 +185,6 @@ const html = marked(blog.content);
 
               <div class="flex items-center gap-4 text-xs text-white/60">
                 <div class="flex gap-2">
-                  <button
-                    id="share-btn"
-                    class="flex items-center gap-1 px-3 py-1 text-xs bg-white/10 hover:bg-white/20 rounded-full border border-white/10 transition-colors"
-                  >
-                    <span>📤</span>
-                    <span>Share</span>
-                  </button>
                   <LikeView blogId={blog.id} client:load />
                 </div>
                 <div class="flex items-center gap-1">
@@ -222,7 +206,7 @@ const html = marked(blog.content);
           <!-- Main Content Column -->
           <div class="min-w-0">
             <article
-              class="mdx prose mt-4 max-w-4xl transition-colors dark:prose-invert prose-p:text-neutral-500 prose-img:rounded-2xl prose-a:text-accent prose-a:underline prose-a:decoration-accent prose-a:decoration-2 prose-a:hover:decoration-4"
+              class="mdx prose mt-4 max-w-4xl transition-colors font-product-sans dark:prose-invert prose-p:text-neutral-500 prose-img:rounded-2xl prose-a:text-accent prose-a:underline prose-a:decoration-accent prose-a:decoration-2 prose-a:hover:decoration-4 prose-headings:text-white prose-headings:font-product-sans"
               data-aos="focus-up"
               data-aos-delay="500"
               set:html={html}
@@ -235,39 +219,19 @@ const html = marked(blog.content);
           <div
             class="flex justify-between items-center gap-4 border-t border-white/10 pt-8"
           >
-            <div class="flex-1">
-              <a href="/blog" class="block w-full">
-                <Button
-                  text="back to blog"
-                  data_aos="focus-up"
-                  data_aos_delay="200"
-                  aria_label="Back to Blog Page"
-                >
-                  <ChevronLeft
-                    class="w-5 h-5 transition-transform duration-300"
-                  />
-                </Button>
-              </a>
-            </div>
-
-            <div class="flex-1 flex justify-end">
-              {
-                nextPost ? (
-                  <a href={`/blog/${nextPost.slug}`} class="block w-full">
-                    <Button
-                      text={`next: ${nextPost.title.toLowerCase()}`}
-                      data_aos="focus-up"
-                      data_aos_delay="400"
-                      aria_label={`Next post: ${nextPost.title}`}
-                    >
-                      <ChevronRight class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
-                    </Button>
-                  </a>
-                ) : (
-                  <div />
-                )
-              }
-            </div>
+            <a href="/blog" class="block w-full">
+              <Button
+                text="back to all blogs"
+                data_aos="focus-up"
+                data_aos_delay="200"
+                aria_label="Back to Blog Page"
+                class="w-full"
+              >
+                <ChevronLeft
+                  class="w-5 h-5 transition-transform duration-300"
+                />
+              </Button>
+            </a>
           </div>
         </section>
 
@@ -354,49 +318,6 @@ const html = marked(blog.content);
       <!-- New Footer Component -->
       <FooterSection />
       <script type="module" src="/script.js"></script>
-
-      <style>
-        /* Custom styles for blog cards */
-        .line-clamp-1 {
-          display: -webkit-box;
-          -webkit-line-clamp: 1;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-      </style>
-
-      <script define:vars={{ blogId: blog.id }}>
-        // Share functionality only
-        document.addEventListener("DOMContentLoaded", function () {
-          const shareBtn = document.getElementById("share-btn");
-
-          if (!shareBtn) return;
-
-          // Share button functionality
-          shareBtn.addEventListener("click", function () {
-            const url = window.location.href;
-            const titleElement = document.querySelector("h1");
-            const title = titleElement
-              ? titleElement.textContent
-              : "Check out this blog post";
-
-            if (navigator.share) {
-              navigator.share({
-                title: title || "Blog Post",
-                url: url,
-              });
-            } else {
-              // Fallback to clipboard
-              navigator.clipboard.writeText(url).then(function () {
-                shareBtn.textContent = "✓ Copied!";
-                setTimeout(() => {
-                  shareBtn.innerHTML = "<span>📤</span><span>Share</span>";
-                }, 2000);
-              });
-            }
-          });
-        });
-      </script>
     </main>
   </body>
 </html>

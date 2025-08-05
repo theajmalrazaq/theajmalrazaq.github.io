@@ -1,18 +1,32 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../../lib/supabaseClient";
 
+     ///////////////////////////////////
+    // LIKEVIEW COMPONENT
+   ///////////////////////////////////
+
 export default function LikeView({ blogId, initialViews = 0, initialLikes = 0 }) {
+
+  ///////////////////////////////////
+  // STATE MANAGEMENT
+  ///////////////////////////////////
+
   const [views, setViews] = useState(initialViews);
   const [aura, setAura] = useState(initialLikes);
   const [hasLiked, setHasLiked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  ///////////////////////////////////
+  // COMPONENT INITIALIZATION
+  ///////////////////////////////////
+  
   useEffect(() => {
-    // Check if user has already liked this post
+    // Initialize liked posts from localStorage
     let likedPosts = [];
     try {
       const stored = localStorage.getItem("likedPosts");
       likedPosts = stored ? JSON.parse(stored) : [];
+      
       // Ensure it's an array
       if (!Array.isArray(likedPosts)) {
         likedPosts = [];
@@ -21,6 +35,7 @@ export default function LikeView({ blogId, initialViews = 0, initialLikes = 0 })
       console.error("Error parsing liked posts from localStorage:", error);
       likedPosts = [];
     }
+    
     setHasLiked(likedPosts.includes(blogId.toString()));
 
     // Fetch real data and increment view count when component mounts
@@ -28,10 +43,14 @@ export default function LikeView({ blogId, initialViews = 0, initialLikes = 0 })
     incrementViews();
   }, [blogId]);
 
+  ///////////////////////////////////
+  // FETCH BLOG DATA FROM SUPABASE
+  ///////////////////////////////////
+  
   const fetchBlogData = async () => {
     try {
       const { data, error } = await supabase
-        .from('blog_data')
+        .from('blog')
         .select('likes_count, views_count')
         .eq('id', blogId)
         .single();
@@ -47,6 +66,10 @@ export default function LikeView({ blogId, initialViews = 0, initialLikes = 0 })
     }
   };
 
+  ///////////////////////////////////
+  // INCREMENT VIEWS FUNCTIONALITY
+  ///////////////////////////////////
+  
   const incrementViews = async () => {
     // Don't increment views for localhost/development
     if (typeof window !== 'undefined' && 
@@ -56,6 +79,26 @@ export default function LikeView({ blogId, initialViews = 0, initialLikes = 0 })
       return;
     }
 
+    // Get viewed posts from localStorage
+    let viewedPosts = [];
+    try {
+      const stored = localStorage.getItem("viewedPosts");
+      viewedPosts = stored ? JSON.parse(stored) : [];
+      
+      if (!Array.isArray(viewedPosts)) {
+        viewedPosts = [];
+      }
+    } catch (error) {
+      console.error("Error parsing viewed posts from localStorage:", error);
+      viewedPosts = [];
+    }
+
+    // If already viewed, don't increment
+    if (viewedPosts.includes(blogId.toString())) {
+      return;
+    }
+
+    // Increment view count in database
     try {
       const { error } = await supabase.rpc('increment_view', {
         blog_id: blogId
@@ -64,6 +107,10 @@ export default function LikeView({ blogId, initialViews = 0, initialLikes = 0 })
       if (error) {
         console.error("Error incrementing views:", error);
       } else {
+        // Add to localStorage to prevent duplicate views
+        viewedPosts.push(blogId.toString());
+        localStorage.setItem("viewedPosts", JSON.stringify(viewedPosts));
+        
         // Fetch updated count after incrementing
         await fetchBlogData();
       }
@@ -72,13 +119,18 @@ export default function LikeView({ blogId, initialViews = 0, initialLikes = 0 })
     }
   };
 
+  ///////////////////////////////////
+  // TOGGLE LIKE FUNCTIONALITY
+  ///////////////////////////////////
+  
   const toggleLike = async () => {
-    if (isLoading || hasLiked) return; // Prevent action if already liked
+    // Prevent action if already liked or loading
+    if (isLoading || hasLiked) return;
 
     setIsLoading(true);
     
     try {
-      // Like the post (no unlike functionality)
+      // Increment like count in database
       const { error } = await supabase.rpc('increment_like', {
         blog_id: blogId
       });
@@ -88,11 +140,12 @@ export default function LikeView({ blogId, initialViews = 0, initialLikes = 0 })
       } else {
         setHasLiked(true);
         
-        // Add to localStorage
+        // Update localStorage with liked post
         let likedPosts = [];
         try {
           const stored = localStorage.getItem("likedPosts");
           likedPosts = stored ? JSON.parse(stored) : [];
+          
           if (!Array.isArray(likedPosts)) {
             likedPosts = [];
           }
@@ -100,6 +153,7 @@ export default function LikeView({ blogId, initialViews = 0, initialLikes = 0 })
           console.error("Error parsing liked posts from localStorage:", error);
           likedPosts = [];
         }
+        
         likedPosts.push(blogId.toString());
         localStorage.setItem("likedPosts", JSON.stringify(likedPosts));
         
@@ -113,6 +167,10 @@ export default function LikeView({ blogId, initialViews = 0, initialLikes = 0 })
     }
   };
 
+  ///////////////////////////////////
+  // COMPONENT RENDER
+  ///////////////////////////////////
+  
   return (
     <button
       onClick={toggleLike}
@@ -120,7 +178,8 @@ export default function LikeView({ blogId, initialViews = 0, initialLikes = 0 })
       className="flex items-center gap-1 px-3 py-1 text-xs bg-white/10 hover:bg-white/20 rounded-full border border-white/10 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
     >
       <span>🌀</span>
-      <span>{hasLiked ? `${aura} Aura Point` : 'Aura++'}</span>
+      {aura}
+      <span>{hasLiked ? `Aura Point` : 'Aura++'}</span>
     </button>
   );
 }

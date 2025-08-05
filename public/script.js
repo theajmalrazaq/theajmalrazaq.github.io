@@ -45,7 +45,7 @@ function animateCursor() {
 animateCursor();
 
 const lenis = new Lenis({
-  lerp: 0.08,
+  lerp: 0.05,
   wheelMultiplier: 1.2,
 });
 
@@ -141,22 +141,13 @@ document.addEventListener("DOMContentLoaded", function () {
   document.body.style.overflow = "hidden";
   if (loadingOverlay) {
     setTimeout(() => {
-      loadingOverlay.style.opacity = "0";
-      loadingOverlay.style.transition = "opacity 0.5s ease-out";
       
       setTimeout(() => {
         loadingOverlay.style.display = "none";
         document.body.style.overflow = "auto";
         window.scrollTo(0, 0);
       }, 500);
-      AOS.init({
-        duration: 800,
-        easing: "ease-out",
-        once: false,
-        mirror: false,
-        anchorPlacement: 'top-bottom',
-        disable: 'mobile',
-      });
+      AOS.init();
 
       // Initialize clock for timezone card
       const localTimeElement = document.getElementById("local-time");
