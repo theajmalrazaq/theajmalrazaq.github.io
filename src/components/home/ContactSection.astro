@@ -5,9 +5,11 @@ import { Mail, Copy } from "@lucide/astro";
 ---
 
 <section
-  class="relative mt-40 w-full flex flex-col items-center justify-center px-6 sm:px-15 pb-10"
+  class="relative mt-24 sm:mt-40 w-full flex flex-col items-center justify-center px-4 sm:px-15 pb-8 sm:pb-10"
   id="contact"
   role="region"
+  data-aos="focus-up"
+  data-aos-duration="800"
   aria-labelledby="contact-heading"
 >
   <div
@@ -15,105 +17,162 @@ import { Mail, Copy } from "@lucide/astro";
   >
     <Image
       src={seeyaa}
-      class="sm:w-1/2 w-full absolute -top-9"
-      data-aos="focus-up"
+      class="w-full sm:w-2/3 absolute -top-8 sm:-top-11"
       alt="Decorative 'See you soon' typography illustration for contact section"
       loading="lazy"
       aria-hidden="true"
     />
 
-    <!-- Two-Column Contact Layout -->
-    <div
-      class="flex flex-col md:flex-row gap-6 w-full mt-4"
-      data-aos="focus-up"
-    >
-      <!-- Opportunities Card -->
-      <div class="w-full">
+    <!-- Modern Contact Layout -->
+    <div class="w-full mt-4 sm:mt-6 space-y-6">
+      <!-- Main Contact Card -->
+      <div class="group relative">
         <div
-          class="rounded-3xl border border-white/10 shadow-accent-soft backdrop-blur-xs p-4 md:p-5 h-full flex flex-col"
+          class="relative rounded-2xl sm:rounded-3xl border border-white/10 bg-black/40 backdrop-blur-xl p-4 sm:p-6"
         >
-          <div class="mb-3">
+          <!-- Header Section -->
+          <div class="text-center mb-4 sm:mb-6">
             <h3
-              class="text-white font-nixel text-2xl mb-1 tracking-[1px] md:text-left text-center"
-              style="word-spacing: -7px;"
+              class="text-white font-nixel text-2xl sm:text-4xl md:text-5xl mb-2 tracking-wide"
+              style="word-spacing: -7px; line-height: 1.1;"
             >
               open for opportunities
             </h3>
             <p
-              class="text-white/70 font-product-sans text-xs md:mx-0 mx-auto md:text-left text-center"
+              class="text-white/60 font-product-sans text-xs sm:text-sm mb-3 sm:mb-4"
             >
-              Available for the following work arrangements:
+              Ready to collaborate on exciting projects. Let's create something
+              amazing together.
             </p>
           </div>
 
-          <!-- Work Types -->
+          <!-- Work Types Grid -->
           <div
-            class="flex flex-wrap gap-2 mb-4 md:justify-start justify-center"
+            class="grid grid-cols-2 sm:flex sm:flex-row flex-wrap justify-center gap-2 sm:gap-3 mb-6 sm:mb-8"
           >
-            <span
-              class="px-3 py-1 bg-accent/10 border border-accent/20 rounded-full text-xs text-white/90 font-product-sans"
-            >
-              Full-time
-            </span>
-            <span
-              class="px-3 py-1 bg-accent/10 border border-accent/20 rounded-full text-xs text-white/90 font-product-sans"
-            >
-              Part-time
-            </span>
-            <span
-              class="px-3 py-1 bg-accent/10 border border-accent/20 rounded-full text-xs text-white/90 font-product-sans"
-            >
-              Contract
-            </span>
-            <span
-              class="px-3 py-1 bg-accent/10 border border-accent/20 rounded-full text-xs text-white/90 font-product-sans"
-            >
-              Freelance
-            </span>
+            <div class="group/card relative">
+              <div
+                class="absolute -inset-0.5 bg-gradient-to-r from-accent/30 to-transparent flex rounded-2xl opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"
+              >
+              </div>
+              <div
+                class="relative bg-black/60 border flex justify-center items-center gap-2 sm:gap-3 border-white/10 rounded-xl p-2 sm:p-3 text-center hover:bg-black/80 transition-all duration-300"
+              >
+                <div
+                  class="w-5 h-5 sm:w-6 sm:h-6 bg-accent/10 rounded-full flex items-center justify-center"
+                >
+                  <div class="w-2 h-2 bg-accent rounded-full"></div>
+                </div>
+                <span
+                  class="text-white/90 font-product-sans text-xs font-medium"
+                  >Full-time</span
+                >
+              </div>
+            </div>
+
+            <div class="group/card relative">
+              <div
+                class="absolute -inset-0.5 bg-gradient-to-r from-accent/30 to-transparent rounded-2xl opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"
+              >
+              </div>
+              <div
+                class="relative bg-black/60 border flex justify-center items-center gap-2 sm:gap-3 border-white/10 rounded-xl p-2 sm:p-3 text-center hover:bg-black/80 transition-all duration-300"
+              >
+                <div
+                  class="w-5 h-5 sm:w-6 sm:h-6 bg-accent/10 rounded-full flex items-center justify-center"
+                >
+                  <div class="w-2 h-2 bg-accent rounded-full"></div>
+                </div>
+                <span
+                  class="text-white/90 font-product-sans text-xs font-medium"
+                  >Part-time</span
+                >
+              </div>
+            </div>
+
+            <div class="group/card relative">
+              <div
+                class="absolute -inset-0.5 bg-gradient-to-r from-accent/30 to-transparent rounded-2xl opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"
+              >
+              </div>
+              <div
+                class="relative bg-black/60 border flex justify-center items-center gap-2 sm:gap-3 border-white/10 rounded-xl p-2 sm:p-3 text-center hover:bg-black/80 transition-all duration-300"
+              >
+                <div
+                  class="w-5 h-5 sm:w-6 sm:h-6 bg-accent/10 rounded-full flex items-center justify-center"
+                >
+                  <div class="w-2 h-2 bg-accent rounded-full"></div>
+                </div>
+                <span
+                  class="text-white/90 font-product-sans text-xs font-medium"
+                  >Contract</span
+                >
+              </div>
+            </div>
+
+            <div class="group/card relative">
+              <div
+                class="absolute -inset-0.5 bg-gradient-to-r from-accent/30 to-transparent rounded-2xl opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"
+              >
+              </div>
+              <div
+                class="relative bg-black/60 border flex justify-center items-center gap-2 sm:gap-3 border-white/10 rounded-xl p-2 sm:p-3 text-center hover:bg-black/80 transition-all duration-300"
+              >
+                <div
+                  class="w-5 h-5 sm:w-6 sm:h-6 bg-accent/10 rounded-full flex items-center justify-center"
+                >
+                  <div class="w-2 h-2 bg-accent rounded-full"></div>
+                </div>
+                <span
+                  class="text-white/90 font-product-sans text-xs font-medium"
+                  >Freelance</span
+                >
+              </div>
+            </div>
           </div>
 
-          <!-- Email Copy Button -->
-          <div class="mt-auto">
+          <!-- Contact CTA -->
+          <div class="text-center">
             <p
-              class="text-white/70 font-product-sans text-xs mb-2 md:text-left text-center"
+              class="text-white/60 font-product-sans text-xs sm:text-sm mb-3 sm:mb-4"
             >
-              Get in touch directly:
+              Ready to start a conversation? Get in touch directly:
             </p>
-            <div class="group relative">
+
+            <!-- Compact Email Button -->
+            <div class="max-w-xs sm:max-w-sm mx-auto">
               <button
                 id="email-copy-btn"
-                class="w-full flex items-center justify-between px-4 py-3 border border-white/10 rounded-2xl backdrop-blur-2xl shadow-accent-soft hover:bg-black/70 hover:border-accent/50 transition-all duration-300 ease-in-out cursor-none group"
+                class="w-full flex items-center justify-between px-3 sm:px-4 py-2 sm:py-3 border border-white/20 rounded-lg sm:rounded-xl hover:border-accent/50 bg-black/50 backdrop-blur-2xl"
                 aria-label="Copy email address"
               >
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-2 sm:gap-3">
                   <div
-                    class="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center"
+                    class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center"
                   >
-                    <Mail size="20" class="text-accent" />
+                    <Mail size="16" class="text-accent" />
                   </div>
                   <div class="text-left">
                     <p
-                      class="text-white font-product-sans text-base"
+                      class="text-white font-product-sans text-sm sm:text-base font-medium"
                       id="email-text"
                     >
-                      hello@theajmalrazaq.tech
+                      theajmalrazaq@gmail.com
                     </p>
-                    <p class="text-white/60 text-xs">Click to copy</p>
+                    <p class="text-white/50 text-xs">Click to copy</p>
                   </div>
                 </div>
-                <div
-                  class="w-4 h-4 text-white/60 group-hover:text-accent transition-colors duration-300"
-                >
-                  <Copy size="16" />
+                <div class="w-4 h-4 sm:w-5 sm:h-5 text-white/40">
+                  <Copy size="14" />
                 </div>
               </button>
 
               <!-- Copy Success Message -->
               <div
                 id="copy-success"
-                class="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-accent text-black px-2 py-1 rounded-md text-xs font-product-sans opacity-0 transition-opacity duration-300 pointer-events-none"
+                class="absolute -top-8 sm:-top-10 left-1/2 transform -translate-x-1/2 bg-accent/90 backdrop-blur-sm text-black px-2 sm:px-3 py-1 rounded-lg text-xs font-product-sans font-medium opacity-0 scale-95 transition-all duration-300 pointer-events-none"
               >
-                Copied to clipboard!
+                ✓ Copied!
               </div>
             </div>
           </div>

@@ -146,8 +146,22 @@ document.addEventListener("DOMContentLoaded", function () {
         loadingOverlay.style.display = "none";
         document.body.style.overflow = "auto";
         window.scrollTo(0, 0);
+        
+        // Initialize AOS after loading overlay disappears and content is visible
+        AOS.init({
+          duration: 800,
+          once: false,
+          mirror: true,
+          offset: 100,
+          delay: 100
+        });
+        
+        // Force AOS to refresh and detect elements
+        setTimeout(() => {
+          AOS.refresh();
+        }, 100);
+        
       }, 500);
-      AOS.init();
 
       // Initialize clock for timezone card
       const localTimeElement = document.getElementById("local-time");
@@ -409,29 +423,29 @@ if (window.location.pathname === '/blog' || window.location.pathname.includes('/
 document.addEventListener("DOMContentLoaded", () => {
   const emailCopyBtn = document.getElementById("email-copy-btn");
   const copySuccess = document.getElementById("copy-success");
-  const emailText = "hello@theajmalrazaq.tech";
+  const emailText = "theajmalrazaq@gmail.com";
 
   if (emailCopyBtn && copySuccess) {
     emailCopyBtn.addEventListener("click", async () => {
       try {
         await navigator.clipboard.writeText(emailText);
         
-        // Show success message
+        // Show success message with enhanced animation
         copySuccess.style.opacity = "1";
-        copySuccess.style.transform = "translate(-50%, -10px)";
+        copySuccess.style.transform = "translate(-50%, -10px) scale(1)";
         
         // Add bounce effect to button
-        emailCopyBtn.style.transform = "scale(0.98)";
+        emailCopyBtn.style.transform = "scale(0.95)";
         
         setTimeout(() => {
           emailCopyBtn.style.transform = "scale(1)";
         }, 150);
         
-        // Hide success message after 2 seconds
+        // Hide success message after 2.5 seconds
         setTimeout(() => {
           copySuccess.style.opacity = "0";
-          copySuccess.style.transform = "translate(-50%, 0)";
-        }, 2000);
+          copySuccess.style.transform = "translate(-50%, 0) scale(0.95)";
+        }, 2500);
         
       } catch (err) {
         console.error("Failed to copy email: ", err);
@@ -445,12 +459,12 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
           document.execCommand("copy");
           copySuccess.style.opacity = "1";
-          copySuccess.innerHTML = "✅ Copied!";
+          copySuccess.innerHTML = "✓ Copied!";
           
           setTimeout(() => {
             copySuccess.style.opacity = "0";
-            copySuccess.innerHTML = "✅ Copied to clipboard!";
-          }, 2000);
+            copySuccess.innerHTML = "✓ Copied to clipboard!";
+          }, 2500);
         } catch (fallbackErr) {
           console.error("Fallback copy failed: ", fallbackErr);
         }
