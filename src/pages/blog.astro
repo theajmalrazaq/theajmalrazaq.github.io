@@ -6,9 +6,9 @@ import NavbarSection from "../components/NavbarSection.astro";
 import Loading from "../components/Loading.astro";
 import FooterSection from "../components/FooterSection.astro";
 import CursorTracker from "../components/CursorTracker.astro";
-import blogImage from "../images/blog.svg";
 import MetaSection from "../components/MetaSection.astro";
 import { Search } from "@lucide/astro";
+import Heading from "../components/Heading.astro";
 import ViewsCount from "../components/blog/ViewsCount.jsx";
 import LikesCount from "../components/blog/LikesCount.jsx";
 
@@ -79,18 +79,12 @@ const allTags = blog
       <section
         class="relative flex flex-col justify-center mt-20 items-center w-full mb-12 text-center z-[2]"
         data-aos="focus-up"
-        data-aos-delay="200"
         aria-labelledby="blog-heading"
       >
         <header
           class="bg-gradient-to-b from-white from-20% to-accent to-70% bg-clip-text text-transparent"
         >
-          <Image
-            src={blogImage}
-            alt="Blog section icon representing articles and thoughts"
-            loading="eager"
-            class="p-2"
-          />
+          <Heading text="my Blog" />
           <h1 id="blog-heading" class="sr-only">
             Blog Articles by Ajmal Razaq
           </h1>
@@ -154,7 +148,6 @@ const allTags = blog
                     class={`text-sm px-4 py-2 rounded-full border border-white/10  hover:bg-accent hover:text-white hover:scale-[1.01] transition-colors filter-tag shadow-accent`}
                     data-tag={tag}
                     data-aos="focus-up"
-                    data-aos-delay="200"
                     aria-pressed="false"
                     aria-label={`Filter articles by ${tag}`}
                   >
@@ -198,7 +191,6 @@ const allTags = blog
         <section
           id="blog-posts-container"
           data-aos="focus-up"
-          data-aos-delay="200"
           aria-label="Blog articles list"
         >
           {
@@ -284,7 +276,6 @@ const allTags = blog
           id="load-more-container"
           class="flex justify-center mt-12"
           data-aos="focus-up"
-          data-aos-delay="100"
           role="region"
           aria-label="Load more articles"
         >

@@ -183,14 +183,7 @@ html.lenis {
 }
 
 /* Used AOS durations */
-[data-aos][data-aos][data-aos-duration="800"],
-body[data-aos-duration="800"] [data-aos] {
-  transition-duration: 0.8s;
-}
-[data-aos][data-aos][data-aos-duration="1000"],
-body[data-aos-duration="1000"] [data-aos] {
-  transition-duration: 1s;
-}
+
 [data-aos][data-aos][data-aos-duration="1200"],
 body[data-aos-duration="1200"] [data-aos] {
   transition-duration: 1.2s;
@@ -205,79 +198,8 @@ body[data-aos-delay="100"] [data-aos] {
 body[data-aos-delay="100"] [data-aos].aos-animate {
   transition-delay: 0.1s;
 }
-[data-aos][data-aos][data-aos-delay="200"],
-body[data-aos-delay="200"] [data-aos] {
-  transition-delay: 0;
-}
-[data-aos][data-aos][data-aos-delay="200"].aos-animate,
-body[data-aos-delay="200"] [data-aos].aos-animate {
-  transition-delay: 0.2s;
-}
-[data-aos][data-aos][data-aos-delay="300"],
-body[data-aos-delay="300"] [data-aos] {
-  transition-delay: 0;
-}
-[data-aos][data-aos][data-aos-delay="300"].aos-animate,
-body[data-aos-delay="300"] [data-aos].aos-animate {
-  transition-delay: 0.3s;
-}
-[data-aos][data-aos][data-aos-delay="400"],
-body[data-aos-delay="400"] [data-aos] {
-  transition-delay: 0;
-}
-[data-aos][data-aos][data-aos-delay="400"].aos-animate,
-body[data-aos-delay="400"] [data-aos].aos-animate {
-  transition-delay: 0.4s;
-}
-[data-aos][data-aos][data-aos-delay="500"],
-body[data-aos-delay="500"] [data-aos] {
-  transition-delay: 0;
-}
-[data-aos][data-aos][data-aos-delay="500"].aos-animate,
-body[data-aos-delay="500"] [data-aos].aos-animate {
-  transition-delay: 0.5s;
-}
-[data-aos][data-aos][data-aos-delay="600"],
-body[data-aos-delay="600"] [data-aos] {
-  transition-delay: 0;
-}
-[data-aos][data-aos][data-aos-delay="600"].aos-animate,
-body[data-aos-delay="600"] [data-aos].aos-animate {
-  transition-delay: 0.6s;
-}
-[data-aos][data-aos][data-aos-delay="700"],
-body[data-aos-delay="700"] [data-aos] {
-  transition-delay: 0;
-}
-[data-aos][data-aos][data-aos-delay="700"].aos-animate,
-body[data-aos-delay="700"] [data-aos].aos-animate {
-  transition-delay: 0.7s;
-}
-[data-aos][data-aos][data-aos-delay="800"],
-body[data-aos-delay="800"] [data-aos] {
-  transition-delay: 0;
-}
-[data-aos][data-aos][data-aos-delay="800"].aos-animate,
-body[data-aos-delay="800"] [data-aos].aos-animate {
-  transition-delay: 0.8s;
-}
-[data-aos][data-aos][data-aos-delay="1000"],
-body[data-aos-delay="1000"] [data-aos] {
-  transition-delay: 0;
-}
-[data-aos][data-aos][data-aos-delay="1000"].aos-animate,
-body[data-aos-delay="1000"] [data-aos].aos-animate {
-  transition-delay: 1s;
-}
-[data-aos][data-aos][data-aos-delay="1200"],
-body[data-aos-delay="1200"] [data-aos] {
-  transition-delay: 0;
-}
-[data-aos][data-aos][data-aos-delay="1200"].aos-animate,
-body[data-aos-delay="1200"] [data-aos].aos-animate {
-  transition-delay: 1.2s;
-}
-/* Used AOS animation types */
+
+
 /* Used AOS animation types */
 [data-aos^="fade"][data-aos^="fade"] {
   opacity: 0;

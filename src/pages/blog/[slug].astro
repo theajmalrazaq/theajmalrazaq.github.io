@@ -103,7 +103,7 @@ const html = marked(blog.content);
 
         <!-- Header Content -->
         <header class="max-w-4xl mx-auto px-4 pb-4 pt-40">
-          <div class="pb-4" data-aos="focus-up" data-aos-delay="300">
+          <div class="pb-4" data-aos="focus-up">
             <nav
               class="flex flex-wrap gap-x-2 gap-y-1 text-sm"
               aria-label="Article tags"
@@ -127,7 +127,6 @@ const html = marked(blog.content);
               class="gradient-text text-3xl sm:text-4xl md:text-5xl font-nixel tracking-[1px] mt-6 leading-tight lowercase"
               style="word-spacing: -7px;"
               data-aos="focus-up"
-              data-aos-delay="400"
             >
               {blog.title}
             </h1>
@@ -137,7 +136,6 @@ const html = marked(blog.content);
                 <p
                   class="text-normal font-product-sans text-white/90 mt-1"
                   data-aos="focus-up"
-                  data-aos-delay="500"
                 >
                   <span class="text-center transition-colors bg-gradient-to-r from-neutral-300/[35%] via-neutral-300/90 to-neutral-300/[35%] bg-clip-text text-transparent font-product-sans">
                     {blog.excerpt}
@@ -218,7 +216,6 @@ const html = marked(blog.content);
             <article
               class="mdx prose mt-4 max-w-4xl transition-colors prose-p:font-product-sans prose-p:text-neutral-500 prose-img:rounded-2xl prose-a:text-accent prose-a:underline prose-a:decoration-accent prose-a:decoration-2 prose-ul:text-neutral-500 prose-ol:text-neutral-500 prose-li:text-neutral-500 prose-headings:font-bold prose-a:hover:decoration-4 prose-headings:text-white prose-pre:bg-neutral-900 prose-pre:rounded-lg prose-pre:p-4 prose-pre:font-mono prose-pre:text-sm prose-code:bg-neutral-800 prose-code:text-accent prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:font-mono prose-code:text-sm prose-blockquote:border-l-4 prose-blockquote:border-accent prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-neutral-400 prose-strong:text-white prose-em:text-neutral-300 prose-em:italic prose-hr:border-white/20 prose-table:border-collapse prose-thead:border-b-2 prose-thead:border-white/30 prose-th:text-white prose-th:font-bold prose-th:px-4 prose-th:py-2 prose-td:text-neutral-400 prose-td:px-4 prose-td:py-2 prose-td:border-b prose-td:border-white/10"
               data-aos="focus-up"
-              data-aos-delay="500"
               set:html={html}
             />
           </div>
