@@ -1,45 +1,23 @@
 ---
 import "../styles/global.css";
 import { Image } from "astro:assets";
+import { Search } from "lucide-react";
 import { supabase } from "../lib/supabaseClient";
 import NavbarSection from "../components/NavbarSection.astro";
-import Loading from "../components/Loading.astro";
-import FooterSection from "../components/FooterSection.astro";
 import CursorTracker from "../components/CursorTracker.astro";
-import blogImage from "../images/blog.svg";
+import FooterSection from "../components/FooterSection.astro";
 import MetaSection from "../components/MetaSection.astro";
-import { Search } from "@lucide/astro";
-import ViewsCount from "../components/blog/ViewsCount.jsx";
-import LikesCount from "../components/blog/LikesCount.jsx";
-
-// Get all blog posts (static data at build time)
-const { data: blog, error } = await supabase
-  .from("blog")
-  .select("*")
-  .order("created_at", { ascending: false });
-if (error) console.error("Error fetching blog:", error);
-
-const allTags = blog
-  ? [
-      ...new Set(
-        blog
-          .filter((blog) => blog.tags) // Filter out blog without tags
-          .flatMap((blog) =>
-            blog.tags.split(",").map((tag: string) => tag.trim())
-          )
-      ),
-    ] // Split each tag string and trim whitespace
-  : [];
+import Loading from "../components/Loading.astro";
 ---
 
 <!doctype html>
 <html lang="en" class="lenis lenis--smooth select-none">
   <MetaSection
-    title="Blog | Ajmal Razaq "
-    description="Articles and thoughts by Ajmal Razaq  on frontend development, UI/UX design, and more."
+    title="Projects | Ajmal Razaq "
+    description="Projects Crafted by Ajmal Razaq"
     keywords={[
-      "blog",
-      "articles",
+      "projects",
+      "javascript",
       "frontend development",
       "UI/UX design",
       "ajmal razaq ",
@@ -47,7 +25,6 @@ const allTags = blog
     url="https://theajmalrazaq.github.io/blog"
     type="website"
   />
-
   <body class="bg-black min-h-screen flex flex-col">
     <!-- Cursor Tracker -->
     <CursorTracker />
@@ -85,12 +62,6 @@ const allTags = blog
         <header
           class="bg-gradient-to-b from-white from-20% to-accent to-70% bg-clip-text text-transparent"
         >
-          <Image
-            src={blogImage}
-            alt="Blog section icon representing articles and thoughts"
-            loading="eager"
-            class="p-2"
-          />
           <h1 id="blog-heading" class="sr-only">
             Blog Articles by Ajmal Razaq
           </h1>
@@ -98,8 +69,7 @@ const allTags = blog
         <p data-fade="3" class="b1 mt-3">
           <span
             class="transition-colors bg-gradient-to-r from-neutral-300/[35%] via-neutral-300/90 to-neutral-300/[35%] bg-clip-text text-transparent font-product-sans"
-            >Thoughts, tutorials, and insights on frontend development and
-            design</span
+            >Collection of All My Projects and Problems I Solved</span
           >
         </p>
 

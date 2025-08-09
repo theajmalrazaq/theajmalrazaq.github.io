@@ -149,11 +149,10 @@ document.addEventListener("DOMContentLoaded", function () {
         
         // Initialize AOS after loading overlay disappears and content is visible
         AOS.init({
-          duration: 800,
+          duration: 1200,
           once: false,
+          delay: 100,
           mirror: true,
-          offset: 100,
-          delay: 100
         });
         
         // Force AOS to refresh and detect elements
