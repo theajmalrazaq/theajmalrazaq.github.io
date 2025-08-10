@@ -19,7 +19,7 @@ if (error) console.error("Supabase error:", error);
 ---
 
 <section
-  class="relative mt-40 w-full sm:px-15 px-6 flex flex-col justify-center items-center"
+  class="relative mt-12 sm:mt-40 w-full sm:px-15 px-6 flex flex-col justify-center items-center"
   data-aos="focus-up"
   id="featured-blog"
 >
@@ -54,7 +54,7 @@ if (error) console.error("Supabase error:", error);
         blog.map((blog) => (
           <a
             href={`/blog/${blog.slug}`}
-            class="blog-card group rounded-3xl border border-white/10 overflow-hidden flex flex-col h-full transition-all duration-300 ease-in-out group mb-8 shadow-accent-soft"
+            class="blog-card group rounded-3xl border border-white/10 overflow-hidden flex flex-col h-full transition-all duration-300 ease-in-out group mb-8 -soft"
             data-aos="focus-up"
             data-tags={blog.tags}
             data-blog-id={blog.id}

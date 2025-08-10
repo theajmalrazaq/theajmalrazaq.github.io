@@ -15,9 +15,6 @@
   font-style: normal;
   font-display: swap;
 }
-
-
-
 @theme {
   --bg-accent: #a098ff;
   --font-nixel: "Nixel", sans-serif;
@@ -47,8 +44,6 @@
     animation-play-state: paused;
   }
 
-
-
   .marquee-container {
     mask-image: linear-gradient(
       to right,
@@ -66,32 +61,7 @@
     );
   }
 
-.shadow-accent-animate {
-  box-shadow: 0px 0px 39px -22px #a198ff39 inset;
-  animation: pulse-glow 2s ease-in-out infinite alternate;
-  transition: all 0.3s ease-in-out;
-}
-.shadow-accent {
-  background: black;
-  box-shadow: 0px 0px 45px -22px #444171 inset;
-}
-.shadow-accent-hover:hover {
-  box-shadow: 0px 0px 45px -22px #444171 inset;
-}
-.shadow-accent-transparent {
-  box-shadow: 0px 0px 45px -22px #444171 inset;
-}
 
-.shadow-accent-soft {
-  background: black;
-  box-shadow: 0px 0px 45px -22px #1e1d2f inset;
-}
-.shadow-accent-soft-transparent {
-  box-shadow: 0px 0px 45px -22px #1e1d2f inset;
-}
-.shadow-accent-x:hover {
-  box-shadow: 0px 0px 39px -22px #a198ff39 inset;
-}
 
 .star-border-container {
   display: inline-block;
@@ -143,7 +113,7 @@
 [data-aos="focus-up"]{
   -webkit-filter: blur(12px);
   filter: blur(12px);
-   transform: translate3d(0, 10px, 0);
+   transform: translate3d(0, 50px, 0);
   transition-property: all;
 }
 
@@ -184,9 +154,9 @@ html.lenis {
 
 /* Used AOS durations */
 
-[data-aos][data-aos][data-aos-duration="1200"],
-body[data-aos-duration="1200"] [data-aos] {
-  transition-duration: 1.2s;
+[data-aos][data-aos][data-aos-duration="800"],
+body[data-aos-duration="800"] [data-aos] {
+  transition-duration: 0.8s;
 }
 
 /* Used AOS delays */
@@ -242,8 +212,10 @@ body[data-aos-delay="100"] [data-aos].aos-animate {
   }
 }
 
+
+
 .pixel-button:hover {
-  background: var(--color-accent) url(../images/pixel.png);
+  background: black url(../images/pixel.png);
   transition-delay: 0.8s;
   background-size: 180px;
   animation: animate 0.8s steps(8) forwards;

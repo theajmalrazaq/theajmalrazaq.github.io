@@ -84,7 +84,7 @@ const allTags = blog
         <header
           class="bg-gradient-to-b from-white from-20% to-accent to-70% bg-clip-text text-transparent"
         >
-          <Heading text="my Blog" />
+          <Heading text="my blog" />
           <h1 id="blog-heading" class="sr-only">
             Blog Articles by Ajmal Razaq
           </h1>
@@ -108,13 +108,23 @@ const allTags = blog
             <label for="search-input" class="sr-only"
               >Search articles by title or content</label
             >
-            <input
-              type="text"
-              id="search-input"
-              placeholder="Search articles..."
-              class="w-full px-5 py-3 border border-white/10 rounded-full text-white focus:outline-none bg-black shadow-accent focus:border-accent/50 transition-all"
-              aria-describedby="search-help"
-            />
+            <div class="w-full relative">
+              <input
+                type="text"
+                id="search-input"
+                placeholder="Search articles..."
+                class="w-full px-5 py-3 border border-white/10 rounded-full text-white focus:outline-none bg-black focus:border-accent/50 transition-all pr-32"
+                aria-describedby="search-help search-space-helper"
+              />
+              <span
+                id="search-space-helper"
+                class="absolute right-10 top-1/2 -translate-y-1/2 text-xs text-white/40 bg-black/70 px-3 py-1 rounded-full pointer-events-none select-none"
+                style="font-size:0.85em;"
+              >
+                Press <kbd class="px-1 py-0.5 bg-white/10 rounded">Space</kbd> to
+                Search
+              </span>
+            </div>
             <button
               id="search-button"
               class="absolute right-4 top-1/2 -translate-y-1/2"
@@ -145,7 +155,7 @@ const allTags = blog
               allTags.map((tag, index) => {
                 return (
                   <button
-                    class={`text-sm px-4 py-2 rounded-full border border-white/10  hover:bg-accent hover:text-white hover:scale-[1.01] transition-colors filter-tag shadow-accent`}
+                    class={`text-sm px-4 py-2 rounded-full border border-white/10  hover:bg-accent hover:text-white hover:scale-[1.01] transition-colors filter-tag `}
                     data-tag={tag}
                     data-aos="focus-up"
                     aria-pressed="false"
@@ -197,7 +207,7 @@ const allTags = blog
             blog &&
               blog.map((blog) => (
                 <article
-                  class="blog-card group rounded-3xl border border-white/10 overflow-hidden flex flex-col h-full transition-all duration-300 ease-in-out group mb-8 shadow-accent-soft"
+                  class="blog-card group rounded-3xl border border-white/10 overflow-hidden flex flex-col h-full transition-all duration-300 ease-in-out group mb-8 -soft"
                   data-aos="focus-up"
                   data-tags={blog.tags}
                   data-blog-id={blog.id}
@@ -314,5 +324,21 @@ const allTags = blog
     <!-- New Footer Component -->
     <FooterSection />
     <script type="module" src="/script.js"></script>
+    <script>
+      document.addEventListener("keypress", (event) => {
+        if (
+          event.key === " " ||
+          event.code === "Space" ||
+          event.key === "Spacebar"
+        ) {
+          event.preventDefault(); // Prevent default scrolling behavior
+          // Trigger search or filter action
+          const searchInput = document.getElementById("search-input");
+          if (searchInput) {
+            searchInput.focus();
+          }
+        }
+      });
+    </script>
   </body>
 </html>

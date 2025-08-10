@@ -149,7 +149,7 @@ document.addEventListener("DOMContentLoaded", function () {
         
         // Initialize AOS after loading overlay disappears and content is visible
         AOS.init({
-          duration: 1200,
+          duration: 800,
           once: false,
           delay: 100,
           mirror: true,
@@ -180,10 +180,10 @@ tabs.forEach((tab) => {
     // Update active tab styling
     tabs.forEach((t) => {
       if (t.getAttribute("data-tab") === tabId) {
-        t.classList.add("shadow-accent");
+        t.classList.add("bg-accent");
         t.classList.remove("bg-transparent");
       } else {
-        t.classList.remove("shadow-accent");
+        t.classList.remove("bg-accent");
         t.classList.add("bg-transparent");
       }
     });
@@ -217,6 +217,7 @@ if (typeof LottieInteractivity !== "undefined") {
     });
   }
 }
+
 
 // Blog-specific functionality
 function initializeBlogPage() {
@@ -273,18 +274,21 @@ function initializeBlogPage() {
 
     function setActiveFilterButton(button) {
       [filterAll, ...filterTags].forEach((btn) => {
-        btn.classList.add("shadow-accent");
+        btn.classList.add("bg-accent");
         btn.classList.remove(
           "bg-accent",
           "text-white"
         );
       });
-      button.classList.remove("shadow-accent");
+      button.classList.remove("bg-accent");
       button.classList.add(
         "bg-accent",
         "text-white"
       );
     }
+
+
+
 
     function showAllBlogItems() {
       blogItems.forEach((item) => {

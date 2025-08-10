@@ -6,8 +6,8 @@ import Button from "../Button.astro";
 import { User } from "@lucide/astro";
 ---
 
-<section class="relative w-full mt-8 sm:mt-14" aria-labelledby="about-heading">
-  <Image
+<section class="relative w-full mt-12 sm:mt-40" aria-labelledby="about-heading">
+  <!-- <Image
     src={eclipseimg}
     alt="Decorative eclipse background pattern"
     loading="lazy"
@@ -15,7 +15,25 @@ import { User } from "@lucide/astro";
     aria-hidden="true"
     role="presentation"
     data-aos="focus-up"
-  />
+  /> -->
+  <div
+    class="absolute -top-75 left-1/2 z-0 h-[400px] w-[1200px] -translate-x-1/2 transform overflow-hidden"
+    style="mask-image: linear-gradient(to right, transparent, black 30%, black 70%, transparent);"
+    data-aos="focus-up"
+  >
+    <div
+      class="absolute bottom-[167px] left-1/2 h-[111px] w-[787px] -translate-x-1/2 transform overflow-hidden bg-[radial-gradient(50%_50%_at_50%_50%,#444171_0%,rgba(0,0,0,0)_100%)] blur-[57px]"
+      style="transform: translateX(30.1199px);"
+    >
+    </div><div
+      class="absolute right-[-432px] bottom-[-753px] left-[-454px] h-[955px] rounded-[100%] bg-gradient-to-b to-transparent from-[#444171]"
+    >
+    </div><div
+      class="bg-white-1 absolute right-[-510px] bottom-[-759px] left-[-532px] aspect-[2.346820809248555/1] h-[956px] rounded-[100%] shadow-[inset_0_2px_20px_#fff,0_-10px_50px_1px_#ffffff7d] bg-black"
+      style="box-shadow: #444171 0px 2px 24.8792px inset, #444171 0px -10px 54.8792px 1px;"
+    >
+    </div>
+  </div>
   <div
     class="flex items-center justify-center w-full flex-col gap-3 sm:gap-5 px-4 sm:px-0"
     data-aos="focus-up"
@@ -54,8 +72,7 @@ import { User } from "@lucide/astro";
       >
         <span
           class="text-center transition-colors bg-gradient-to-r from-neutral-300/[35%] via-neutral-300/90 to-neutral-300/[35%] bg-clip-text text-transparent font-product-sans"
-          >I'm Ajmal Razaq — a design-focused frontend developer based in
-          Pakistan.
+          >I'm Ajmal Razaq — a Design Engineer based in Pakistan.
         </span>
       </p>
       <p
