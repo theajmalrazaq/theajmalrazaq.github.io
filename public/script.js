@@ -144,7 +144,7 @@ document.addEventListener("DOMContentLoaded", function () {
       
       setTimeout(() => {
         loadingOverlay.style.display = "none";
-        document.body.style.overflow = "auto";
+        document.body.style.overflow = "hidden";
         window.scrollTo(0, 0);
         
         // Initialize AOS after loading overlay disappears and content is visible
