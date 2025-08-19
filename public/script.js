@@ -45,8 +45,8 @@ function animateCursor() {
 animateCursor();
 
 const lenis = new Lenis({
-  lerp: 0.05,
-  wheelMultiplier: 1.2,
+  lerp: 0.06,
+  wheelMultiplier: 1,
 });
 
 function raf(time) {
@@ -54,46 +54,6 @@ function raf(time) {
   requestAnimationFrame(raf);
 }
 requestAnimationFrame(raf);
-
-// Define bentoCards collection
-const bentoCards = document.querySelectorAll(".pixel-card");
-
-bentoCards.forEach((card) => {
-  // Add shine effect element to each card
-  const shine = document.createElement("div");
-  shine.classList.add(
-    "absolute",
-    "inset-0",
-    "pointer-events-none",
-    "opacity-0"
-  );
-  shine.style.background =
-    "radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(73, 69, 118, 0.1) 0%, rgba(73, 69, 118, 0.01) 50%)";
-  shine.style.transition = "opacity 0.3s ease";
-  card.style.position = "relative";
-  card.style.overflow = "hidden";
-  card.appendChild(shine);
-
-  // Scale and shadow effect on hover
-  card.addEventListener("mouseenter", () => {
-    card.style.transition = "all 0.3s ease-in-out";
-    shine.style.opacity = "1";
-  });
-
-  card.addEventListener("mouseleave", () => {
-    shine.style.opacity = "0";
-  });
-
-  // Track mouse position for shine effect
-  card.addEventListener("mousemove", (e) => {
-    const rect = card.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-
-    card.style.setProperty("--mouse-x", `${x}%`);
-    card.style.setProperty("--mouse-y", `${y}%`);
-  });
-});
 
 // Initialize real-time clock for the timezone card
 window.updateClock = () => {
@@ -144,17 +104,13 @@ document.addEventListener("DOMContentLoaded", function () {
       
       setTimeout(() => {
         loadingOverlay.style.display = "none";
-    
-        
-        // Initialize AOS after loading overlay disappears and content is visible
         AOS.init({
-          duration: 800,
+          duration: 1200,
           once: false,
           delay: 100,
           mirror: true,
         });
         
-        // Force AOS to refresh and detect elements
         setTimeout(() => {
           AOS.refresh();
         }, 100);
@@ -476,3 +432,4 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+

@@ -113,7 +113,7 @@
 [data-aos="focus-up"]{
   -webkit-filter: blur(12px);
   filter: blur(12px);
-   transform: translate3d(0, 50px, 0);
+   transform: translate3d(0, 100px, 0);
   transition-property: all;
 }
 
@@ -154,9 +154,9 @@ html.lenis {
 
 /* Used AOS durations */
 
-[data-aos][data-aos][data-aos-duration="800"],
-body[data-aos-duration="800"] [data-aos] {
-  transition-duration: 0.8s;
+[data-aos][data-aos][data-aos-duration="1200"],
+body[data-aos-duration="1200"] [data-aos] {
+  transition-duration: 1.2s;
 }
 
 /* Used AOS delays */
