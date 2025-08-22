@@ -1,22 +1,28 @@
 ---
 import { Image } from "astro:assets";
 import buildimg from "../../images/build2.svg";
-import eclipseimg from "../../images/eclipse.svg";
 import Button from "../Button.astro";
 import { User } from "@lucide/astro";
 ---
 
-<section class="relative w-full mt-12 sm:mt-30" aria-labelledby="about-heading">
-  <Image
-    src={eclipseimg}
-    alt="Decorative eclipse background pattern"
-    loading="lazy"
-    class="absolute sm:-top-110 -top-90 w-full -z-10 opacity-50 bg-cover"
-    aria-hidden="true"
-    role="presentation"
-    data-aos="focus-up"
-  />
-
+<section
+  class="relative mt-12 sm:mt-40 w-full p-5"
+  aria-labelledby="about-heading"
+>
+  <div
+    class="absolute left-1/2 sm:top-120 top-10 -translate-x-1/2 -translate-y-1/2 z-0"
+  >
+    <div
+      class="rounded-full sm:w-[1340px] sm:h-[1340px] w-[345px] h-[345px] pointer-events-none"
+      style="
+      background:rgba(0,0,0,0.01);
+      box-shadow:2px 0 100px -44px #A098FF inset;
+      mask-image:linear-gradient(to bottom,black 38%,rgba(0,0,0,0.7) 42%,transparent 50%);
+      -webkit-mask-image:linear-gradient(to bottom,black 38%,rgba(0,0,0,0.7) 42%,transparent 50%);
+    "
+    >
+    </div>
+  </div>
   <div
     class="flex items-center justify-center w-full flex-col gap-3 sm:gap-5 px-4 sm:px-0"
     data-aos="focus-up"

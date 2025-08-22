@@ -139,6 +139,9 @@
   }
 }
 
+/* Add to your global CSS or inside a <style> tag in AboutSection.astro */
+
+
 html.lenis {
   height: auto;
 }
