@@ -1,0 +1,112 @@
+---
+---
+
+<link rel="stylesheet" href="https://use.hugeicons.com/font/icons.css" />
+
+<section
+  class="relative w-full flex justify-center overflow-hidden z-10 bg-white dark:bg-black"
+  aria-labelledby="experience-heading"
+  data-aos="focus-up"
+>
+  <div class="relative w-full max-w-4xl mx-auto px-6 sm:px-15 py-6 sm:py-8 flex flex-col gap-8 z-10">
+    
+    <!-- Heading with Experience Count -->
+    <div class="flex items-end justify-between gap-4" data-aos="focus-up">
+      <div>
+        <h2 class="text-[50px] [font-family:'GeistPixelSquare'] text-gray-900 dark:text-gray-100" id="experience-heading">
+        experience
+        </h2>
+        <p class="text-sm text-gray-500 dark:text-gray-400 font-product-sans mt-2">4 positions</p>
+      </div>
+    </div>
+
+    <!-- Description -->
+    <p class="text-base text-gray-600 dark:text-gray-400 font-product-sans leading-relaxed max-w-3xl" data-aos="focus-up" data-aos-delay="100">
+      My professional journey in <strong>design engineering</strong> and <strong>UI/UX</strong>.
+    </p>
+
+    <!-- Experience Items -->
+    <div class="flex flex-col gap-8 mt-4" data-aos="focus-up" data-aos-delay="200">
+      {[
+        {
+          id: 1,
+          company: "Freelance",
+          position: "Design Engineer",
+          location: "Remote",
+          dateRange: "Aug 2025 – Present",
+          logo: "🚀",
+          bullets: [
+            "Coded React landing pages for startups using Figma, React, Next and Tailwind."
+          ],
+        },
+        {
+          id: 2,
+          company: "Pixen",
+          position: "Part-time UI/UX Designer",
+          location: "Remote",
+          dateRange: "Aug 2025 – Present",
+          logo: "🎨",
+          bullets: [
+            "Designed SaaS apps, landing pages and dashboards in Figma."
+          ],
+        },
+        {
+          id: 3,
+          company: "Circle AI",
+          position: "UI/UX Intern",
+          location: "Remote",
+          dateRange: "Jun 2024 – Aug 2024",
+          logo: "🤖",
+          bullets: [
+            "Designed AI chatbot UI (Material Design); cut onboarding 35%."
+          ],
+        },
+        {
+          id: 4,
+          company: "MLSA CFD",
+          position: "Design & Social Head",
+          location: "Microsoft Learn Student Ambassador, FAST NUCES CFD",
+          dateRange: "Aug 2024 – Present",
+          logo: "🎓",
+          bullets: [
+            "Solo-built Pakistan's first 100% digital student platform (React, Supabase, Tailwind).",
+            "Design events posters and manage social media increasing engagement by 40%."
+          ],
+        },
+      ].map((experience) => (
+        <div
+          class="flex gap-4 sm:gap-6 items-start group hover:opacity-75 transition-opacity duration-300"
+          data-aos="focus-up"
+        >
+          <!-- Company Logo -->
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 flex items-center justify-center text-xl">
+            {experience.logo}
+          </div>
+          
+          <!-- Experience Content -->
+          <div class="flex-1 flex flex-col gap-1">
+            <div class="flex items-center justify-between gap-3">
+              <h3 class="text-lg font-product-sans font-bold text-gray-900 dark:text-gray-100">{experience.company}</h3>
+              <span class="text-xs text-gray-400 dark:text-gray-500 font-product-sans whitespace-nowrap">
+                {experience.dateRange}
+              </span>
+            </div>
+            <p class="text-sm text-gray-500 dark:text-gray-400 font-product-sans">
+              {experience.position}
+            </p>
+            <p class="text-xs text-gray-400 dark:text-gray-500 font-product-sans">
+              {experience.location}
+            </p>
+            <ul class="mt-2 flex flex-col gap-1">
+              {experience.bullets.map((bullet) => (
+                <li class="text-sm text-gray-600 dark:text-gray-400 font-product-sans leading-relaxed flex gap-2">
+                  <span>{bullet}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

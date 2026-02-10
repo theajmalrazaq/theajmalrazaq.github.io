@@ -6,82 +6,30 @@ import { User } from "@lucide/astro";
 ---
 
 <section
-  class="relative mt-12 sm:mt-40 w-full p-5"
+  class="relative w-full flex justify-center overflow-hidden z-10 bg-white dark:bg-black"
   aria-labelledby="about-heading"
+  data-aos="focus-up"
 >
-  <div
-    class="absolute left-1/2 sm:top-120 top-10 -translate-x-1/2 -translate-y-1/2 z-0"
-  >
-    <div
-      class="rounded-full sm:w-[1340px] sm:h-[1340px] w-[345px] h-[345px] pointer-events-none"
-      style="
-      background:rgba(0,0,0,0.01);
-      box-shadow:2px 0 100px -44px #A098FF inset;
-      mask-image:linear-gradient(to bottom,black 38%,rgba(0,0,0,0.7) 42%,transparent 50%);
-      -webkit-mask-image:linear-gradient(to bottom,black 38%,rgba(0,0,0,0.7) 42%,transparent 50%);
-    "
-    >
-    </div>
-  </div>
-  <div
-    class="flex items-center justify-center w-full flex-col gap-3 sm:gap-5 px-4 sm:px-0"
-    data-aos="focus-up"
-  >
-    <header class="relative w-full flex items-center justify-center">
-      <Image
-        src={buildimg}
-        alt="Decorative build and development illustration"
-        loading="lazy"
-        class="absolute -top-17 w-3/5 sm:w-auto"
-        data-aos="focus-up"
-        aria-hidden="true"
-        role="presentation"
-      />
-      <h1
-        id="about-heading"
-        class="text-white text-3xl sm:text-5xl md:text-7xl z-10 absolute font-nixel tracking-[1px] text-center flex gap-2 flex-wrap justify-center"
-        data-aos="focus-up"
-      >
-        <span>who</span>
-        <span>am</span>
-        <span class="text-accent">i</span>
-        <span>and</span>
-        <span>what</span>
-        <span class="text-accent">i</span>
-        <span class="text-accent">do</span>
-      </h1>
-    </header>
-    <div
-      class="sm:mt-6 mt-4 z-10 flex flex-col items-center justify-center gap-4 w-full"
+  <div class="relative w-full max-w-4xl mx-auto px-6 sm:px-15 py-6 sm:py-8 flex flex-col gap-2 z-10">
+    
+    <!-- About Heading -->
+    <h1
+      id="about-heading"
+      class="text-[50px] [font-family:'GeistPixelSquare'] text-gray-900 dark:text-gray-100"
       data-aos="focus-up"
     >
-      <p
-        class="font-product-sans text-sm text-center text-white/90 max-w-prose mx-auto leading-relaxed w-full sm:w-4/5 md:w-3/4 lg:w-2/3"
-        data-aos="focus-up"
-      >
-        <span
-          class="text-center transition-colors bg-gradient-to-r from-neutral-300/[35%] via-neutral-300/90 to-neutral-300/[35%] bg-clip-text text-transparent font-product-sans"
-          >I'm Ajmal Razaq — a Design Engineer based in Pakistan.
-        </span>
+      about
+    </h1>
+
+    <!-- About Content -->
+    <div class="flex flex-col gap-8 max-w-4xl" data-aos="focus-up" data-aos-delay="100">
+      <p class="text-base text-gray-600 dark:text-gray-400 font-product-sans leading-relaxed">
+        My design and coding journey started back in 8th grade, when I accidentally fell in love with graphic design and web development and never recovered. Fast forward to 2023: I got into <strong>FAST NU</strong> for <strong>Computer Science</strong>, started freelancing, and began networking like a pro on LinkedIn and through societies. That's when I teamed up with a senior who launched a design agency called <strong>Pixen</strong>. Now I work part-time as a <strong>UI/UX Designer</strong> and <strong>Frontend Developer</strong>, helping build <strong>20+ SaaS landing pages</strong>, <strong>web apps</strong>, and <strong>3+ mobile apps</strong>.
       </p>
-      <p
-        class="font-product-sans text-sm text-center text-white/90 max-w-prose mx-auto leading-relaxed w-full sm:w-4/5 md:w-3/4 lg:w-2/3"
-        data-aos="focus-up"
-      >
-        <span class="font-semibold text-accent">What do I actually do?</span><br
-        />
-        I take clunky web experiences and reimagine them into fast, accessible, intuitive
-        products. <br />
-        Not just sleek UIs — real UX that scales and performs.<br />
+
+      <p class="text-base text-gray-600 dark:text-gray-400 font-product-sans leading-relaxed">
+        I've also been an active <strong>Hacktoberfest</strong> contributor since 2023 (yes, I keep coming back for more). I love building things that actually work and look good doing it. Curious? Check out my projects to see what I've been up to!
       </p>
-      <Button
-        text="about me"
-        data_aos="focus-up"
-        data_aos_duration="800"
-        aria_label="Learn more about Ajmal Razaq's background and experience"
-      >
-        <User size="18" aria-hidden="true" />
-      </Button>
     </div>
   </div>
 </section>

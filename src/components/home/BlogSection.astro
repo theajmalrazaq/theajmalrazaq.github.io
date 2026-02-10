@@ -1,130 +1,89 @@
 ---
-import { Image } from "astro:assets";
-import postimg from "../../images/post.svg";
-import { supabase } from "../../lib/supabaseClient";
-import Button from "../Button.astro";
-import { ChevronRight } from "@lucide/astro";
-import LikesCount from "../blog/LikesCount.jsx";
-import ViewsCount from "../blog/ViewsCount.jsx";
-
-// Fetch the 3 latest blog from Supabase
-const { data: blog, error } = await supabase
-  .from("blog")
-  .select("*")
-  .order("created_at", { ascending: false })
-  .limit(3);
-
-// Handle potential errors
-if (error) console.error("Supabase error:", error);
 ---
 
+<link rel="stylesheet" href="https://use.hugeicons.com/font/icons.css" />
+
 <section
-  class="relative mt-12 sm:mt-40 w-full sm:px-15 px-6 flex flex-col justify-center items-center"
+  class="relative w-full flex justify-center overflow-hidden z-10 bg-white dark:bg-black"
+  aria-labelledby="blog-heading"
   data-aos="focus-up"
-  id="featured-blog"
 >
-  <Image
-    src={postimg}
-    alt="Projects section decorative illustration"
-    class="absolute sm:w-1/5 w-36 sm:-top-10 -top-7 duration-1000 ease-in-out"
-    id="projecticons"
-    data-aos="focus-up"
-    aria-hidden="true"
-  />
-  <div class="flex flex-col items-center justify-center gap-3 w-full mb-8">
-    <h1
-      class="text-white text-3xl sm:text-5xl md:text-7xl z-10 font-nixel tracking-[1px] text-center flex gap-2 flex-wrap justify-center"
-      data-aos="focus-up"
-    >
-      <div>latest</div>
-      <div class="text-accent">blog</div>
-      <div>posts</div>
-    </h1>
-
-    <p
-      class="font-product-sans text-sm text-center text-white/90 max-w-prose mx-auto leading-relaxed"
-      data-aos="focus-up"
-    >
-      Thoughts, tutorials, and insights on frontend development and design
-    </p>
-  </div>
-  <div class="flex m-auto flex-wrap justify-center items-center gap-4">
-    {
-      blog &&
-        blog.map((blog) => (
-          <a
-            href={`/blog/${blog.slug}`}
-            class="blog-card group rounded-3xl border border-white/10 overflow-hidden flex flex-col h-full transition-all duration-300 ease-in-out group mb-8 -soft"
-            data-aos="focus-up"
-            data-tags={blog.tags}
-            data-blog-id={blog.id}
-          >
-            <div class="p-5 flex sm:flex-row flex-col-reverse justify-between gap-6">
-              <div class="flex flex-col sm:w-1/2 w-full justify-between">
-                <div class="flex justify-between items-center text-xs text-white/60 mb-2">
-                  <span>
-                    {new Date(blog.created_at).toLocaleDateString("en-US", {
-                      month: "long",
-                      day: "2-digit",
-                      year: "numeric",
-                    })}
-                  </span>
-                </div>
-                <h2
-                  class="text-2xl font-nixel tracking-[1px] text-white mb-2 group-hover:text-accent"
-                  style="word-spacing: -7px;"
-                >
-                  {blog.title}
-                </h2>
-                <p class="text-sm text-white/80 mb-4 line-clamp-3 flex-grow">
-                  {blog.excerpt}
-                </p>
-                <div class="flex justify-between items-center mt-auto pt-4 text-xs text-white/60 border-t border-white/10">
-                  <div class="flex items-center gap-6">
-                    <div class="flex items-center gap-1">
-                      🙄
-                      <ViewsCount blogId={blog.id} client:load />
-                    </div>
-                    <div class="flex items-center gap-1">
-                      🌀
-                      <LikesCount blogId={blog.id} client:load /> Aura Point
-                    </div>
-                    <span>{blog.avg_read_time} min read</span>
-                  </div>
-                </div>
-              </div>
-              <img
-                src={blog.img}
-                alt={`Cover image for blog post: ${blog.title}`}
-                loading="lazy"
-                decoding="async"
-                class="sm:w-[200px] w-full aspect-video transition-transform duration-500 rounded-2xl"
-              />
-            </div>
-          </a>
-        ))
-    }
-  </div>
-
-  {
-    !blog ||
-      (blog.length === 0 && (
-        <div class="flex items-center justify-center h-48 text-white/60 text-center">
-          <p>Coming soon! Check back for exciting content.</p>
-        </div>
-      ))
-  }
-
-  <div class="flex justify-center mt-8">
-    <a href="/blog">
-      <Button
-        text="view all"
-        data_aos="focus-up"
-        data_aos_duration="800"
-        aria_label="View All Post"
+  <div class="relative w-full max-w-4xl mx-auto px-6 sm:px-15 py-6 sm:py-8 flex flex-col gap-8 z-10">
+    
+    <!-- Heading with Post Count and View All Button -->
+    <div class="flex items-end justify-between gap-4" data-aos="focus-up">
+      <div>
+        <h2 class="text-[50px] [font-family:'GeistPixelSquare'] text-gray-900 dark:text-gray-100" id="blog-heading">
+          blog
+        </h2>
+        <p class="text-sm text-gray-500 dark:text-gray-400 font-product-sans mt-2">5 posts</p>
+      </div>
+      <a
+        href="/blog"
+        class="inline-flex items-center gap-2 pl-3 pr-2 py-1.5 bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-full text-gray-700 dark:text-gray-300 hover:bg-accent/10 hover:border-accent/30 transition-all duration-300 font-product-sans text-xs"
+        aria-label="View all blog posts"
       >
-        <ChevronRight size="18" />
-      </Button></a
-    >
+        <span>View All</span>
+        <i class="hgi hgi-stroke hgi-arrow-right-01"></i>
+      </a>
+    </div>
+
+    <!-- Description -->
+    <p class="text-base text-gray-600 dark:text-gray-400 font-product-sans leading-relaxed max-w-3xl" data-aos="focus-up" data-aos-delay="100">
+      My thoughts on <strong>software development</strong>, <strong>life</strong>, and more.
+    </p>
+
+    <!-- Blog Posts List -->
+    <div class="flex flex-col gap-6 mt-4" data-aos="focus-up" data-aos-delay="200">
+      {[
+        {
+          id: 1,
+          title: "Testing React Applications: A Practical Guide",
+          date: "2024-12-14",
+        },
+        {
+          id: 2,
+          title: "REST API Design Principles That Stand the Test of Time",
+          date: "2024-12-12",
+        },
+        {
+          id: 3,
+          title: "Git Workflow Guide: From Chaos to Clarity",
+          date: "2024-12-10",
+        },
+        {
+          id: 4,
+          title: "TypeScript Best Practices for Clean, Maintainable Code",
+          date: "2024-12-08",
+        },
+        {
+          id: 5,
+          title: "10 Next.js Performance Tips for Production Apps",
+          date: "2024-12-05",
+        },
+      ].map((post) => (
+        <a
+          href={`/blog/${post.id}`}
+          class="flex gap-4 sm:gap-6 items-start group hover:opacity-75 transition-opacity duration-300"
+          data-aos="focus-up"
+        >
+          <!-- Post Number -->
+          <div class="flex-shrink-0 text-gray-500 dark:text-gray-400 [font-family:'GeistPixelSquare'] text-lg font-bold w-12">
+            {String(post.id).padStart(2, "0")}.
+          </div>
+          
+          <!-- Post Content -->
+          <div class="flex-1 flex flex-col gap-2">
+            <div class="flex items-center gap-2">
+              <h3 class="text-lg font-product-sans text-gray-900 dark:text-gray-100 lowercase">{post.title}</h3>
+              <i class="hgi hgi-stroke hgi-arrow-right-01 text-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex-shrink-0 text-base"></i>
+            </div>
+            <p class="text-sm text-gray-500 dark:text-gray-400 font-product-sans">
+              {post.date}
+            </p>
+          </div>
+        </a>
+      ))}
+    </div>
   </div>
 </section>

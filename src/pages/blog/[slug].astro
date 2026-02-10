@@ -2,7 +2,7 @@
 import "../../styles/global.css";
 import { Image } from "astro:assets";
 import dev from "../..//images/dev.webp";
-import { supabase } from "../../lib/supabaseClient";
+// import { supabase } from "../../lib/supabaseClient";
 import { marked } from "marked";
 import NavbarSection from "../../components/NavbarSection.astro";
 import Loading from "../../components/Loading.astro";
@@ -17,24 +17,24 @@ import { ChevronLeft } from "@lucide/astro";
 
 // Get all blog posts for navigation
 export async function getStaticPaths() {
-  const { data: blog } = await supabase.from("blog").select("slug");
+  // const { data: blog } = await supabase.from("blog").select("slug");
   return (blog ?? []).map((blog) => ({
     params: { slug: blog.slug },
   }));
 }
 
 const { slug } = Astro.params;
-const { data: blog, error } = await supabase
-  .from("blog")
-  .select("*")
-  .eq("slug", slug)
-  .single();
-if (!blog) throw new Error("blog not found");
-const { data: allPosts } = await supabase
-  .from("blog")
-  .select("*")
-  .neq("id", blog.id)
-  .limit(10);
+// const { data: blog, error } = await supabase
+//   .from("blog")
+//   .select("*")
+//   .eq("slug", slug)
+//   .single();
+// if (!blog) throw new Error("blog not found");
+// const { data: allPosts } = await supabase
+//   .from("blog")
+//   .select("*")
+//   .neq("id", blog.id)
+//   .limit(10);
 
 const randomPosts = allPosts
   ? allPosts.sort(() => 0.5 - Math.random()).slice(0, 2)
@@ -60,7 +60,15 @@ const html = marked(blog.content);
     type="article"
   />
 
-  <body class="bg-black min-h-screen flex flex-col">
+  <script is:inline>
+    (function() {
+      const theme = localStorage.getItem('theme') || 'system';
+      if (theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  <body class="bg-white dark:bg-black min-h-screen flex flex-col transition-colors duration-300">
     <!-- Cursor Tracker -->
     <CursorTracker />
     <Loading />

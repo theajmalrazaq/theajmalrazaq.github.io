@@ -1,5 +1,26 @@
 @import "tailwindcss";
 @plugin '@tailwindcss/typography';
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Local Geist Pixel Square Font */
+@font-face {
+  font-family: 'GeistPixelSquare';
+  src: url('/fonts/GeistPixel/webfonts/GeistPixel-Square.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Local Geist Mono Font */
+@font-face {
+  font-family: 'GeistMono';
+  src: url('/fonts/GeistMono/webfonts/GeistMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Local Product Sans - from Google Fonts CDN */
 @font-face {
   font-family: "Product Sans";
   font-style: normal;
@@ -8,23 +29,35 @@
     format("woff2");
   font-display: swap;
 }
-@font-face {
-  font-family: "Nixel";
-  src: url("../../public/fonts/Nixel.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
+
 @theme {
   --bg-accent: #a098ff;
-  --font-nixel: "Nixel", sans-serif;
   --color-accent: #a098ff;
   --font-product-sans: "Product Sans", sans-serif;
-  --font-recoleta: "Recoleta Regular", serif;
+  --font-geist-mono: 'GeistMono', monospace;
+  --font-geist-pixel-square: 'GeistPixelSquare', monospace;
+  --font-geist-pixel-grid: 'GeistPixelGrid', monospace;
+  --font-geist-pixel-circle: 'GeistPixelCircle', monospace;
+  --font-geist-pixel-triangle: 'GeistPixelTriangle', monospace;
+  --font-geist-pixel-line: 'GeistPixelLine', monospace;
 }
 
 * {
   box-sizing: border-box;
+}
+
+/* Geist Font Usage */
+h1, h2, h4, h5, h6 {
+  font-family: 'GeistPixelSquare';
+}
+
+code, pre, kbd, samp {
+  font-family: 'GeistMono';
+}
+
+/* For tags/badges - use mono */
+.tag, .badge, [class*="tag"], [class*="badge"] {
+  font-family: 'GeistMono';
 }
 
   @keyframes marquee {

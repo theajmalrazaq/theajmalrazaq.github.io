@@ -1,14 +1,27 @@
 <div
   id="loading-overlay"
-  class="fixed top-0 left-0 w-full h-full flex items-center justify-center z-[999] bg-black"
+  class="fixed inset-0 flex flex-col items-center justify-center z-[999] bg-white overflow-hidden"
 >
-  <lottie-player
-    src="/animations/loading.json"
-    background="transparent"
-    class="w-50"
-    loop
-    autoplay
-    aria-hidden="true"
-  >
-  </lottie-player>
+  <!-- Soft gradient background matching hero -->
+  <div class="absolute inset-0 bg-gradient-to-br from-white via-accent/5 to-white opacity-60 pointer-events-none"></div>
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-radial from-accent/30 via-accent/20 to-transparent rounded-full blur-3xl opacity-50 pointer-events-none"></div>
+
+  <div class="relative z-10 flex flex-col items-center gap-6">
+    <!-- Lottie animation -->
+    <lottie-player
+      src="/animations/loading.json"
+      background="transparent"
+      class="w-50"
+      loop
+      autoplay
+      aria-hidden="true"
+    >
+    </lottie-player>
+  </div>
 </div>
+
+<style>
+  #loading-overlay {
+    transition: opacity 0.5s ease;
+  }
+</style>

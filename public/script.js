@@ -101,6 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (loadingOverlay) {
     setTimeout(() => {
+      loadingOverlay.style.opacity = "0";
       
       setTimeout(() => {
         loadingOverlay.style.display = "none";

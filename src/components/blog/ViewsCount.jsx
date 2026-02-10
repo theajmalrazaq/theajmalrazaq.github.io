@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { supabase } from "../../lib/supabaseClient";
+// import { supabase } from "../../lib/supabaseClient";
 
 export default function ViewsCount({ blogId }) {
   const [views, setViews] = useState(0);
@@ -16,11 +16,11 @@ export default function ViewsCount({ blogId }) {
   const fetchViewsCount = async () => {
     try {
       console.log("Fetching views for blogId:", blogId);
-      const { data, error } = await supabase
-        .from("blog")
-        .select("views_count")
-        .eq("id", blogId)
-        .single();
+      // const { data, error } = await supabase
+      //   .from("blog")
+      //   .select("views_count")
+      //   .eq("id", blogId)
+      //   .single();
 
       console.log("Views data response:", data, "Error:", error);
       if (error) {

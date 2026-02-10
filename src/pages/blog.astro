@@ -1,7 +1,7 @@
 ---
 import "../styles/global.css";
 import { Image } from "astro:assets";
-import { supabase } from "../lib/supabaseClient";
+// import { supabase } from "../lib/supabaseClient";
 import NavbarSection from "../components/NavbarSection.astro";
 import Loading from "../components/Loading.astro";
 import FooterSection from "../components/FooterSection.astro";
@@ -13,11 +13,11 @@ import ViewsCount from "../components/blog/ViewsCount.jsx";
 import LikesCount from "../components/blog/LikesCount.jsx";
 
 // Get all blog posts (static data at build time)
-const { data: blog, error } = await supabase
-  .from("blog")
-  .select("*")
-  .order("created_at", { ascending: false });
-if (error) console.error("Error fetching blog:", error);
+// const { data: blog, error } = await supabase
+//   .from("blog")
+//   .select("*")
+//   .order("created_at", { ascending: false });
+// if (error) console.error("Error fetching blog:", error);
 
 const allTags = blog
   ? [
@@ -48,7 +48,15 @@ const allTags = blog
     type="website"
   />
 
-  <body class="bg-black min-h-screen flex flex-col">
+  <script is:inline>
+    (function() {
+      const theme = localStorage.getItem('theme') || 'system';
+      if (theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  <body class="bg-white dark:bg-black min-h-screen flex flex-col transition-colors duration-300">
     <!-- Cursor Tracker -->
     <CursorTracker />
     <!-- Loading overlay -->

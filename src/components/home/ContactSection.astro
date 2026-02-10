@@ -1,182 +1,144 @@
 ---
-import { Image } from "astro:assets";
-import seeyaa from "../../images/seeyaa.svg";
 import { Mail, Copy } from "@lucide/astro";
 ---
 
+<link rel="stylesheet" href="https://use.hugeicons.com/font/icons.css" />
+
 <section
-  class="relative mt-12 sm:mt-40 w-full flex flex-col items-center justify-center px-4 sm:px-15 pb-8 sm:pb-10"
+  class="relative w-full flex justify-center overflow-hidden z-10 bg-white dark:bg-black"
   id="contact"
   role="region"
   data-aos="focus-up"
   aria-labelledby="contact-heading"
 >
-  <div
-    class="relative z-10 flex flex-col items-center justify-center w-full max-w-4xl"
-  >
-    <Image
-      src={seeyaa}
-      class="w-full sm:w-2/3 absolute -top-8 sm:-top-11"
-      alt="Decorative 'See you soon' typography illustration for contact section"
-      loading="lazy"
-      aria-hidden="true"
-    />
+  <div class="relative w-full max-w-4xl mx-auto px-6 sm:px-15 py-6 sm:py-8 flex flex-col gap-8 z-10">
+    
+    <!-- Heading -->
+    <div data-aos="focus-up">
+      <h2
+        id="contact-heading"
+        class="text-[50px] [font-family:'GeistPixelSquare'] text-gray-900 dark:text-gray-100"
+      >
+        contact
+      </h2>
+      <p class="text-sm text-gray-500 dark:text-gray-400 font-product-sans mt-2">let's connect</p>
+    </div>
 
-    <!-- Modern Contact Layout -->
-    <div class="w-full mt-4 sm:mt-6 space-y-6">
-      <!-- Main Contact Card -->
-      <div class="group relative">
-        <div
-          class="relative rounded-2xl sm:rounded-3xl border border-white/10 bg-black/40 backdrop-blur-xl p-4 sm:p-6"
-        >
-          <!-- Header Section -->
-          <div class="text-center mb-4 sm:mb-6">
-            <h3
-              class="text-white font-nixel text-2xl sm:text-4xl md:text-5xl mb-2 tracking-wide"
-              style="word-spacing: -7px; line-height: 1.1;"
-            >
-              open for opportunities
-            </h3>
-            <p
-              class="text-white/60 font-product-sans text-xs sm:text-sm mb-3 sm:mb-4"
-            >
-              Ready to collaborate on exciting projects. Let's create something
-              amazing together.
-            </p>
-          </div>
+    <!-- Description -->
+    <p class="text-base text-gray-600 dark:text-gray-400 font-product-sans leading-relaxed max-w-3xl" data-aos="focus-up" data-aos-delay="100">
+      I'm always open to new opportunities, collaborations, and interesting conversations. Whether you have a project in mind or just want to say hello, feel free to reach out.
+    </p>
 
-          <!-- Work Types Grid -->
-          <div
-            class="grid grid-cols-2 sm:flex sm:flex-row flex-wrap justify-center gap-2 sm:gap-3 mb-6 sm:mb-8"
-          >
-            <div class="group/card relative">
-              <div
-                class="absolute -inset-0.5 bg-gradient-to-r from-accent/30 to-transparent flex rounded-2xl opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"
-              >
-              </div>
-              <div
-                class="relative bg-black/60 border flex justify-center items-center gap-2 sm:gap-3 border-white/10 rounded-xl p-2 sm:p-3 text-center hover:bg-black/80 transition-all duration-300"
-              >
-                <div
-                  class="w-5 h-5 sm:w-6 sm:h-6 bg-accent/10 rounded-full flex items-center justify-center"
-                >
-                  <div class="w-2 h-2 bg-accent rounded-full"></div>
-                </div>
-                <span
-                  class="text-white/90 font-product-sans text-xs font-medium"
-                  >Full-time</span
-                >
-              </div>
-            </div>
+    <!-- Work Types -->
+    <div class="flex flex-wrap gap-3" data-aos="focus-up" data-aos-delay="150">
+      {["Full-time", "Part-time", "Contract", "Freelance"].map((type) => (
+        <span class="inline-flex items-center gap-2 px-4 py-2 bg-gray-50 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-full text-gray-700 dark:text-gray-300 hover:bg-accent/10 hover:border-accent/30 transition-all duration-300">
+          <div class="w-2 h-2 bg-accent rounded-full"></div>
+          <span class="text-sm font-product-sans">{type}</span>
+        </span>
+      ))}
+    </div>
 
-            <div class="group/card relative">
-              <div
-                class="absolute -inset-0.5 bg-gradient-to-r from-accent/30 to-transparent rounded-2xl opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"
-              >
-              </div>
-              <div
-                class="relative bg-black/60 border flex justify-center items-center gap-2 sm:gap-3 border-white/10 rounded-xl p-2 sm:p-3 text-center hover:bg-black/80 transition-all duration-300"
-              >
-                <div
-                  class="w-5 h-5 sm:w-6 sm:h-6 bg-accent/10 rounded-full flex items-center justify-center"
-                >
-                  <div class="w-2 h-2 bg-accent rounded-full"></div>
-                </div>
-                <span
-                  class="text-white/90 font-product-sans text-xs font-medium"
-                  >Part-time</span
-                >
-              </div>
-            </div>
-
-            <div class="group/card relative">
-              <div
-                class="absolute -inset-0.5 bg-gradient-to-r from-accent/30 to-transparent rounded-2xl opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"
-              >
-              </div>
-              <div
-                class="relative bg-black/60 border flex justify-center items-center gap-2 sm:gap-3 border-white/10 rounded-xl p-2 sm:p-3 text-center hover:bg-black/80 transition-all duration-300"
-              >
-                <div
-                  class="w-5 h-5 sm:w-6 sm:h-6 bg-accent/10 rounded-full flex items-center justify-center"
-                >
-                  <div class="w-2 h-2 bg-accent rounded-full"></div>
-                </div>
-                <span
-                  class="text-white/90 font-product-sans text-xs font-medium"
-                  >Contract</span
-                >
-              </div>
-            </div>
-
-            <div class="group/card relative">
-              <div
-                class="absolute -inset-0.5 bg-gradient-to-r from-accent/30 to-transparent rounded-2xl opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"
-              >
-              </div>
-              <div
-                class="relative bg-black/60 border flex justify-center items-center gap-2 sm:gap-3 border-white/10 rounded-xl p-2 sm:p-3 text-center hover:bg-black/80 transition-all duration-300"
-              >
-                <div
-                  class="w-5 h-5 sm:w-6 sm:h-6 bg-accent/10 rounded-full flex items-center justify-center"
-                >
-                  <div class="w-2 h-2 bg-accent rounded-full"></div>
-                </div>
-                <span
-                  class="text-white/90 font-product-sans text-xs font-medium"
-                  >Freelance</span
-                >
-              </div>
-            </div>
-          </div>
-
-          <!-- Contact CTA -->
-          <div class="text-center">
-            <p
-              class="text-white/60 font-product-sans text-xs sm:text-sm mb-3 sm:mb-4"
-            >
-              Ready to start a conversation? Get in touch directly:
-            </p>
-
-            <!-- Compact Email Button -->
-            <div class="max-w-xs sm:max-w-sm mx-auto">
-              <button
-                id="email-copy-btn"
-                class="w-full flex items-center justify-between px-3 sm:px-4 py-2 sm:py-3 border border-white/20 rounded-lg sm:rounded-xl hover:border-accent/50 bg-black/50 backdrop-blur-2xl"
-                aria-label="Copy email address"
-              >
-                <div class="flex items-center gap-2 sm:gap-3">
-                  <div
-                    class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center"
-                  >
-                    <Mail size="16" class="text-accent" />
-                  </div>
-                  <div class="text-left">
-                    <p
-                      class="text-white font-product-sans text-sm sm:text-base font-medium"
-                      id="email-text"
-                    >
-                      theajmalrazaq@gmail.com
-                    </p>
-                    <p class="text-white/50 text-xs">Click to copy</p>
-                  </div>
-                </div>
-                <div class="w-4 h-4 sm:w-5 sm:h-5 text-white/40">
-                  <Copy size="14" />
-                </div>
-              </button>
-
-              <!-- Copy Success Message -->
-              <div
-                id="copy-success"
-                class="absolute -top-8 sm:-top-10 left-1/2 transform -translate-x-1/2 bg-accent/90 backdrop-blur-sm text-black px-2 sm:px-3 py-1 rounded-lg text-xs font-product-sans font-medium opacity-0 scale-95 transition-all duration-300 pointer-events-none"
-              >
-                ✓ Copied!
-              </div>
-            </div>
-          </div>
+    <!-- Contact Card -->
+    <div class="mt-4" data-aos="focus-up" data-aos-delay="200">
+      <div class="flex gap-4 sm:gap-6 items-start group">
+        <!-- Icon -->
+        <div class="flex-shrink-0 w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center text-xl border border-accent/20">
+          <Mail size="20" class="text-accent" />
         </div>
+        
+        <!-- Content -->
+        <div class="flex-1">
+          <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-product-sans mb-1">Email</p>
+          <div class="flex items-center gap-3 mb-2">
+            <h3 class="text-2xl font-product-sans font-bold text-gray-900 dark:text-gray-100" id="email-text">theajmalrazaq@gmail.com</h3>
+          </div>
+          <p class="text-base text-gray-600 dark:text-gray-400 font-product-sans leading-relaxed mb-4">Click the button below to copy my email address.</p>
+          
+          <button
+            id="email-copy-btn"
+            class="inline-flex items-center gap-2 px-4 py-2 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 rounded-full font-product-sans text-sm hover:bg-accent dark:hover:bg-accent dark:hover:text-white transition-all duration-300"
+            aria-label="Copy email address"
+          >
+            <Copy size="14" />
+            <span>Copy Email</span>
+          </button>
+          
+          <!-- Copy Success Message -->
+          <span
+            id="copy-success"
+            class="ml-3 text-accent font-product-sans text-sm opacity-0 transition-opacity duration-300"
+          >
+            ✓ Copied!
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Social Links -->
+    <div class="mt-4" data-aos="focus-up" data-aos-delay="250">
+      <p class="text-sm text-gray-500 dark:text-gray-400 font-product-sans mb-4">Or connect with me on social media:</p>
+      <div class="flex flex-wrap items-center gap-3">
+        <a
+          href="https://github.com/theajmalrazaq"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-product-sans text-gray-700 dark:text-gray-300 hover:text-accent hover:bg-accent/10 rounded-full transition-all duration-300 cursor-none border border-gray-200 dark:border-neutral-800 hover:border-accent/30"
+          aria-label="GitHub profile"
+        >
+          <i class="hgi-stroke hgi-github-01 text-lg"></i>
+          <span>GitHub</span>
+        </a>
+        <a
+          href="https://linkedin.com/in/theajmalrazaq"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-product-sans text-gray-700 dark:text-gray-300 hover:text-accent hover:bg-accent/10 rounded-full transition-all duration-300 cursor-none border border-gray-200 dark:border-neutral-800 hover:border-accent/30"
+          aria-label="LinkedIn profile"
+        >
+          <i class="hgi hgi-stroke hgi-linkedin-01 text-lg"></i>
+          <span>LinkedIn</span>
+        </a>
+        <a
+          href="https://x.com/theajmalrazaq"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-product-sans text-gray-700 dark:text-gray-300 hover:text-accent hover:bg-accent/10 rounded-full transition-all duration-300 cursor-none border border-gray-200 dark:border-neutral-800 hover:border-accent/30"
+          aria-label="X (Twitter) profile"
+        >
+          <i class="hgi hgi-stroke hgi-new-twitter text-lg"></i>
+          <span>X (Twitter)</span>
+        </a>
+        <a
+          href="https://behance.net/theajmalrazaq"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-product-sans text-gray-700 dark:text-gray-300 hover:text-accent hover:bg-accent/10 rounded-full transition-all duration-300 cursor-none border border-gray-200 dark:border-neutral-800 hover:border-accent/30"
+          aria-label="Behance portfolio"
+        >
+          <i class="hgi hgi-stroke hgi-behance-02 text-lg"></i>
+          <span>Behance</span>
+        </a>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  const emailBtn = document.getElementById('email-copy-btn');
+  const emailText = document.getElementById('email-text');
+  const copySuccess = document.getElementById('copy-success');
+  
+  emailBtn?.addEventListener('click', async () => {
+    const email = emailText?.textContent?.trim();
+    if (email) {
+      await navigator.clipboard.writeText(email);
+      if (copySuccess) {
+        copySuccess.style.opacity = '1';
+        setTimeout(() => {
+          copySuccess.style.opacity = '0';
+        }, 2000);
+      }
+    }
+  });
+</script>
