@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { supabase } from "../../lib/supabaseClient";
+// import { supabase } from "../../lib/supabaseClient";
 
      ///////////////////////////////////
     // LIKEVIEW COMPONENT
@@ -48,22 +48,7 @@ export default function LikeView({ blogId, initialViews = 0, initialLikes = 0 })
   ///////////////////////////////////
   
   const fetchBlogData = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('blog')
-        .select('likes_count, views_count')
-        .eq('id', blogId)
-        .single();
-
-      if (error) {
-        console.error("Error fetching blog data:", error);
-      } else if (data) {
-        setAura(data.likes_count || 0);
-        setViews(data.views_count || 0);
-      }
-    } catch (error) {
-      console.error("Error fetching blog data:", error);
-    }
+    // Supabase disabled — using initial values
   };
 
   ///////////////////////////////////
@@ -98,25 +83,9 @@ export default function LikeView({ blogId, initialViews = 0, initialLikes = 0 })
       return;
     }
 
-    // Increment view count in database
-    try {
-      const { error } = await supabase.rpc('increment_view', {
-        blog_id: blogId
-      });
-
-      if (error) {
-        console.error("Error incrementing views:", error);
-      } else {
-        // Add to localStorage to prevent duplicate views
-        viewedPosts.push(blogId.toString());
-        localStorage.setItem("viewedPosts", JSON.stringify(viewedPosts));
-        
-        // Fetch updated count after incrementing
-        await fetchBlogData();
-      }
-    } catch (error) {
-      console.error("Error incrementing views:", error);
-    }
+    // Supabase disabled — skip view increment
+    viewedPosts.push(blogId.toString());
+    localStorage.setItem("viewedPosts", JSON.stringify(viewedPosts));
   };
 
   ///////////////////////////////////
@@ -129,42 +98,25 @@ export default function LikeView({ blogId, initialViews = 0, initialLikes = 0 })
 
     setIsLoading(true);
     
-    try {
-      // Increment like count in database
-      const { error } = await supabase.rpc('increment_like', {
-        blog_id: blogId
-      });
+    // Supabase disabled — handle like locally
+    setHasLiked(true);
+    setAura(prev => prev + 1);
 
-      if (error) {
-        console.error("Error incrementing likes:", error);
-      } else {
-        setHasLiked(true);
-        
-        // Update localStorage with liked post
-        let likedPosts = [];
-        try {
-          const stored = localStorage.getItem("likedPosts");
-          likedPosts = stored ? JSON.parse(stored) : [];
-          
-          if (!Array.isArray(likedPosts)) {
-            likedPosts = [];
-          }
-        } catch (error) {
-          console.error("Error parsing liked posts from localStorage:", error);
-          likedPosts = [];
-        }
-        
-        likedPosts.push(blogId.toString());
-        localStorage.setItem("likedPosts", JSON.stringify(likedPosts));
-        
-        // Fetch updated count after incrementing
-        await fetchBlogData();
+    let likedPosts = [];
+    try {
+      const stored = localStorage.getItem("likedPosts");
+      likedPosts = stored ? JSON.parse(stored) : [];
+      if (!Array.isArray(likedPosts)) {
+        likedPosts = [];
       }
     } catch (error) {
-      console.error("Error toggling like:", error);
-    } finally {
-      setIsLoading(false);
+      console.error("Error parsing liked posts from localStorage:", error);
+      likedPosts = [];
     }
+
+    likedPosts.push(blogId.toString());
+    localStorage.setItem("likedPosts", JSON.stringify(likedPosts));
+    setIsLoading(false);
   };
 
   ///////////////////////////////////
