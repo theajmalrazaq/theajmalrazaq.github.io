@@ -62,9 +62,10 @@ export default function BlogList({ posts }) {
             </div>
             <div className="flex-1 flex flex-col gap-2">
               <div className="flex items-center gap-2">
-                <h3 className="text-lg font-product-sans text-gray-900 dark:text-gray-100 capitalize">
+                <h3 className="text-lg font-product-sans font-bold text-gray-900 dark:text-gray-100 capitalize">
                   {post.title}
                 </h3>
+                <i className="hgi-stroke hgi-arrow-right-01 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-gray-400 dark:text-gray-500 flex-shrink-0"></i>
               </div>
               <p className="text-sm text-gray-500 dark:text-gray-400 font-product-sans">
                 {post.date}

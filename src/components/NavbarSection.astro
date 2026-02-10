@@ -1,7 +1,6 @@
 ---
 import { Image } from "astro:assets";
 import logoimg from "../images/logo.svg";
-import { ChevronDown, Monitor, Sun, Moon } from "@lucide/astro";
 import FlickeringGrid from "./FlickeringGrid.jsx";
 const { page } = Astro.props;
 
@@ -28,36 +27,40 @@ const isActive = (path: string) => {
       <li>
         <a
           href="/"
-          class={`${isActive("home") ? "bg-white dark:bg-neutral-800 text-gray-900 dark:text-gray-100" : "bg-transparent text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"} flex items-center px-4 py-1.5 rounded-full font-product-sans text-sm font-bold transition-all duration-300`}
+          class={`${isActive("home") ? "bg-white dark:bg-neutral-800 text-gray-900 dark:text-gray-100" : "bg-transparent text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"} flex items-center gap-1.5 px-4 py-1.5 rounded-full font-product-sans text-sm font-bold transition-all duration-300`}
           aria-label="Home"
         >
+          <i class="hgi-stroke hgi-home-01"></i>
           home
         </a>
       </li>
       <li>
         <a
           href="/projects"
-          class={`${isActive("projects") ? "bg-white dark:bg-neutral-800 text-gray-900 dark:text-gray-100" : "bg-transparent text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"} flex items-center px-4 py-1.5 rounded-full font-product-sans text-sm font-bold transition-all duration-300`}
+          class={`${isActive("projects") ? "bg-white dark:bg-neutral-800 text-gray-900 dark:text-gray-100" : "bg-transparent text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"} flex items-center gap-1.5 px-4 py-1.5 rounded-full font-product-sans text-sm font-bold transition-all duration-300`}
           aria-label="View my projects"
         >
+          <i class="hgi-stroke hgi-code"></i>
           projects
         </a>
       </li>
       <li>
         <a
-          href="/blog"
-          class={`${isActive("blog") ? "bg-white dark:bg-neutral-800 text-gray-900 dark:text-gray-100" : "bg-transparent text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"} flex items-center px-4 py-1.5 rounded-full font-product-sans text-sm font-bold transition-all duration-300`}
+          href="/#blog-heading"
+          class={`${isActive("blog") ? "bg-white dark:bg-neutral-800 text-gray-900 dark:text-gray-100" : "bg-transparent text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"} flex items-center gap-1.5 px-4 py-1.5 rounded-full font-product-sans text-sm font-bold transition-all duration-300`}
           aria-label="Read my blog posts"
         >
+          <i class="hgi-stroke hgi-quill-write-02"></i>
           blog
         </a>
       </li>
       <li>
         <a
           href="#about"
-          class={`${isActive("about") ? "bg-white dark:bg-neutral-800 text-gray-900 dark:text-gray-100" : "bg-transparent text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"} flex items-center px-4 py-1.5 rounded-full font-product-sans text-sm font-bold transition-all duration-300`}
+          class={`${isActive("about") ? "bg-white dark:bg-neutral-800 text-gray-900 dark:text-gray-100" : "bg-transparent text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"} flex items-center gap-1.5 px-4 py-1.5 rounded-full font-product-sans text-sm font-bold transition-all duration-300`}
           aria-label="About me"
         >
+          <i class="hgi-stroke hgi-information-circle"></i>
           about
         </a>
       </li>
@@ -67,27 +70,27 @@ const isActive = (path: string) => {
     <div class="ml-auto flex items-center gap-0.5 bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-full p-1" role="radiogroup" aria-label="Theme switcher">
       <button
         data-theme-btn="system"
-        class="theme-btn p-1.5 rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-all duration-300"
+        class="theme-btn w-7 h-7 flex items-center justify-center rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-all duration-300"
         aria-label="System theme"
         title="System"
       >
-        <Monitor class="w-4 h-4" />
+        <i class="hgi-stroke hgi-computer text-sm"></i>
       </button>
       <button
         data-theme-btn="light"
-        class="theme-btn p-1.5 rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-all duration-300"
+        class="theme-btn w-7 h-7 flex items-center justify-center rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-all duration-300"
         aria-label="Light theme"
         title="Light"
       >
-        <Sun class="w-4 h-4" />
+        <i class="hgi-stroke hgi-sun-03 text-sm"></i>
       </button>
       <button
         data-theme-btn="dark"
-        class="theme-btn p-1.5 rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-all duration-300"
+        class="theme-btn w-7 h-7 flex items-center justify-center rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-all duration-300"
         aria-label="Dark theme"
         title="Dark"
       >
-        <Moon class="w-4 h-4" />
+        <i class="hgi-stroke hgi-moon-02 text-sm"></i>
       </button>
     </div>
   </nav>
@@ -112,7 +115,7 @@ const isActive = (path: string) => {
 
     <button class="flex items-center gap-1.5 text-gray-600 dark:text-gray-300 font-product-sans text-sm px-2 py-1 hover:bg-gray-200 dark:hover:bg-neutral-800 transition-all duration-300">
       <span>menu</span>
-      <ChevronDown class="w-4 h-4" aria-hidden="true" />
+      <i class="hgi-stroke hgi-arrow-down-01 text-sm" aria-hidden="true"></i>
     </button>
 
     <div class="w-px h-6 bg-gray-300 dark:bg-neutral-700"></div>
@@ -121,24 +124,24 @@ const isActive = (path: string) => {
     <div class="flex items-center gap-0.5" role="radiogroup" aria-label="Theme switcher">
       <button
         data-theme-btn="system"
-        class="theme-btn p-1.5 rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-all duration-300"
+        class="theme-btn w-6 h-6 flex items-center justify-center rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-all duration-300"
         aria-label="System theme"
       >
-        <Monitor class="w-3.5 h-3.5" />
+        <i class="hgi-stroke hgi-computer text-xs"></i>
       </button>
       <button
         data-theme-btn="light"
-        class="theme-btn p-1.5 rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-all duration-300"
+        class="theme-btn w-6 h-6 flex items-center justify-center rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-all duration-300"
         aria-label="Light theme"
       >
-        <Sun class="w-3.5 h-3.5" />
+        <i class="hgi-stroke hgi-sun-03 text-xs"></i>
       </button>
       <button
         data-theme-btn="dark"
-        class="theme-btn p-1.5 rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-all duration-300"
+        class="theme-btn w-6 h-6 flex items-center justify-center rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-all duration-300"
         aria-label="Dark theme"
       >
-        <Moon class="w-3.5 h-3.5" />
+        <i class="hgi-stroke hgi-moon-02 text-xs"></i>
       </button>
     </div>
   </nav>

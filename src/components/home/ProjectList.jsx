@@ -67,6 +67,7 @@ export default function ProjectList({ projects }) {
                   <h3 className="text-lg font-product-sans font-bold text-gray-900 dark:text-gray-100">
                     {repo.name}
                   </h3>
+                  <i className="hgi-stroke hgi-arrow-up-right-01 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-gray-400 dark:text-gray-500 flex-shrink-0"></i>
                 </div>
                 <div className="flex items-center gap-3 text-xs text-gray-400 dark:text-gray-500 font-product-sans whitespace-nowrap">
                   {repo.stargazers_count > 0 && (
