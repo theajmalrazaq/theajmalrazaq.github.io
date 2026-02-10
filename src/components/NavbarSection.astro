@@ -24,11 +24,11 @@ const isActive = (path: string) => {
     role="navigation"
     aria-label="Main navigation"
   >
-    <ul class="flex gap-1 border bg-white/10 backdrop-blur-3xl border-gray-200 dark:border-neutral-800 p-1">
+    <ul class="flex gap-1 bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-full p-1">
       <li>
         <a
           href="/"
-          class={`${isActive("home") ? "bg-accent text-white" : "bg-transparent text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-neutral-800"} flex items-center px-4 py-2  font-product-sans text-sm font-bold transition-all duration-300`}
+          class={`${isActive("home") ? "bg-white dark:bg-neutral-800 text-gray-900 dark:text-gray-100" : "bg-transparent text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"} flex items-center px-4 py-1.5 rounded-full font-product-sans text-sm font-bold transition-all duration-300`}
           aria-label="Home"
         >
           home
@@ -37,7 +37,7 @@ const isActive = (path: string) => {
       <li>
         <a
           href="/projects"
-          class={`${isActive("projects") ? "bg-accent text-white" : "bg-transparent text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-neutral-800"} flex items-center px-4 py-2 font-product-sans text-sm font-bold transition-all duration-300`}
+          class={`${isActive("projects") ? "bg-white dark:bg-neutral-800 text-gray-900 dark:text-gray-100" : "bg-transparent text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"} flex items-center px-4 py-1.5 rounded-full font-product-sans text-sm font-bold transition-all duration-300`}
           aria-label="View my projects"
         >
           projects
@@ -46,7 +46,7 @@ const isActive = (path: string) => {
       <li>
         <a
           href="/blog"
-          class={`${isActive("blog") ? "bg-accent text-white" : "bg-transparent text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-neutral-800"} flex items-center px-4 py-2  font-product-sans text-sm font-bold transition-all duration-300`}
+          class={`${isActive("blog") ? "bg-white dark:bg-neutral-800 text-gray-900 dark:text-gray-100" : "bg-transparent text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"} flex items-center px-4 py-1.5 rounded-full font-product-sans text-sm font-bold transition-all duration-300`}
           aria-label="Read my blog posts"
         >
           blog
@@ -55,7 +55,7 @@ const isActive = (path: string) => {
       <li>
         <a
           href="#about"
-          class={`${isActive("about") ? "bg-accent text-white" : "bg-transparent text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-neutral-800"} flex items-center px-4 py-2 font-product-sans text-sm font-bold transition-all duration-300`}
+          class={`${isActive("about") ? "bg-white dark:bg-neutral-800 text-gray-900 dark:text-gray-100" : "bg-transparent text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"} flex items-center px-4 py-1.5 rounded-full font-product-sans text-sm font-bold transition-all duration-300`}
           aria-label="About me"
         >
           about
@@ -148,12 +148,10 @@ const isActive = (path: string) => {
   .theme-btn.active {
     background-color: white;
     color: #374151;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
   :global(.dark) .theme-btn.active {
     background-color: #262626;
     color: #e5e7eb;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   }
 </style>
 

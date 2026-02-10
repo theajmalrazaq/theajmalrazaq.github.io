@@ -4,9 +4,8 @@
 <link rel="stylesheet" href="https://use.hugeicons.com/font/icons.css" />
 
 <section
-  class="relative w-full flex justify-center overflow-hidden z-10 bg-white dark:bg-black"
+  class="relative w-full flex justify-center overflow-hidden z-10"
   aria-labelledby="experience-heading"
-  data-aos="focus-up"
 >
   <div class="relative w-full max-w-4xl mx-auto px-6 sm:px-15 py-6 sm:py-8 flex flex-col gap-8 z-10">
     
@@ -16,7 +15,7 @@
         <h2 class="text-[50px] [font-family:'GeistPixelSquare'] text-gray-900 dark:text-gray-100" id="experience-heading">
         experience
         </h2>
-        <p class="text-sm text-gray-500 dark:text-gray-400 font-product-sans mt-2">4 positions</p>
+        <p class="text-sm text-gray-500 dark:text-gray-400 font-product-sans mt-2">6 positions</p>
       </div>
     </div>
 
@@ -45,32 +44,60 @@
           position: "Part-time UI/UX Designer",
           location: "Remote",
           dateRange: "Aug 2025 – Present",
-          logo: "🎨",
+          logo: "",
+          logoImage: "https://i.ibb.co/jkvFwRCF/Frame-11.png",
           bullets: [
             "Designed SaaS apps, landing pages and dashboards in Figma."
           ],
         },
         {
           id: 3,
+          company: "MLSA CFD",
+          position: "Design & Social Head",
+          location: "Microsoft Learn Student Ambassador, FAST NUCES CFD",
+          dateRange: "Aug 2024 – Present",
+          logo: "",
+          logoImage: "https://i.ibb.co/3yhthnMj/Frame-1-6.png",
+          bullets: [
+            "Solo-built Pakistan's first 100% digital student platform (React, Supabase, Tailwind).",
+            "Design events posters and manage social media increasing engagement by 40%."
+          ],
+        },
+        {
+          id: 4,
+          company: "Web3 Pak",
+          position: "Ambassador",
+          location: "Pakistan",
+          dateRange: "May 2024 – Aug 2025",
+          logo: "",
+          logoImage: "https://media.licdn.com/dms/image/v2/C4E0BAQHpKChVcaUBqA/company-logo_200_200/company-logo_200_200/0/1670567732446?e=1772064000&v=beta&t=KoKZjXvKZh6Z8YS7Bqbf2EA8_a6U-B9V4ZLo_jDuA2Q",
+          bullets: [
+            "Selected for the Web3Pak Cohort 2 Ambassador Program."
+          ],
+        },
+        {
+          id: 5,
           company: "Circle AI",
           position: "UI/UX Intern",
           location: "Remote",
           dateRange: "Jun 2024 – Aug 2024",
-          logo: "🤖",
+          logo: "",
+          logoImage: "https://i.ibb.co/j980RcMS/image.png",
           bullets: [
             "Designed AI chatbot UI (Material Design); cut onboarding 35%."
           ],
         },
         {
-          id: 4,
-          company: "MLSA CFD",
-          position: "Design & Social Head",
-          location: "Microsoft Learn Student Ambassador, FAST NUCES CFD",
-          dateRange: "Aug 2024 – Present",
-          logo: "🎓",
+          id: 6,
+          company: "SES FAST CFD",
+          position: "Graphic Designer & Executive Body Member",
+          location: "Software Engineering Society, FAST NUCES CFD",
+          dateRange: "Aug 2023 – Jul 2024",
+          logo: "",
+          logoImage: "https://media.licdn.com/dms/image/v2/D4D0BAQFhP0Z53xVqFw/company-logo_200_200/company-logo_200_200/0/1699865941344?e=1772064000&v=beta&t=YUg1caAjV09mFS5R1VXA3wfbsKUk81ML-a0p18nca3w",
           bullets: [
-            "Solo-built Pakistan's first 100% digital student platform (React, Supabase, Tailwind).",
-            "Design events posters and manage social media increasing engagement by 40%."
+            "Sole candidate selected directly to serve in the executive body as a freshman.",
+            "Collaborated with final year students on design and society initiatives."
           ],
         },
       ].map((experience) => (
@@ -79,8 +106,12 @@
           data-aos="focus-up"
         >
           <!-- Company Logo -->
-          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 flex items-center justify-center text-xl">
-            {experience.logo}
+          <div class="flex-shrink-0 w-10 h-10 rounded-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 flex items-center justify-center text-lg overflow-hidden">
+            {experience.logoImage ? (
+              <img src={experience.logoImage} alt={`${experience.company} logo`} class="w-full h-full object-cover" />
+            ) : (
+              experience.logo
+            )}
           </div>
           
           <!-- Experience Content -->

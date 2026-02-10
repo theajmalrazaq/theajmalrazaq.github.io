@@ -1,95 +1,34 @@
 ---
-import { Image } from "astro:assets";
+import ProjectList from "./ProjectList.jsx";
 
-// Hardcoded projects data
-const projects = [
-  {
-    id: 1,
-    type: "Product",
-    name: "Pixen Landing Page",
-    stack: [
-      { name: "Next.js", icon: "hgi-nextjs" },
-      { name: "Tailwind CSS", icon: "hgi-tailwindcss" },
-      { name: "Framer Motion", icon: "hgi-framer" }
-    ],
-    description: "Designed and developed a modern landing page for Pixen design agency with smooth animations and responsive design."
-  },
-  {
-    id: 2,
-    type: "UI/UX",
-    name: "SaaS Dashboard",
-    stack: [
-      { name: "Figma", icon: "hgi-figma" },
-      { name: "React", icon: "hgi-react" },
-      { name: "TypeScript", icon: "hgi-typescript-01" },
-    ],
-    description: "Created a comprehensive UI/UX design for a SaaS dashboard with intuitive navigation and data visualization."
-  },
-  {
-    id: 3,
-    type: "Graphics",
-    name: "Brand Identity Design",
-    stack: [
-      { name: "Adobe Creative Suite", icon: "hgi-adobe" },
-      { name: "Illustrator", icon: "hgi-illustrator" }
-    ],
-    description: "Developed a complete brand identity including logo, color palette, and visual guidelines for a startup."
-  }
-];
+// Fetch GitHub repos at build time
+const username = "theajmalrazaq";
+const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100&type=owner`);
+const allRepos = await response.json();
+
+// Filter out forks and the portfolio repo, sort by stars
+const projects = allRepos
+  .filter((repo: any) => !repo.fork && repo.name !== `${username}.github.io`)
+  .sort((a: any, b: any) => b.stargazers_count - a.stargazers_count);
+
+// Serialize only the fields we need (avoid passing non-serializable data)
+const serializedProjects = projects.map((repo: any) => ({
+  id: repo.id,
+  name: repo.name,
+  html_url: repo.html_url,
+  description: repo.description,
+  language: repo.language,
+  stargazers_count: repo.stargazers_count,
+  forks_count: repo.forks_count,
+  topics: repo.topics || [],
+}));
 ---
 
-<link rel="stylesheet" href="https://use.hugeicons.com/font/icons.css" />
-
 <section
-  class="relative w-full flex justify-center overflow-hidden z-10 bg-white dark:bg-black"
+  class="relative w-full flex justify-center overflow-hidden z-10"
   aria-labelledby="projects-heading"
-  data-aos="focus-up"
 >
   <div class="relative w-full max-w-4xl mx-auto px-6 sm:px-15 py-6 sm:py-8 flex flex-col gap-6 z-10">
-    
-    <!-- Heading -->
-    <h1
-      id="projects-heading"
-      class="text-[50px] [font-family:'GeistPixelSquare'] text-gray-900 dark:text-gray-100"
-      data-aos="focus-up"
-    >
-      projects
-    </h1>
-
-   
-
-    <!-- Description -->
-    <p class="text-base text-gray-600 dark:text-gray-400 font-product-sans leading-relaxed max-w-3xl" data-aos="focus-up" data-aos-delay="100">
-      I work across multiple disciplines including <strong>Web Development</strong>, <strong>UI/UX Design</strong>, and <strong>Graphics Design</strong>. Each project combines thoughtful design principles with technical excellence to deliver solutions that are both beautiful and functional.
-    </p>
-
-    <!-- Projects Timeline -->
-    <div class="mt-8 flex flex-col gap-8" data-aos="focus-up" data-aos-delay="200">
-      {projects.map((project, index) => (
-        <div class="flex gap-4 sm:gap-6 group hover:opacity-75 transition-opacity duration-300 cursor-pointer">
-          <!-- Icon Space -->
-          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center text-xl border border-accent/20">
-          </div>
-
-          <!-- Content -->
-          <div class="flex-1">
-            <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-product-sans mb-1">{project.type}</p>
-            <div class="flex items-center gap-2 mb-3">
-              <h3 class="text-lg font-product-sans font-bold text-gray-900 dark:text-gray-100">{project.name}</h3>
-              <i class="hgi hgi-stroke hgi-link-circle text-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex-shrink-0 text-base"></i>
-            </div>
-            <div class="flex flex-wrap gap-2 mb-3">
-              {project.stack.map((tool) => (
-                <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-full text-xs font-product-sans text-gray-700 dark:text-gray-300">
-                  <i class={`hgi hgi-stroke ${tool.icon} text-sm`}></i>
-                  {tool.name}
-                </span>
-              ))}
-            </div>
-            <p class="text-base text-gray-600 dark:text-gray-400 font-product-sans leading-relaxed">{project.description}</p>
-          </div>
-        </div>
-      ))}
-    </div>
+    <ProjectList projects={serializedProjects} client:load />
   </div>
 </section>

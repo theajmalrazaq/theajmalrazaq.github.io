@@ -4,9 +4,8 @@
 <link rel="stylesheet" href="https://use.hugeicons.com/font/icons.css" />
 
 <section
-  class="relative w-full flex justify-center overflow-hidden z-10 bg-white dark:bg-black"
+  class="relative w-full flex justify-center overflow-hidden z-10"
   aria-labelledby="education-heading"
-  data-aos="focus-up"
 >
   <div class="relative w-full max-w-4xl mx-auto px-6 sm:px-15 py-6 sm:py-8 flex flex-col gap-8 z-10">
     
@@ -16,13 +15,13 @@
         <h2 class="text-[50px] [font-family:'GeistPixelSquare'] text-gray-900 dark:text-gray-100" id="education-heading">
           education
         </h2>
-        <p class="text-sm text-gray-500 dark:text-gray-400 font-product-sans mt-2">3 institutions</p>
+        <p class="text-sm text-gray-500 dark:text-gray-400 font-product-sans mt-2">2 institutions</p>
       </div>
     </div>
 
     <!-- Description -->
     <p class="text-base text-gray-600 dark:text-gray-400 font-product-sans leading-relaxed max-w-3xl" data-aos="focus-up" data-aos-delay="100">
-      My educational background in <strong>computer science</strong> and <strong>business administration</strong>.
+      My educational background in <strong>computer science</strong> and <strong>leadership</strong>.
     </p>
 
     <!-- Education Items -->
@@ -30,24 +29,19 @@
       {[
         {
           id: 1,
-          institution: "Buildspace",
-          degree: "s3, s4, sf1, s5",
-          dateRange: "2023 - 2024",
-          logo: "⬇️",
+          institution: "National University of Computer and Emerging Sciences",
+          degree: "Bachelor, Computer Science",
+          dateRange: "2023 – 2027",
+          logo: "",
+          logoImage: "https://media.licdn.com/dms/image/v2/D4D0BAQEhCkUcTCTUsA/company-logo_200_200/B4DZbEm8GEHsAI-/0/1747055264905/fastnu_logo?e=1772064000&v=beta&t=Pw0f3wbXeDJHedKn52Cd7fyC_8oG4YMNO09VrAk4opk",
         },
         {
           id: 2,
-          institution: "University of Waterloo",
-          degree: "Bachelor's Degree of Computer Science (BCS)",
-          dateRange: "2016 - 2021",
-          logo: "🎓",
-        },
-        {
-          id: 3,
-          institution: "Wilfrid Laurier University",
-          degree: "Bachelor's Degree of Business Administration (BBA)",
-          dateRange: "2016 - 2021",
-          logo: "🎓",
+          institution: "Aspire Institute",
+          degree: "Educational Leadership and Administration, General",
+          dateRange: "Apr 2024 – Aug 2024",
+          logo: "",
+          logoImage: "https://media.licdn.com/dms/image/v2/D4E0BAQFMttlyatjAKQ/company-logo_200_200/company-logo_200_200/0/1683218290650/aspire_leaders_program_logo?e=1772064000&v=beta&t=D4QpAQAkXoWNHL00mikRtcu0pCj-fAYIxl1UvR-TF4M",
         },
       ].map((education) => (
         <div
@@ -55,8 +49,12 @@
           data-aos="focus-up"
         >
           <!-- School Logo -->
-          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 flex items-center justify-center text-xl">
-            {education.logo}
+          <div class="flex-shrink-0 w-10 h-10 rounded-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 flex items-center justify-center text-lg overflow-hidden">
+            {education.logoImage ? (
+              <img src={education.logoImage} alt={`${education.institution} logo`} class="w-full h-full object-cover" />
+            ) : (
+              education.logo
+            )}
           </div>
           
           <!-- Education Content -->
