@@ -5,13 +5,14 @@
 <section
   class="relative w-full flex justify-center overflow-hidden z-10"
   aria-labelledby="education-heading"
+  data-aos="focus-up"
 >
   <div class="relative w-full max-w-4xl mx-auto px-6 sm:px-15 py-6 sm:py-8 flex flex-col gap-8 z-10">
     
     <!-- Heading with Education Count -->
-    <div class="flex items-end justify-between gap-4" data-aos="focus-up">
+    <div class="flex flex-col items-center justify-center gap-2 text-center" data-aos="focus-up">
       <div>
-        <h2 class="text-[50px] [font-family:'GeistPixelSquare'] text-gray-900 dark:text-gray-100" id="education-heading">
+        <h2 class="text-[50px] [font-family:'GeistPixelGrid'] text-gray-900 dark:text-gray-100" id="education-heading">
           education
         </h2>
         <p class="text-sm text-gray-500 dark:text-gray-400 font-product-sans mt-2">2 institutions</p>
@@ -19,12 +20,12 @@
     </div>
 
     <!-- Description -->
-    <p class="text-base text-gray-600 dark:text-gray-400 font-product-sans leading-relaxed max-w-3xl" data-aos="focus-up" data-aos-delay="100">
+    <p class="text-base text-gray-600 dark:text-gray-400 font-product-sans leading-relaxed max-w-3xl mx-auto text-center" data-aos="focus-up" data-aos-delay="100">
       My educational background in <strong>computer science</strong> and <strong>leadership</strong>.
     </p>
 
     <!-- Education Items -->
-    <div class="flex flex-col gap-8 mt-4" data-aos="focus-up" data-aos-delay="200">
+    <div class="flex flex-col gap-10 mt-4" data-aos="focus-up" data-aos-delay="200">
       {[
         {
           id: 1,
@@ -44,11 +45,11 @@
         },
       ].map((education) => (
         <div
-          class="flex gap-4 sm:gap-6 items-start group hover:opacity-75 transition-opacity duration-300"
+          class="flex flex-row gap-6 items-start text-left group hover:opacity-75 transition-opacity duration-300"
           data-aos="focus-up"
         >
           <!-- School Logo -->
-          <div class="flex-shrink-0 w-10 h-10 rounded-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 flex items-center justify-center text-lg overflow-hidden">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 flex items-center justify-center text-xl overflow-hidden mt-1">
             {education.logoImage ? (
               <img src={education.logoImage} alt={`${education.institution} logo`} class="w-full h-full object-cover" />
             ) : (
@@ -58,7 +59,7 @@
           
           <!-- Education Content -->
           <div class="flex-1 flex flex-col gap-1">
-            <div class="flex items-center justify-between gap-3">
+            <div class="flex flex-row justify-between items-baseline gap-4">
               <h3 class="text-lg font-product-sans font-bold text-gray-900 dark:text-gray-100">{education.institution}</h3>
               <span class="text-xs text-gray-400 dark:text-gray-500 font-product-sans whitespace-nowrap">
                 {education.dateRange}

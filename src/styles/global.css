@@ -36,6 +36,16 @@
   --font-product-sans: "Product Sans", sans-serif;
   --font-geist-mono: 'GeistMono', monospace;
   --font-geist-pixel-square: 'GeistPixelSquare', monospace;
+  --grid-color: #000;
+}
+
+@layer base {
+  :root {
+    --grid-color: #000;
+  }
+  .dark {
+    --grid-color: #fff;
+  }
 }
 
 * {
@@ -60,13 +70,13 @@ code, pre, kbd, samp {
 [data-aos="focus-up"].aos-animate  {
   -webkit-filter: blur(0px);
   filter: blur(0px);
-   transform: translate3d(0, 0, 0);
+   /* transform: translate3d(0, 0, 0); */
   transition-property: all;
 }
 [data-aos="focus-up"]{
   -webkit-filter: blur(12px);
   filter: blur(12px);
-   transform: translate3d(0, 100px, 0);
+   /* transform: translate3d(0, 100px, 0); */
   transition-property: all;
 }
 
@@ -121,4 +131,19 @@ body[data-aos-delay="100"] [data-aos].aos-animate {
 }
 
 
+/* Fix for typography code blocks */
+.prose pre code {
+  background-color: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
 
+.prose code:not(pre code) {
+  @apply bg-gray-100 dark:bg-neutral-800 text-accent px-1.5 py-0.5 rounded font-mono text-sm;
+}
+
+/* Remove default backticks from prose code */
+.prose code::before,
+.prose code::after {
+  content: "" !important;
+}

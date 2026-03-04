@@ -1,73 +1,37 @@
 ---
-import { Image } from "astro:assets";
-import logoimg from "../images/logo.svg";
-import FlickeringGrid from "./FlickeringGrid.jsx";
 const { page } = Astro.props;
-
-// Helper function to determine if a link is active
-const isActive = (path: string) => {
-  return page === path;
-};
 ---
 
-<!-- Desktop Navigation -->
-<div class="flex items-center justify-center z-[99] sticky top-0">
-  <!-- Flickering Grid Canvas Effect Behind Navbar -->
-  <div class="absolute inset-0 top-0 left-0 right-0 h-[120px] overflow-hidden z-0 w-full" style="mask-image:linear-gradient(to bottom, black, transparent);-webkit-mask-image:linear-gradient(to bottom, black, transparent)">
-    <FlickeringGrid client:load />
-  </div>
-
+<!-- Desktop Navigation --><!-- Desktop Navigation -->
+<div
+  class="flex items-center justify-center z-[99] fixed bottom-8 left-0 right-0 pointer-events-none"
+>
   <nav
     id="desktop-nav"
-    class="w-full max-w-4xl mx-auto px-6 sm:px-15 py-4 z-[99] sm:flex hidden items-center justify-start"
+    class="w-fit mx-auto px-1 py-1 z-[99] sm:flex hidden items-center justify-center gap-4 bg-gray-100/80 dark:bg-neutral-900/80 backdrop-blur-md border border-gray-200 dark:border-neutral-800 rounded-full shadow-2xl pointer-events-auto"
     role="navigation"
     aria-label="Main navigation"
   >
-    <ul class="flex gap-1 bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-full p-1">
-      <li>
+    <!-- Home Link (Only visible if NOT on home page) -->
+    {
+      page !== "home" && (
         <a
           href="/"
-          class={`${isActive("home") ? "bg-white dark:bg-neutral-800 text-gray-900 dark:text-gray-100" : "bg-transparent text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"} flex items-center gap-1.5 px-4 py-1.5 rounded-full font-product-sans text-sm font-bold transition-all duration-300`}
-          aria-label="Home"
+          class="flex items-center justify-center w-8 h-8 ml-1 rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-all duration-300"
+          aria-label="Back to home"
+          title="Home"
         >
-          <i class="hgi-stroke hgi-home-01"></i>
-          home
+          <i class="hgi-stroke hgi-home-01 text-base" />
         </a>
-      </li>
-      <li>
-        <a
-          href="/projects"
-          class={`${isActive("projects") ? "bg-white dark:bg-neutral-800 text-gray-900 dark:text-gray-100" : "bg-transparent text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"} flex items-center gap-1.5 px-4 py-1.5 rounded-full font-product-sans text-sm font-bold transition-all duration-300`}
-          aria-label="View my projects"
-        >
-          <i class="hgi-stroke hgi-code"></i>
-          projects
-        </a>
-      </li>
-      <li>
-        <a
-          href="/#blog-heading"
-          class={`${isActive("blog") ? "bg-white dark:bg-neutral-800 text-gray-900 dark:text-gray-100" : "bg-transparent text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"} flex items-center gap-1.5 px-4 py-1.5 rounded-full font-product-sans text-sm font-bold transition-all duration-300`}
-          aria-label="Read my blog posts"
-        >
-          <i class="hgi-stroke hgi-quill-write-02"></i>
-          blog
-        </a>
-      </li>
-      <li>
-        <a
-          href="#about"
-          class={`${isActive("about") ? "bg-white dark:bg-neutral-800 text-gray-900 dark:text-gray-100" : "bg-transparent text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"} flex items-center gap-1.5 px-4 py-1.5 rounded-full font-product-sans text-sm font-bold transition-all duration-300`}
-          aria-label="About me"
-        >
-          <i class="hgi-stroke hgi-information-circle"></i>
-          about
-        </a>
-      </li>
-    </ul>
+      )
+    }
 
     <!-- Theme Switcher -->
-    <div class="ml-auto flex items-center gap-0.5 bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-full p-1" role="radiogroup" aria-label="Theme switcher">
+    <div
+      class="flex items-center gap-0.5 p-1"
+      role="radiogroup"
+      aria-label="Theme switcher"
+    >
       <button
         data-theme-btn="system"
         class="theme-btn w-7 h-7 flex items-center justify-center rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-all duration-300"
@@ -97,48 +61,47 @@ const isActive = (path: string) => {
 
   <!-- Mobile Navigation -->
   <nav
-    class="bg-gray-100 dark:bg-neutral-900 text-gray-900 dark:text-gray-100 px-4 py-3 mt-3 border border-gray-200 dark:border-neutral-800 w-fit gap-2 fixed items-center z-[99] top-0 sm:hidden flex"
-    data-aos="fade-down"
+    class="bg-gray-100/90 dark:bg-neutral-900/90 backdrop-blur-md text-gray-900 dark:text-gray-100 px-4 py-2 border border-gray-200 dark:border-neutral-800 w-fit gap-2 fixed bottom-6 items-center z-[99] sm:hidden flex rounded-full shadow-2xl pointer-events-auto"
+    data-aos="fade-up"
     role="navigation"
     aria-label="Mobile navigation"
   >
-    <a href="/" class="logo" aria-label="Home">
-      <Image
-        src={logoimg}
-        alt="Ajmal Razaq logo"
-        loading="eager"
-        class="logo-image w-8"
-      />
-    </a>
-
-    <div class="w-px h-6 bg-gray-300"></div>
-
-    <button class="flex items-center gap-1.5 text-gray-600 dark:text-gray-300 font-product-sans text-sm px-2 py-1 hover:bg-gray-200 dark:hover:bg-neutral-800 transition-all duration-300">
-      <span>menu</span>
-      <i class="hgi-stroke hgi-arrow-down-01 text-sm" aria-hidden="true"></i>
-    </button>
-
-    <div class="w-px h-6 bg-gray-300 dark:bg-neutral-700"></div>
+    <!-- Mobile Home Link -->
+    {
+      page !== "home" && (
+        <a
+          href="/"
+          class="flex items-center justify-center w-8 h-8 rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-all duration-300"
+          aria-label="Back to home"
+        >
+          <i class="hgi-stroke hgi-home-01 text-base" />
+        </a>
+      )
+    }
 
     <!-- Mobile Theme Switcher -->
-    <div class="flex items-center gap-0.5" role="radiogroup" aria-label="Theme switcher">
+    <div
+      class="flex items-center gap-0.5"
+      role="radiogroup"
+      aria-label="Theme switcher"
+    >
       <button
         data-theme-btn="system"
-        class="theme-btn w-6 h-6 flex items-center justify-center rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-all duration-300"
+        class="theme-btn w-8 h-8 flex items-center justify-center rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-all duration-300"
         aria-label="System theme"
       >
         <i class="hgi-stroke hgi-computer text-xs"></i>
       </button>
       <button
         data-theme-btn="light"
-        class="theme-btn w-6 h-6 flex items-center justify-center rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-all duration-300"
+        class="theme-btn w-8 h-8 flex items-center justify-center rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-all duration-300"
         aria-label="Light theme"
       >
         <i class="hgi-stroke hgi-sun-03 text-xs"></i>
       </button>
       <button
         data-theme-btn="dark"
-        class="theme-btn w-6 h-6 flex items-center justify-center rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-all duration-300"
+        class="theme-btn w-8 h-8 flex items-center justify-center rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-all duration-300"
         aria-label="Dark theme"
       >
         <i class="hgi-stroke hgi-moon-02 text-xs"></i>
@@ -161,49 +124,53 @@ const isActive = (path: string) => {
 <script>
   function applyTheme(theme: string) {
     const root = document.documentElement;
-    if (theme === 'dark') {
-      root.classList.add('dark');
-    } else if (theme === 'light') {
-      root.classList.remove('dark');
+    if (theme === "dark") {
+      root.classList.add("dark");
+    } else if (theme === "light") {
+      root.classList.remove("dark");
     } else {
       // system
-      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        root.classList.add('dark');
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        root.classList.add("dark");
       } else {
-        root.classList.remove('dark');
+        root.classList.remove("dark");
       }
     }
   }
 
   function setActiveButton(theme: string) {
-    document.querySelectorAll('.theme-btn').forEach(btn => {
-      btn.classList.remove('active');
-      if (btn.getAttribute('data-theme-btn') === theme) {
-        btn.classList.add('active');
+    document.querySelectorAll(".theme-btn").forEach((btn) => {
+      btn.classList.remove("active");
+      if (btn.getAttribute("data-theme-btn") === theme) {
+        btn.classList.add("active");
       }
     });
   }
 
   // Initialize
-  const savedTheme = localStorage.getItem('theme') || 'system';
+  const savedTheme = localStorage.getItem("theme") || "system";
   applyTheme(savedTheme);
   setActiveButton(savedTheme);
 
   // Listen for clicks
-  document.querySelectorAll('[data-theme-btn]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const theme = btn.getAttribute('data-theme-btn') || 'system';
-      localStorage.setItem('theme', theme);
+  document.querySelectorAll("[data-theme-btn]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const theme = btn.getAttribute("data-theme-btn") || "system";
+      localStorage.setItem("theme", theme);
       applyTheme(theme);
       setActiveButton(theme);
     });
   });
 
   // Listen for system preference changes
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-    if (localStorage.getItem('theme') === 'system' || !localStorage.getItem('theme')) {
-      applyTheme('system');
-    }
-  });
+  window
+    .matchMedia("(prefers-color-scheme: dark)")
+    .addEventListener("change", () => {
+      if (
+        localStorage.getItem("theme") === "system" ||
+        !localStorage.getItem("theme")
+      ) {
+        applyTheme("system");
+      }
+    });
 </script>
-

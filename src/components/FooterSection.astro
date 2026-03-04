@@ -1,53 +1,37 @@
 ---
-import { Image } from "astro:assets";
-import logo from "../images/logo.svg";
+
 ---
 
-
 <footer
-  class="py-8 sm:py-16 px-4 sm:px-6 relative z-20 border-t border-gray-200 dark:border-neutral-800 overflow-hidden"
+  class="py-8 px-4 sm:px-6 relative z-20 border-t border-gray-100 dark:border-neutral-900 overflow-hidden"
   role="contentinfo"
 >
-  <!-- Large Gradient Text Background -->
-  <div class="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
-    <h1 class="text-[8rem] sm:text-[12rem] md:text-[18rem] lg:text-[24rem] font-black bg-gradient-to-b from-gray-100 dark:from-neutral-900 to-transparent bg-clip-text text-transparent select-none whitespace-nowrap [font-family:'GeistPixelSquare']">
-      AJMAL
-    </h1>
-  </div>
-
-  <div class="max-w-4xl mx-auto px-6 sm:px-15 relative z-10">
-    <div class="flex flex-col items-start gap-10">
-      <!-- Logo Section -->
-      <div class="flex flex-col items-start gap-5">
-        <div class="group relative">
-          <div class="absolute -inset-4 bg-accent/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition duration-700"></div>
-          <div class="h-20 w-20 bg-white dark:bg-neutral-900 border-4 border-gray-200 dark:border-neutral-800 rounded-[28px] flex items-center justify-center relative z-10 shadow-lg group-hover:border-accent/30 transition-all duration-300">
-            <Image
-              src={logo}
-              alt="Ajmal Razaq logo"
-              loading="lazy"
-              class="w-10 h-10"
-            />
-          </div>
-        </div>
-        <h2 class="text-3xl sm:text-4xl [font-family:'GeistPixelSquare'] text-gray-900 dark:text-gray-100">
-          ajmal razaq
-        </h2>
+  <div class="max-w-4xl mx-auto relative z-10">
+    <div
+      class="flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left"
+    >
+      <!-- Left: Copyright -->
+      <div class="flex flex-col gap-1">
+        <p
+          class="text-gray-400 dark:text-gray-500 text-xs font-product-sans font-medium"
+        >
+          © 2025 ajmal razaq • design engineer ✨
+        </p>
+        <p
+          class="text-gray-400 dark:text-gray-500 text-[10px] font-product-sans uppercase tracking-wider"
+        >
+          built with design & code
+        </p>
       </div>
 
-      <!-- Tagline -->
-      <p class="text-gray-500 dark:text-gray-400 text-sm font-product-sans font-medium text-left max-w-md">
-        A Design Engineer who loves building products that solve real problems using a blend of design and code.
-      </p>
-
-      <!-- Social Links -->
-      <div class="flex gap-4 justify-start">
+      <!-- Right: Social Links -->
+      <div class="flex gap-4 items-center justify-center">
         <a
           href="https://github.com/theajmalrazaq"
           target="_blank"
           rel="noopener noreferrer"
-          class="w-11 h-11 rounded-full bg-gray-50 dark:bg-neutral-900 hover:bg-accent/10 border border-gray-200 dark:border-neutral-800 hover:border-accent/30 text-gray-500 dark:text-gray-400 hover:text-accent transition-all duration-300 flex items-center justify-center"
-          aria-label="GitHub profile"
+          class="text-gray-400 dark:text-gray-500 hover:text-accent transition-colors duration-300"
+          aria-label="GitHub"
         >
           <i class="hgi-stroke hgi-github-01 text-lg"></i>
         </a>
@@ -55,56 +39,20 @@ import logo from "../images/logo.svg";
           href="https://linkedin.com/in/theajmalrazaq"
           target="_blank"
           rel="noopener noreferrer"
-          class="w-11 h-11 rounded-full bg-gray-50 dark:bg-neutral-900 hover:bg-accent/10 border border-gray-200 dark:border-neutral-800 hover:border-accent/30 text-gray-500 dark:text-gray-400 hover:text-accent transition-all duration-300 flex items-center justify-center"
-          aria-label="LinkedIn profile"
+          class="text-gray-400 dark:text-gray-500 hover:text-accent transition-colors duration-300"
+          aria-label="LinkedIn"
         >
           <i class="hgi hgi-stroke hgi-linkedin-01 text-lg"></i>
-        </a>
-        <a
-          href="https://x.com/theajmalrazaq"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="w-11 h-11 rounded-full bg-gray-50 dark:bg-neutral-900 hover:bg-accent/10 border border-gray-200 dark:border-neutral-800 hover:border-accent/30 text-gray-500 dark:text-gray-400 hover:text-accent transition-all duration-300 flex items-center justify-center"
-          aria-label="X (Twitter) profile"
-        >
-          <i class="hgi hgi-stroke hgi-new-twitter text-lg"></i>
         </a>
         <a
           href="https://behance.net/theajmalrazaq"
           target="_blank"
           rel="noopener noreferrer"
-          class="w-11 h-11 rounded-full bg-gray-50 dark:bg-neutral-900 hover:bg-accent/10 border border-gray-200 dark:border-neutral-800 hover:border-accent/30 text-gray-500 dark:text-gray-400 hover:text-accent transition-all duration-300 flex items-center justify-center"
-          aria-label="Behance portfolio"
+          class="text-gray-400 dark:text-gray-500 hover:text-accent transition-colors duration-300"
+          aria-label="Behance"
         >
           <i class="hgi hgi-stroke hgi-behance-02 text-lg"></i>
         </a>
-      </div>
-
-      <!-- Navigation Links -->
-      <div class="flex items-center gap-6">
-        <a href="/" class="text-gray-500 dark:text-gray-400 hover:text-accent transition-colors duration-300 font-product-sans text-sm">
-          Home
-        </a>
-        <a href="/projects" class="text-gray-500 dark:text-gray-400 hover:text-accent transition-colors duration-300 font-product-sans text-sm">
-          Projects
-        </a>
-        <a href="/#blog-heading" class="text-gray-500 dark:text-gray-400 hover:text-accent transition-colors duration-300 font-product-sans text-sm">
-          Blog
-        </a>
-        <a href="#contact" class="text-gray-500 dark:text-gray-400 hover:text-accent transition-colors duration-300 font-product-sans text-sm">
-          Contact
-        </a>
-      </div>
-
-      <!-- Copyright -->
-      <div class="text-left pt-8 border-t border-gray-200 dark:border-neutral-800 w-full">
-        <p class="text-gray-400 dark:text-gray-500 text-xs font-product-sans font-medium">
-          © 2025 ajmal razaq • design engineer ✨
-        </p>
-        <p class="text-gray-400 dark:text-gray-500 text-xs mt-2 font-product-sans">
-          crafted with ☕ + 🎧 by
-          <a href="https://github.com/theajmalrazaq" target="_blank" rel="noopener noreferrer" class="text-gray-500 dark:text-gray-400 hover:text-accent transition-colors duration-300">ajmal</a>
-        </p>
       </div>
     </div>
   </div>

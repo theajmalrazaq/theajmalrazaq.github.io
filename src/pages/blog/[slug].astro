@@ -4,9 +4,7 @@ import { Image } from "astro:assets";
 import dev from "../../images/dev.webp";
 import { getCollection, render } from "astro:content";
 import NavbarSection from "../../components/NavbarSection.astro";
-import Loading from "../../components/Loading.astro";
-import CursorTracker from "../../components/CursorTracker.astro";
-import FooterSection from "../../components/FooterSection.astro";
+import FlickeringGrid from "../../components/FlickeringGrid";
 import MetaSection from "../../components/MetaSection.astro";
 
 // Generate static paths from content collection
@@ -62,29 +60,59 @@ const otherPosts = allPosts
   <body
     class="bg-white dark:bg-black min-h-screen flex flex-col transition-colors duration-300"
   >
-    <CursorTracker />
-    <Loading />
     <NavbarSection page="blog" />
+    <!-- Flickering Grid Canvas Effect at Top -->
+    <div
+      class="absolute inset-x-0 top-0 h-[150px] overflow-hidden z-0 pointer-events-none"
+      style="mask-image:linear-gradient(to bottom, black, transparent);-webkit-mask-image:linear-gradient(to bottom, black, transparent)"
+    >
+      <FlickeringGrid client:load maxOpacity={0.3} flickerChance={0.2} />
+    </div>
 
     <main class="flex-grow">
-      <article role="main">
-        <!-- Header -->
-        <section class="relative w-full flex justify-center overflow-hidden z-10">
+      <article role="main" class="relative">
+        <!-- Background Banner Image (Behind Title) -->
+        {
+          post.data.img && (
+            <div class="absolute inset-x-0 top-0 h-[22rem] w-full overflow-hidden z-0 pointer-events-none">
+              <figure class="w-full h-full relative">
+                <div class="absolute inset-0">
+                  <img
+                    alt=""
+                    src={post.data.img}
+                    class="w-full h-full object-cover blur-[8px] opacity-40 dark:opacity-50 brightness-[0.9] dark:brightness-[0.7]"
+                    aria-hidden="true"
+                  />
+                </div>
+              </figure>
+              <div
+                class="absolute inset-x-0 bottom-0 h-full bg-gradient-to-b from-transparent via-white/80 to-white dark:via-black/80 dark:to-black z-[1]"
+                aria-hidden="true"
+              />
+            </div>
+          )
+        }
+
+        <!-- Header Content -->
+        <header
+          class="relative w-full flex justify-center z-10"
+          data-aos="focus-up"
+        >
           <div
-            class="relative w-full max-w-4xl mx-auto px-6 sm:px-15 pt-6 sm:pt-8 pb-2 flex flex-col gap-4 z-10"
+            class="relative w-full max-w-4xl mx-auto px-6 sm:px-15 pt-32 sm:pt-40 pb-6 flex flex-col gap-4 z-10"
           >
             <!-- Back Link -->
             <a
-              href="/"
+              href="/blog"
               class="inline-flex items-center gap-1.5 text-sm font-product-sans text-gray-500 dark:text-gray-400 hover:text-accent transition-colors duration-300 w-fit"
-              aria-label="Return to homepage"
+              aria-label="Return to blog page"
             >
               <i class="hgi-stroke hgi-arrow-left-01"></i>
               back to blog
             </a>
 
             <!-- Tags -->
-            <div class="flex flex-wrap gap-2">
+            <div class="flex flex-wrap items-center justify-start gap-2">
               {
                 post.data.tags.map((tag) => (
                   <span class="inline-flex items-center px-2.5 py-0.5 bg-gray-50 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-full text-xs font-product-sans text-gray-600 dark:text-gray-400">
@@ -96,7 +124,7 @@ const otherPosts = allPosts
 
             <!-- Title -->
             <h1
-              class="text-[50px] leading-tight [font-family:'GeistPixelSquare'] text-gray-900 dark:text-gray-100 capitalize"
+              class="text-[40px] sm:text-[50px] font-bold leading-tight [font-family:'GeistPixelGrid'] text-gray-900 dark:text-gray-100 capitalize text-left"
             >
               {post.data.title}
             </h1>
@@ -104,15 +132,17 @@ const otherPosts = allPosts
             <!-- Excerpt -->
             {
               post.data.excerpt && (
-                <p class="text-base text-gray-600 dark:text-gray-400 font-product-sans leading-relaxed max-w-3xl">
+                <p class="text-base text-gray-600 dark:text-gray-400 font-product-sans leading-relaxed max-w-3xl text-left">
                   {post.data.excerpt}
                 </p>
               )
             }
 
             <!-- Author & Meta -->
-            <div class="flex gap-4 items-center justify-between flex-wrap mt-2">
-              <div class="flex gap-3 items-center">
+            <div class="flex gap-4 items-center justify-start flex-wrap mt-2">
+              <div
+                class="flex flex-col sm:flex-row gap-3 items-center text-left"
+              >
                 <div
                   class="w-10 h-10 rounded-full overflow-hidden border-2 border-gray-200 dark:border-neutral-800"
                 >
@@ -123,7 +153,7 @@ const otherPosts = allPosts
                     class="w-full h-full object-cover"
                   />
                 </div>
-                <div class="flex-1">
+                <div class="flex flex-col items-start">
                   <p
                     class="text-sm font-product-sans font-bold text-gray-900 dark:text-gray-100"
                   >
@@ -147,31 +177,18 @@ const otherPosts = allPosts
               <span
                 class="text-xs text-gray-400 dark:text-gray-500 font-product-sans"
               >
-                {post.data.readTime} min read
+                · {post.data.readTime} min read
               </span>
             </div>
           </div>
-        </section>
-
-        <!-- Cover Image -->
-        {
-          post.data.img && (
-            <section class="relative w-full flex justify-center overflow-hidden z-10">
-              <div class="relative w-full max-w-4xl mx-auto px-6 sm:px-15 py-4 z-10">
-                <img
-                  src={post.data.img}
-                  alt={`Cover image for article: ${post.data.title}`}
-                  loading="eager"
-                  decoding="async"
-                  class="w-full aspect-video rounded-2xl object-cover border border-gray-200 dark:border-neutral-800"
-                />
-              </div>
-            </section>
-          )
-        }
+        </header>
 
         <!-- Article Content -->
-        <section class="relative w-full flex justify-center overflow-hidden z-10">
+        <section
+          class="relative w-full flex justify-center overflow-hidden z-10"
+          data-aos="focus-up"
+          data-aos-delay="200"
+        >
           <div
             class="relative w-full max-w-4xl mx-auto px-6 sm:px-15 py-6 sm:py-8 z-10"
           >
@@ -185,7 +202,7 @@ const otherPosts = allPosts
                 prose-li:text-gray-600 dark:prose-li:text-neutral-400
                 prose-headings:font-bold prose-headings:text-gray-900 dark:prose-headings:text-gray-100
                 prose-pre:bg-gray-50 dark:prose-pre:bg-neutral-900 prose-pre:border prose-pre:border-gray-200 dark:prose-pre:border-neutral-800 prose-pre:rounded-lg prose-pre:p-4 prose-pre:font-mono prose-pre:text-sm
-                prose-code:bg-gray-100 dark:prose-code:bg-neutral-800 prose-code:text-accent prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:font-mono prose-code:text-sm
+                prose-code:text-accent prose-code:font-mono prose-code:text-sm
                 prose-blockquote:border-l-4 prose-blockquote:border-accent prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-gray-500 dark:prose-blockquote:text-neutral-400
                 prose-strong:text-gray-900 dark:prose-strong:text-gray-100
                 prose-em:text-gray-600 dark:prose-em:text-neutral-300 prose-em:italic
@@ -200,33 +217,34 @@ const otherPosts = allPosts
           </div>
         </section>
 
-        <!-- You Might Like Section -->
+        <!-- Related Posts Section -->
         {
           otherPosts.length > 0 && (
-            <section class="relative w-full flex justify-center overflow-hidden z-10">
-              <div class="relative w-full max-w-4xl mx-auto px-6 sm:px-15 py-6 sm:py-8 flex flex-col gap-6 z-10">
-                <div class="border-t border-gray-200 dark:border-neutral-800 pt-8">
-                  <h2 class="text-[50px] [font-family:'GeistPixelSquare'] text-gray-900 dark:text-gray-100 mb-6">
+            <section
+              class="relative w-full flex justify-center overflow-hidden z-10"
+              data-aos="focus-up"
+              data-aos-delay="300"
+            >
+              <div class="relative w-full max-w-4xl mx-auto px-6 sm:px-15 py-12 sm:py-16 flex flex-col gap-6 z-10">
+                <div class="border-t border-gray-200 dark:border-neutral-800 pt-8 flex flex-col items-start">
+                  <h2 class="text-[40px] sm:text-[50px] [font-family:'GeistPixelGrid'] text-gray-900 dark:text-gray-100 mb-6 text-left">
                     related
                   </h2>
 
-                  <div class="flex flex-col gap-6">
+                  <div class="flex flex-col gap-2 w-full">
                     {otherPosts.map((relatedPost, index) => (
                       <a
                         href={`/blog/${relatedPost.id}`}
-                        class="flex gap-4 sm:gap-6 items-start group hover:opacity-75 transition-opacity duration-300"
+                        class="flex flex-row items-center gap-4 sm:gap-8 group hover:opacity-75 transition-opacity duration-300 w-full py-4 border-b border-gray-100 dark:border-neutral-900 last:border-0"
                         aria-label={`Read related article: ${relatedPost.data.title}`}
                       >
-                        <div class="flex-shrink-0 text-gray-500 dark:text-gray-400 [font-family:'GeistPixelSquare'] text-lg font-bold w-12">
+                        <div class="text-gray-500 dark:text-gray-400 [font-family:'GeistPixelGrid'] text-lg font-bold min-w-[40px]">
                           {String(index + 1).padStart(2, "0")}.
                         </div>
-                        <div class="flex-1 flex flex-col gap-1">
-                          <h3 class="text-lg font-product-sans font-bold text-gray-900 dark:text-gray-100 capitalize">
+                        <div class="flex-1 flex flex-col gap-1 text-left">
+                          <h3 class="text-base font-product-sans font-bold text-gray-900 dark:text-gray-100 capitalize">
                             {relatedPost.data.title}
                           </h3>
-                          <p class="text-sm text-gray-500 dark:text-gray-400 font-product-sans leading-relaxed line-clamp-2">
-                            {relatedPost.data.excerpt}
-                          </p>
                           <div class="flex flex-wrap items-center gap-3 mt-1">
                             <time
                               datetime={relatedPost.data.date.toISOString()}
@@ -238,7 +256,7 @@ const otherPosts = allPosts
                                   month: "long",
                                   day: "2-digit",
                                   year: "numeric",
-                                }
+                                },
                               )}
                             </time>
                             <span class="text-xs text-gray-400 dark:text-gray-500 font-product-sans">
@@ -246,6 +264,7 @@ const otherPosts = allPosts
                             </span>
                           </div>
                         </div>
+                        <i class="hgi-stroke hgi-arrow-right-01 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-gray-400 dark:text-gray-500 flex-shrink-0" />
                       </a>
                     ))}
                   </div>
@@ -257,7 +276,6 @@ const otherPosts = allPosts
       </article>
     </main>
 
-    <FooterSection />
     <script type="module" src="/script.js"></script>
   </body>
 </html>

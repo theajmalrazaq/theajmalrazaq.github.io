@@ -1,27 +1,38 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 
-export const FlickeringGrid = React.forwardRef(
+export interface FlickeringGridProps extends React.HTMLAttributes<HTMLDivElement> {
+  squareSize?: number;
+  gridGap?: number;
+  flickerChance?: number;
+  color?: string;
+  width?: number;
+  height?: number;
+  className?: string;
+  maxOpacity?: number;
+}
+
+export const FlickeringGrid = React.forwardRef<HTMLDivElement, FlickeringGridProps>(
   (
     {
       squareSize = 2,
       gridGap = 6,
       flickerChance = 0.3,
-      color = "rgb(167, 139, 250)",
+      color = "var(--grid-color)",
       width,
       height,
       className = "",
-      maxOpacity = 0.5,
+      maxOpacity = 0.3,
       ...props
     },
     ref
   ) => {
-    const canvasRef = useRef(null)
-    const containerRef = useRef(null)
+    const canvasRef = useRef<HTMLCanvasElement>(null)
+    const containerRef = useRef<HTMLDivElement>(null)
     const [isInView, setIsInView] = useState(false)
     const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 })
     const [resolvedColor, setResolvedColor] = useState(color)
 
-    const resolveColor = useCallback((colorValue) => {
+    const resolveColor = useCallback((colorValue: string) => {
       if (typeof window === "undefined") {
         return "rgb(167, 139, 250)"
       }
@@ -67,7 +78,7 @@ export const FlickeringGrid = React.forwardRef(
     }, [color, resolveColor])
 
     const memoizedColor = useMemo(() => {
-      const toRGBA = (colorValue) => {
+      const toRGBA = (colorValue: string) => {
         if (typeof window === "undefined") {
           return `rgba(167, 139, 250,`
         }
@@ -87,7 +98,7 @@ export const FlickeringGrid = React.forwardRef(
     }, [resolvedColor])
 
     const setupCanvas = useCallback(
-      (canvas, width, height) => {
+      (canvas: HTMLCanvasElement, width: number, height: number) => {
         const dpr = window.devicePixelRatio || 1
         canvas.width = width * dpr
         canvas.height = height * dpr
@@ -107,7 +118,7 @@ export const FlickeringGrid = React.forwardRef(
     )
 
     const updateSquares = useCallback(
-      (squares, deltaTime) => {
+      (squares: Float32Array, deltaTime: number) => {
         for (let i = 0; i < squares.length; i++) {
           if (Math.random() < flickerChance * deltaTime) {
             squares[i] = Math.random() * maxOpacity
@@ -118,7 +129,7 @@ export const FlickeringGrid = React.forwardRef(
     )
 
     const drawGrid = useCallback(
-      (ctx, width, height, cols, rows, squares, dpr) => {
+      (ctx: CanvasRenderingContext2D, width: number, height: number, cols: number, rows: number, squares: Float32Array, dpr: number) => {
         ctx.clearRect(0, 0, width, height)
         ctx.fillStyle = "transparent"
         ctx.fillRect(0, 0, width, height)
@@ -147,8 +158,8 @@ export const FlickeringGrid = React.forwardRef(
       const ctx = canvas.getContext("2d")
       if (!ctx) return
 
-      let animationFrameId
-      let gridParams
+      let animationFrameId: number
+      let gridParams: { cols: number; rows: number; squares: Float32Array; dpr: number }
 
       const updateCanvasSize = () => {
         const newWidth = width || container.clientWidth
@@ -160,7 +171,7 @@ export const FlickeringGrid = React.forwardRef(
       updateCanvasSize()
 
       let lastTime = 0
-      const animate = (time) => {
+      const animate = (time: number) => {
         if (!isInView) return
 
         const deltaTime = (time - lastTime) / 1000
@@ -207,7 +218,14 @@ export const FlickeringGrid = React.forwardRef(
 
     return (
       <div
-        ref={containerRef}
+        ref={(node) => {
+          containerRef.current = node;
+          if (typeof ref === 'function') {
+            ref(node);
+          } else if (ref && 'current' in ref) {
+            ref.current = node;
+          }
+        }}
         className={`h-full w-full ${className}`}
         {...props}
       >

@@ -1,93 +1,290 @@
 ---
 import { Image } from "astro:assets";
-import devimg from "../../images/ajmalo.png";
+import devimg from "../../images/dev.webp";
+import DotGrid from "../DotGrid.astro";
+
+// Gallery images
+const images = [
+  { src: "/gallery/photo1.jpg", alt: "Photo 1" },
+  { src: "/gallery/photo2.jpg", alt: "Photo 2" },
+  { src: "/gallery/photo3.jpg", alt: "Photo 3" },
+  { src: "/gallery/photo4.jpg", alt: "Photo 4" },
+  { src: "/gallery/photo5.jpg", alt: "Photo 5" },
+];
 ---
 
-
-<header class="relative w-full flex justify-center overflow-hidden z-10" data-aos="focus-up">
-  
+<header
+  class="relative w-full flex flex-col items-center overflow-hidden z-10"
+  data-aos="focus-up"
+>
   <!-- Screen reader only heading for accessibility -->
   <h1 class="sr-only">Ajmal Razaq | Design Engineer Portfolio</h1>
 
-  <div class="relative w-full max-w-4xl mx-auto px-6 sm:px-15 py-6 sm:py-8 flex flex-col items-start justify-start gap-8 sm:gap-10 z-10">
-    
-    <!-- Profile Image -->
-    <div data-aos="focus-up">
-      <div
-        class="group cursor-none relative w-[140px] h-[140px] rounded-full overflow-hidden border-4 border-gray-200 dark:border-neutral-800 hover:border-accent/50 transition-all duration-300 bg-gradient-to-br from-accent/5 to-transparent shadow-lg"
-        role="img"
-        aria-label="Ajmal Razaq profile picture"
-      >
-        <Image
-          src={devimg}
-          alt="Ajmal Razaq - Design Engineer portrait"
-          loading="eager"
-          class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-        <div class="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
+  <div
+    class="relative w-full max-w-4xl mx-auto px-6 sm:px-15 py-6 sm:pt-8 sm:pb-4 flex flex-col items-center justify-center gap-8 sm:gap-14 z-10 text-center"
+  >
+    <!-- Centered Dot Grid + Profile Image Container -->
+    <div
+      class="relative w-full max-w-[200px] sm:max-w-[260px] aspect-square flex items-center justify-center -mb-20 sm:-mb-28 -mt-4 sm:-mt-8"
+    >
+      <!-- Animated SVG Dot Grid -->
+      <div class="absolute inset-0 opacity-40 dark:opacity-80 scale-[0.85] z-0">
+        <DotGrid />
+      </div>
+
+      <!-- Profile Image -->
+      <div data-aos="focus-up" class="relative z-20">
+        <div
+          class="group relative w-[100px] h-[100px] sm:w-[125px] sm:h-[125px] rounded-full overflow-hidden"
+          role="img"
+          aria-label="Ajmal Razaq profile picture"
+        >
+          <Image
+            src={devimg}
+            alt="Ajmal Razaq - Design Engineer portrait"
+            loading="eager"
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"
+          >
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- Left Content - Text -->
-    <div class="flex flex-col gap-6 flex-1" data-aos="focus-up" data-aos-delay="100">
+    <div
+      class="flex flex-col gap-6 flex-1 items-center"
+      data-aos="focus-up"
+      data-aos-delay="100"
+    >
       <!-- Main Content -->
-      <div class="flex flex-col gap-4">
+      <div class="flex flex-col gap-4 items-center">
         <!-- Name -->
         <div>
-          <h2 class="text-[50px] leading-tight [font-family:'GeistPixelSquare'] text-gray-900 dark:text-gray-100">
+          <h2
+            class="text-[50px] leading-tight [font-family:'GeistPixelGrid'] text-gray-900 dark:text-gray-100"
+          >
             ajmal razaq
           </h2>
-          <p class="text-lg font-bold sm:text-xl text-gray-500 dark:text-gray-400 font-product-sans mt-2">
+          <p
+            class="text-normal font-bold sm:text-xl text-gray-500 dark:text-gray-400 font-product-sans mt-2"
+          >
             Design Engineer
           </p>
+          <div class="flex justify-center mt-4">
+            <a
+              href="/about"
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-product-sans text-gray-700 dark:text-gray-300 hover:text-accent hover:bg-accent/10 rounded-full transition-all duration-300 border border-gray-200 dark:border-neutral-800 hover:border-accent/30"
+            >
+              <span>about</span>
+            </a>
+          </div>
         </div>
 
         <!-- Description -->
-        <p class="text-base text-gray-600 dark:text-gray-400 font-product-sans leading-relaxed max-w-lg">
-          A Design Engineer Who Loves Building Products That Solve Real Problems Using a Blend of Design and Code.
+        <p
+          class="text-base text-gray-600 dark:text-gray-400 font-product-sans leading-relaxed max-w-lg"
+        >
+          A Design Engineer Who Loves Building Products That Solve Real Problems
+          Using a Blend of Design and Code.
         </p>
-      </div>
 
-      <!-- Social Links -->
-      <div
-        class="flex flex-wrap items-center gap-3"
-        role="navigation"
-        aria-label="Social media links"
-        data-aos="focus-up"
-        data-aos-delay="200"
+        <!-- Social Icons -->
+        <div
+          class="flex items-center justify-center gap-6 mt-4"
+          role="navigation"
+          aria-label="Social media links"
+          data-aos="focus-up"
+          data-aos-delay="200"
+        >
+          <a
+            href="https://github.com/theajmalrazaq"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-product-sans text-gray-700 dark:text-gray-300 hover:text-accent hover:bg-accent/10 rounded-full transition-all duration-300 border border-gray-200 dark:border-neutral-800 hover:border-accent/30"
+            aria-label="GitHub profile"
+          >
+            <i class="hgi-stroke hgi-github-01 text-lg"></i>
+            <span>GitHub</span>
+          </a>
+          <a
+            href="https://linkedin.com/in/theajmalrazaq"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-product-sans text-gray-700 dark:text-gray-300 hover:text-accent hover:bg-accent/10 rounded-full transition-all duration-300 border border-gray-200 dark:border-neutral-800 hover:border-accent/30"
+            aria-label="LinkedIn profile"
+          >
+            <i class="hgi hgi-stroke hgi-linkedin-01 text-lg"></i>
+            <span>LinkedIn</span>
+          </a>
+
+          <a
+            href="https://behance.net/theajmalrazaq"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-product-sans text-gray-700 dark:text-gray-300 hover:text-accent hover:bg-accent/10 rounded-full transition-all duration-300 border border-gray-200 dark:border-neutral-800 hover:border-accent/30"
+            aria-label="Behance portfolio"
+          >
+            <i class="hgi hgi-stroke hgi-behance-02 text-lg"></i>
+            <span>Behance</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gallery Content -->
+    <div
+      class="gallery-container flex gap-4 sm:gap-6 justify-center items-center px-4 py-8 sm:pb-12 w-full max-w-6xl mx-auto z-10"
+    >
+      {
+        images.map((image, index) => (
+          <div
+            class={`gallery-item relative overflow-hidden rounded-2xl ${index === 2 ? "w-48 h-64 sm:w-56 sm:h-72" : "w-40 h-56 sm:w-48 sm:h-64"} flex-shrink-0 shadow-lg transition-all duration-500 ease-out cursor-pointer`}
+            style={`--rotation: ${index === 0 ? "-3deg" : index === 1 ? "-1deg" : index === 2 ? "0deg" : index === 3 ? "1deg" : "3deg"}; --delay: ${index * 0.1}s`}
+            data-index={index}
+          >
+            <img
+              src={image.src}
+              alt={image.alt}
+              loading="lazy"
+              class="w-full h-full object-cover transition-transform duration-500 ease-out"
+            />
+            <div class="absolute inset-0 bg-black/0 hover:bg-black/10 transition-all duration-300" />
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Projects Section simplified -->
+    <section
+      class="w-full mt-20 flex flex-col items-center gap-4"
+      id="projects"
+      data-aos="focus-up"
+    >
+      <h2
+        class="text-[50px] [font-family:'GeistPixelGrid'] text-gray-900 dark:text-gray-100"
       >
+        my work
+      </h2>
+
+      <p
+        class="text-base text-gray-600 dark:text-gray-400 font-product-sans leading-relaxed max-w-3xl mx-auto text-center"
+      >
+        My selected <strong>engineering</strong> and <strong>design</strong> projects.
+      </p>
+
+      <div class="flex flex-col w-full max-w-4xl mx-auto mt-4 px-6 sm:px-15">
         <a
           href="https://github.com/theajmalrazaq"
           target="_blank"
-          rel="noopener noreferrer"
-          class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-product-sans text-gray-700 dark:text-gray-300 hover:text-accent hover:bg-accent/10 rounded-full transition-all duration-300 cursor-none border border-gray-200 dark:border-neutral-800 hover:border-accent/30"
-          aria-label="GitHub profile"
+          class="flex flex-row items-center gap-4 sm:gap-8 group hover:opacity-75 transition-opacity duration-300 w-full py-4 border-b border-gray-100 dark:border-neutral-900"
+          data-aos="focus-up"
+          data-aos-delay="100"
         >
-          <i class="hgi-stroke hgi-github-01 text-lg"></i>
-          <span>GitHub</span>
+          <div
+            class="text-gray-500 dark:text-gray-400 [font-family:'GeistPixelGrid'] text-lg font-bold min-w-[40px]"
+          >
+            01.
+          </div>
+          <div
+            class="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-left"
+          >
+            <h3
+              class="text-base font-product-sans font-bold text-gray-900 dark:text-gray-100 capitalize"
+            >
+              code projects
+            </h3>
+            <p
+              class="text-sm text-gray-500 dark:text-gray-400 font-product-sans whitespace-nowrap"
+            >
+              GitHub Repositories
+            </p>
+          </div>
+          <i
+            class="hgi-stroke hgi-arrow-right-01 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-gray-400 dark:text-gray-500 flex-shrink-0"
+          ></i>
         </a>
-        <a
-          href="https://linkedin.com/in/theajmalrazaq"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-product-sans text-gray-700 dark:text-gray-300 hover:text-accent hover:bg-accent/10 rounded-full transition-all duration-300 cursor-none border border-gray-200 dark:border-neutral-800 hover:border-accent/30"
-          aria-label="LinkedIn profile"
-        >
-          <i class="hgi hgi-stroke hgi-linkedin-01 text-lg"></i>
-          <span>LinkedIn</span>
-        </a>
-       
+
         <a
           href="https://behance.net/theajmalrazaq"
           target="_blank"
-          rel="noopener noreferrer"
-          class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-product-sans text-gray-700 dark:text-gray-300 hover:text-accent hover:bg-accent/10 rounded-full transition-all duration-300 cursor-none border border-gray-200 dark:border-neutral-800 hover:border-accent/30"
-          aria-label="Behance portfolio"
+          class="flex flex-row items-center gap-4 sm:gap-8 group hover:opacity-75 transition-opacity duration-300 w-full py-4 border-b border-gray-100 dark:border-neutral-900 last:border-0"
+          data-aos="focus-up"
+          data-aos-delay="200"
         >
-         <i class="hgi hgi-stroke hgi-behance-02 text-lg"></i>
-          <span>Behance</span>
+          <div
+            class="text-gray-500 dark:text-gray-400 [font-family:'GeistPixelGrid'] text-lg font-bold min-w-[40px]"
+          >
+            02.
+          </div>
+          <div
+            class="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-left"
+          >
+            <h3
+              class="text-base font-product-sans font-bold text-gray-900 dark:text-gray-100 capitalize"
+            >
+              design projects
+            </h3>
+            <p
+              class="text-sm text-gray-500 dark:text-gray-400 font-product-sans whitespace-nowrap"
+            >
+              Behance Portfolio
+            </p>
+          </div>
+          <i
+            class="hgi-stroke hgi-arrow-right-01 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-gray-400 dark:text-gray-500 flex-shrink-0"
+          ></i>
         </a>
       </div>
-    </div>
+    </section>
   </div>
 </header>
+
+<style>
+  .gallery-item {
+    transform: rotate(var(--rotation)) translateY(20px);
+    opacity: 0;
+  }
+
+  .gallery-item.animate-in {
+    opacity: 1;
+    transform: rotate(var(--rotation)) translateY(0);
+    transition-delay: var(--delay);
+  }
+
+  .gallery-item:hover {
+    transform: rotate(0deg) scale(1.05) translateY(-10px);
+    z-index: 10;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+
+  .gallery-item:hover img {
+    transform: scale(1.1);
+  }
+</style>
+
+<script>
+  const observerOptions = {
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.2,
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const items = entry.target.querySelectorAll(".gallery-item");
+        items.forEach((item) => {
+          item.classList.add("animate-in");
+        });
+      }
+    });
+  }, observerOptions);
+
+  const galleryContainer = document.querySelector(".gallery-container");
+  if (galleryContainer) {
+    observer.observe(galleryContainer);
+  }
+</script>

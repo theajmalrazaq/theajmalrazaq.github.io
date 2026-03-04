@@ -4,20 +4,11 @@ import "../styles/global.css";
 import "../styles/sectionPerspective.css";
 //import sections
 import MetaSection from "../components/MetaSection.astro";
-import Loading from "../components/Loading.astro";
 import NavbarSection from "../components/NavbarSection.astro";
 import HeroSection from "../components/home/HeroSection.astro";
-import GallerySection from "../components/home/GallerySection.astro";
-import AboutSection from "../components/home/AboutSection.astro";
-import HighlightSection from "../components/home/HighlightSection.astro";
-import ProjectSection from "../components/home/ProjectSection.astro";
 import BlogSection from "../components/home/BlogSection.astro";
-import ExperienceSection from "../components/home/ExperienceSection.astro";
-import EducationSection from "../components/home/EducationSection.astro";
-import ContactSection from "../components/home/ContactSection.astro";
-import FooterSection from "../components/FooterSection.astro";
+import FlickeringGrid from "../components/FlickeringGrid";
 //import components
-import CursorTracker from "../components/CursorTracker.astro";
 ---
 
 <!doctype html>
@@ -28,42 +19,38 @@ import CursorTracker from "../components/CursorTracker.astro";
     type="website"
   />
   <script is:inline>
-    (function() {
-      const theme = localStorage.getItem('theme') || 'system';
-      if (theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
+    (function () {
+      const theme = localStorage.getItem("theme") || "system";
+      if (
+        theme === "dark" ||
+        (theme === "system" &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.documentElement.classList.add("dark");
       }
     })();
   </script>
-  <body class="bg-white dark:bg-black min-h-screen flex flex-col transition-colors duration-300">
-    <!-- Loading overlay -->
-    <Loading />
-    <!-- Cursor Tracker -->
-    <CursorTracker />
+  <body
+    class="bg-white dark:bg-black min-h-screen flex flex-col transition-colors duration-300 text-center"
+  >
+    <!-- Flickering Grid Canvas Effect at Top -->
+    <div
+      class="absolute inset-x-0 top-0 h-[150px] overflow-hidden z-0 pointer-events-none"
+      style="mask-image:linear-gradient(to bottom, black, transparent);-webkit-mask-image:linear-gradient(to bottom, black, transparent)"
+    >
+      <FlickeringGrid client:load maxOpacity={0.3} flickerChance={0.2} />
+    </div>
+
     <!-- Navigation Bar -->
     <NavbarSection page="home" />
     <!-- Main Content -->
-    <HeroSection />
-    <!-- Gallery Section -->
-    <GallerySection />
-    <!-- About Section -->
-    <AboutSection />
-    <ProjectSection />
-    <!-- Experience Section -->
-    <ExperienceSection />
-    <!-- Education Section -->
-    <EducationSection />
-    <!-- Highlight Bento: What I Can Do -->
-    <HighlightSection />
-    <!-- Featured Blog Section -->
-    <BlogSection />
-    <!-- Contact Section -->
-    <ContactSection />
-    <!-- Footer Section -->
-    <FooterSection />
+    <main class="flex-grow flex flex-col gap-20 py-20">
+      <HeroSection />
+      <BlogSection limit={3} showViewAll={true} />
+    </main>
     <script type="module" src="/script.js"></script>
     <script>
-      import { initSectionPerspective } from '../lib/sectionPerspective.js';
+      import { initSectionPerspective } from "../lib/sectionPerspective.js";
       initSectionPerspective();
     </script>
   </body>

@@ -1,0 +1,52 @@
+---
+//import styles
+import "../styles/global.css";
+import "../styles/sectionPerspective.css";
+//import sections
+import MetaSection from "../components/MetaSection.astro";
+import NavbarSection from "../components/NavbarSection.astro";
+import BlogSection from "../components/home/BlogSection.astro";
+import FlickeringGrid from "../components/FlickeringGrid";
+//import components
+---
+
+<!doctype html>
+<html lang="en" class="lenis lenis--smooth select-none">
+    <MetaSection
+        title="Blog | Ajmal Razaq"
+        description="Read the latest thoughts and articles by Ajmal Razaq on software development and design."
+        type="website"
+    />
+    <script is:inline>
+        (function () {
+            const theme = localStorage.getItem("theme") || "system";
+            if (
+                theme === "dark" ||
+                (theme === "system" &&
+                    window.matchMedia("(prefers-color-scheme: dark)").matches)
+            ) {
+                document.documentElement.classList.add("dark");
+            }
+        })();
+    </script>
+    <body
+        class="bg-white dark:bg-black min-h-screen flex flex-col transition-colors duration-300 text-center"
+    >
+        <NavbarSection page="blog" />
+        <!-- Flickering Grid Canvas Effect at Top -->
+        <div
+            class="absolute inset-x-0 top-0 h-[150px] overflow-hidden z-0 pointer-events-none"
+            style="mask-image:linear-gradient(to bottom, black, transparent);-webkit-mask-image:linear-gradient(to bottom, black, transparent)"
+        >
+            <FlickeringGrid client:load maxOpacity={0.3} flickerChance={0.2} />
+        </div>
+        <main class="flex-grow py-20">
+            <BlogSection />
+        </main>
+        <script type="module" src="/script.js"></script>
+        <script>
+            import { initSectionPerspective } from "../lib/sectionPerspective.js";
+            initSectionPerspective();
+        </script>
+    </body>
+</html>

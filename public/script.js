@@ -1,48 +1,7 @@
 import Lenis from "https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.39/dist/lenis.mjs";
 import AOS from "https://cdn.jsdelivr.net/npm/aos@2.3.4/+esm";
 
-// Cursor Tracker
-const cursorTracker = document.getElementById("cursor-tracker");
-let mouseX = 0;
-let mouseY = 0;
-let trackerX = 0;
-let trackerY = 0;
-let cursoricon = cursorTracker.querySelector("#cursor-icon");
-
-document.querySelectorAll("a, button, img").forEach((element) => {
-  element.addEventListener("mouseenter", () => {
-    if (cursorTracker) {
-      cursoricon.classList.add("invert");
-    }
-  });
-
-  element.addEventListener("mouseleave", () => {
-    if (cursorTracker) {
-      cursoricon.classList.remove("invert");
-    }
-  });
-});
-
-document.addEventListener("mousemove", (e) => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
-});
-
-function animateCursor() {
-  // Add smooth movement with lerp (linear interpolation)
-  const speed = 0.55;
-  trackerX += (mouseX - trackerX) * speed;
-  trackerY += (mouseY - trackerY) * speed;
-
-  if (cursorTracker) {
-    cursorTracker.style.left = `${trackerX}px`;
-    cursorTracker.style.top = `${trackerY}px`;
-  }
-
-  requestAnimationFrame(animateCursor);
-}
-
-animateCursor();
+// Custom Cursor features removed.
 
 const lenis = new Lenis({
   lerp: 0.06,
@@ -105,25 +64,26 @@ document.addEventListener("DOMContentLoaded", function () {
       
       setTimeout(() => {
         loadingOverlay.style.display = "none";
-        AOS.init({
-          duration: 1200,
-          once: false,
-          delay: 100,
-          mirror: true,
-        });
-        
-        setTimeout(() => {
-          AOS.refresh();
-        }, 100);
-        
       }, 500);
-
-      // Initialize clock for timezone card
-      const localTimeElement = document.getElementById("local-time");
-      if (localTimeElement) {
-        updateClock();
-      }
     }, 1500);
+  }
+
+  // Initialize AOS regardless of loader
+  AOS.init({
+    duration: 1200,
+    once: false,
+    delay: 100,
+    mirror: true,
+  });
+  
+  setTimeout(() => {
+    AOS.refresh();
+  }, 100);
+
+  // Initialize clock for timezone card
+  const localTimeElement = document.getElementById("local-time");
+  if (localTimeElement) {
+    updateClock();
   }
 });
 
