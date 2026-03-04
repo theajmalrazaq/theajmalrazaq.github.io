@@ -7,12 +7,12 @@
   aria-labelledby="experience-heading"
   data-aos="focus-up"
 >
-  <div class="relative w-full max-w-4xl mx-auto px-6 sm:px-15 py-6 sm:py-8 flex flex-col gap-8 z-10">
+  <div class="relative w-full max-w-4xl mx-auto px-4 sm:px-15 py-6 sm:py-8 flex flex-col gap-8 z-10">
     
     <!-- Heading with Experience Count -->
     <div class="flex flex-col items-center justify-center gap-2 text-center" data-aos="focus-up">
       <div>
-        <h2 class="text-[50px] [font-family:'GeistPixelGrid'] text-gray-900 dark:text-gray-100" id="experience-heading">
+        <h2 class="text-3xl sm:text-[50px] [font-family:'GeistPixelGrid'] text-gray-900 dark:text-gray-100" id="experience-heading">
         experience
         </h2>
         <p class="text-sm text-gray-500 dark:text-gray-400 font-product-sans mt-2">6 positions</p>
@@ -116,19 +116,19 @@
           
           <!-- Experience Content -->
           <div class="flex-1 flex flex-col gap-1">
-            <div class="flex flex-row justify-between items-baseline gap-4">
-              <h3 class="text-lg font-product-sans font-bold text-gray-900 dark:text-gray-100">{experience.company}</h3>
-              <span class="text-xs text-gray-400 dark:text-gray-500 font-product-sans whitespace-nowrap">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-baseline gap-1 sm:gap-4">
+              <h3 class="text-base sm:text-lg font-product-sans font-bold text-gray-900 dark:text-gray-100">{experience.company}</h3>
+              <span class="text-[10px] sm:text-xs text-gray-400 dark:text-gray-500 font-product-sans whitespace-nowrap">
                 {experience.dateRange}
               </span>
             </div>
             
-            <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
-              <p class="text-sm font-medium text-gray-700 dark:text-gray-300 font-product-sans">
+            <div class="flex flex-col sm:flex-row sm:items-center gap-0.5 sm:gap-2">
+              <p class="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 font-product-sans">
                 {experience.position}
               </p>
               <span class="hidden sm:inline text-gray-300 dark:text-neutral-700">·</span>
-              <p class="text-xs text-gray-500 dark:text-gray-400 font-product-sans">
+              <p class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 font-product-sans">
                 {experience.location}
               </p>
             </div>

@@ -63,7 +63,7 @@ const otherPosts = allPosts
     <NavbarSection page="blog" />
     <!-- Flickering Grid Canvas Effect at Top -->
     <div
-      class="absolute inset-x-0 top-0 h-[150px] overflow-hidden z-0 pointer-events-none"
+      class="absolute inset-x-0 top-0 h-[120px] sm:h-[150px] overflow-hidden z-0 pointer-events-none"
       style="mask-image:linear-gradient(to bottom, black, transparent);-webkit-mask-image:linear-gradient(to bottom, black, transparent)"
     >
       <FlickeringGrid client:load maxOpacity={0.3} flickerChance={0.2} />
@@ -74,7 +74,7 @@ const otherPosts = allPosts
         <!-- Background Banner Image (Behind Title) -->
         {
           post.data.img && (
-            <div class="absolute inset-x-0 top-0 h-[22rem] w-full overflow-hidden z-0 pointer-events-none">
+            <div class="absolute inset-x-0 top-0 h-[18rem] sm:h-[22rem] w-full overflow-hidden z-0 pointer-events-none">
               <figure class="w-full h-full relative">
                 <div class="absolute inset-0">
                   <img
@@ -99,12 +99,12 @@ const otherPosts = allPosts
           data-aos="focus-up"
         >
           <div
-            class="relative w-full max-w-4xl mx-auto px-6 sm:px-15 pt-32 sm:pt-40 pb-6 flex flex-col gap-4 z-10"
+            class="relative w-full max-w-4xl mx-auto px-4 sm:px-15 pt-24 sm:pt-40 pb-4 flex flex-col gap-4 z-10"
           >
             <!-- Back Link -->
             <a
               href="/blog"
-              class="inline-flex items-center gap-1.5 text-sm font-product-sans text-gray-500 dark:text-gray-400 hover:text-accent transition-colors duration-300 w-fit"
+              class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-product-sans text-gray-500 dark:text-gray-400 hover:text-accent transition-colors duration-300 w-fit"
               aria-label="Return to blog page"
             >
               <i class="hgi-stroke hgi-arrow-left-01"></i>
@@ -112,10 +112,10 @@ const otherPosts = allPosts
             </a>
 
             <!-- Tags -->
-            <div class="flex flex-wrap items-center justify-start gap-2">
+            <div class="flex flex-wrap items-center justify-start gap-1.5">
               {
                 post.data.tags.map((tag) => (
-                  <span class="inline-flex items-center px-2.5 py-0.5 bg-gray-50 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-full text-xs font-product-sans text-gray-600 dark:text-gray-400">
+                  <span class="inline-flex items-center px-4 py-0.5 bg-gray-50 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-full text-[10px] sm:text-xs font-product-sans text-gray-600 dark:text-gray-400">
                     {tag}
                   </span>
                 ))
@@ -124,7 +124,7 @@ const otherPosts = allPosts
 
             <!-- Title -->
             <h1
-              class="text-[40px] sm:text-[50px] font-bold leading-tight [font-family:'GeistPixelGrid'] text-gray-900 dark:text-gray-100 capitalize text-left"
+              class="text-3xl sm:text-[50px] font-bold leading-tight [font-family:'GeistPixelGrid'] text-gray-900 dark:text-gray-100 capitalize text-left"
             >
               {post.data.title}
             </h1>
@@ -132,19 +132,17 @@ const otherPosts = allPosts
             <!-- Excerpt -->
             {
               post.data.excerpt && (
-                <p class="text-base text-gray-600 dark:text-gray-400 font-product-sans leading-relaxed max-w-3xl text-left">
+                <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 font-product-sans leading-relaxed max-w-3xl text-left">
                   {post.data.excerpt}
                 </p>
               )
             }
 
             <!-- Author & Meta -->
-            <div class="flex gap-4 items-center justify-start flex-wrap mt-2">
-              <div
-                class="flex flex-col sm:flex-row gap-3 items-center text-left"
-              >
+            <div class="flex gap-4 items-center justify-start flex-wrap mt-1">
+              <div class="flex flex-row gap-2.5 items-center text-left">
                 <div
-                  class="w-10 h-10 rounded-full overflow-hidden border-2 border-gray-200 dark:border-neutral-800"
+                  class="w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden border-2 border-gray-200 dark:border-neutral-800"
                 >
                   <Image
                     src={dev}
@@ -155,12 +153,12 @@ const otherPosts = allPosts
                 </div>
                 <div class="flex flex-col items-start">
                   <p
-                    class="text-sm font-product-sans font-bold text-gray-900 dark:text-gray-100"
+                    class="text-xs sm:text-sm font-product-sans font-bold text-gray-900 dark:text-gray-100"
                   >
                     Ajmal Razaq
                   </p>
                   <time
-                    class="text-xs font-product-sans text-gray-500 dark:text-gray-400"
+                    class="text-[10px] sm:text-xs font-product-sans text-gray-500 dark:text-gray-400"
                     datetime={post.data.date.toISOString()}
                   >
                     {
@@ -175,7 +173,7 @@ const otherPosts = allPosts
               </div>
 
               <span
-                class="text-xs text-gray-400 dark:text-gray-500 font-product-sans"
+                class="text-[10px] sm:text-xs text-gray-400 dark:text-gray-500 font-product-sans"
               >
                 · {post.data.readTime} min read
               </span>
@@ -190,19 +188,22 @@ const otherPosts = allPosts
           data-aos-delay="200"
         >
           <div
-            class="relative w-full max-w-4xl mx-auto px-6 sm:px-15 py-6 sm:py-8 z-10"
+            class="relative w-full max-w-4xl mx-auto px-4 sm:px-15 py-4 sm:py-8 z-10"
           >
             <article
               class="mdx prose max-w-none transition-colors
-                prose-p:font-product-sans prose-p:text-gray-600 dark:prose-p:text-neutral-400
+                prose-p:font-product-sans prose-p:text-gray-600 dark:prose-p:text-neutral-400 prose-p:text-sm sm:prose-p:text-base
                 prose-img:rounded-2xl
                 prose-a:text-accent prose-a:underline prose-a:decoration-accent prose-a:decoration-2 prose-a:hover:decoration-4
-                prose-ul:text-gray-600 dark:prose-ul:text-neutral-400
-                prose-ol:text-gray-600 dark:prose-ol:text-neutral-400
+                prose-ul:text-gray-600 dark:prose-ul:text-neutral-400 prose-ul:text-sm sm:prose-ul:text-base
+                prose-ol:text-gray-600 dark:prose-ol:text-neutral-400 prose-ol:text-sm sm:prose-ol:text-base
                 prose-li:text-gray-600 dark:prose-li:text-neutral-400
                 prose-headings:font-bold prose-headings:text-gray-900 dark:prose-headings:text-gray-100
-                prose-pre:bg-gray-50 dark:prose-pre:bg-neutral-900 prose-pre:border prose-pre:border-gray-200 dark:prose-pre:border-neutral-800 prose-pre:rounded-lg prose-pre:p-4 prose-pre:font-mono prose-pre:text-sm
-                prose-code:text-accent prose-code:font-mono prose-code:text-sm
+                prose-h1:text-2xl sm:prose-h1:text-4xl
+                prose-h2:text-xl sm:prose-h2:text-3xl
+                prose-h3:text-lg sm:prose-h3:text-2xl
+                prose-pre:bg-gray-50 dark:prose-pre:bg-neutral-900 prose-pre:border prose-pre:border-gray-200 dark:prose-pre:border-neutral-800 prose-pre:rounded-lg prose-pre:p-4 prose-pre:font-mono prose-pre:text-xs sm:prose-pre:text-sm
+                prose-code:text-accent prose-code:font-mono prose-code:text-[10px] sm:prose-code:text-sm
                 prose-blockquote:border-l-4 prose-blockquote:border-accent prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-gray-500 dark:prose-blockquote:text-neutral-400
                 prose-strong:text-gray-900 dark:prose-strong:text-gray-100
                 prose-em:text-gray-600 dark:prose-em:text-neutral-300 prose-em:italic
@@ -225,30 +226,30 @@ const otherPosts = allPosts
               data-aos="focus-up"
               data-aos-delay="300"
             >
-              <div class="relative w-full max-w-4xl mx-auto px-6 sm:px-15 py-12 sm:py-16 flex flex-col gap-6 z-10">
+              <div class="relative w-full max-w-4xl mx-auto px-2 sm:px-15 py-8 sm:py-16 flex flex-col gap-6 z-10">
                 <div class="border-t border-gray-200 dark:border-neutral-800 pt-8 flex flex-col items-start">
-                  <h2 class="text-[40px] sm:text-[50px] [font-family:'GeistPixelGrid'] text-gray-900 dark:text-gray-100 mb-6 text-left">
+                  <h2 class="text-3xl sm:text-[50px] [font-family:'GeistPixelGrid'] text-gray-900 dark:text-gray-100 mb-4 sm:mb-6 text-left">
                     related
                   </h2>
 
-                  <div class="flex flex-col gap-2 w-full">
+                  <div class="flex flex-col gap-1 w-full">
                     {otherPosts.map((relatedPost, index) => (
                       <a
                         href={`/blog/${relatedPost.id}`}
-                        class="flex flex-row items-center gap-4 sm:gap-8 group hover:opacity-75 transition-opacity duration-300 w-full py-4 border-b border-gray-100 dark:border-neutral-900 last:border-0"
+                        class="flex flex-row items-center gap-3 sm:gap-8 group hover:opacity-75 transition-opacity duration-300 w-full py-3 sm:py-4 border-b border-gray-100 dark:border-neutral-900 last:border-0"
                         aria-label={`Read related article: ${relatedPost.data.title}`}
                       >
-                        <div class="text-gray-500 dark:text-gray-400 [font-family:'GeistPixelGrid'] text-lg font-bold min-w-[40px]">
+                        <div class="text-gray-500 dark:text-gray-400 [font-family:'GeistPixelGrid'] text-base sm:text-lg font-bold min-w-[30px] sm:min-w-[40px]">
                           {String(index + 1).padStart(2, "0")}.
                         </div>
                         <div class="flex-1 flex flex-col gap-1 text-left">
-                          <h3 class="text-base font-product-sans font-bold text-gray-900 dark:text-gray-100 capitalize">
+                          <h3 class="text-sm sm:text-base font-product-sans font-bold text-gray-900 dark:text-gray-100 capitalize">
                             {relatedPost.data.title}
                           </h3>
-                          <div class="flex flex-wrap items-center gap-3 mt-1">
+                          <div class="flex flex-wrap items-center gap-3 mt-0.5">
                             <time
                               datetime={relatedPost.data.date.toISOString()}
-                              class="text-xs text-gray-400 dark:text-gray-500 font-product-sans"
+                              class="text-[10px] sm:text-xs text-gray-400 dark:text-gray-500 font-product-sans"
                             >
                               {relatedPost.data.date.toLocaleDateString(
                                 "en-US",
@@ -259,7 +260,7 @@ const otherPosts = allPosts
                                 },
                               )}
                             </time>
-                            <span class="text-xs text-gray-400 dark:text-gray-500 font-product-sans">
+                            <span class="text-[10px] sm:text-xs text-gray-400 dark:text-gray-500 font-product-sans">
                               · {relatedPost.data.readTime} min read
                             </span>
                           </div>

@@ -147,3 +147,13 @@ body[data-aos-delay="100"] [data-aos].aos-animate {
 .prose code::after {
   content: "" !important;
 }
+
+/* Utility classes */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
