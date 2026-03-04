@@ -47,7 +47,7 @@ export default function ProjectList({ projects }) {
             <div className="flex-1 flex flex-col gap-1 items-center">
               <div className="flex flex-col items-center justify-center gap-3">
                 <div className="flex items-center gap-2">
-                  <h3 className="text-base font-product-sans font-bold text-gray-900 dark:text-gray-100 capitalize">
+                  <h3 className="text-sm sm:text-base font-product-sans font-bold text-gray-900 dark:text-gray-100 capitalize">
                     {repo.name}
                   </h3>
                   <i className="hgi-stroke hgi-arrow-up-right-01 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-gray-400 dark:text-gray-500 flex-shrink-0"></i>

@@ -7,6 +7,7 @@ import MetaSection from "../components/MetaSection.astro";
 import NavbarSection from "../components/NavbarSection.astro";
 import ProjectSection from "../components/home/ProjectSection.astro";
 import FlickeringGrid from "../components/FlickeringGrid";
+import FooterSection from "../components/FooterSection.astro";
 //import components
 ---
 
@@ -40,9 +41,10 @@ import FlickeringGrid from "../components/FlickeringGrid";
         >
             <FlickeringGrid client:load maxOpacity={0.3} flickerChance={0.2} />
         </div>
-        <main class="flex-grow py-20">
+        <main class="flex-grow">
             <ProjectSection />
         </main>
+        <FooterSection />
         <script type="module" src="/script.js"></script>
         <script>
             import { initSectionPerspective } from "../lib/sectionPerspective.js";

@@ -6,6 +6,7 @@ import { getCollection, render } from "astro:content";
 import NavbarSection from "../../components/NavbarSection.astro";
 import FlickeringGrid from "../../components/FlickeringGrid";
 import MetaSection from "../../components/MetaSection.astro";
+import FooterSection from "../../components/FooterSection.astro";
 
 // Generate static paths from content collection
 export async function getStaticPaths() {
@@ -63,7 +64,7 @@ const otherPosts = allPosts
     <NavbarSection page="blog" />
     <!-- Flickering Grid Canvas Effect at Top -->
     <div
-      class="absolute inset-x-0 top-0 h-[120px] sm:h-[150px] overflow-hidden z-0 pointer-events-none"
+      class="absolute inset-x-0 top-0 h-[80px] sm:h-[100px] overflow-hidden z-0 pointer-events-none"
       style="mask-image:linear-gradient(to bottom, black, transparent);-webkit-mask-image:linear-gradient(to bottom, black, transparent)"
     >
       <FlickeringGrid client:load maxOpacity={0.3} flickerChance={0.2} />
@@ -226,7 +227,7 @@ const otherPosts = allPosts
               data-aos="focus-up"
               data-aos-delay="300"
             >
-              <div class="relative w-full max-w-4xl mx-auto px-2 sm:px-15 py-8 sm:py-16 flex flex-col gap-6 z-10">
+              <div class="relative w-full max-w-4xl mx-auto px-4 sm:px-15 py-8 sm:py-16 flex flex-col gap-6 z-10">
                 <div class="border-t border-gray-200 dark:border-neutral-800 pt-8 flex flex-col items-start">
                   <h2 class="text-3xl sm:text-[50px] [font-family:'GeistPixelGrid'] text-gray-900 dark:text-gray-100 mb-4 sm:mb-6 text-left">
                     related
@@ -276,6 +277,7 @@ const otherPosts = allPosts
         }
       </article>
     </main>
+    <FooterSection />
 
     <script type="module" src="/script.js"></script>
   </body>

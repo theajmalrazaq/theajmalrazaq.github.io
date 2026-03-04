@@ -41,7 +41,7 @@ export default function BlogList({ posts, showPagination = true }) {
               {String(page * perPage + index + 1).padStart(2, "0")}.
             </div>
             <div className="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-left">
-              <h3 className="text-base font-product-sans font-bold text-gray-900 dark:text-gray-100 capitalize">
+              <h3 className="text-sm sm:text-base font-product-sans font-bold text-gray-900 dark:text-gray-100 capitalize">
                 {post.title}
               </h3>
               <p className="text-sm text-gray-500 dark:text-gray-400 font-product-sans whitespace-nowrap">
