@@ -2,14 +2,13 @@
 import { Image } from "astro:assets";
 import devimg from "../../images/dev.webp";
 import DotGrid from "../DotGrid.astro";
+import Gallery from "../Gallery.astro";
 
 // Gallery images
 const images = [
-  { src: "/gallery/photo1.jpg", alt: "Photo 1" },
-  { src: "/gallery/photo2.jpg", alt: "Photo 2" },
-  { src: "/gallery/photo3.jpg", alt: "Photo 3" },
-  { src: "/gallery/photo4.jpg", alt: "Photo 4" },
-  { src: "/gallery/photo5.jpg", alt: "Photo 5" },
+  { src: "/gallery/Frame1.png", alt: "Frame 1" },
+  { src: "/gallery/Frame2.png", alt: "Frame 2" },
+  { src: "/gallery/Frame3.png", alt: "Frame 3" },
 ];
 ---
 
@@ -135,27 +134,7 @@ const images = [
     </div>
 
     <!-- Gallery Content -->
-    <div
-      class="gallery-container flex gap-4 sm:gap-6 justify-start sm:justify-center items-center px-4 py-8 sm:pb-12 w-full max-w-6xl mx-auto z-10 overflow-x-auto sm:overflow-x-visible no-scrollbar snap-x"
-    >
-      {
-        images.map((image, index) => (
-          <div
-            class={`gallery-item relative overflow-hidden rounded-2xl ${index === 2 ? "w-48 h-64 sm:w-56 sm:h-72" : "w-40 h-56 sm:w-48 sm:h-64"} flex-shrink-0 shadow-lg transition-all duration-500 ease-out cursor-pointer snap-center`}
-            style={`--rotation: ${index === 0 ? "-3deg" : index === 1 ? "-1deg" : index === 2 ? "0deg" : index === 3 ? "1deg" : "3deg"}; --delay: ${index * 0.1}s`}
-            data-index={index}
-          >
-            <img
-              src={image.src}
-              alt={image.alt}
-              loading="lazy"
-              class="w-full h-full object-cover transition-transform duration-500 ease-out"
-            />
-            <div class="absolute inset-0 bg-black/0 hover:bg-black/10 transition-all duration-300" />
-          </div>
-        ))
-      }
-    </div>
+    <Gallery images={images} />
 
     <!-- Projects Section simplified -->
     <section
@@ -164,7 +143,7 @@ const images = [
       data-aos="focus-up"
     >
       <h2
-        class="text-[32px] sm:text-[50px] [font-family:'GeistPixelGrid'] text-gray-900 dark:text-gray-100"
+        class="text-[40px] sm:text-[50px] [font-family:'GeistPixelGrid'] text-gray-900 dark:text-gray-100"
       >
         my work
       </h2>
@@ -241,50 +220,3 @@ const images = [
     </section>
   </div>
 </header>
-
-<style>
-  .gallery-item {
-    transform: rotate(var(--rotation)) translateY(20px);
-    opacity: 0;
-  }
-
-  .gallery-item.animate-in {
-    opacity: 1;
-    transform: rotate(var(--rotation)) translateY(0);
-    transition-delay: var(--delay);
-  }
-
-  .gallery-item:hover {
-    transform: rotate(0deg) scale(1.05) translateY(-10px);
-    z-index: 10;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  }
-
-  .gallery-item:hover img {
-    transform: scale(1.1);
-  }
-</style>
-
-<script>
-  const observerOptions = {
-    root: null,
-    rootMargin: "0px",
-    threshold: 0.2,
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const items = entry.target.querySelectorAll(".gallery-item");
-        items.forEach((item) => {
-          item.classList.add("animate-in");
-        });
-      }
-    });
-  }, observerOptions);
-
-  const galleryContainer = document.querySelector(".gallery-container");
-  if (galleryContainer) {
-    observer.observe(galleryContainer);
-  }
-</script>

@@ -1,0 +1,107 @@
+---
+interface Props {
+  images: { src: string; alt: string }[];
+}
+
+const { images } = Astro.props;
+---
+
+<div
+  class="gallery-container flex flex-nowrap gap-4 sm:gap-8 justify-center items-center px-4 py-12 sm:pb-20 w-full max-w-6xl mx-auto z-10 overflow-visible"
+>
+  {
+    images.map((image, index) => {
+      // Calculate rotation and offset based on index and total images
+      const total = images.length;
+      const middle = Math.floor(total / 2);
+      const rotation = (index - middle) * 6;
+      const offsetY = index === middle ? "-20px" : "10px";
+      const isMiddle = index === middle;
+      
+      return (
+        <div
+          class="gallery-item relative flex-shrink-0 cursor-pointer group"
+          style={`--rotation: ${rotation}deg; --offset-y: ${offsetY}; --delay: ${index * 0.15}s`}
+          data-index={index}
+        >
+          <!-- Card Shadow/Glow -->
+          <div class="absolute -inset-1 bg-gradient-to-r from-accent/20 to-purple-500/20 rounded-[2.1rem] blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          
+          <!-- Image Container -->
+          <div class="relative overflow-hidden rounded-[2rem] backdrop-blur-sm transition-all duration-500 group-hover:shadow-2xl">
+            <img
+              src={image.src}
+              alt={image.alt}
+              loading="lazy"
+              class={`${isMiddle ? "w-44 sm:w-64" : "w-32 sm:w-48"} h-auto object-contain transition-transform duration-700 ease-out group-hover:scale-110`}
+            />
+            
+            <!-- Glass Shine Effect -->
+            <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+          </div>
+        </div>
+      )
+    })
+  }
+</div>
+
+<style>
+  .gallery-item {
+    transform: rotate(var(--rotation)) translateY(100px) scale(0.9);
+    opacity: 0;
+    filter: blur(10px);
+    /* Snappy transition for hover and interaction */
+    transition: 
+      transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+      opacity 0.6s ease,
+      filter 0.6s ease;
+  }
+
+  /* One-time entrance animation with delay */
+  .gallery-item.animate-in {
+    opacity: 1;
+    filter: blur(0);
+    transform: rotate(var(--rotation)) translateY(var(--offset-y)) scale(1);
+    transition-duration: 1s; /* Long and smooth for entry */
+    transition-delay: var(--delay);
+  }
+
+  .gallery-item:hover {
+    transform: rotate(0deg) translateY(-30px) scale(1.1) !important;
+    z-index: 50;
+    transition-delay: 0s !important; /* Immediate response on hover */
+    transition-duration: 0.4s; /* Fast and snappy hover */
+  }
+  
+  /* Ensure other items dim slightly on hover */
+  .gallery-container:has(.gallery-item:hover) .gallery-item:not(:hover) {
+    opacity: 0.5;
+    filter: grayscale(0.5) blur(3px);
+    transform: rotate(var(--rotation)) translateY(var(--offset-y)) scale(0.92);
+    transition-delay: 0s !important;
+  }
+</style>
+
+<script>
+  const observerOptions = {
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.2,
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const items = entry.target.querySelectorAll(".gallery-item");
+        items.forEach((item) => {
+          item.classList.add("animate-in");
+        });
+      }
+    });
+  }, observerOptions);
+
+  const galleryContainers = document.querySelectorAll(".gallery-container");
+  galleryContainers.forEach(container => {
+    observer.observe(container);
+  });
+</script>

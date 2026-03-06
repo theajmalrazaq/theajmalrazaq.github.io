@@ -2,6 +2,15 @@
 import { Image } from "astro:assets";
 import devimg from "../../images/ajmalo.png";
 import DotGrid from "../DotGrid.astro";
+import Gallery from "../Gallery.astro";
+
+const images = [
+  { src: "/gallery/photo1.jpg", alt: "Photo 1" },
+  { src: "/gallery/photo2.jpg", alt: "Photo 2" },
+  { src: "/gallery/photo3.jpg", alt: "Photo 3" },
+  { src: "/gallery/photo4.jpg", alt: "Photo 4" },
+  { src: "/gallery/photo5.jpg", alt: "Photo 5" },
+];
 ---
 
 <section
@@ -48,7 +57,7 @@ import DotGrid from "../DotGrid.astro";
       <!-- About Heading -->
       <h1
         id="about-heading"
-        class="text-3xl sm:text-[50px] [font-family:'GeistPixelGrid'] text-gray-900 dark:text-gray-100 text-center"
+        class="text-[40px] sm:text-[50px] [font-family:'GeistPixelGrid'] text-gray-900 dark:text-gray-100 text-center"
         data-aos="focus-up"
         data-aos-delay="100"
       >
@@ -89,5 +98,8 @@ import DotGrid from "../DotGrid.astro";
         been up to!
       </p>
     </div>
+
+    <!-- Gallery Section -->
+    <Gallery images={images} />
   </div>
 </section>
