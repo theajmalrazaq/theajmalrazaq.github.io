@@ -16,9 +16,11 @@ interface Props {
     readingTime?: number;
     jobTitle?: string;
     organization?: string;
-    page: "home" | "blog" | "projects" | "about";
+    page: "home" | "blog" | "projects" | "about" | "dashboard";
     postId?: string;
     initialClaps?: number;
+    hideFooter?: boolean;
+    hideGrid?: boolean;
 }
 
 const {
@@ -35,6 +37,8 @@ const {
     page,
     postId,
     initialClaps,
+    hideFooter = false,
+    hideGrid = false,
 } = Astro.props;
 ---
 
@@ -74,19 +78,26 @@ const {
     >
         <Navbar page={page} postId={postId} initialClaps={initialClaps} />
 
-        <!-- Flickering Grid Effect -->
-        <div
-            class="absolute inset-x-0 top-0 h-[100px] sm:h-[120px] overflow-hidden z-0 pointer-events-none"
-            style="mask-image:linear-gradient(to bottom, black, transparent);-webkit-mask-image:linear-gradient(to bottom, black, transparent)"
-        >
-            <FlickeringGrid client:load maxOpacity={0.3} flickerChance={0.2} />
-        </div>
+        {
+            !hideGrid && (
+                <div
+                    class="absolute inset-x-0 top-0 h-[100px] sm:h-[120px] overflow-hidden z-0 pointer-events-none"
+                    style="mask-image:linear-gradient(to bottom, black, transparent);-webkit-mask-image:linear-gradient(to bottom, black, transparent)"
+                >
+                    <FlickeringGrid
+                        client:load
+                        maxOpacity={0.3}
+                        flickerChance={0.2}
+                    />
+                </div>
+            )
+        }
 
         <main class="flex-grow flex flex-col gap-20">
             <slot />
         </main>
 
-        <Footer />
+        {!hideFooter && <Footer />}
 
         <script>
             import "../scripts/main.js";

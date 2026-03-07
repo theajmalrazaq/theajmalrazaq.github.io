@@ -44,12 +44,12 @@ export default function ClapButton({ postId, initialClaps = 0, isNavbar = false 
     const rpcName = isUnclapping ? 'decrement_claps' : 'increment_claps';
     const { error } = await supabase.rpc(rpcName, { post_id: postId });
     
-    // Fallback if RPC isn't available (direct update)
+    // Fallback if RPC isn't available (direct update on post_claps table)
     if (error) {
        await supabase
-        .from("posts")
+        .from("post_claps")
         .update({ claps: isUnclapping ? Math.max(0, claps - 1) : claps + 1 })
-        .eq("id", postId);
+        .eq("post_id", postId);
     }
 
     setTimeout(() => setIsAnimating(false), 800);

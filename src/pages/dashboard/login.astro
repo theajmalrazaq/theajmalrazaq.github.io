@@ -1,0 +1,13 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+import LoginForm from "../../components/dashboard/LoginForm.jsx";
+---
+
+<PageLayout
+    title="Admin Login | Dashboard"
+    description="Login to access the dashboard and manage blog posts."
+    page="dashboard"
+    hideFooter={true}
+>
+    <LoginForm client:load />
+</PageLayout>

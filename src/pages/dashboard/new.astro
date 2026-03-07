@@ -1,0 +1,13 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+import PostEditor from "../../components/dashboard/PostEditor.jsx";
+---
+
+<PageLayout
+    title="Create New Post | Dashboard"
+    description="Draft a new blog post for your portfolio."
+    page="dashboard"
+    hideFooter={true}
+>
+    <PostEditor client:load />
+</PageLayout>

@@ -1,0 +1,13 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+import DashboardHome from "../../components/dashboard/DashboardHome.jsx";
+---
+
+<PageLayout
+    title="Dashboard | Admin"
+    description="Manage your portfolio blog posts and content."
+    page="dashboard"
+    hideFooter={true}
+>
+    <DashboardHome client:load />
+</PageLayout>

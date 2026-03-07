@@ -1,0 +1,13 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+import PostEditorWrapper from "../../components/dashboard/PostEditorWrapper.jsx";
+---
+
+<PageLayout
+    title="Edit Post | Dashboard"
+    description="Update your existing content."
+    page="dashboard"
+    hideFooter={true}
+>
+    <PostEditorWrapper client:load />
+</PageLayout>

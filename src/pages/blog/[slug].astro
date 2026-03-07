@@ -29,6 +29,15 @@ const { data: post } = await supabase
 
 if (!post) return Astro.redirect("/404");
 
+// Fetch claps from normalized table
+const { data: clapData } = await supabase
+  .from("post_claps")
+  .select("claps")
+  .eq("post_id", post.id)
+  .single();
+
+const postClaps = clapData?.claps || 0;
+
 // Parse content to HTML
 const htmlContent = await marked.parse(post.content || "");
 
@@ -70,7 +79,7 @@ const otherPosts = (relatedPosts || []).map((p: any) => ({
   readingTime={post.read_time || 5}
   page="blog"
   postId={post.id}
-  initialClaps={post.claps || 0}
+  initialClaps={postClaps}
 >
   <article role="main" class="relative text-left">
     <!-- Background Banner Image (Behind Title) -->
@@ -101,7 +110,7 @@ const otherPosts = (relatedPosts || []).map((p: any) => ({
       data-aos="focus-up"
     >
       <div
-        class="relative w-full max-w-4xl mx-auto px-4 sm:px-15 pt-20 sm:pt-8 pb-4 flex flex-col gap-4 z-10"
+        class="relative w-full max-w-4xl mx-auto px-4 sm:px-15 pt-24 pb-4 flex flex-col gap-4 z-10"
       >
         <!-- Back Link -->
         <a
