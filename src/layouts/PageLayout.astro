@@ -1,0 +1,95 @@
+---
+import "../styles/global.css";
+import Meta from "../components/layout/Meta.astro";
+import Navbar from "../components/layout/Navbar.astro";
+import Footer from "../components/layout/Footer.astro";
+import FlickeringGrid from "../components/ui/FlickeringGrid";
+
+interface Props {
+    title?: string;
+    description?: string;
+    keywords?: string[];
+    socialImage?: string;
+    url?: string;
+    type?: string;
+    publishDate?: string;
+    readingTime?: number;
+    jobTitle?: string;
+    organization?: string;
+    page: "home" | "blog" | "projects" | "about";
+    postId?: string;
+    initialClaps?: number;
+}
+
+const {
+    title,
+    description,
+    keywords,
+    socialImage,
+    url,
+    type,
+    publishDate,
+    readingTime,
+    jobTitle,
+    organization,
+    page,
+    postId,
+    initialClaps,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="lenis lenis--smooth select-none">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <Meta
+            title={title}
+            description={description}
+            keywords={keywords}
+            socialImage={socialImage}
+            url={url}
+            type={type}
+            publishDate={publishDate}
+            readingTime={readingTime}
+            jobTitle={jobTitle}
+            organization={organization}
+        />
+        <script is:inline>
+            (function () {
+                const theme = localStorage.getItem("theme") || "system";
+                if (
+                    theme === "dark" ||
+                    (theme === "system" &&
+                        window.matchMedia("(prefers-color-scheme: dark)")
+                            .matches)
+                ) {
+                    document.documentElement.classList.add("dark");
+                }
+            })();
+        </script>
+    </head>
+    <body
+        class="bg-white dark:bg-black min-h-screen flex flex-col transition-colors duration-300"
+    >
+        <Navbar page={page} postId={postId} initialClaps={initialClaps} />
+
+        <!-- Flickering Grid Effect -->
+        <div
+            class="absolute inset-x-0 top-0 h-[100px] sm:h-[120px] overflow-hidden z-0 pointer-events-none"
+            style="mask-image:linear-gradient(to bottom, black, transparent);-webkit-mask-image:linear-gradient(to bottom, black, transparent)"
+        >
+            <FlickeringGrid client:load maxOpacity={0.3} flickerChance={0.2} />
+        </div>
+
+        <main class="flex-grow flex flex-col gap-20">
+            <slot />
+        </main>
+
+        <Footer />
+
+        <script>
+            import "../scripts/main.js";
+        </script>
+    </body>
+</html>

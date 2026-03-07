@@ -1,60 +1,358 @@
 ---
-//import styles
-import "../styles/global.css";
-import "../styles/sectionPerspective.css";
-//import sections
-import MetaSection from "../components/MetaSection.astro";
-import NavbarSection from "../components/NavbarSection.astro";
-import AboutSection from "../components/home/AboutSection.astro";
-import ExperienceSection from "../components/home/ExperienceSection.astro";
-import EducationSection from "../components/home/EducationSection.astro";
-import HighlightSection from "../components/home/HighlightSection.astro";
-import FlickeringGrid from "../components/FlickeringGrid";
-import FooterSection from "../components/FooterSection.astro";
-//import components
+import PageLayout from "../layouts/PageLayout.astro";
+import { Image } from "astro:assets";
+import devimg from "../assets/dev.webp";
+import DotGrid from "../components/ui/DotGrid.astro";
+import Gallery from "../components/ui/Gallery.astro";
+
+// Dynamically import gallery images from src/assets/gallery
+const galleryFiles = import.meta.glob(
+    "../assets/gallery/photo*.{jpeg,jpg,png,gif}",
+    { eager: true },
+);
+const galleryImages = Object.values(galleryFiles).map(
+    (img: any, index: number) => ({
+        src: img.default,
+        alt: `Gallery Photo ${index + 1}`,
+    }),
+);
+
+const experiences = [
+    {
+        company: "Freelance",
+        position: "Design Engineer",
+        location: "Remote",
+        dateRange: "Aug 2025 – Present",
+        logo: "🚀",
+        bullets: [
+            "Coded React landing pages for startups using Figma, React, Next and Tailwind.",
+        ],
+    },
+    {
+        company: "Pixen",
+        position: "Part-time UI/UX Designer",
+        location: "Remote",
+        dateRange: "Aug 2025 – Present",
+        logoImage: "https://i.ibb.co/jkvFwRCF/Frame-11.png",
+        bullets: ["Designed SaaS apps, landing pages and dashboards in Figma."],
+    },
+    {
+        company: "MLSA CFD",
+        position: "Design & Social Head",
+        location: "Microsoft Learn Student Ambassador, FAST NUCES CFD",
+        dateRange: "Aug 2024 – Present",
+        logoImage: "https://i.ibb.co/3yhthnMj/Frame-1-6.png",
+        bullets: [
+            "Solo-built Pakistan's first 100% digital student platform (React, Supabase, Tailwind).",
+            "Design events posters and manage social media increasing engagement by 40%.",
+        ],
+    },
+    {
+        company: "Web3 Pak",
+        position: "Ambassador",
+        location: "Pakistan",
+        dateRange: "May 2024 – Aug 2025",
+        logoImage: "https://i.ibb.co/SwPfLKLv/1670567732446.jpg",
+        bullets: ["Selected for the Web3Pak Cohort 2 Ambassador Program."],
+    },
+    {
+        company: "Circle AI",
+        position: "UI/UX Intern",
+        location: "Remote",
+        dateRange: "Jun 2024 – Aug 2024",
+        logoImage: "https://i.ibb.co/j980RcMS/image.png",
+        bullets: [
+            "Designed AI chatbot UI (Material Design); cut onboarding 35%.",
+        ],
+    },
+    {
+        company: "SES FAST CFD",
+        position: "Graphic Designer & Executive Body Member",
+        location: "Software Engineering Society, FAST NUCES CFD",
+        dateRange: "Aug 2023 – Jul 2024",
+        logoImage: "https://i.ibb.co/VYJ1g0hj/1699865941344.jpg",
+        bullets: [
+            "Sole candidate selected directly to serve in the executive body as a freshman.",
+            "Collaborated with final year students on design and society initiatives.",
+        ],
+    },
+];
+
+const education = [
+    {
+        institution: "National University of Computer and Emerging Sciences",
+        degree: "Bachelor, Computer Science",
+        dateRange: "2023 – 2027",
+        logoImage: "https://i.ibb.co/bMwM9s7B/fastnu-logo.jpg",
+    },
+    {
+        institution: "Aspire Institute",
+        degree: "Educational Leadership and Administration, General",
+        dateRange: "Apr 2024 – Aug 2024",
+        logoImage: "https://i.ibb.co/6JPW9kP9/aspire-leaders-program-logo.jpg",
+    },
+];
+
+const skills = [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "SCSS",
+    "React JS",
+    "Tailwind",
+    "Bulma CSS",
+    "Bootstrap",
+    "shadcn",
+    "Astro JS",
+    "Node JS",
+    "Python",
+    "C++",
+    "C",
+    "Assembly",
+    "SQL",
+    "MySQL",
+    "PostgreSQL",
+    "Supabase",
+    "GitHub",
+    "Shell",
+    "Linux",
+    "Figma",
+    "Jupyter Notebook",
+];
 ---
 
-<!doctype html>
-<html lang="en" class="lenis lenis--smooth select-none">
-    <MetaSection
-        title="About | Ajmal Razaq"
-        description="Learn more about Ajmal Razaq, a Design Engineer with a background in Computer Science and UI/UX design."
-        type="website"
-    />
-    <script is:inline>
-        (function () {
-            const theme = localStorage.getItem("theme") || "system";
-            if (
-                theme === "dark" ||
-                (theme === "system" &&
-                    window.matchMedia("(prefers-color-scheme: dark)").matches)
-            ) {
-                document.documentElement.classList.add("dark");
-            }
-        })();
-    </script>
-    <body
-        class="bg-white dark:bg-black min-h-screen flex flex-col transition-colors duration-300 text-center"
+<PageLayout
+    title="About | Ajmal Razaq"
+    description="I'm Ajmal Razaq, a Design Engineer based in Pakistan. Learn about my experience in UI/UX design and Frontend Engineering at FAST NU and Pixen."
+    jobTitle="Design Engineer"
+    organization="Freelance"
+    page="about"
+>
+    <!-- Bio -->
+    <section
+        class="relative w-full flex justify-center pt-16 sm:pt-8 pb-16 sm:pb-8"
+        data-aos="focus-up"
+        data-aos-offset="0"
     >
-        <NavbarSection page="about" />
-        <!-- Flickering Grid Canvas Effect at Top -->
         <div
-            class="absolute inset-x-0 top-0 h-[100px] sm:h-[120px] overflow-hidden z-0 pointer-events-none"
-            style="mask-image:linear-gradient(to bottom, black, transparent);-webkit-mask-image:linear-gradient(to bottom, black, transparent)"
+            class="relative w-full max-w-4xl mx-auto px-4 flex flex-col gap-8 sm:gap-14 items-center"
+            data-aos="focus-up"
+            data-aos-delay="100"
+            data-aos-offset="0"
         >
-            <FlickeringGrid client:load maxOpacity={0.3} flickerChance={0.2} />
+            <div
+                class="relative w-full max-w-[200px] sm:max-w-[240px] h-[200px] sm:h-[240px] flex items-center justify-center -mb-20 sm:-mb-24"
+            >
+                <div
+                    class="absolute inset-0 opacity-40 dark:opacity-80 scale-[0.85] z-0"
+                >
+                    <DotGrid />
+                </div>
+                <div
+                    data-aos="focus-up"
+                    data-aos-offset="0"
+                    class="relative z-20"
+                >
+                    <div
+                        class="group relative w-[100px] h-[100px] sm:w-[125px] sm:h-[125px] rounded-full overflow-hidden cursor-pointer"
+                    >
+                        <Image
+                            src={devimg}
+                            alt="Ajmal Razaq portrait"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"
+                        >
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h1
+                class="text-2xl sm:text-[50px] leading-tight [font-family:'GeistPixelGrid'] text-gray-900 dark:text-gray-100"
+            >
+                about
+            </h1>
+            <div
+                class="flex flex-col gap-6 max-w-3xl text-center text-gray-600 dark:text-gray-400 font-product-sans leading-relaxed"
+            >
+                <p>
+                    My design and coding journey started back in 8th grade, and
+                    fast forward to 2023 I got into <strong>FAST NU</strong> for Computer
+                    Science. Now I work part-time as a <strong
+                        >UI/UX Designer</strong
+                    > and <strong>Frontend Developer</strong> at <strong
+                        >Pixen</strong
+                    >.
+                </p>
+                <p>
+                    I've been an active <strong>Hacktoberfest</strong> contributor
+                    since 2023. I love building things that actually work and look
+                    good doing it.
+                </p>
+            </div>
+            <Gallery images={galleryImages} />
         </div>
-        <main class="flex-grow">
-            <AboutSection />
-            <ExperienceSection />
-            <EducationSection />
-            <HighlightSection />
-        </main>
-        <FooterSection />
-        <script type="module" src="/script.js"></script>
-        <script>
-            import { initSectionPerspective } from "../lib/sectionPerspective.js";
-            initSectionPerspective();
-        </script>
-    </body>
-</html>
+    </section>
+
+    <!-- Experience -->
+    <section
+        class="relative w-full flex justify-center pt-8 sm:pt-14 pb-16 sm:pb-8"
+        data-aos="focus-up"
+        data-aos-offset="0"
+    >
+        <div
+            class="w-full max-w-4xl mx-auto px-4 flex flex-col gap-4 items-center"
+            data-aos="focus-up"
+            data-aos-delay="100"
+            data-aos-offset="0"
+        >
+            <div class="text-center flex flex-col gap-4 items-center">
+                <h2
+                    class="text-[40px] sm:text-[50px] [font-family:'GeistPixelGrid'] text-gray-900 dark:text-gray-100"
+                >
+                    experience
+                </h2>
+                <p
+                    class="text-base text-gray-600 dark:text-gray-400 font-product-sans leading-relaxed max-w-2xl text-center"
+                >
+                    My professional journey and the <strong
+                        >organizations</strong
+                    > I've <strong>collaborated</strong> with.
+                </p>
+            </div>
+            <div class="flex flex-col gap-10 mt-4 w-full">
+                {
+                    experiences.map((exp) => (
+                        <div class="flex flex-row gap-6 items-start group hover:opacity-75 transition-opacity duration-300">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 flex items-center justify-center overflow-hidden">
+                                {exp.logoImage ? (
+                                    <img
+                                        src={exp.logoImage}
+                                        alt={exp.company}
+                                        class="w-full h-full object-cover"
+                                    />
+                                ) : (
+                                    <span class="text-xl">{exp.logo}</span>
+                                )}
+                            </div>
+                            <div class="flex-1 flex flex-col gap-1 text-left">
+                                <div class="flex flex-col sm:flex-row justify-between sm:items-baseline">
+                                    <h3 class="font-bold text-gray-900 dark:text-gray-100 font-product-sans">
+                                        {exp.company}
+                                    </h3>
+                                    <span class="text-xs text-gray-400 dark:text-gray-500">
+                                        {exp.dateRange}
+                                    </span>
+                                </div>
+                                <p class="text-sm font-medium text-gray-700 dark:text-gray-300 font-product-sans">
+                                    {exp.position}
+                                </p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400 font-product-sans">
+                                    {exp.location}
+                                </p>
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </section>
+
+    <!-- Education -->
+    <section
+        class="relative w-full flex justify-center py-16 sm:py-8"
+        data-aos="focus-up"
+        data-aos-offset="0"
+    >
+        <div
+            class="w-full max-w-4xl mx-auto px-4 flex flex-col gap-8"
+            data-aos="focus-up"
+            data-aos-delay="100"
+            data-aos-offset="0"
+        >
+            <div class="text-center flex flex-col gap-4 items-center">
+                <h2
+                    class="text-[40px] sm:text-[50px] [font-family:'GeistPixelGrid'] text-gray-900 dark:text-gray-100"
+                >
+                    education
+                </h2>
+                <p
+                    class="text-base text-gray-600 dark:text-gray-400 font-product-sans leading-relaxed max-w-2xl text-center"
+                >
+                    My <strong>academic</strong> background and the <strong
+                        >foundation</strong
+                    > of my learning.
+                </p>
+            </div>
+            <div class="flex flex-col gap-10">
+                {
+                    education.map((edu) => (
+                        <div class="flex flex-row gap-6 items-start group hover:opacity-75 transition-opacity duration-300">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 flex items-center justify-center overflow-hidden">
+                                <img
+                                    src={edu.logoImage}
+                                    alt={edu.institution}
+                                    class="w-full h-full object-cover"
+                                />
+                            </div>
+                            <div class="flex-1 flex flex-col gap-1 text-left">
+                                <div class="flex flex-col sm:flex-row justify-between sm:items-baseline">
+                                    <h3 class="font-bold text-gray-900 dark:text-gray-100 font-product-sans">
+                                        {edu.institution}
+                                    </h3>
+                                    <span class="text-xs text-gray-400 dark:text-gray-500">
+                                        {edu.dateRange}
+                                    </span>
+                                </div>
+                                <p class="text-sm text-gray-500 dark:text-gray-400 font-product-sans">
+                                    {edu.degree}
+                                </p>
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section
+        class="relative w-full flex justify-center py-16 sm:py-8"
+        data-aos="focus-up"
+        data-aos-offset="0"
+    >
+        <div
+            class="w-full max-w-4xl mx-auto px-4 flex flex-col gap-8"
+            data-aos="focus-up"
+            data-aos-delay="100"
+            data-aos-offset="0"
+        >
+            <div class="text-center flex flex-col gap-4 items-center">
+                <h2
+                    class="text-[40px] sm:text-[50px] [font-family:'GeistPixelGrid'] text-gray-900 dark:text-gray-100"
+                >
+                    skills & tools
+                </h2>
+                <p
+                    class="text-base text-gray-600 dark:text-gray-400 font-product-sans leading-relaxed max-w-2xl text-center"
+                >
+                    The <strong>technologies</strong> and <strong
+                        >software</strong
+                    > I use to bring ideas to life.
+                </p>
+            </div>
+            <div class="flex flex-wrap justify-center gap-3">
+                {
+                    skills.map((skill) => (
+                        <div class="px-4 py-2 bg-gray-50 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-full hover:bg-accent/10 hover:border-accent/30 transition-all duration-300">
+                            <span class="text-sm font-product-sans text-gray-600 dark:text-gray-400">
+                                {skill}
+                            </span>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </section>
+</PageLayout>

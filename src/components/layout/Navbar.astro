@@ -1,10 +1,11 @@
 ---
-const { page } = Astro.props;
+import ClapButton from "../blog/ClapButton.jsx";
+const { page, postId, initialClaps } = Astro.props;
 ---
 
-<!-- Desktop Navigation --><!-- Desktop Navigation -->
+<!-- Desktop Navigation -->
 <div
-  class="flex items-center justify-center z-[99] fixed bottom-8 left-0 right-0 pointer-events-none gap-3"
+  class="flex items-center justify-center z-[99] fixed top-2 left-0 right-0 pointer-events-none gap-3"
 >
   {
     page !== "home" && (
@@ -33,7 +34,7 @@ const { page } = Astro.props;
   >
     <!-- Theme Switcher -->
     <div
-      class="flex items-center gap-0.5 p-0.5"
+      class="flex items-center gap-0.5 p-0.5 h-8"
       role="radiogroup"
       aria-label="Theme switcher"
     >
@@ -65,6 +66,23 @@ const { page } = Astro.props;
   </nav>
 
   {
+    postId && (
+      <nav
+        class="w-fit px-1 py-1 z-[99] sm:flex hidden items-center justify-center bg-gray-100/80 dark:bg-neutral-900/80 backdrop-blur-md border border-gray-200 dark:border-neutral-800 rounded-full shadow-2xl pointer-events-auto transition-all duration-300 hover:scale-105"
+        role="complementary"
+        aria-label="Post interactions"
+      >
+        <ClapButton
+          client:load
+          postId={postId}
+          initialClaps={initialClaps}
+          isNavbar={true}
+        />
+      </nav>
+    )
+  }
+
+  {
     page !== "home" && (
       <nav
         class="bg-gray-100/90 dark:bg-neutral-900/90 backdrop-blur-md px-1 py-1 border border-gray-200 dark:border-neutral-800 w-fit items-center z-[99] sm:hidden flex rounded-full shadow-2xl pointer-events-auto transition-all duration-300 active:scale-95"
@@ -89,7 +107,7 @@ const { page } = Astro.props;
     aria-label="Mobile theme navigation"
   >
     <div
-      class="flex items-center gap-0.5"
+      class="flex items-center gap-0.5 h-8"
       role="radiogroup"
       aria-label="Theme switcher"
     >
@@ -116,6 +134,23 @@ const { page } = Astro.props;
       </button>
     </div>
   </nav>
+
+  {
+    postId && (
+      <nav
+        class="bg-gray-100/90 dark:bg-neutral-900/90 backdrop-blur-md px-1 py-1 border border-gray-200 dark:border-neutral-800 w-fit items-center z-[99] sm:hidden flex rounded-full shadow-2xl pointer-events-auto transition-all duration-300 active:scale-95"
+        role="complementary"
+        aria-label="Mobile post interactions"
+      >
+        <ClapButton
+          client:load
+          postId={postId}
+          initialClaps={initialClaps}
+          isNavbar={true}
+        />
+      </nav>
+    )
+  }
 </div>
 
 <style>

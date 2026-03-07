@@ -1,6 +1,8 @@
 ---
+import { Image } from "astro:assets";
+
 interface Props {
-  images: { src: string; alt: string }[];
+  images: { src: any; alt: string }[];
 }
 
 const { images } = Astro.props;
@@ -29,10 +31,9 @@ const { images } = Astro.props;
           
           <!-- Image Container -->
           <div class="relative overflow-hidden rounded-[2rem] backdrop-blur-sm transition-all duration-500 group-hover:shadow-2xl">
-            <img
+            <Image
               src={image.src}
               alt={image.alt}
-              loading="lazy"
               class={`${isMiddle ? "w-44 sm:w-64" : "w-32 sm:w-48"} h-auto object-contain transition-transform duration-700 ease-out group-hover:scale-110`}
             />
             

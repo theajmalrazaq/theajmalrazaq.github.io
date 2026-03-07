@@ -1,46 +1,45 @@
 ---
 import { Image } from "astro:assets";
-import devimg from "../../images/dev.webp";
-import DotGrid from "../DotGrid.astro";
-import Gallery from "../Gallery.astro";
+import devimg from "../../assets/dev.webp";
+import DotGrid from "../ui/DotGrid.astro";
+import Gallery from "../ui/Gallery.astro";
 
-// Gallery images
-const images = [
-  { src: "/gallery/Frame1.png", alt: "Frame 1" },
-  { src: "/gallery/Frame2.png", alt: "Frame 2" },
-  { src: "/gallery/Frame3.png", alt: "Frame 3" },
-];
+// Dynamically import gallery images from src/assets/gallery
+const frameFiles = import.meta.glob(
+  "../../assets/gallery/Frame*.{jpeg,jpg,png,gif}",
+  { eager: true },
+);
+const images = Object.values(frameFiles).map((img: any, index: number) => ({
+  src: img.default,
+  alt: `Frame ${index + 1}`,
+}));
 ---
 
 <header
   class="relative w-full flex flex-col items-center overflow-hidden z-10"
   data-aos="focus-up"
+  data-aos-offset="0"
 >
-  <!-- Screen reader only heading for accessibility -->
   <h1 class="sr-only">Ajmal Razaq | Design Engineer Portfolio</h1>
 
   <div
-    class="relative w-full max-w-4xl mx-auto px-4 sm:px-15 py-6 sm:pt-8 sm:pb-4 flex flex-col items-center justify-center gap-8 sm:gap-14 z-10 text-center"
+    class="relative w-full max-w-4xl mx-auto px-4 sm:px-15 pt-16 sm:pt-8 pb-16 sm:pb-8 flex flex-col items-center justify-center gap-8 sm:gap-14 z-10 text-center"
   >
-    <!-- Centered Dot Grid + Profile Image Container -->
+    <!-- Profile Image -->
     <div
-      class="relative w-full max-w-[200px] sm:max-w-[260px] aspect-square flex items-center justify-center -mb-20 sm:-mb-28 -mt-4 sm:-mt-8"
+      class="relative w-full max-w-[200px] sm:max-w-[240px] h-[200px] sm:h-[240px] flex items-center justify-center -mb-20 sm:-mb-24"
     >
-      <!-- Animated SVG Dot Grid -->
       <div class="absolute inset-0 opacity-40 dark:opacity-80 scale-[0.85] z-0">
         <DotGrid />
       </div>
 
-      <!-- Profile Image -->
-      <div data-aos="focus-up" class="relative z-20">
+      <div data-aos="focus-up" data-aos-offset="0" class="relative z-20">
         <div
-          class="group relative w-[100px] h-[100px] sm:w-[125px] sm:h-[125px] rounded-full overflow-hidden"
-          role="img"
-          aria-label="Ajmal Razaq profile picture"
+          class="group relative w-[100px] h-[100px] sm:w-[125px] sm:h-[125px] rounded-full overflow-hidden cursor-pointer"
         >
           <Image
             src={devimg}
-            alt="Ajmal Razaq - Design Engineer portrait"
+            alt="Ajmal Razaq"
             loading="eager"
             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
@@ -52,15 +51,14 @@ const images = [
       </div>
     </div>
 
-    <!-- Left Content - Text -->
+    <!-- Hero Content -->
     <div
       class="flex flex-col gap-6 flex-1 items-center"
       data-aos="focus-up"
       data-aos-delay="100"
+      data-aos-offset="0"
     >
-      <!-- Main Content -->
       <div class="flex flex-col gap-4 items-center">
-        <!-- Name -->
         <div>
           <h2
             class="text-2xl sm:text-[50px] leading-tight [font-family:'GeistPixelGrid'] text-gray-900 dark:text-gray-100"
@@ -82,7 +80,6 @@ const images = [
           </div>
         </div>
 
-        <!-- Description -->
         <p
           class="text-sm sm:text-base text-gray-600 dark:text-gray-400 font-product-sans leading-relaxed max-w-lg"
         >
@@ -93,17 +90,14 @@ const images = [
         <!-- Social Icons -->
         <div
           class="flex items-center justify-center gap-3 sm:gap-6 mt-2"
-          role="navigation"
-          aria-label="Social media links"
           data-aos="focus-up"
           data-aos-delay="200"
+          data-aos-offset="0"
         >
           <a
             href="https://github.com/theajmalrazaq"
             target="_blank"
-            rel="noopener noreferrer"
             class="flex items-center gap-1 px-2 py-1 text-[10px] sm:text-xs font-product-sans text-gray-700 dark:text-gray-300 hover:text-accent hover:bg-accent/10 rounded-full transition-all duration-300 border border-gray-200 dark:border-neutral-800 hover:border-accent/30"
-            aria-label="GitHub profile"
           >
             <i class="hgi-stroke hgi-github-01 text-base sm:text-lg"></i>
             <span>GitHub</span>
@@ -111,20 +105,15 @@ const images = [
           <a
             href="https://linkedin.com/in/theajmalrazaq"
             target="_blank"
-            rel="noopener noreferrer"
             class="flex items-center gap-1 px-2 py-1 text-[10px] sm:text-xs font-product-sans text-gray-700 dark:text-gray-300 hover:text-accent hover:bg-accent/10 rounded-full transition-all duration-300 border border-gray-200 dark:border-neutral-800 hover:border-accent/30"
-            aria-label="LinkedIn profile"
           >
             <i class="hgi hgi-stroke hgi-linkedin-01 text-base sm:text-lg"></i>
             <span>LinkedIn</span>
           </a>
-
           <a
             href="https://behance.net/theajmalrazaq"
             target="_blank"
-            rel="noopener noreferrer"
             class="flex items-center gap-1 px-2 py-1 text-[10px] sm:text-xs font-product-sans text-gray-700 dark:text-gray-300 hover:text-accent hover:bg-accent/10 rounded-full transition-all duration-300 border border-gray-200 dark:border-neutral-800 hover:border-accent/30"
-            aria-label="Behance portfolio"
           >
             <i class="hgi hgi-stroke hgi-behance-02 text-base sm:text-lg"></i>
             <span>Behance</span>
@@ -133,34 +122,36 @@ const images = [
       </div>
     </div>
 
-    <!-- Gallery Content -->
+    <!-- Gallery -->
     <Gallery images={images} />
 
-    <!-- Projects Section simplified -->
+    <!-- Simplified Work Section -->
     <section
-      class="w-full mt-20 flex flex-col items-center gap-4"
-      id="projects"
+      class="w-full flex flex-col items-center gap-4"
       data-aos="focus-up"
+      data-aos-offset="0"
     >
       <h2
         class="text-[40px] sm:text-[50px] [font-family:'GeistPixelGrid'] text-gray-900 dark:text-gray-100"
       >
         my work
       </h2>
-
       <p
-        class="text-base text-gray-600 dark:text-gray-400 font-product-sans leading-relaxed max-w-3xl mx-auto text-center"
+        class="text-base text-gray-600 dark:text-gray-400 font-product-sans text-center"
       >
         My selected <strong>engineering</strong> and <strong>design</strong> projects.
       </p>
 
-      <div class="flex flex-col w-full max-w-4xl mx-auto mt-4 px-4 sm:px-15">
+      <div
+        class="flex flex-col w-full max-w-4xl mx-auto mt-4 px-4 sm:px-15"
+        data-aos="focus-up"
+        data-aos-delay="200"
+        data-aos-offset="0"
+      >
         <a
           href="https://github.com/theajmalrazaq"
           target="_blank"
           class="flex flex-row items-center gap-4 sm:gap-8 group hover:opacity-75 transition-opacity duration-300 w-full py-4 border-b border-gray-100 dark:border-neutral-900"
-          data-aos="focus-up"
-          data-aos-delay="100"
         >
           <div
             class="text-gray-500 dark:text-gray-400 [font-family:'GeistPixelGrid'] text-lg font-bold min-w-[40px]"
@@ -171,27 +162,23 @@ const images = [
             class="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-left"
           >
             <h3
-              class="text-sm sm:text-base font-product-sans font-bold text-gray-900 dark:text-gray-100 capitalize"
+              class="text-sm sm:text-base font-bold text-gray-900 dark:text-gray-100 font-product-sans capitalize"
             >
               code projects
             </h3>
-            <p
-              class="text-sm text-gray-500 dark:text-gray-400 font-product-sans whitespace-nowrap"
-            >
+            <p class="text-sm text-gray-500 font-product-sans capitalize">
               GitHub Repositories
             </p>
           </div>
           <i
-            class="hgi-stroke hgi-arrow-right-01 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-gray-400 dark:text-gray-500 flex-shrink-0"
+            class="hgi-stroke hgi-arrow-right-01 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-gray-400"
           ></i>
         </a>
 
         <a
           href="https://behance.net/theajmalrazaq"
           target="_blank"
-          class="flex flex-row items-center gap-4 sm:gap-8 group hover:opacity-75 transition-opacity duration-300 w-full py-4 border-b border-gray-100 dark:border-neutral-900 last:border-0"
-          data-aos="focus-up"
-          data-aos-delay="200"
+          class="flex flex-row items-center gap-4 sm:gap-8 group hover:opacity-75 transition-opacity duration-300 w-full py-4 last:border-0"
         >
           <div
             class="text-gray-500 dark:text-gray-400 [font-family:'GeistPixelGrid'] text-lg font-bold min-w-[40px]"
@@ -202,18 +189,16 @@ const images = [
             class="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-left"
           >
             <h3
-              class="text-sm sm:text-base font-product-sans font-bold text-gray-900 dark:text-gray-100 capitalize"
+              class="text-sm sm:text-base font-bold text-gray-900 dark:text-gray-100 font-product-sans capitalize"
             >
               design projects
             </h3>
-            <p
-              class="text-sm text-gray-500 dark:text-gray-400 font-product-sans whitespace-nowrap"
-            >
+            <p class="text-sm text-gray-500 font-product-sans capitalize">
               Behance Portfolio
             </p>
           </div>
           <i
-            class="hgi-stroke hgi-arrow-right-01 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-gray-400 dark:text-gray-500 flex-shrink-0"
+            class="hgi-stroke hgi-arrow-right-01 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-gray-400"
           ></i>
         </a>
       </div>
