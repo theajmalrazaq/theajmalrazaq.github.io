@@ -1,5 +1,6 @@
 ---
 import ClapButton from "../blog/ClapButton.jsx";
+import TableOfContents from "../blog/TableOfContents.jsx";
 const { page, postId, initialClaps } = Astro.props;
 ---
 
@@ -83,6 +84,18 @@ const { page, postId, initialClaps } = Astro.props;
   }
 
   {
+    postId && (
+      <nav
+        class="w-fit px-1 py-1 z-[99] sm:flex hidden items-center justify-center bg-gray-100/80 dark:bg-neutral-900/80 backdrop-blur-md border border-gray-200 dark:border-neutral-800 rounded-full shadow-2xl pointer-events-auto transition-all duration-300 hover:scale-105"
+        role="complementary"
+        aria-label="Table of contents"
+      >
+        <TableOfContents client:load />
+      </nav>
+    )
+  }
+
+  {
     page !== "home" && (
       <nav
         class="bg-gray-100/90 dark:bg-neutral-900/90 backdrop-blur-md px-1 py-1 border border-gray-200 dark:border-neutral-800 w-fit items-center z-[99] sm:hidden flex rounded-full shadow-2xl pointer-events-auto transition-all duration-300 active:scale-95"
@@ -148,6 +161,18 @@ const { page, postId, initialClaps } = Astro.props;
           initialClaps={initialClaps}
           isNavbar={true}
         />
+      </nav>
+    )
+  }
+
+  {
+    postId && (
+      <nav
+        class="bg-gray-100/90 dark:bg-neutral-900/90 backdrop-blur-md px-1 py-1 border border-gray-200 dark:border-neutral-800 w-fit items-center z-[99] sm:hidden flex rounded-full shadow-2xl pointer-events-auto transition-all duration-300 active:scale-95"
+        role="complementary"
+        aria-label="Mobile table of contents"
+      >
+        <TableOfContents client:load />
       </nav>
     )
   }

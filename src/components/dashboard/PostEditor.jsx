@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { supabase } from "../../lib/supabase";
 import { marked } from "marked";
 
@@ -15,6 +15,103 @@ export default function PostEditor({ postId = null }) {
     const [fetching, setFetching] = useState(!!postId);
     const [preview, setPreview] = useState(false);
     const [activeTab, setActiveTab] = useState("content"); // "content" | "meta"
+
+    // AI assistant state
+    const [showAiModal, setShowAiModal] = useState(false);
+    const [aiIdea, setAiIdea] = useState("");
+    const [aiGenerating, setAiGenerating] = useState(false);
+    const [aiStatus, setAiStatus] = useState("");
+    const puterLoaded = useRef(false);
+
+    // Load Puter.js script dynamically
+    const loadPuter = () => {
+        return new Promise((resolve) => {
+            if (window.puter) { resolve(); return; }
+            if (puterLoaded.current) {
+                const check = setInterval(() => {
+                    if (window.puter) { clearInterval(check); resolve(); }
+                }, 100);
+                return;
+            }
+            puterLoaded.current = true;
+            const s = document.createElement("script");
+            s.src = "https://js.puter.com/v2/";
+            s.onload = () => {
+                const check = setInterval(() => {
+                    if (window.puter) { clearInterval(check); resolve(); }
+                }, 100);
+            };
+            document.head.appendChild(s);
+        });
+    };
+
+    const generateWithAi = async () => {
+        if (!aiIdea.trim()) return;
+        setAiGenerating(true);
+        setAiStatus("loading puter.js...");
+
+        try {
+            await loadPuter();
+            setAiStatus("generating post with ai...");
+
+            const prompt = `You are a professional blog content writer. Write a complete blog post based on this idea: "${aiIdea}"
+
+Respond ONLY with valid JSON (no markdown code blocks, no extra text). Use this exact structure:
+{
+  "title": "An engaging, SEO-friendly title",
+  "slug": "url-friendly-slug",
+  "description": "A compelling 1-2 sentence summary",
+  "keywords": "keyword1, keyword2, keyword3, keyword4, keyword5",
+  "read_time": 5,
+  "social_image": "A relevant high-quality landscape image URL from Unsplash. Use the format: https://images.unsplash.com/photo-{id}?w=1200&q=80 — pick a real Unsplash photo ID that matches the topic.",
+  "content": "Full markdown blog post content with ## headings, **bold**, lists, code blocks etc. Make it detailed, professional, and at least 800 words."
+}`;
+
+            const response = await window.puter.ai.chat(prompt, {
+                model: "gpt-4.1-nano",
+            });
+
+            // Handle various Puter.js response formats
+            let text = "";
+            if (typeof response === "string") {
+                text = response;
+            } else if (response?.message?.content) {
+                const c = response.message.content;
+                text = typeof c === "string" ? c : Array.isArray(c) ? c.map(b => b.text || "").join("") : String(c);
+            } else if (response?.text) {
+                text = response.text;
+            } else {
+                text = JSON.stringify(response);
+            }
+
+            // Parse JSON from response
+            const jsonMatch = text.match(/\{[\s\S]*\}/);
+            if (!jsonMatch) throw new Error("AI did not return valid JSON");
+
+            const data = JSON.parse(jsonMatch[0]);
+
+            setTitle(data.title || "");
+            setSlug(data.slug || "");
+            setDescription(data.description || "");
+            setKeywords(data.keywords || "");
+            setReadTime(data.read_time || 5);
+            setContent(data.content || "");
+            setSocialImage(data.social_image || "");
+
+            setAiStatus("done!");
+            setTimeout(() => {
+                setShowAiModal(false);
+                setAiStatus("");
+                setAiIdea("");
+            }, 800);
+        } catch (err) {
+            console.error("AI generation failed:", err);
+            setAiStatus("failed: " + err.message);
+            setTimeout(() => setAiStatus(""), 3000);
+        } finally {
+            setAiGenerating(false);
+        }
+    };
 
     useEffect(() => {
         if (postId) fetchPost();
@@ -94,6 +191,16 @@ export default function PostEditor({ postId = null }) {
                             <i className="hgi-stroke hgi-arrow-left-01 text-base"></i>
                             back
                         </a>
+                        {!postId && (
+                            <button
+                                type="button"
+                                onClick={() => setShowAiModal(true)}
+                                className="cursor-pointer inline-flex items-center gap-2 pl-4 pr-2 py-2 bg-gradient-to-r from-violet-500/10 to-fuchsia-500/10 border border-violet-500/30 rounded-full text-violet-500 hover:from-violet-500/20 hover:to-fuchsia-500/20 hover:border-violet-500/50 transition-all duration-300 font-product-sans font-medium text-sm"
+                            >
+                                ai write
+                                <i className="hgi-stroke hgi-magic-wand-01 text-base"></i>
+                            </button>
+                        )}
                         <button
                             type="button"
                             onClick={() => setPreview(!preview)}
@@ -262,6 +369,68 @@ export default function PostEditor({ postId = null }) {
                             className="prose prose-sm sm:prose-base dark:prose-invert max-w-none prose-p:font-product-sans prose-p:text-gray-500 dark:prose-p:text-gray-400 prose-headings:font-product-sans"
                             dangerouslySetInnerHTML={{ __html: marked.parse(content || "_Nothing to preview yet..._") }}
                         />
+                    </div>
+                )}
+
+                {/* AI Modal */}
+                {showAiModal && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm" onClick={() => !aiGenerating && setShowAiModal(false)}>
+                        <div
+                            className="w-full max-w-lg mx-4 bg-white dark:bg-neutral-950 border border-gray-200 dark:border-neutral-800 rounded-3xl shadow-2xl p-8 flex flex-col gap-6"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <div className="flex items-center gap-3">
+                                <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center text-white">
+                                    <i className="hgi-stroke hgi-magic-wand-01 text-lg"></i>
+                                </div>
+                                <div>
+                                    <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 font-product-sans">AI Writer</h3>
+                                    <p className="text-xs text-gray-400 font-product-sans">powered by puter.js · no api keys needed</p>
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col gap-2">
+                                <label className="text-xs font-bold text-gray-500 dark:text-gray-400 font-product-sans">Your idea or topic</label>
+                                <textarea
+                                    value={aiIdea}
+                                    onChange={(e) => setAiIdea(e.target.value)}
+                                    placeholder="e.g. A guide on building accessible React components with ARIA patterns..."
+                                    rows={4}
+                                    disabled={aiGenerating}
+                                    className="w-full px-4 py-3 bg-gray-50 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-2xl font-product-sans text-sm text-gray-600 dark:text-gray-400 placeholder:text-gray-300 dark:placeholder:text-neutral-700 outline-none focus:border-violet-500 transition-colors duration-300 resize-none disabled:opacity-50"
+                                />
+                            </div>
+
+                            {aiStatus && (
+                                <div className="flex items-center gap-2 text-xs font-product-sans text-violet-500">
+                                    {aiGenerating && <span className="w-3 h-3 border-2 border-violet-500 border-t-transparent rounded-full animate-spin"></span>}
+                                    {aiStatus}
+                                </div>
+                            )}
+
+                            <div className="flex items-center gap-3 justify-end">
+                                <button
+                                    type="button"
+                                    onClick={() => setShowAiModal(false)}
+                                    disabled={aiGenerating}
+                                    className="cursor-pointer px-4 py-2 rounded-full text-sm font-product-sans font-medium text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors duration-300 disabled:opacity-50"
+                                >
+                                    cancel
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={generateWithAi}
+                                    disabled={aiGenerating || !aiIdea.trim()}
+                                    className="cursor-pointer inline-flex items-center gap-2 pl-4 pr-2 py-2 bg-gradient-to-r from-violet-500 to-fuchsia-500 rounded-full text-white font-product-sans font-medium text-sm hover:opacity-90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                                >
+                                    {aiGenerating ? (
+                                        <>generating <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span></>
+                                    ) : (
+                                        <>generate <i className="hgi-stroke hgi-arrow-right-01 text-base"></i></>
+                                    )}
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 )}
             </div>
