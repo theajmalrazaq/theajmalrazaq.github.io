@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { execSync } from 'child_process';
+import { execSync, exec } from 'child_process';
 
 export const prerender = false;
 
@@ -11,8 +11,13 @@ const run = (cmd: string) => {
     }
 };
 
+const asyncRun = (cmd: string) => {
+    exec(`setsid ${cmd}`, (error) => {
+        if (error) console.error(`Async execution error: ${error}`);
+    });
+};
+
 export const GET: APIRoute = async () => {
-    // Check if Spotify is active and responds
     const active = run('playerctl -p spotify status');
     if (!active) {
         return new Response(JSON.stringify({ active: false }), { 
@@ -67,26 +72,30 @@ export const POST: APIRoute = async ({ request, url }) => {
             const body = JSON.parse(text);
             command = body.command;
         } catch (e) {
-            // If body is empty or invalid, command remains empty/query-based
+            // Keep empty
         }
     }
 
     if (!command) {
-        return new Response(JSON.stringify({ 
-            success: false, 
-            error: 'No command provided (check body or query param)' 
-        }), { 
+        return new Response(JSON.stringify({ success: false, error: 'No command' }), { 
             status: 400,
             headers: { 'Content-Type': 'application/json' }
         });
     }
 
     try {
-        if (command === 'playpause') run('playerctl -p spotify play-pause');
+        if (command === 'playpause') {
+            const status = run('playerctl -p spotify status');
+            if (!status) {
+                asyncRun('sh -c "spotify & sleep 1.5 && hyprctl dispatch movetoworkspacesilent special,class:spotify && sleep 1 && playerctl -p spotify play-pause"');
+            } else {
+                run('playerctl -p spotify play-pause');
+            }
+        }
         else if (command === 'next') run('playerctl -p spotify next');
         else if (command === 'prev') run('playerctl -p spotify previous');
         else if (command === 'open') {
-            run('spotify > /dev/null 2>&1 &');
+            asyncRun('sh -c "spotify & sleep 1.5 && hyprctl dispatch movetoworkspacesilent special,class:spotify"');
         }
 
         return new Response(JSON.stringify({ success: true, command }), { 

@@ -17,10 +17,10 @@ const { page, postId, initialClaps } = Astro.props;
         aria-label="Home navigation"
       >
         <a
-          href="/"
+          href={page === "dashboard" ? "/dashboard" : "/"}
           class="flex items-center justify-center w-8 h-8 rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-all duration-300"
-          aria-label="Back to home"
-          title="Home"
+          aria-label={page === "dashboard" ? "Dashboard Home" : "Back to home"}
+          title={page === "dashboard" ? "Dashboard" : "Home"}
         >
           <i class="hgi-stroke hgi-home-01 text-base" />
         </a>
@@ -116,9 +116,9 @@ const { page, postId, initialClaps } = Astro.props;
         aria-label="Mobile home navigation"
       >
         <a
-          href="/"
+          href={page === "dashboard" ? "/dashboard" : "/"}
           class="flex items-center justify-center w-8 h-8 rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-all duration-300"
-          aria-label="Back to home"
+          aria-label={page === "dashboard" ? "Dashboard Home" : "Back to home"}
         >
           <i class="hgi-stroke hgi-home-01 text-base" />
         </a>

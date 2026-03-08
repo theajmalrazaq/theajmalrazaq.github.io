@@ -4,7 +4,7 @@ const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
 
 if (!supabaseUrl || !supabaseAnonKey) {
-  console.warn("Supabase credentials missing. Blog posts might not load.");
+  // Silent fail or handled elsewhere
 }
 
 export const supabase = createClient(supabaseUrl || "", supabaseAnonKey || "");

@@ -4,15 +4,21 @@ import PersonalVault from "./PersonalVault";
 import SpotifyWidget from "./SpotifyWidget";
 import GithubFeed from "./GithubFeed";
 import AiChatbot from "./AiChatbot";
-import MovieBox from "./MovieBox";
+import FileExplorer from "./FileExplorer";
 import { FlickeringGrid } from "../ui/FlickeringGrid";
 
 export default function DashboardHome() {
     const [posts, setPosts] = useState([]);
     const [ready, setReady] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [activeTab, setActiveTab] = useState(null); // null | "blog" | "feed" | "chat" | "notes" | "todo" | "cinema"
+    const [loading, setLoading] = useState(true);
+    const [activeTab, setActiveTab ] = useState(null); // null | "blog" | "feed" | "chat" | "notes" | "todo"
     const [currentTime, setCurrentTime] = useState(new Date());
+
+    // Pull fresh data whenever the active tab changes
+    useEffect(() => {
+        if (!activeTab) return;
+        if (activeTab === "blog") fetchPosts();
+    }, [activeTab]);
 
     useEffect(() => {
         init();
@@ -38,7 +44,7 @@ export default function DashboardHome() {
             .order("date", { ascending: false });
 
         if (!error) setPosts(data || []);
-        setLoading(false);
+        setTimeout(() => setLoading(false), 1500);
     };
 
     const handleDelete = async (id, title) => {
@@ -83,10 +89,9 @@ export default function DashboardHome() {
                     activeTab ? "opacity-0 invisible h-0 -mb-8 scale-95 overflow-hidden" : "opacity-100 visible h-auto"
                 }`}>
                     <div className="flex flex-col items-center justify-center pt-12 sm:pt-16 -mb-4">
-                        <div className="relative group">
-                            <div className="absolute -inset-4 bg-accent/5 rounded-[40px] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                            <h2 className="relative text-6xl sm:text-7xl font-bold tracking-widest [font-family:'GeistPixelGrid'] text-gray-900 dark:text-white transition-all duration-500 hover:scale-105">
-                                {currentTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })}
+                        <div className="relative">
+                            <h2 className="relative text-6xl sm:text-7xl font-bold tracking-widest font-['Product Sans'] text-gray-900 dark:text-white transition-all duration-500">
+                                {currentTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }).replace(/\s?[AP]M/i, '')}
                             </h2>
                         </div>
                         <p className="text-xs sm:text-sm font-bold text-gray-400 dark:text-neutral-500 font-product-sans mt-2 text-center">
@@ -103,21 +108,21 @@ export default function DashboardHome() {
 
                 {/* Main Navigation */}
                 <div className={`flex flex-col items-center gap-6 transition-all duration-500 ${activeTab ? "mb-4 border-b border-gray-100 dark:border-neutral-900 pb-6" : ""}`}>
-                    <div className={`flex items-center justify-center gap-1 bg-gray-100/80 dark:bg-neutral-900/80 backdrop-blur-md border border-gray-200/50 dark:border-neutral-800/50 rounded-full p-1 mx-auto w-fit shadow-sm transition-all duration-500`}>
+                    <div className={`flex items-center justify-center gap-1 bg-gray-100/80 dark:bg-neutral-900/80 backdrop-blur-md border border-gray-200 dark:border-neutral-800 rounded-full p-1 mx-auto w-fit transition-all duration-500`}>
                         {[
-                            { id: "blog", icon: "hgi-note-01", label: "Blog" },
-                            { id: "feed", icon: "hgi-github", label: "Feed" },
-                            { id: "chat", icon: "hgi-ai-chat-02", label: "Octo AI" },
-                            { id: "notes", icon: "hgi-note", label: "Notes" },
-                            { id: "todo", icon: "hgi-task-01", label: "To-Do" },
-                            { id: "cinema", icon: "hgi-movie-01", label: "Cinema" }
+                            { id: "blog", icon: "hgi-note-01", label: "blog" },
+                            { id: "feed", icon: "hgi-github", label: "feed" },
+                            { id: "chat", icon: "hgi-ai-chat-02", label: "octo ai" },
+                            { id: "files", icon: "hgi-folder-02", label: "files" },
+                            { id: "notes", icon: "hgi-note", label: "notes" },
+                            { id: "todo", icon: "hgi-task-01", label: "to-do" }
                         ].map((tab) => (
                             <button
                                 key={tab.id}
                                 onClick={() => setActiveTab(activeTab === tab.id ? null : tab.id)}
-                                className={`flex items-center justify-center gap-2 px-6 py-2 rounded-full text-sm font-product-sans font-bold transition-all duration-300 ${
+                                className={`cursor-pointer flex items-center justify-center gap-2 px-6 py-2 rounded-full text-sm font-product-sans font-bold transition-all duration-300 ${
                                     activeTab === tab.id
-                                        ? "bg-white dark:bg-black text-gray-900 dark:text-gray-100 shadow-sm outline-none ring-0"
+                                        ? "bg-white dark:bg-neutral-800 text-gray-900 dark:text-gray-100 border border-gray-200 dark:border-neutral-700 outline-none ring-0"
                                         : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
                                 }`}
                             >
@@ -129,7 +134,7 @@ export default function DashboardHome() {
                         {activeTab && (
                             <button 
                                 onClick={() => setActiveTab(null)}
-                                className="flex items-center justify-center w-10 h-10 rounded-full text-gray-400 hover:text-red-500 transition-colors ml-1 border-l border-gray-200 dark:border-neutral-800"
+                                className="cursor-pointer flex items-center justify-center w-10 h-10 rounded-full text-gray-400 hover:text-red-500 transition-colors ml-1 border-l border-gray-200 dark:border-neutral-800"
                             >
                                 <i className="hgi-stroke hgi-cancel-01 text-lg"></i>
                             </button>
@@ -144,34 +149,43 @@ export default function DashboardHome() {
                 </div>
 
                 {/* Content Area */}
-                <div className="w-full h-full">
-                    {activeTab === "blog" && (
-                        <div className="flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
-                            <div className="flex items-center justify-between border-b border-gray-100 dark:border-neutral-900 pb-4">
-                                <h2 className="text-xl font-bold font-product-sans text-gray-900 dark:text-white">Content Manager</h2>
+                <div className="w-full h-full pb-20">
+                    <div className={activeTab === "blog" ? "block" : "hidden"}>
+                        <div className="flex flex-col gap-6 max-w-2xl mx-auto w-full animate-in fade-in slide-in-from-bottom-4 duration-700">
+                            <div className="flex items-center justify-between mb-2">
+                                <h3 className="text-sm font-bold text-gray-400 dark:text-neutral-600 font-product-sans">personal blog</h3>
                                 <a
                                     href="/dashboard/new"
-                                    className="cursor-pointer inline-flex items-center gap-2 pl-4 pr-2 py-2 bg-accent text-white rounded-full hover:scale-105 transition-all duration-300 font-product-sans font-bold text-xs"
+                                    className="cursor-pointer inline-flex items-center gap-2 px-4 py-1.5 text-xs font-product-sans font-bold text-gray-700 dark:text-gray-300 hover:text-accent hover:bg-accent/10 rounded-full transition-all duration-300 border border-gray-200 dark:border-neutral-800 hover:border-accent/30"
                                 >
-                                    New Post
                                     <i className="hgi-stroke hgi-plus text-sm"></i>
+                                    <span>new post</span>
                                 </a>
                             </div>
 
                             {loading ? (
-                                <div className="flex items-center justify-center py-20">
-                                    <div className="w-8 h-8 border-4 border-gray-200 dark:border-neutral-600 border-t-accent dark:border-t-white rounded-full animate-spin"></div>
+                                <div className="flex flex-col gap-2">
+                                    {[1, 2, 3].map((i) => (
+                                        <div key={i} className="flex items-center gap-4 p-4 bg-transparent border-b border-gray-100 dark:border-neutral-900">
+                                            <div className="w-10 h-10 rounded-full skeleton shrink-0"></div>
+                                            <div className="flex-1 space-y-2">
+                                                <div className="h-4 w-1/3 skeleton"></div>
+                                                <div className="h-3 w-1/4 skeleton opacity-50"></div>
+                                            </div>
+                                            <div className="h-4 w-12 skeleton"></div>
+                                        </div>
+                                    ))}
                                 </div>
                             ) : (
-                                <div className="flex flex-col gap-4">
-                                    {posts.map((post, index) => (
-                                        <div key={post.id} className="flex flex-row items-center gap-4 sm:gap-8 group w-full py-4 border-b border-gray-100 dark:border-neutral-900 last:border-0">
-                                            <div className="text-gray-300 dark:text-neutral-700 [font-family:'GeistPixelGrid'] text-lg font-bold min-w-[40px]">
-                                                {String(index + 1).padStart(2, "0")}.
+                                <div className="flex flex-col gap-2">
+                                    {posts.map((post) => (
+                                        <div key={post.id} className="group flex items-center gap-4 p-4 bg-transparent border-b border-gray-100 dark:border-neutral-900 transition-all duration-300">
+                                            <div className="w-10 h-10 rounded-full bg-gray-50 dark:bg-neutral-900/50 flex items-center justify-center text-gray-400 shrink-0">
+                                                <i className="hgi-stroke hgi-note-01 text-lg"></i>
                                             </div>
-                                            <div className="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-left overflow-hidden">
-                                                <div className="flex items-center gap-3 overflow-hidden">
-                                                    <h3 className="text-sm sm:text-base font-product-sans font-bold text-gray-900 dark:text-gray-100 truncate group-hover:opacity-75 transition-opacity duration-300">
+                                            <div className="flex-1 min-w-0">
+                                                <div className="flex items-center gap-2">
+                                                    <h3 className="font-bold text-gray-900 dark:text-gray-100 font-product-sans truncate text-sm">
                                                         {post.title}
                                                     </h3>
                                                     <span className={`flex-shrink-0 px-2 py-0.5 rounded-full text-[9px] font-product-sans font-bold ${
@@ -182,26 +196,50 @@ export default function DashboardHome() {
                                                         {post.is_published ? "live" : "draft"}
                                                     </span>
                                                 </div>
-                                                <p className="text-sm text-gray-500 dark:text-gray-400 font-product-sans whitespace-nowrap flex-shrink-0">
-                                                    {new Date(post.date).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+                                                <p className="text-xs text-gray-500 dark:text-neutral-500 font-product-sans truncate">
+                                                    {post.slug}
                                                 </p>
                                             </div>
-                                            <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex-shrink-0">
-                                                <a href={`/dashboard/edit?id=${post.id}`} className="p-2 text-gray-400 hover:text-accent transition-colors"><i className="hgi-stroke hgi-pencil-edit-01"></i></a>
-                                                <button onClick={() => handleDelete(post.id, post.title)} className="p-2 text-gray-400 hover:text-red-500 transition-colors"><i className="hgi-stroke hgi-delete-02"></i></button>
+                                            <div className="flex items-center gap-4">
+                                                <span className="text-[10px] font-bold text-gray-300 dark:text-neutral-700 font-product-sans uppercase">
+                                                    {new Date(post.date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+                                                </span>
+                                                <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                                    <a href={`/dashboard/edit?id=${post.id}`} className="p-2 text-gray-400 hover:text-accent transition-colors"><i className="hgi-stroke hgi-pencil-edit-01"></i></a>
+                                                    <button onClick={() => handleDelete(post.id, post.title)} className="p-2 text-gray-400 hover:text-red-500 transition-colors"><i className="hgi-stroke hgi-delete-02"></i></button>
+                                                </div>
                                             </div>
                                         </div>
                                     ))}
-                                    {posts.length === 0 && <div className="text-center py-20 text-gray-400">No posts found.</div>}
+                                    {posts.length === 0 && (
+                                        <div className="text-center py-20 border-2 border-dashed border-gray-100 dark:border-neutral-900 rounded-[32px]">
+                                            <p className="text-sm text-gray-400 font-product-sans">no posts found.</p>
+                                        </div>
+                                    )}
                                 </div>
                             )}
                         </div>
-                    )}
-                    {activeTab === "feed" && <GithubFeed />}
-                    {activeTab === "notes" && <PersonalVault initialSection="notes" hideNav={true} />}
-                    {activeTab === "todo" && <PersonalVault initialSection="todos" hideNav={true} />}
-                    {activeTab === "cinema" && <MovieBox />}
-                    {activeTab === "chat" && <AiChatbot />}
+                    </div>
+                    
+                    <div className={activeTab === "feed" ? "block" : "hidden"}>
+                        <GithubFeed />
+                    </div>
+
+                    <div className={activeTab === "notes" ? "block" : "hidden"}>
+                        <PersonalVault initialSection="notes" hideNav={true} isActive={activeTab === "notes"} />
+                    </div>
+
+                    <div className={activeTab === "todo" ? "block" : "hidden"}>
+                        <PersonalVault initialSection="todos" hideNav={true} isActive={activeTab === "todo"} />
+                    </div>
+
+                    <div className={activeTab === "chat" ? "block text-left" : "hidden"}>
+                        <AiChatbot isActive={activeTab === "chat"} />
+                    </div>
+
+                    <div className={activeTab === "files" ? "block text-left" : "hidden"}>
+                        <FileExplorer isActive={activeTab === "files"} />
+                    </div>
                 </div>
             </div>
         </section>

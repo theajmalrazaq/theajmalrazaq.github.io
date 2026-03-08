@@ -16,6 +16,7 @@ export default function SpotifyWidget() {
                 setProgress({ position: data.position, duration: data.duration });
             } else {
                 setTrack(null);
+                setIsPlaying(false);
             }
         } catch (e) {
             console.error("Spotify API error", e);
@@ -54,10 +55,14 @@ export default function SpotifyWidget() {
 
     return (
         <div className="w-full flex justify-center  group">
-            <div className="relative flex flex-col bg-gray-50/50 dark:bg-neutral-900/20 backdrop-blur-sm border border-gray-100 dark:border-neutral-800/50 rounded-3xl transition-all duration-500 hover:border-accent/10 overflow-hidden">
+            <div className="relative flex flex-col bg-gray-50/50 dark:bg-neutral-900/20 border border-gray-100 dark:border-neutral-800/50 rounded-3xl transition-all duration-500 hover:border-accent/10 overflow-hidden">
                 <div className="flex items-center gap-6 p-4">
                     {/* Artwork (Left) */}
-                    <div className="relative w-12 h-12 rounded-2xl overflow-hidden bg-emerald-500/5 flex items-center justify-center shrink-0 shadow-sm transition-transform duration-500 group-hover:scale-105">
+                    <div 
+                        onClick={() => sendCommand("open")}
+                        className="relative w-12 h-12 rounded-2xl overflow-hidden bg-emerald-500/5 flex items-center justify-center shrink-0 border border-gray-100 dark:border-neutral-800 transition-all duration-500 group-hover:scale-105 cursor-pointer hover:opacity-80 active:scale-95"
+                        title="Open Spotify"
+                    >
                         {track?.artUrl ? (
                             <img src={track.artUrl} alt="Art" className="w-full h-full object-cover" />
                         ) : (
@@ -67,26 +72,20 @@ export default function SpotifyWidget() {
 
                     {/* Track Info (Middle) */}
                     <div className="flex flex-col gap-1.5 min-w-[140px] max-w-[200px]">
-                        {track ? (
-                            <>
-                                <h4 className="text-[12px] font-bold text-gray-900 dark:text-gray-100 truncate font-product-sans">
-                                    {track.title}
-                                </h4>
-                                <p className="text-[10px] text-gray-400 dark:text-neutral-500 truncate font-product-sans uppercase mb-1">
-                                    {track.artist}
-                                </p>
-                                
-                                {/* Tiny Progress Bar */}
-                                <div className="h-0.5 w-full bg-gray-100 dark:bg-neutral-800/50 rounded-full overflow-hidden">
-                                    <div 
-                                        className="h-full bg-accent dark:bg-white rounded-full transition-all duration-1000 ease-linear shadow-[0_0_8px_rgba(255,255,255,0.3)]"
-                                        style={{ width: `${progressPercent}%` }}
-                                    ></div>
-                                </div>
-                            </>
-                        ) : (
-                            <p className="text-[10px] font-bold text-gray-400 font-product-sans italic uppercase">Offline</p>
-                        )}
+                        <h4 className="text-[12px] font-bold text-gray-900 dark:text-gray-100 truncate font-product-sans">
+                            {track?.title || "Spotify Player"}
+                        </h4>
+                        <p className="text-[10px] text-gray-400 dark:text-neutral-500 truncate font-product-sans uppercase mb-1">
+                            {track?.artist || "Standby Mode"}
+                        </p>
+                        
+                        {/* Tiny Progress Bar */}
+                        <div className="h-0.5 w-full bg-gray-100 dark:bg-neutral-800/50 rounded-full overflow-hidden">
+                            <div 
+                                className="h-full bg-accent dark:bg-white rounded-full transition-all duration-1000 ease-linear"
+                                style={{ width: `${progressPercent}%` }}
+                            ></div>
+                        </div>
                     </div>
 
                     {/* Controls (Right) */}
@@ -100,7 +99,7 @@ export default function SpotifyWidget() {
                         </button>
                         <button 
                             onClick={() => sendCommand("playpause")}
-                            className="w-9 h-9 rounded-full bg-gray-900 dark:bg-white text-white dark:text-black flex items-center justify-center hover:scale-110 transition-transform shadow-lg shadow-black/10"
+                            className="w-9 h-9 rounded-full bg-gray-900 dark:bg-white text-white dark:text-black flex items-center justify-center hover:scale-110 transition-transform"
                             title={isPlaying ? "Pause" : "Play"}
                         >
                             <i className={`hgi-stroke ${isPlaying ? "hgi-pause" : "hgi-play"} text-base`}></i>

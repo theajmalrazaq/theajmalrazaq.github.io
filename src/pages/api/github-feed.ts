@@ -4,7 +4,12 @@ export const prerender = false;
 
 export const GET: APIRoute = async () => {
     try {
-        const response = await fetch('https://github.com/theajmalrazaq.private.atom?token=A6QPLBIIL64DWKU5ZQIFCCWHXHEZC');
+        const token = import.meta.env.PUBLIC_GITHUB_FEED_TOKEN;
+        if (!token) {
+            return new Response(JSON.stringify({ error: 'GitHub token missing' }), { status: 500 });
+        }
+
+        const response = await fetch(`https://github.com/theajmalrazaq.private.atom?token=${token}`);
         if (!response.ok) throw new Error('Github feed fetch failed');
         
         const xml = await response.text();
