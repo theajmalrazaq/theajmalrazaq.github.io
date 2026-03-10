@@ -7,7 +7,7 @@ import path from 'path';
 const execAsync = promisify(exec);
 const BASE_BIN_PATH = '/home/theajmalrazaq/.local/share/omarchy/bin';
 
-export const prerender = false;
+
 
 export const GET: APIRoute = async ({ url }) => {
     const action = url.searchParams.get('action') || 'scripts';

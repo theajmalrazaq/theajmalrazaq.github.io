@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import { execSync, exec } from 'child_process';
 
-export const prerender = false;
+
 
 const run = (cmd: string) => {
     try {
