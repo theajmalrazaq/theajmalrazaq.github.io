@@ -71,7 +71,10 @@ export default function SpotifyWidget() {
                     </div>
 
                     {/* Track Info (Middle) */}
-                    <div className="flex flex-col gap-1.5 min-w-[140px] max-w-[200px]">
+                    <div 
+                        onClick={() => sendCommand("open")}
+                        className="flex flex-col gap-1.5 min-w-[140px] max-w-[200px] cursor-pointer hover:opacity-80 transition-opacity"
+                    >
                         <h4 className="text-[12px] font-bold text-gray-900 dark:text-gray-100 truncate font-product-sans">
                             {track?.title || "Spotify Player"}
                         </h4>
@@ -92,21 +95,21 @@ export default function SpotifyWidget() {
                     <div className="flex items-center gap-2 border-l border-gray-100 dark:border-neutral-800/50 pl-6">
                         <button 
                             onClick={() => sendCommand("prev")}
-                            className="p-1.5 text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all transform hover:scale-110"
+                            className="p-1.5 text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all transform hover:scale-110 cursor-pointer"
                             title="Previous"
                         >
                             <i className="hgi-stroke hgi-arrow-left-01 text-base"></i>
                         </button>
                         <button 
                             onClick={() => sendCommand("playpause")}
-                            className="w-9 h-9 rounded-full bg-gray-900 dark:bg-white text-white dark:text-black flex items-center justify-center hover:scale-110 transition-transform"
+                            className="w-9 h-9 rounded-full bg-gray-900 dark:bg-white text-white dark:text-black flex items-center justify-center hover:scale-110 transition-transform cursor-pointer"
                             title={isPlaying ? "Pause" : "Play"}
                         >
                             <i className={`hgi-stroke ${isPlaying ? "hgi-pause" : "hgi-play"} text-base`}></i>
                         </button>
                         <button 
                             onClick={() => sendCommand("next")}
-                            className="p-1.5 text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all transform hover:scale-110"
+                            className="p-1.5 text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all transform hover:scale-110 cursor-pointer"
                             title="Next"
                         >
                             <i className="hgi-stroke hgi-arrow-right-01 text-base"></i>

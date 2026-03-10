@@ -1,5 +1,6 @@
 import { useState, useEffect, memo, useCallback } from "react";
 import { supabase } from "../../lib/supabase";
+import DashboardModal from "./DashboardModal";
 
 export default function PersonalVault({ initialSection = "notes", hideNav = false, isActive = true }) {
     const [activeSection, setActiveSection] = useState(initialSection); // "notes" | "todos"
@@ -21,6 +22,7 @@ export default function PersonalVault({ initialSection = "notes", hideNav = fals
     const [saving, setSaving] = useState(false);
     const [subtaskModal, setSubtaskModal] = useState(null); // { rootTodo, parentId }
     const [subtaskInput, setSubtaskInput] = useState("");
+    const [confirmModal, setConfirmModal] = useState(null); // { title, message, onConfirm, type, confirmText }
 
     useEffect(() => {
         if (initialSection) setActiveSection(initialSection);
@@ -29,7 +31,7 @@ export default function PersonalVault({ initialSection = "notes", hideNav = fals
     }, [initialSection]);
 
     const loadPuter = () => {
-        if (window.puter) { setPuterReady(true); return; }
+        if (window.puter || customElements.get("puter-dialog")) { setPuterReady(true); return; }
         const s = document.createElement("script");
         s.src = "https://js.puter.com/v2/";
         s.onload = () => setPuterReady(true);
@@ -200,21 +202,28 @@ export default function PersonalVault({ initialSection = "notes", hideNav = fals
     }, [todos]);
 
     const deleteTodo = useCallback(async (rootTodo, itemId, isRoot) => {
-        if (!window.confirm("Delete this task?")) return;
-
-        if (isRoot) {
-            const { error } = await supabase.from("todos").delete().eq("id", rootTodo.id);
-            if (!error) setTodos(prev => prev.filter(t => t.id !== rootTodo.id));
-        } else {
-            const updatedItems = removeNestedItem(rootTodo.items, itemId);
-            const { data, error } = await supabase
-                .from("todos")
-                .update({ items: updatedItems })
-                .eq("id", rootTodo.id)
-                .select()
-                .single();
-            if (!error) setTodos(prev => prev.map(t => t.id === rootTodo.id ? data : t));
-        }
+        setConfirmModal({
+            title: isRoot ? "delete task?" : "delete subtask?",
+            message: "are you sure you want to remove this item? this action cannot be undone.",
+            confirmText: "delete",
+            type: "danger",
+            onConfirm: async () => {
+                if (isRoot) {
+                    const { error } = await supabase.from("todos").delete().eq("id", rootTodo.id);
+                    if (!error) setTodos(prev => prev.filter(t => t.id !== rootTodo.id));
+                } else {
+                    const updatedItems = removeNestedItem(rootTodo.items, itemId);
+                    const { data, error } = await supabase
+                        .from("todos")
+                        .update({ items: updatedItems })
+                        .eq("id", rootTodo.id)
+                        .select()
+                        .single();
+                    if (!error) setTodos(prev => prev.map(t => t.id === rootTodo.id ? data : t));
+                }
+                setConfirmModal(null);
+            }
+        });
     }, [todos]);
 
     // --- Notes Logic (Direct Supabase) ---
@@ -267,15 +276,23 @@ export default function PersonalVault({ initialSection = "notes", hideNav = fals
     };
 
     const deleteNote = async (id) => {
-        if (!window.confirm("Delete this note?")) return;
-        const { error } = await supabase
-            .from("notes")
-            .delete()
-            .eq("id", id);
-        
-        if (!error) {
-            setNotes(notes.filter(n => n.id !== id));
-        }
+        setConfirmModal({
+            title: "delete note?",
+            message: "are you sure you want to delete this note? this action cannot be undone.",
+            confirmText: "delete",
+            type: "danger",
+            onConfirm: async () => {
+                const { error } = await supabase
+                    .from("notes")
+                    .delete()
+                    .eq("id", id);
+                
+                if (!error) {
+                    setNotes(notes.filter(n => n.id !== id));
+                }
+                setConfirmModal(null);
+            }
+        });
     };
 
     // --- AI Logic (Puter.js) ---
@@ -659,98 +676,121 @@ export default function PersonalVault({ initialSection = "notes", hideNav = fals
 
             {/* AI Preview Modal */}
             {/* AI Preview Modal */}
-            {aiPreview && (
-                <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center bg-black/80 backdrop-blur-md p-0 sm:p-4 animate-in fade-in duration-300">
-                    <div className="w-full max-w-lg bg-white dark:bg-black border-t sm:border border-gray-100 dark:border-neutral-900 rounded-t-[32px] sm:rounded-[40px] p-8 flex flex-col gap-6 animate-in slide-in-from-bottom-10 duration-500 shadow-2xl">
-                        <div className="flex items-center justify-between px-2">
-                            <div>
-                                <h3 className="text-sm font-bold text-gray-900 dark:text-gray-100 font-product-sans">ai planner</h3>
-                                <p className="text-[10px] font-bold text-gray-400 dark:text-neutral-500 font-product-sans uppercase tracking-widest mt-0.5">Live Preview</p>
-                            </div>
-                            <button 
-                                onClick={() => setAiPreview(null)}
-                                className="w-8 h-8 rounded-full flex items-center justify-center bg-gray-50/50 dark:bg-neutral-900/40 text-gray-400 hover:text-accent transition-all border border-transparent hover:border-gray-200 dark:hover:border-neutral-800 cursor-pointer"
-                            >
-                                <i className="hgi-stroke hgi-cancel-01 text-base"></i>
-                            </button>
-                        </div>
-
-                        <div className="flex-1 overflow-y-auto max-h-[45vh] pr-2 custom-scrollbar">
-                            <div className="flex flex-col border-t border-gray-50 dark:border-neutral-950">
-                                {aiPreview.data.map((item, idx) => (
-                                    <div key={idx} className="flex flex-col">
-                                        <div className="flex items-center py-6 border-b border-gray-50 dark:border-neutral-950">
-                                            <span className="text-sm font-bold text-gray-900 dark:text-gray-100 font-product-sans">{item.text}</span>
-                                        </div>
-                                        {item.subtasks?.map((sub, sIdx) => (
-                                            <div key={sIdx} className="flex items-center py-5 pl-8 border-b border-gray-50 dark:border-neutral-950/50 last:border-0">
-                                                <span className="text-sm text-gray-500 dark:text-neutral-600 font-product-sans leading-none">{sub}</span>
-                                            </div>
-                                        ))}
+            {/* AI Preview Modal */}
+            <DashboardModal
+                isOpen={!!aiPreview}
+                onClose={() => setAiPreview(null)}
+                title="ai planner"
+                subtitle="live preview"
+                maxWidth="max-w-lg"
+            >
+                <div className="flex-1 overflow-y-auto max-h-[45vh] pr-2 custom-scrollbar">
+                    <div className="flex flex-col border-t border-gray-50 dark:border-neutral-950">
+                        {aiPreview?.data?.map((item, idx) => (
+                            <div key={idx} className="flex flex-col">
+                                <div className="flex items-center py-6 border-b border-gray-50 dark:border-neutral-950">
+                                    <span className="text-sm font-bold text-gray-900 dark:text-gray-100 font-product-sans">{item.text}</span>
+                                </div>
+                                {item.subtasks?.map((sub, sIdx) => (
+                                    <div key={sIdx} className="flex items-center py-5 pl-8 border-b border-gray-50 dark:border-neutral-950/50 last:border-0">
+                                        <span className="text-sm text-gray-500 dark:text-neutral-600 font-product-sans leading-none">{sub}</span>
                                     </div>
                                 ))}
                             </div>
-                        </div>
-
-                        <div className="flex items-center justify-end gap-3 pt-4 border-t border-gray-50 dark:border-neutral-950">
-                            <button 
-                                onClick={() => setAiPreview(null)}
-                                className="px-5 py-2 text-[10px] font-product-sans font-bold text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 transition-all uppercase tracking-widest cursor-pointer"
-                            >
-                                discard
-                            </button>
-                            <button 
-                                onClick={addAiTasks}
-                                className="cursor-pointer inline-flex items-center gap-2 px-5 py-2.5 text-[10px] font-product-sans font-bold text-gray-700 dark:text-gray-300 hover:text-accent hover:bg-accent/10 rounded-full transition-all duration-300 border border-gray-200 dark:border-neutral-800 hover:border-accent/30 uppercase tracking-[0.1em]"
-                            >
-                                <i className="hgi-stroke hgi-tick-01 text-sm text-accent"></i>
-                                <span>deploy plan</span>
-                            </button>
-                        </div>
+                        ))}
                     </div>
                 </div>
-            )}
+
+                <div className="flex items-center justify-end gap-3 pt-4 border-t border-gray-50 dark:border-neutral-950">
+                    <button 
+                        onClick={() => setAiPreview(null)}
+                        className="px-5 py-2 text-[10px] font-product-sans font-bold text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 transition-all cursor-pointer"
+                    >
+                        discard
+                    </button>
+                    <button 
+                        onClick={addAiTasks}
+                        className="cursor-pointer inline-flex items-center gap-2 px-5 py-2.5 text-[10px] font-product-sans font-bold text-gray-700 dark:text-gray-300 hover:text-accent hover:bg-accent/10 rounded-full transition-all duration-300 border border-gray-200 dark:border-neutral-800 hover:border-accent/30"
+                    >
+                        <i className="hgi-stroke hgi-tick-01 text-sm text-accent"></i>
+                        <span>deploy plan</span>
+                    </button>
+                </div>
+            </DashboardModal>
 
             {/* Add Subtask Modal */}
-            {subtaskModal && (
-                <div className="fixed inset-0 z-[110] flex items-end sm:items-center justify-center bg-black/80 backdrop-blur-md p-0 sm:p-4 animate-in fade-in duration-300">
-                    <div className="w-full max-w-md bg-white dark:bg-black border-t sm:border border-gray-100 dark:border-neutral-900 rounded-t-[32px] sm:rounded-[32px] p-8 flex flex-col gap-6 animate-in slide-in-from-bottom-10 duration-500 shadow-2xl">
-                        <div>
-                            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 font-product-sans">Add Subtask</h3>
-                            <p className="text-[10px] font-bold text-gray-400 dark:text-neutral-500 font-product-sans uppercase tracking-[0.2em] mt-1">New item for your task</p>
-                        </div>
-                        
-                        <div className="relative">
-                            <input 
-                                autoFocus
-                                type="text"
-                                value={subtaskInput}
-                                onChange={(e) => setSubtaskInput(e.target.value)}
-                                onKeyDown={(e) => e.key === 'Enter' && confirmAddSubtask()}
-                                placeholder="What needs to be done?"
-                                className="w-full bg-gray-50 dark:bg-neutral-950 border border-gray-100 dark:border-neutral-900 rounded-2xl px-5 py-4 text-sm font-product-sans text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-neutral-700 focus:outline-none focus:border-accent/30 transition-all"
-                            />
-                        </div>
+            <DashboardModal
+                isOpen={!!subtaskModal}
+                onClose={() => setSubtaskModal(null)}
+                title="add subtask"
+                subtitle="new item for your task"
+                maxWidth="max-w-sm"
+            >
+                <div className="flex flex-col gap-5">
+                    <div className="relative">
+                        <input 
+                            autoFocus
+                            type="text"
+                            value={subtaskInput}
+                            onChange={(e) => setSubtaskInput(e.target.value)}
+                            onKeyDown={(e) => e.key === 'Enter' && confirmAddSubtask()}
+                            placeholder="What needs to be done?"
+                            className="w-full bg-gray-50/50 dark:bg-neutral-900/30 border border-gray-100 dark:border-neutral-800/50 rounded-2xl px-5 py-4 text-sm font-product-sans text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-neutral-700 focus:outline-none focus:border-accent/30 transition-all"
+                        />
+                    </div>
 
-                        <div className="flex items-center justify-end gap-3 pt-2">
-                            <button 
-                                onClick={() => setSubtaskModal(null)}
-                                className="px-5 py-2 text-[10px] font-product-sans font-bold text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 transition-all uppercase tracking-widest cursor-pointer"
-                            >
-                                cancel
-                            </button>
-                            <button 
-                                onClick={confirmAddSubtask}
-                                disabled={!subtaskInput.trim()}
-                                className="cursor-pointer inline-flex items-center gap-2 px-6 py-2.5 text-[10px] font-product-sans font-bold text-gray-700 dark:text-gray-300 hover:text-accent hover:bg-accent/10 rounded-full transition-all duration-300 border border-gray-200 dark:border-neutral-800 hover:border-accent/30 uppercase tracking-[0.1em] disabled:opacity-50 disabled:cursor-not-allowed"
-                            >
-                                <i className="hgi-stroke hgi-plus text-sm text-accent"></i>
-                                <span>add item</span>
-                            </button>
-                        </div>
+                    <div className="flex items-center justify-end gap-2">
+                        <button 
+                            onClick={() => setSubtaskModal(null)}
+                            className="px-4 py-2 text-[10px] font-product-sans font-bold text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-all cursor-pointer uppercase tracking-wider"
+                        >
+                            cancel
+                        </button>
+                        <button 
+                            onClick={confirmAddSubtask}
+                            disabled={!subtaskInput.trim()}
+                            className="cursor-pointer inline-flex items-center gap-2 px-6 py-2.5 text-[10px] font-product-sans font-bold text-gray-700 dark:text-gray-300 hover:text-accent hover:bg-accent/10 rounded-full transition-all duration-300 border border-gray-200 dark:border-neutral-800 hover:border-accent/30 disabled:opacity-30 disabled:cursor-not-allowed uppercase tracking-wider"
+                        >
+                            <i className="hgi-stroke hgi-plus text-xs text-accent"></i>
+                            <span>add item</span>
+                        </button>
                     </div>
                 </div>
-            )}
+            </DashboardModal>
+
+            {/* Global Confirmation Modal */}
+            <DashboardModal
+                isOpen={!!confirmModal}
+                onClose={() => setConfirmModal(null)}
+                title={confirmModal?.title || "Confirm action"}
+                subtitle="please confirm to proceed"
+                maxWidth="max-w-sm"
+            >
+                <div className="flex flex-col gap-6">
+                    <p className="text-sm text-gray-500 dark:text-neutral-500 font-product-sans leading-relaxed">
+                        {confirmModal?.message}
+                    </p>
+
+                    <div className="flex items-center justify-end gap-2">
+                        <button 
+                            onClick={() => setConfirmModal(null)}
+                            className="px-4 py-2 text-[10px] font-product-sans font-bold text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-all cursor-pointer uppercase tracking-wider"
+                        >
+                            cancel
+                        </button>
+                        <button 
+                            onClick={() => confirmModal?.onConfirm()}
+                            className={`cursor-pointer inline-flex items-center gap-2 px-6 py-2.5 text-[10px] font-product-sans font-bold rounded-full transition-all duration-300 border uppercase tracking-wider ${
+                                confirmModal?.type === 'danger'
+                                    ? "text-red-500 hover:bg-red-500/10 border-red-500/20 hover:border-red-500/40"
+                                    : "text-accent hover:bg-accent/10 border-accent/20 hover:border-accent/40"
+                            }`}
+                        >
+                            <span>{confirmModal?.confirmText || "confirm"}</span>
+                        </button>
+                    </div>
+                </div>
+            </DashboardModal>
         </>
     );
 }

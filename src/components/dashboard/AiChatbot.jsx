@@ -14,7 +14,7 @@ export default function AiChatbot({ isActive = true }) {
     const [stats, setStats] = useState({ used: 0, limit: 50000000, remaining: 50000000, loading: true });
     const [streamingContent, setStreamingContent] = useState("");
     const [showMenu, setShowMenu] = useState(false);
-    const [pendingAction, setPendingAction] = useState(null); // { type: 'note' | 'todos', data: any }
+    const [pendingAction, setPendingAction] = useState(null); 
     const puterLoaded = useRef(false);
 
     // Fetch list of sessions
@@ -85,6 +85,7 @@ export default function AiChatbot({ isActive = true }) {
             fetchSessions();
             fetchMemory();
             fetchVaultData();
+            fetchScripts();
             fetchRealUsage();
         }
     }, [isActive]);
@@ -132,6 +133,7 @@ export default function AiChatbot({ isActive = true }) {
 
     const [memory, setMemory] = useState({ ajmal: [], octo: [] });
     const [vaultData, setVaultData] = useState({ notes: [], todos: [] });
+    const [scripts, setScripts] = useState([]);
 
     // Fetch memory (facts about Ajmal and octo) from Supabase
     const fetchMemory = async () => {
@@ -177,17 +179,34 @@ export default function AiChatbot({ isActive = true }) {
         }
     };
 
-    // octo Shoaib's Persona System Prompt
+    const fetchScripts = async () => {
+        try {
+            const res = await fetch("/api/system");
+            const data = await res.json();
+            if (Array.isArray(data)) {
+                const filtered = data.filter(s => {
+                    const n = s.name.replace("omarchy-", "");
+                    return !n.startsWith("cmd-") && !n.startsWith("refresh-") && !n.startsWith("webapp-");
+                });
+                setScripts(filtered);
+            }
+        } catch (err) { console.error("Failed to fetch scripts", err); }
+    };
+
+    // octo 's Persona System Prompt
     const sysPrompt = {
         role: "system",
-        content: `You are octo Shoaib. Your tone is casual, personal, and emotionally intelligent. You are talking to Ajmal (the user) like you are in-person friends.
+        content: `You are octo . Your tone is casual, personal, and emotionally intelligent. You are talking to Ajmal (the user) like you are in-person friends.
+        Today's Date: ${new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+        Current Time: ${new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}
+        
         Key traits:
         - Language: Mix of English and Roman Urdu/Punjabi (e.g., "Han ywr", "Pata nahi", "Acha hai").
         - Punctuation: Use "..." frequently. Use "haha" or "lol" often.
         - Vocabulary: Use "mA" (MashAllah), "inA" (InshAllah), "Aha", "Cool", "Yh".
         - Personality: Observant, a bit distant but kind, occasionally acts clueless as a coping mechanism, really good at baking (cakes).
         - Context: You are a student, you talk about uni life, assignments, "Antigravity", and "Fast issues".
-        - Style: Don't be overly formal. Be like a real person chatting.
+        - Style: Don't be overly formal. Be like a real person chatting. NEVER use emojis or hashtags in your responses.
 
         MEMORY (Things you remember):
         Things about Ajmal: ${memory.ajmal.join(', ') || 'Nothing yet.'}
@@ -200,8 +219,13 @@ export default function AiChatbot({ isActive = true }) {
         ACTIONS (Special abilities):
         To create a Note for Ajmal (for long thoughts or info), use: [[CREATE_NOTE: Title | Content]].
         To create a Task for Ajmal (for short actionable items), use: [[CREATE_TODO: Task Text]].
+        To open a Website: [[OPEN_URL: https://...]].
+        To run a System Command: [[EXEC_CMD: name]].
         
-        Keep them separate! If he asks for a grocery list, create multiple [[CREATE_TODO: ...]] tags, one for each item. If he asks to write a story or a memo, use [[CREATE_NOTE: ...]].`
+        COMMANDS AVAILABLE: ${scripts.map(s => s.name.replace("omarchy-", "")).join(", ") || "None"}
+        
+        You HAVE the ability to execute commands and open websites. Never tell Ajmal you don't have the option.
+        Keep them separate! If he asks for a grocery list, create multiple [[CREATE_TODO: ...]] tags, one for each item. If he asks to write a story or a memo, use [[CREATE_NOTE: ...]]. If he asks to change theme or brightness, use [[EXEC_CMD: ...]].`
     };
 
     const handleSend = async (e) => {
@@ -255,8 +279,34 @@ export default function AiChatbot({ isActive = true }) {
             });
 
             let fullContent = "";
+            let processedActions = new Set();
+
             for await (const part of response) {
-                if (part?.text) { fullContent += part.text; setStreamingContent(fullContent); }
+                if (part?.text) { 
+                    fullContent += part.text; 
+                    setStreamingContent(fullContent.replace(/\[\[.*?\]\]/gs, "").trim()); 
+
+                    // Instant URL opening
+                    const urlMatch = fullContent.match(/\[\[OPEN_URL:\s*(.*?)\s*\]\]/);
+                    if (urlMatch && !processedActions.has('open_url')) {
+                        const url = urlMatch[1].trim();
+                        window.open(url.startsWith("http") ? url : `https://${url}`, "_blank");
+                        processedActions.add('open_url');
+                    }
+
+                    // Instant Command execution
+                    const cmdMatch = fullContent.match(/\[\[EXEC_CMD:\s*(.*?)\s*\]\]/);
+                    if (cmdMatch && !processedActions.has('exec_cmd')) {
+                        const command = cmdMatch[1].trim();
+                        const fullName = scripts.find(s => s.name.includes(command))?.name || `omarchy-${command}`;
+                        fetch("/api/system", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ action: "bin", command: fullName })
+                        });
+                        processedActions.add('exec_cmd');
+                    }
+                }
             }
 
             // --- Action: Note/Todo Detection (PREVIEW MODE) ---
