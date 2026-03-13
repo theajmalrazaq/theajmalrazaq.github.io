@@ -18,5 +18,8 @@
     "react-dom": "^19.2.4",
     "react-router-dom": "^7.13.1",
     "tailwindcss": "^4.2.1"
+  },
+  "devDependencies": {
+    "vite-plugin-web-extension": "^4.5.0"
   }
 }
