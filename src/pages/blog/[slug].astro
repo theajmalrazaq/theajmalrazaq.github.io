@@ -4,9 +4,9 @@ import dev from "../../assets/dev.webp";
 import PageLayout from "../../layouts/PageLayout.astro";
 import { supabase } from "../../lib/supabase";
 import { marked } from "marked";
-import ClapButton from "../../components/blog/ClapButton.jsx";
 
-// Generate static paths from database
+// Fetch full post content
+export const prerender = true;
 export async function getStaticPaths() {
   const { data: posts } = await supabase
     .from("posts")

@@ -9,10 +9,6 @@ export default defineConfig({
   site: "https://theajmalrazaq.tech/",
   vite: {
     plugins: [tailwindcss()],
-    server: {
-      allowedHosts: ["wide-bars-spend.loca.lt"],
-    },
   },
-
   integrations: [ react(), sitemap()],
 });
