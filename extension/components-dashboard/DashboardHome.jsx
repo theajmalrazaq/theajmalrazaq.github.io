@@ -7,7 +7,6 @@ import AiChatbot from "./AiChatbot";
 import FileExplorer from "./FileExplorer";
 import SystemApps from "./SystemApps";
 import Terminal from "./Terminal";
-import ClipboardManager from "./ClipboardManager";
 import AiVoiceAssistant from "./AiVoiceAssistant";
 import DashboardDock from "./DashboardDock";
 import { FlickeringGrid } from "../ui/FlickeringGrid";
@@ -133,7 +132,6 @@ export default function DashboardHome() {
                             { id: "chat", icon: "hgi-ai-chat-02", label: "ai" },
                             { id: "voice", icon: "hgi-mic-01", label: "voice" },
                             { id: "files", icon: "hgi-folder-02", label: "files" },
-                            { id: "clip", icon: "hgi-copy-01", label: "clip" },
                             { id: "terminal", icon: "hgi-computer-terminal-01", label: "term" },
                             { id: "system", icon: "hgi-dashboard-square-01", label: "sys" },
                             { id: "notes", icon: "hgi-note", label: "notes" },
@@ -269,10 +267,6 @@ export default function DashboardHome() {
 
                     <div className={activeTab === "files" ? "block text-left" : "hidden"}>
                         <FileExplorer isActive={activeTab === "files"} />
-                    </div>
-
-                    <div className={activeTab === "clip" ? "block text-left" : "hidden"}>
-                        <ClipboardManager isActive={activeTab === "clip"} />
                     </div>
 
                     <div className={activeTab === "system" ? "block text-left" : "hidden"}>

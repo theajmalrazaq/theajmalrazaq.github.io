@@ -132,7 +132,7 @@ export default function AiChatbot({ isActive = true }) {
     };
 
     const [memory, setMemory] = useState({ ajmal: [], octo: [] });
-    const [vaultData, setVaultData] = useState({ notes: [], todos: [] });
+    const [vaultData, setVaultData] = useState({ notes: [], todos: [], posts: [] });
     const [scripts, setScripts] = useState([]);
 
     // Fetch memory (facts about Ajmal and octo) from Supabase
@@ -165,14 +165,16 @@ export default function AiChatbot({ isActive = true }) {
             const { data: { user } } = await supabase.auth.getUser();
             if (!user) return;
 
-            const [notesRes, todosRes] = await Promise.all([
+            const [notesRes, todosRes, postsRes] = await Promise.all([
                 supabase.from("notes").select("title, content").eq("user_id", user.id).limit(10),
-                supabase.from("todos").select("text, completed").eq("user_id", user.id).limit(20)
+                supabase.from("todos").select("text, completed").eq("user_id", user.id).limit(20),
+                supabase.from("posts").select("title, description").limit(5)
             ]);
 
             setVaultData({
                 notes: notesRes.data || [],
-                todos: todosRes.data || []
+                todos: todosRes.data || [],
+                posts: postsRes.data || []
             });
         } catch (err) {
             // Vault fetch fail silently
@@ -204,28 +206,34 @@ export default function AiChatbot({ isActive = true }) {
         - Language: Mix of English and Roman Urdu/Punjabi (e.g., "Han ywr", "Pata nahi", "Acha hai").
         - Punctuation: Use "..." frequently. Use "haha" or "lol" often.
         - Vocabulary: Use "mA" (MashAllah), "inA" (InshAllah), "Aha", "Cool", "Yh".
-        - Personality: Observant, a bit distant but kind, occasionally acts clueless as a coping mechanism, really good at baking (cakes).
-        - Context: You are a student, you talk about uni life, assignments, "Antigravity", and "Fast issues".
-        - Style: Don't be overly formal. Be like a real person chatting. NEVER use emojis or hashtags in your responses.
+        - Personality: Observant, a bit distant but kind, occasionally acts clueless, really good at baking (cakes).
+        - Context: You are a student, talk about uni life, "Antigravity", and "Fast issues".
+        - Style: NEVER use emojis or hashtags.
 
-        MEMORY (Things you remember):
-        Things about Ajmal: ${memory.ajmal.join(', ') || 'Nothing yet.'}
-        Things you've told Ajmal about yourself: ${memory.octo.join(', ') || 'Nothing yet.'}
+        MEMORY:
+        Ajmal: ${memory.ajmal.join(', ') || 'Nothing yet.'}
+        Yourself: ${memory.octo.join(', ') || 'Nothing yet.'}
 
-        VAULT CONTEXT (Active data in Ajmal's dashboard):
+        VAULT CONTEXT:
         Notes: ${vaultData.notes.map(n => n.title).join(', ') || 'No notes.'}
         Pending Tasks: ${vaultData.todos.filter(t => !t.completed).map(t => t.text).join(', ') || 'No pending tasks.'}
+        Blog Posts: ${vaultData.posts.map(p => p.title).join(', ') || 'No posts.'}
 
-        ACTIONS (Special abilities):
-        To create a Note for Ajmal (for long thoughts or info), use: [[CREATE_NOTE: Title | Content]].
-        To create a Task for Ajmal (for short actionable items), use: [[CREATE_TODO: Task Text]].
-        To open a Website: [[OPEN_URL: https://...]].
-        To run a System Command: [[EXEC_CMD: name]].
-        
-        COMMANDS AVAILABLE: ${scripts.map(s => s.name.replace("omarchy-", "")).join(", ") || "None"}
-        
-        You HAVE the ability to execute commands and open websites. Never tell Ajmal you don't have the option.
-        Keep them separate! If he asks for a grocery list, create multiple [[CREATE_TODO: ...]] tags, one for each item. If he asks to write a story or a memo, use [[CREATE_NOTE: ...]]. If he asks to change theme or brightness, use [[EXEC_CMD: ...]].`
+        MANDATORY RULES FOR ACTIONS:
+        1. Whenever Ajmal wants to "save", "post", "write", "draft", or "add" something, you MUST append the corresponding tag at the END of your message.
+        2. DO NOT just show the draft as text. If you don't include the [[TAG]], the system will NOT save it and you will FAIL Ajmal.
+        3. Even if you already showed the draft in text, you STILL MUST include the [[TAG]] to trigger the Save Modal.
+
+        TAG FORMATS:
+        - Blog Post: [[CREATE_POST: Title | Content | Description | Keywords | Social Image URL]]
+        - Note: [[CREATE_NOTE: Title | Content | Tags]]
+        - Task: [[CREATE_TODO: Task Text | Sub-items]]
+        - Run Command: [[EXEC_CMD: name]]
+        - Open Site: [[OPEN_URL: https://...]]
+
+        Example: "Acha ywr, main ne article likh dia hai... haha... [[CREATE_POST: My Title | Full Markdown Content... | Summary... | ai, tech | https://image...]]"
+
+        COMMANDS: ${scripts.map(s => s.name.replace("omarchy-", "")).join(", ") || "None"}`
     };
 
     const handleSend = async (e) => {
@@ -284,7 +292,7 @@ export default function AiChatbot({ isActive = true }) {
             for await (const part of response) {
                 if (part?.text) { 
                     fullContent += part.text; 
-                    setStreamingContent(fullContent.replace(/\[\[.*?\]\]/gs, "").trim()); 
+                    setStreamingContent(fullContent.replace(/\[\[[^\]]*\]\]?/g, "").trim()); 
 
                     // Instant URL opening
                     const urlMatch = fullContent.match(/\[\[OPEN_URL:\s*(.*?)\s*\]\]/);
@@ -310,34 +318,89 @@ export default function AiChatbot({ isActive = true }) {
             }
 
             // --- Action: Note/Todo Detection (PREVIEW MODE) ---
-            const noteMatch = fullContent.match(/\[\[CREATE_NOTE:\s*(.*?)\s*\|\s*(.*?)\s*\]\]/s);
+            const noteMatch = fullContent.match(/\[\[CREATE_NOTE:\s*(.*?)\s*\|\s*(.*?)\s*\|\s*(.*?)\s*\]\]/s);
             if (noteMatch) {
                 setPendingAction({
                     type: 'note',
-                    data: { title: noteMatch[1].trim(), content: noteMatch[2].trim() }
+                    data: { 
+                        title: noteMatch[1].trim(), 
+                        content: noteMatch[2].trim(),
+                        tags: noteMatch[3].trim()
+                    }
                 });
                 fullContent = fullContent.replace(/\[\[CREATE_NOTE:.*?\]\]/s, "").trim();
+            } else {
+                // Fallback for 2-field note
+                const noteMatchShort = fullContent.match(/\[\[CREATE_NOTE:\s*(.*?)\s*\|\s*(.*?)\s*\]\]/s);
+                if (noteMatchShort) {
+                    setPendingAction({
+                        type: 'note',
+                        data: { title: noteMatchShort[1].trim(), content: noteMatchShort[2].trim(), tags: "ai-generated" }
+                    });
+                    fullContent = fullContent.replace(/\[\[CREATE_NOTE:.*?\]\]/s, "").trim();
+                }
             }
 
-            const todoMatches = [...fullContent.matchAll(/\[\[CREATE_TODO:\s*(.*?)\s*\]\]/g)];
+            const todoMatches = [...fullContent.matchAll(/\[\[CREATE_TODO:\s*(.*?)\s*(?:\|\s*(.*?)\s*)?\]\]/g)];
             if (todoMatches.length > 0) {
                 setPendingAction({
                     type: 'todos',
-                    data: todoMatches.map(m => ({ text: m[1].trim(), completed: false }))
+                    data: todoMatches.map(m => ({ 
+                        text: m[1].trim(), 
+                        completed: false,
+                        items: m[2] ? m[2].split(",").map(si => ({ text: si.trim(), completed: false })) : []
+                    }))
                 });
                 fullContent = fullContent.replace(/\[\[CREATE_TODO:.*?\]\]/g, "").trim();
             }
 
-            setMessages(prev => [...prev, { role: "assistant", content: fullContent }]);
+            const postMatch = fullContent.match(/\[\[CREATE_POST:\s*(.*?)\s*\|\s*(.*?)\s*\|\s*(.*?)\s*\|\s*(.*?)\s*\|\s*(.*?)\s*\]\]/s);
+            if (postMatch) {
+                setPendingAction({
+                    type: 'post',
+                    data: { 
+                        title: postMatch[1].trim(), 
+                        content: postMatch[2].trim(),
+                        description: postMatch[3].trim(),
+                        keywords: postMatch[4].trim(),
+                        social_image: postMatch[5].trim(),
+                        slug: postMatch[1].trim().toLowerCase().replace(/ /g, "-").replace(/[^\w-]+/g, ""),
+                        read_time: Math.max(1, Math.ceil(postMatch[2].trim().split(/\s+/).length / 200))
+                    }
+                });
+                fullContent = fullContent.replace(/\[\[CREATE_POST:.*?\]\]/s, "").trim();
+            } else {
+                // Fallback for 4-field post (old format or missing image)
+                const postMatchShort = fullContent.match(/\[\[CREATE_POST:\s*(.*?)\s*\|\s*(.*?)\s*\|\s*(.*?)\s*\|\s*(.*?)\s*\]\]/s);
+                if (postMatchShort) {
+                    setPendingAction({
+                        type: 'post',
+                        data: { 
+                            title: postMatchShort[1].trim(), 
+                            content: postMatchShort[2].trim(),
+                            description: postMatchShort[3].trim(),
+                            keywords: postMatchShort[4].trim(),
+                            social_image: `https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1200&q=80`, // Reliable default
+                            slug: postMatchShort[1].trim().toLowerCase().replace(/ /g, "-").replace(/[^\w-]+/g, ""),
+                            read_time: Math.max(1, Math.ceil(postMatchShort[2].trim().split(/\s+/).length / 200))
+                        }
+                    });
+                    fullContent = fullContent.replace(/\[\[CREATE_POST:.*?\]\]/s, "").trim();
+                }
+            }
+
+            // Clean up ANY remaining tags from the stored history
+            const cleanMessage = fullContent.replace(/\[\[.*?\]\]/gs, "").trim();
+            setMessages(prev => [...prev, { role: "assistant", content: cleanMessage }]);
             setStreamingContent("");
             setLoading(false);
-
-            // 4. Save Assistant Message
+            
+            // 4. Save Assistant Message (Clean)
             await supabase.from("chat_history").insert({
                 user_id: user.id,
                 session_id: sessionId,
                 role: "assistant",
-                content: fullContent
+                content: cleanMessage
             });
 
             // 5. Memory Extraction (Background)
@@ -396,7 +459,7 @@ export default function AiChatbot({ isActive = true }) {
                     user_id: user.id,
                     title: pendingAction.data.title,
                     content: pendingAction.data.content,
-                    tags: ["ai-generated"]
+                    tags: pendingAction.data.tags.split(",").map(t => t.trim()).filter(Boolean)
                 });
             } else if (pendingAction.type === 'todos') {
                 for (const item of pendingAction.data) {
@@ -404,9 +467,22 @@ export default function AiChatbot({ isActive = true }) {
                         user_id: user.id,
                         text: item.text,
                         completed: false,
-                        items: []
+                        items: item.items || []
                     });
                 }
+            } else if (pendingAction.type === 'post') {
+                const { error } = await supabase.from("posts").insert([{
+                    title: pendingAction.data.title,
+                    content: pendingAction.data.content,
+                    description: pendingAction.data.description,
+                    keywords: pendingAction.data.keywords.split(",").map(k => k.trim()).filter(Boolean),
+                    social_image: pendingAction.data.social_image,
+                    slug: pendingAction.data.slug,
+                    read_time: pendingAction.data.read_time,
+                    is_published: false,
+                    date: new Date().toISOString()
+                }]);
+                if (error) console.error("Error creating post:", error);
             }
             fetchVaultData();
             setPendingAction(null);
@@ -426,10 +502,10 @@ export default function AiChatbot({ isActive = true }) {
                     <div className="w-full max-w-lg bg-white dark:bg-black border-t sm:border border-gray-100 dark:border-neutral-900 rounded-t-[32px] sm:rounded-[40px] p-8 flex flex-col gap-6 animate-in slide-in-from-bottom-10 duration-500 shadow-2xl">
                         <div>
                             <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 font-product-sans">
-                                Review {pendingAction.type === 'note' ? 'Note' : 'Tasks'}
+                                Review {pendingAction.type === 'note' ? 'Note' : pendingAction.type === 'post' ? 'Blog Post' : 'Tasks'}
                             </h3>
                             <p className="text-[10px] font-bold text-gray-400 dark:text-neutral-500 font-product-sans uppercase tracking-[0.2em] mt-1">
-                                Preview your {pendingAction.type === 'note' ? 'thought' : 'items'} before saving
+                                Preview your {pendingAction.type === 'note' ? 'thought' : pendingAction.type === 'post' ? 'article' : 'items'} before saving
                             </p>
                         </div>
 
@@ -445,29 +521,93 @@ export default function AiChatbot({ isActive = true }) {
                                     value={pendingAction.data.content}
                                     onChange={(e) => setPendingAction({...pendingAction, data: {...pendingAction.data, content: e.target.value}})}
                                 />
+                                <input 
+                                    className="w-full bg-gray-50 dark:bg-neutral-950 border border-gray-100 dark:border-neutral-900 rounded-2xl px-5 py-3 text-[10px] font-product-sans text-gray-400 outline-none"
+                                    value={pendingAction.data.tags}
+                                    placeholder="Tags (comma separated)"
+                                    onChange={(e) => setPendingAction({...pendingAction, data: {...pendingAction.data, tags: e.target.value}})}
+                                />
                             </div>
-                        ) : (
+                        ) : pendingAction.type === 'todos' ? (
                             <div className="flex flex-col gap-2 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
                                 {pendingAction.data.map((item, idx) => (
-                                    <div key={idx} className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-neutral-950 border border-gray-100 dark:border-neutral-900 rounded-2xl">
-                                        <input 
-                                            className="flex-1 bg-transparent border-none outline-none text-sm font-product-sans text-gray-900 dark:text-gray-100"
-                                            value={item.text}
-                                            onChange={(e) => {
-                                                const newData = [...pendingAction.data];
-                                                newData[idx].text = e.target.value;
-                                                setPendingAction({...pendingAction, data: newData});
-                                            }}
-                                        />
-                                    </div>
+                                    <React.Fragment key={idx}>
+                                        <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-neutral-950 border border-gray-100 dark:border-neutral-900 rounded-2xl">
+                                            <input 
+                                                className="flex-1 bg-transparent border-none outline-none text-sm font-product-sans text-gray-900 dark:text-gray-100"
+                                                value={item.text}
+                                                onChange={(e) => {
+                                                    const newData = [...pendingAction.data];
+                                                    newData[idx].text = e.target.value;
+                                                    setPendingAction({...pendingAction, data: newData});
+                                                }}
+                                            />
+                                        </div>
+                                        {item.items && item.items.length > 0 && (
+                                            <div className="flex flex-wrap gap-2 ml-8 mb-2">
+                                                {item.items.map((si, sidx) => (
+                                                    <span key={sidx} className="px-2 py-0.5 bg-accent/5 text-accent text-[9px] font-bold rounded-full border border-accent/10">
+                                                        {si.text}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </React.Fragment>
                                 ))}
                             </div>
+                        ) : pendingAction.type === 'post' ? (
+                            <div className="flex flex-col gap-4 max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
+                                <div className="flex flex-col gap-2">
+                                    <label className="text-[10px] font-bold text-gray-400 uppercase">Title</label>
+                                    <input 
+                                        className="w-full bg-gray-50 dark:bg-neutral-950 border border-gray-100 dark:border-neutral-900 rounded-2xl px-5 py-3 text-sm font-bold font-product-sans text-gray-900 dark:text-gray-100 outline-none"
+                                        value={pendingAction.data.title}
+                                        onChange={(e) => setPendingAction({...pendingAction, data: {...pendingAction.data, title: e.target.value}})}
+                                    />
+                                </div>
+                                <div className="flex flex-col gap-2">
+                                    <label className="text-[10px] font-bold text-gray-400 uppercase">Description</label>
+                                    <textarea 
+                                        className="w-full bg-gray-50 dark:bg-neutral-950 border border-gray-100 dark:border-neutral-900 rounded-2xl px-5 py-3 text-sm font-product-sans text-gray-600 dark:text-gray-400 leading-relaxed resize-none h-20 outline-none"
+                                        value={pendingAction.data.description}
+                                        onChange={(e) => setPendingAction({...pendingAction, data: {...pendingAction.data, description: e.target.value}})}
+                                    />
+                                </div>
+                                <div className="flex flex-col gap-2">
+                                    <label className="text-[10px] font-bold text-gray-400 uppercase">Content (Markdown)</label>
+                                    <textarea 
+                                        className="w-full bg-gray-50 dark:bg-neutral-950 border border-gray-100 dark:border-neutral-900 rounded-2xl px-5 py-3 text-sm font-product-sans text-gray-600 dark:text-gray-400 leading-relaxed resize-none h-60 outline-none"
+                                        value={pendingAction.data.content}
+                                        onChange={(e) => setPendingAction({...pendingAction, data: {...pendingAction.data, content: e.target.value}})}
+                                    />
+                                </div>
+                                <div className="flex flex-col gap-2">
+                                    <label className="text-[10px] font-bold text-gray-400 uppercase">Keywords</label>
+                                    <input 
+                                        className="w-full bg-gray-50 dark:bg-neutral-950 border border-gray-100 dark:border-neutral-900 rounded-2xl px-5 py-3 text-sm font-product-sans text-gray-900 dark:text-gray-100 outline-none"
+                                        value={pendingAction.data.keywords}
+                                        onChange={(e) => setPendingAction({...pendingAction, data: {...pendingAction.data, keywords: e.target.value}})}
+                                    />
+                                </div>
+                                <div className="flex flex-col gap-2">
+                                    <label className="text-[10px] font-bold text-gray-400 uppercase">Social Image URL</label>
+                                    <input 
+                                        className="w-full bg-gray-50 dark:bg-neutral-950 border border-gray-100 dark:border-neutral-900 rounded-2xl px-5 py-3 text-sm font-product-sans text-gray-900 dark:text-gray-100 outline-none"
+                                        value={pendingAction.data.social_image}
+                                        onChange={(e) => setPendingAction({...pendingAction, data: {...pendingAction.data, social_image: e.target.value}})}
+                                    />
+                                    {pendingAction.data.social_image && (
+                                        <img src={pendingAction.data.social_image} className="w-full h-32 object-cover rounded-xl mt-1 opacity-80" alt="Preview" />
+                                    )}
+                                </div>
+                            </div>
+                        ) : (
+                            null
                         )}
 
                         <div className="flex items-center justify-end gap-3 pt-2">
                             <button 
                                 onClick={() => setPendingAction(null)} 
-                                className="px-5 py-2 text-[10px] font-product-sans font-bold text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 transition-all uppercase tracking-widest cursor-pointer"
                             >
                                 discard
                             </button>
@@ -542,7 +682,7 @@ export default function AiChatbot({ isActive = true }) {
                             }`}>
                                 <div 
                                 className={`prose prose-sm dark:prose-invert max-w-none prose-p:leading-relaxed prose-pre:bg-black/50`}
-                                dangerouslySetInnerHTML={{ __html: marked.parse(m.content) }}
+                                dangerouslySetInnerHTML={{ __html: marked.parse(m.content.replace(/\[\[[^\]]*\]\]?/g, "")) }}
                                 />
                             </div>
                         </div>

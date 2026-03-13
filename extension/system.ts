@@ -103,29 +103,6 @@ export const GET: APIRoute = async ({ url }) => {
             } catch (err) {
                 return new Response(JSON.stringify({ error: 'File not found' }), { status: 404 });
             }
-        } else if (action === 'clipboard') {
-            try {
-                const { stdout: listOutput } = await execAsync('elephant query "clipboard;;30;false"').catch(() => ({ stdout: '' }));
-                const items = listOutput.split('\n')
-                    .filter(line => line.trim().startsWith('item:'))
-                    .map(line => {
-                        const getField = (field: string) => {
-                            const regex = new RegExp(`${field}:"([^"]*)"`);
-                            const match = line.match(regex);
-                            return match ? match[1].replace(/\\n/g, '\n') : '';
-                        };
-                        return {
-                            id: getField('identifier'),
-                            preview: getField('preview') || getField('text'),
-                            subtext: getField('subtext'),
-                            type: line.match(/preview_type:"file"/) ? 'file' : 'text'
-                        };
-                    });
-                const { stdout: current } = await execAsync('wl-paste -n').catch(() => ({ stdout: '' }));
-                responseData = { history: items, current: current.trim(), backend: 'elephant' };
-            } catch (e: any) {
-                return new Response(JSON.stringify({ error: e.message }), { status: 500 });
-            }
         } else {
             return new Response(JSON.stringify({ error: 'Invalid action' }), { status: 400 });
         }

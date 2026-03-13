@@ -1,7 +1,6 @@
 ---
 import ClapButton from "../blog/ClapButton.jsx";
 import TableOfContents from "../blog/TableOfContents.jsx";
-import LogoutButton from "../dashboard/LogoutButton.jsx";
 const { page, postId, initialClaps } = Astro.props;
 ---
 
@@ -17,10 +16,10 @@ const { page, postId, initialClaps } = Astro.props;
         aria-label="Home navigation"
       >
         <a
-          href={page === "dashboard" ? "/dashboard" : "/"}
+          href="/"
           class="flex items-center justify-center w-8 h-8 rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-all duration-300"
-          aria-label={page === "dashboard" ? "Dashboard Home" : "Back to home"}
-          title={page === "dashboard" ? "Dashboard" : "Home"}
+          aria-label="Back to home"
+          title="Home"
         >
           <i class="hgi-stroke hgi-home-01 text-base" />
         </a>
@@ -68,18 +67,6 @@ const { page, postId, initialClaps } = Astro.props;
   </nav>
 
   {
-    page === "dashboard" && (
-      <nav
-        class="w-fit px-1 py-1 z-[99] sm:flex hidden items-center justify-center bg-gray-100/80 dark:bg-neutral-900/80 backdrop-blur-md border border-gray-200 dark:border-neutral-800 rounded-full shadow-2xl pointer-events-auto transition-all duration-300 hover:scale-110"
-        role="navigation"
-        aria-label="Account navigation"
-      >
-        <LogoutButton client:load />
-      </nav>
-    )
-  }
-
-  {
     postId && (
       <nav
         class="w-fit px-1 py-1 z-[99] sm:flex hidden items-center justify-center bg-gray-100/80 dark:bg-neutral-900/80 backdrop-blur-md border border-gray-200 dark:border-neutral-800 rounded-full shadow-2xl pointer-events-auto transition-all duration-300 hover:scale-105"
@@ -116,9 +103,9 @@ const { page, postId, initialClaps } = Astro.props;
         aria-label="Mobile home navigation"
       >
         <a
-          href={page === "dashboard" ? "/dashboard" : "/"}
+          href="/"
           class="flex items-center justify-center w-8 h-8 rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-all duration-300"
-          aria-label={page === "dashboard" ? "Dashboard Home" : "Back to home"}
+          aria-label="Back to home"
         >
           <i class="hgi-stroke hgi-home-01 text-base" />
         </a>
@@ -160,18 +147,6 @@ const { page, postId, initialClaps } = Astro.props;
       </button>
     </div>
   </nav>
-
-  {
-    page === "dashboard" && (
-      <nav
-        class="bg-gray-100/90 dark:bg-neutral-900/90 backdrop-blur-md px-1 py-1 border border-gray-200 dark:border-neutral-800 w-fit items-center z-[99] sm:hidden flex rounded-full shadow-2xl pointer-events-auto transition-all duration-300 active:scale-95"
-        role="navigation"
-        aria-label="Mobile account navigation"
-      >
-        <LogoutButton client:load />
-      </nav>
-    )
-  }
 
   {
     postId && (

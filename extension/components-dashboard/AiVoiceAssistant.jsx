@@ -14,6 +14,19 @@ export default function AiVoiceAssistant({ isActive }) {
     const [memory, setMemory] = useState({ ajmal: [], octo: [] });
     const [vaultData, setVaultData] = useState({ notes: [], todos: [] });
     const isProcessing = useRef(false);
+    const musicWasPlaying = useRef(false);
+    const cancelRequest = useRef(false);
+
+    const controlSpotify = async (command) => {
+        try {
+            if (command === "check") {
+                const res = await fetch("/api/spotify");
+                const data = await res.json();
+                return data.isPlaying;
+            }
+            await fetch(`/api/spotify?command=${command}`, { method: "POST" });
+        } catch (e) {}
+    };
 
     useEffect(() => {
         const loadPuter = () => {
@@ -143,6 +156,16 @@ export default function AiVoiceAssistant({ isActive }) {
             setTranscript("");
             setAiResponse("");
             setError(null);
+
+            // Pause music if playing
+            const isPlaying = await controlSpotify("check");
+            if (isPlaying) {
+                musicWasPlaying.current = true;
+                await controlSpotify("pause");
+            } else {
+                musicWasPlaying.current = false;
+            }
+
             recognitionRef.current.start();
             setIsListening(true);
         }
@@ -171,6 +194,8 @@ export default function AiVoiceAssistant({ isActive }) {
             Actions:
             - Create Note: [[CREATE_NOTE: Title | Content]]
             - Create Task: [[CREATE_TODO: Task Text]]
+            - Create Blog Post: [[CREATE_POST: Title | Content | Description | Keywords | Social Image URL]]
+            - Social Image URL: Use a high-quality landscape Unsplash image related to the topic.
             - Open Website: [[OPEN_URL: https://...]]
             - Run Command: [[EXEC_CMD: name]]
             Commands list: ${scriptList}
@@ -191,9 +216,10 @@ export default function AiVoiceAssistant({ isActive }) {
             let processedActions = new Set();
             
             for await (const part of response) {
+                if (!isProcessing.current) break;
                 if (part?.text) {
                     fullContent += part.text;
-                    const cleanResponse = fullContent.replace(/\[\[.*?\]\]/gs, "").trim();
+                    const cleanResponse = fullContent.replace(/\[\[[^\]]*\]\]?/g, "").trim();
                     setAiResponse(cleanResponse);
 
                     // Instant URL opening
@@ -220,6 +246,7 @@ export default function AiVoiceAssistant({ isActive }) {
             }
 
             // Persistence actions at the end
+            if (!isProcessing.current) return;
             const noteMatch = fullContent.match(/\[\[CREATE_NOTE:\s*(.*?)\s*\|\s*(.*?)\s*\]\]/s);
             if (noteMatch) {
                 await supabase.from("notes").insert({
@@ -239,8 +266,23 @@ export default function AiVoiceAssistant({ isActive }) {
                 });
             }
 
+            const postMatch = fullContent.match(/\[\[CREATE_POST:\s*(.*?)\s*\|\s*(.*?)\s*\|\s*(.*?)\s*\|\s*(.*?)\s*\|\s*(.*?)\s*\]\]/s);
+            if (postMatch) {
+                await supabase.from("posts").insert([{
+                    title: postMatch[1].trim(),
+                    content: postMatch[2].trim(),
+                    description: postMatch[3].trim(),
+                    keywords: postMatch[4].trim().split(",").map(k => k.trim()).filter(Boolean),
+                    social_image: postMatch[5].trim(),
+                    slug: postMatch[1].trim().toLowerCase().replace(/ /g, "-").replace(/[^\w-]+/g, ""),
+                    read_time: Math.max(1, Math.ceil(postMatch[2].trim().split(/\s+/).length / 200)),
+                    is_published: false,
+                    date: new Date().toISOString()
+                }]);
+            }
+
             // Save conversation history
-            const cleanFinal = fullContent.replace(/\[\[.*?\]\]/gs, "").trim();
+            const cleanFinal = fullContent.replace(/\[\[[^\]]*\]\]?/g, "").trim();
             setMessages(prev => [...prev.slice(-10), { role: "user", content: text }, { role: "assistant", content: cleanFinal }]);
         } catch (err) {
             console.error("Voice processing error:", err);
@@ -249,21 +291,43 @@ export default function AiVoiceAssistant({ isActive }) {
             setLoading(false);
             isProcessing.current = false;
             setTranscript("");
+            
+            // Resume music if it was playing before
+            if (musicWasPlaying.current) {
+                await controlSpotify("play");
+                musicWasPlaying.current = false;
+            }
         }
     };
 
-    const handleCancel = () => {
+    const handleCancel = async () => {
+        cancelRequest.current = true;
         if (isListening) recognitionRef.current.stop();
         setTranscript("");
         setAiResponse("");
         setError(null);
         setLoading(false);
         isProcessing.current = false;
+
+        // Resume music if it was playing before
+        if (musicWasPlaying.current) {
+            await controlSpotify("play");
+            musicWasPlaying.current = false;
+        }
     };
 
     useEffect(() => {
         if (!isListening && transcript && !loading) {
+            if (cancelRequest.current) {
+                cancelRequest.current = false;
+                setTranscript("");
+                return;
+            }
             processCommand(transcript);
+        } else if (!isListening && !loading && !isProcessing.current && musicWasPlaying.current) {
+            // Resume if we stopped listening but didn't trigger a command (e.g. silent or manual stop)
+            controlSpotify("play");
+            musicWasPlaying.current = false;
         }
     }, [isListening]);
 

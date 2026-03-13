@@ -11,6 +11,9 @@ export default defineConfig({
   site: "https://theajmalrazaq.tech/",
   vite: {
     plugins: [tailwindcss()],
+    server: {
+      allowedHosts: ["wide-bars-spend.loca.lt"],
+    },
   },
   output: "server",
   adapter: node({

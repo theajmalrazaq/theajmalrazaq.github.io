@@ -94,6 +94,8 @@ export const POST: APIRoute = async ({ request, url }) => {
         }
         else if (command === 'next') run('playerctl -p spotify next');
         else if (command === 'prev') run('playerctl -p spotify previous');
+        else if (command === 'pause') run('playerctl -p spotify pause');
+        else if (command === 'play') run('playerctl -p spotify play');
         else if (command === 'open') {
             asyncRun('sh -c "spotify & sleep 1.5 && hyprctl dispatch movetoworkspacesilent special,class:spotify"');
         }

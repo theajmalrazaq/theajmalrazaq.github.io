@@ -1,4 +1,4 @@
-import { useState, useEffect, memo, useCallback } from "react";
+import { useState, useEffect, memo, useCallback, useMemo } from "react";
 import { supabase } from "../../lib/supabase";
 import DashboardModal from "./DashboardModal";
 
@@ -13,6 +13,7 @@ export default function PersonalVault({ initialSection = "notes", hideNav = fals
     const [noteContent, setNoteContent] = useState("");
     const [noteTags, setNoteTags] = useState("");
     const [todoFilter, setTodoFilter] = useState("all"); // "all" | "pending" | "completed"
+    const [noteTagFilter, setNoteTagFilter] = useState("all");
     const [user, setUser] = useState(null);
     const [aiProcessing, setAiProcessing] = useState(false);
     const [aiPreview, setAiPreview] = useState(null); // { type, data }
@@ -396,7 +397,15 @@ export default function PersonalVault({ initialSection = "notes", hideNav = fals
         }
     };
 
-    // Move TodoItem outside the component below
+    const allTags = useMemo(() => {
+        const tags = new Set();
+        notes.forEach(note => {
+            if (note.tags) {
+                note.tags.forEach(tag => tags.add(tag));
+            }
+        });
+        return ["all", ...Array.from(tags).sort()];
+    }, [notes]);
 
     return (
         <>
@@ -600,15 +609,35 @@ export default function PersonalVault({ initialSection = "notes", hideNav = fals
                             </div>
                         ) : (
                             <div className="flex flex-col gap-2">
-                                <div className="flex justify-between items-center mb-4">
-                                    <h3 className="text-sm font-bold text-gray-400 dark:text-neutral-600 font-product-sans">your notes</h3>
-                                    <button 
-                                        onClick={() => { setEditingNote({}); setNoteTitle(""); setNoteContent(""); setNoteTags(""); }}
-                                        className="cursor-pointer inline-flex items-center gap-2 px-4 py-2 text-xs font-product-sans font-bold text-gray-700 dark:text-gray-300 hover:text-accent hover:bg-accent/10 rounded-full transition-all duration-300 border border-gray-200 dark:border-neutral-800 hover:border-accent/30"
-                                    >
-                                        <i className="hgi-stroke hgi-plus text-sm"></i>
-                                        <span>new note</span>
-                                    </button>
+                                <div className="flex flex-col gap-4 mb-4">
+                                    <div className="flex justify-between items-center">
+                                        <h3 className="text-sm font-bold text-gray-400 dark:text-neutral-600 font-product-sans uppercase tracking-wider">your notes</h3>
+                                        <button 
+                                            onClick={() => { setEditingNote({}); setNoteTitle(""); setNoteContent(""); setNoteTags(""); }}
+                                            className="cursor-pointer inline-flex items-center gap-2 px-4 py-2 text-xs font-product-sans font-bold text-gray-700 dark:text-gray-300 hover:text-accent hover:bg-accent/10 rounded-full transition-all duration-300 border border-gray-200 dark:border-neutral-800 hover:border-accent/30 uppercase"
+                                        >
+                                            <i className="hgi-stroke hgi-plus text-sm"></i>
+                                            <span>new note</span>
+                                        </button>
+                                    </div>
+
+                                    {allTags.length > 1 && (
+                                        <div className="flex flex-wrap items-center gap-1.5 py-1">
+                                            {allTags.map(tag => (
+                                                <button
+                                                    key={tag}
+                                                    onClick={() => setNoteTagFilter(tag)}
+                                                    className={`px-3 py-1 text-[10px] font-product-sans font-bold border transition-all rounded-full uppercase tracking-tight cursor-pointer ${
+                                                        noteTagFilter === tag 
+                                                            ? "bg-accent/10 border-accent/20 text-accent font-bold" 
+                                                            : "bg-transparent border-transparent text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                                                    }`}
+                                                >
+                                                    {tag}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    )}
                                 </div>
                                 
                                 {notes.length === 0 && (
@@ -617,7 +646,9 @@ export default function PersonalVault({ initialSection = "notes", hideNav = fals
                                     </div>
                                 )}
 
-                                {notes.map(note => (
+                                {notes
+                                    .filter(n => noteTagFilter === "all" || (n.tags && n.tags.includes(noteTagFilter)))
+                                    .map(note => (
                                     <div 
                                         key={note.id} 
                                         onClick={() => { 
