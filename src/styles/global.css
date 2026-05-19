@@ -1,0 +1,251 @@
+@import "tailwindcss";
+@plugin '@tailwindcss/typography';
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Local Geist Pixel Square Font */
+@font-face {
+  font-family: 'GeistPixelSquare';
+  src: url('/fonts/GeistPixel/webfonts/GeistPixel-Square.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Local Geist Pixel Circle Font */
+@font-face {
+  font-family: 'GeistPixelCircle';
+  src: url('/fonts/GeistPixel/webfonts/GeistPixel-Circle.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Local Geist Mono Font */
+@font-face {
+  font-family: 'GeistMono';
+  src: url('/fonts/GeistMono/webfonts/GeistMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Local Product Sans - from Google Fonts CDN */
+@font-face {
+  font-family: "Product Sans";
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/googlesans/v5/4UaGrENHsxJlGDuGo1OIlL3Owp4.woff2)
+    format("woff2");
+  font-display: swap;
+}
+
+@theme {
+  --bg-accent: #a098ff;
+  --color-accent: #a098ff;
+  --font-product-sans: "Product Sans", sans-serif;
+  --font-geist-mono: 'GeistMono', monospace;
+  --font-geist-pixel-square: 'GeistPixelSquare', monospace;
+  --font-geist-pixel-circle: 'GeistPixelCircle', monospace;
+  --grid-color: #000;
+}
+
+@layer base {
+  :root {
+    --grid-color: #000;
+  }
+  .dark {
+    --grid-color: #fff;
+  }
+}
+
+/* Custom Thin Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(160, 152, 255, 0.3); /* Semi-transparent accent color */
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(160, 152, 255, 0.7); /* Accent color on hover */
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(160, 152, 255, 0.2);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(160, 152, 255, 0.6);
+}
+
+/* Thinner Custom Scrollbar for Dropdowns / Cards */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(160, 152, 255, 0.25);
+  border-radius: 9999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(160, 152, 255, 0.65);
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(160, 152, 255, 0.15);
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(160, 152, 255, 0.55);
+}
+
+* {
+  box-sizing: border-box;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, fill 0.3s ease, stroke 0.3s ease;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(160, 152, 255, 0.3) transparent;
+}
+
+/* Geist Font Usage */
+h1, h2, h4, h5, h6 {
+  font-family: 'GeistPixelSquare';
+}
+
+code, pre, kbd, samp {
+  font-family: 'GeistMono';
+}
+
+/* For tags/badges - use mono */
+.tag, .badge, [class*="tag"], [class*="badge"] {
+  font-family: 'GeistMono';
+}
+
+[data-aos="focus-up"].aos-animate  {
+  -webkit-filter: blur(0px);
+  filter: blur(0px);
+   /* transform: translate3d(0, 0, 0); */
+  transition-property: all;
+}
+[data-aos="focus-up"]{
+  -webkit-filter: blur(12px);
+  filter: blur(12px);
+   /* transform: translate3d(0, 100px, 0); */
+  transition-property: all;
+}
+
+html.lenis {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Used AOS durations */
+
+[data-aos][data-aos][data-aos-duration="1200"],
+body[data-aos-duration="1200"] [data-aos] {
+  transition-duration: 1.2s;
+}
+
+/* Used AOS delays */
+[data-aos][data-aos][data-aos-delay="100"],
+body[data-aos-delay="100"] [data-aos] {
+  transition-delay: 0;
+}
+[data-aos][data-aos][data-aos-delay="100"].aos-animate,
+body[data-aos-delay="100"] [data-aos].aos-animate {
+  transition-delay: 0.1s;
+}
+
+
+/* Used AOS animation types */
+[data-aos^="fade"][data-aos^="fade"] {
+  opacity: 0;
+  transition-property: opacity, transform;
+}
+[data-aos^="fade"][data-aos^="fade"].aos-animate {
+  opacity: 1;
+  transform: translateZ(0);
+}
+[data-aos="fade-down"] {
+  transform: translate3d(0, -100px, 0);
+}
+[data-aos="fade-right"] {
+  transform: translate3d(-100px, 0, 0);
+}
+[data-aos="fade-left"] {
+  transform: translate3d(100px, 0, 0);
+}
+
+
+/* Fix for typography code blocks */
+.prose pre code {
+  background-color: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+.prose code:not(pre code) {
+  @apply bg-gray-100 dark:bg-neutral-800 text-accent px-1.5 py-0.5 rounded font-mono text-sm;
+}
+
+/* Remove default backticks from prose code */
+.prose code::before,
+.prose code::after {
+  content: "" !important;
+}
+
+/* Utility classes */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Skeleton Loading */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  @apply bg-gray-200 dark:bg-neutral-800 rounded-xl overflow-hidden relative;
+  background-image: linear-gradient(90deg, 
+    rgba(255,255,255,0) 0%, 
+    rgba(255,255,255,0.4) 50%, 
+    rgba(255,255,255,0) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.dark .skeleton {
+  @apply bg-neutral-900;
+  background-image: linear-gradient(90deg, 
+    rgba(255,255,255,0) 0%, 
+    rgba(255,255,255,0.05) 50%, 
+    rgba(255,255,255,0) 100%
+  );
+}
+

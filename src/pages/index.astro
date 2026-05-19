@@ -1,0 +1,23 @@
+---
+import PageLayout from "../layouts/PageLayout.astro";
+import Hero from "../components/home/Hero.astro";
+import Blog from "../components/home/Blog.astro";
+---
+
+<PageLayout
+  title="Ajmal Razaq | Design Engineer"
+  description="I'm Ajmal Razaq, a Design Engineer based in Pakistan. I blend code and design to build functional and aesthetic digital products."
+  keywords={[
+    "Ajmal Razaq",
+    "Design Engineer",
+    "Frontend Developer",
+    "UI/UX Designer",
+    "Portfolio",
+    "React",
+    "Astro",
+  ]}
+  page="home"
+>
+  <Hero />
+  <Blog limit={3} showViewAll={true} />
+</PageLayout>

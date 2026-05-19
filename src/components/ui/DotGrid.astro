@@ -1,0 +1,130 @@
+---
+
+---
+
+<div class="dot-grid-container group/grid">
+    <svg
+        viewBox="0 0 400 400"
+        preserveAspectRatio="xMidYMid meet"
+        class="dot-grid-svg"
+    >
+        <g id="dots-group"></g>
+    </svg>
+</div>
+
+<style>
+    .dot-grid-container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        overflow: visible;
+    }
+
+    .dot-grid-svg {
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+    }
+
+    :global(.dot) {
+        fill: #000;
+        transition:
+            fill 0.5s ease,
+            opacity 0.5s ease;
+        opacity: 0.1;
+    }
+
+    :global(.dark .dot) {
+        fill: #fff;
+        opacity: 0.2;
+    }
+</style>
+
+<script>
+    function createGrid() {
+        // We use a unique ID or class if multiple grids exist
+        const containers = document.querySelectorAll(".dot-grid-container");
+
+        containers.forEach((container) => {
+            const group = container.querySelector("#dots-group");
+            if (!group || group.children.length > 0) return;
+
+            const size = 10;
+            const spacing = 18;
+            const centerX = 200;
+            const centerY = 200;
+
+            for (let q = -size; q <= size; q++) {
+                for (let r = -size; r <= size; r++) {
+                    const s = -q - r;
+                    if (Math.abs(s) <= size) {
+                        const x = centerX + spacing * (1.5 * q);
+                        const y =
+                            centerY + spacing * (Math.sqrt(3) * (r + q / 2));
+
+                        const dot = document.createElementNS(
+                            "http://www.w3.org/2000/svg",
+                            "circle",
+                        );
+                        dot.setAttribute("cx", x.toString());
+                        dot.setAttribute("cy", y.toString());
+                        dot.setAttribute("r", "1.5");
+                        dot.setAttribute("class", "dot");
+
+                        dot.dataset.q = q.toString();
+                        dot.dataset.r = r.toString();
+                        dot.dataset.s = s.toString();
+
+                        group.appendChild(dot);
+                    }
+                }
+            }
+
+            animate(container);
+        });
+    }
+
+    function animate(container: Element) {
+        const dots = container.querySelectorAll(".dot");
+        let time = 0;
+
+        function frame() {
+            time += 0.06;
+            dots.forEach((dot: any) => {
+                const q = parseFloat(dot.dataset.q);
+                const r = parseFloat(dot.dataset.r);
+                const s = parseFloat(dot.dataset.s);
+
+                const dist = Math.sqrt(q * q + r * r + s * s);
+                const pulse = Math.sin(dist * 0.4 - time) * 0.5 + 0.5;
+
+                const baseSize = Math.max(0.1, 1 - dist / 12);
+                const radius = 0.5 + pulse * 3 * baseSize;
+
+                dot.setAttribute("r", radius.toString());
+
+                // Base opacity for the pulse
+                // Light mode needs more contrast, dark mode can be subtle
+                const isDark =
+                    document.documentElement.classList.contains("dark");
+                const minOp = isDark ? 0.1 : 0.05;
+                const maxOp = isDark ? 0.4 : 0.3;
+                dot.style.opacity = (
+                    minOp +
+                    pulse * (maxOp - minOp)
+                ).toString();
+            });
+            requestAnimationFrame(frame);
+        }
+        frame();
+    }
+
+    // Run on load and after perspective transitions
+    createGrid();
+
+    // Re-run for Astro view transitions if they exist
+    document.addEventListener("astro:page-load", createGrid);
+</script>

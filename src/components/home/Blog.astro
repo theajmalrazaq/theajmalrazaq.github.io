@@ -1,0 +1,88 @@
+---
+import BlogList from "./lists/BlogList.jsx";
+import { supabase } from "../../lib/supabase";
+
+interface Props {
+  limit?: number;
+  showViewAll?: boolean;
+}
+
+const { limit, showViewAll = false } = Astro.props;
+
+// Fetch blog posts from Supabase
+const { data: postsData } = await supabase
+  .from("posts")
+  .select("slug, title, date")
+  .eq("is_published", true)
+  .order("date", { ascending: false });
+
+let posts = (postsData || []).map((post: any) => ({
+  slug: post.slug,
+  title: post.title,
+  date: post.date
+    ? new Date(post.date).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    : "Recent",
+}));
+
+if (limit) {
+  posts = posts.slice(0, limit);
+}
+---
+
+<section
+  class="relative w-full flex justify-center overflow-hidden z-10"
+  aria-labelledby="blog-heading"
+  data-aos="focus-up"
+  data-aos-offset="0"
+>
+  <div
+    class="relative w-full max-w-4xl mx-auto px-4 sm:px-15 pt-24 pb-16 sm:pb-8 flex flex-col gap-4 z-10"
+  >
+    <div
+      class="flex flex-col items-center justify-center text-center gap-4"
+      data-aos="focus-up"
+      data-aos-delay="100"
+      data-aos-offset="0"
+    >
+      <h2
+        class="text-[40px] sm:text-[50px] [font-family:'GeistPixelGrid'] text-gray-900 dark:text-gray-100"
+        id="blog-heading"
+      >
+        blog
+      </h2>
+      <p
+        class="text-base text-gray-600 dark:text-gray-400 font-product-sans leading-relaxed max-w-3xl mx-auto text-center"
+      >
+        My thoughts on <strong>software development</strong>,
+        <strong>life</strong>, and more.
+      </p>
+    </div>
+
+    <div data-aos="focus-up" data-aos-delay="200" data-aos-offset="0">
+      <BlogList posts={posts} client:load showPagination={!limit} />
+    </div>
+
+    {
+      showViewAll && (
+        <div
+          class="flex justify-center mt-4"
+          data-aos="focus-up"
+          data-aos-delay="300"
+          data-aos-offset="0"
+        >
+          <a
+            href="/blog"
+            class="inline-flex items-center gap-2 pl-4 pr-2 py-2 bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-full text-gray-900 dark:text-gray-100 hover:text-accent hover:bg-accent/10 hover:border-accent/30 transition-all duration-300 font-product-sans font-medium text-sm"
+          >
+            view all
+            <i class="hgi-stroke hgi-arrow-right-01 text-base" />
+          </a>
+        </div>
+      )
+    }
+  </div>
+</section>

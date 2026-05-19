@@ -1,0 +1,96 @@
+---
+import { Seo } from "astro-seo-meta";
+const {
+  title = "Ajmal Razaq",
+  description = "An online portfolio and blog by Ajmal Razaq. Showcasing my projects, and sharing thoughts on frontend development and UI/UX design.",
+  keywords = [
+    "website",
+    "blog",
+    "portfolio",
+    "frontend developer",
+    "junior product designer",
+    "ajmal razaq",
+    "theajmalrazaq",
+  ],
+  socialImage = "/social-share.png",
+  url = "https://theajmalrazaq.tech",
+  type = "website",
+  jobTitle = "Design Engineer",
+  organization = "Freelance",
+  publishDate,
+} = Astro.props;
+---
+
+<Seo
+  title={title}
+  description={description}
+  keywords={keywords}
+  icon="/favicon/favicon.ico"
+  themeColor="#000000"
+  colorScheme="dark"
+  robots="index, follow"
+  facebook={{
+    image: socialImage,
+    url: url,
+    type: type,
+  }}
+  twitter={{
+    image: socialImage,
+    site: "@theajmalrazaq",
+    card: "summary_large_image",
+  }}
+/>
+
+<!-- Hardcoded Favicon for consistency -->
+<link rel="icon" type="image/x-icon" href="/favicon/favicon.ico" />
+
+<!-- Structured Data -->
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify(
+    type === "article"
+      ? {
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          headline: title,
+          description: description,
+          image: socialImage,
+          datePublished: publishDate,
+          author: {
+            "@type": "Person",
+            name: "Ajmal Razaq",
+            url: "https://theajmalrazaq.tech",
+          },
+          publisher: {
+            "@type": "Organization",
+            name: "Ajmal Razaq",
+            logo: {
+              "@type": "ImageObject",
+              url: "https://theajmalrazaq.tech/favicon/favicon.ico",
+            },
+          },
+          mainEntityOfPage: {
+            "@type": "WebPage",
+            "@id": url,
+          },
+        }
+      : {
+          "@context": "https://schema.org",
+          "@type": "Person",
+          name: "Ajmal Razaq",
+          url: url,
+          sameAs: [
+            "https://github.com/theajmalrazaq",
+            "https://linkedin.com/in/theajmalrazaq",
+            "https://behance.net/theajmalrazaq",
+          ],
+          jobTitle: jobTitle,
+          worksFor: {
+            "@type": "Organization",
+            name: organization,
+          },
+          description: description,
+        },
+  )}
+/>
+<link rel="stylesheet" href="https://use.hugeicons.com/font/icons.css" />

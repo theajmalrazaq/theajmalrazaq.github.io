@@ -1,0 +1,248 @@
+---
+import ClapButton from "../blog/ClapButton.jsx";
+import TableOfContents from "../blog/TableOfContents.jsx";
+const { page, postId, initialClaps, headings = [] } = Astro.props;
+---
+
+<!-- Desktop Navigation -->
+<div
+  class="flex items-center justify-center z-[99] fixed top-2 left-0 right-0 pointer-events-none gap-3"
+>
+  {
+    page !== "home" && (
+      <nav
+        class="w-fit px-1 py-1 z-[99] sm:flex hidden items-center justify-center bg-gray-100/80 dark:bg-neutral-900/80 backdrop-blur-md border border-gray-200 dark:border-neutral-800 rounded-full shadow-2xl pointer-events-auto transition-all duration-300 hover:scale-110"
+        role="navigation"
+        aria-label="Home navigation"
+      >
+        <a
+          href={page === "dashboard" ? "/dashboard" : "/"}
+          class="flex items-center justify-center w-8 h-8 rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-all duration-300"
+          aria-label={page === "dashboard" ? "Dashboard Home" : "Back to home"}
+          title={page === "dashboard" ? "Dashboard" : "Home"}
+        >
+          <i class="hgi-stroke hgi-home-01 text-base" />
+        </a>
+      </nav>
+    )
+  }
+
+  <nav
+    id="desktop-nav"
+    class="w-fit px-1 py-1 z-[99] sm:flex hidden items-center justify-center bg-gray-100/80 dark:bg-neutral-900/80 backdrop-blur-md border border-gray-200 dark:border-neutral-800 rounded-full shadow-2xl pointer-events-auto"
+    role="navigation"
+    aria-label="Theme navigation"
+  >
+    <!-- Theme Switcher -->
+    <div
+      class="flex items-center gap-0.5 p-0.5 h-8"
+      role="radiogroup"
+      aria-label="Theme switcher"
+    >
+      <button
+        data-theme-btn="system"
+        class="theme-btn w-7 h-7 flex items-center justify-center rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-all duration-300"
+        aria-label="System theme"
+        title="System"
+      >
+        <i class="hgi-stroke hgi-computer text-sm"></i>
+      </button>
+      <button
+        data-theme-btn="light"
+        class="theme-btn w-7 h-7 flex items-center justify-center rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-all duration-300"
+        aria-label="Light theme"
+        title="Light"
+      >
+        <i class="hgi-stroke hgi-sun-03 text-sm"></i>
+      </button>
+      <button
+        data-theme-btn="dark"
+        class="theme-btn w-7 h-7 flex items-center justify-center rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-all duration-300"
+        aria-label="Dark theme"
+        title="Dark"
+      >
+        <i class="hgi-stroke hgi-moon-02 text-sm"></i>
+      </button>
+    </div>
+  </nav>
+
+
+
+  {
+    postId && (
+      <nav
+        class="w-fit px-1 py-1 z-[99] sm:flex hidden items-center justify-center bg-gray-100/80 dark:bg-neutral-900/80 backdrop-blur-md border border-gray-200 dark:border-neutral-800 rounded-full shadow-2xl pointer-events-auto transition-all duration-300 hover:scale-105"
+        role="complementary"
+        aria-label="Post interactions"
+      >
+        <ClapButton
+          client:load
+          postId={postId}
+          initialClaps={initialClaps}
+          isNavbar={true}
+        />
+      </nav>
+    )
+  }
+
+  {
+    postId && headings && headings.length > 0 && (
+      <nav
+        class="w-fit px-1 py-1 z-[99] sm:flex hidden items-center justify-center bg-gray-100/80 dark:bg-neutral-900/80 backdrop-blur-md border border-gray-200 dark:border-neutral-800 rounded-full shadow-2xl pointer-events-auto"
+        role="complementary"
+        aria-label="Table of contents"
+      >
+        <TableOfContents client:load headings={headings} />
+      </nav>
+    )
+  }
+
+  {
+    page !== "home" && (
+      <nav
+        class="bg-gray-100/90 dark:bg-neutral-900/90 backdrop-blur-md px-1 py-1 border border-gray-200 dark:border-neutral-800 w-fit items-center z-[99] sm:hidden flex rounded-full shadow-2xl pointer-events-auto transition-all duration-300 active:scale-95"
+        role="navigation"
+        aria-label="Mobile home navigation"
+      >
+        <a
+          href={page === "dashboard" ? "/dashboard" : "/"}
+          class="flex items-center justify-center w-8 h-8 rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-all duration-300"
+          aria-label={page === "dashboard" ? "Dashboard Home" : "Back to home"}
+        >
+          <i class="hgi-stroke hgi-home-01 text-base" />
+        </a>
+      </nav>
+    )
+  }
+
+  <!-- Mobile Theme Navigation -->
+  <nav
+    class="bg-gray-100/90 dark:bg-neutral-900/90 backdrop-blur-md text-gray-900 dark:text-gray-100 px-1 py-1 border border-gray-200 dark:border-neutral-800 w-fit items-center z-[99] sm:hidden flex rounded-full shadow-2xl pointer-events-auto"
+    role="navigation"
+    aria-label="Mobile theme navigation"
+  >
+    <div
+      class="flex items-center gap-0.5 h-8"
+      role="radiogroup"
+      aria-label="Theme switcher"
+    >
+      <button
+        data-theme-btn="system"
+        class="theme-btn w-8 h-8 flex items-center justify-center rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-all duration-300"
+        aria-label="System theme"
+      >
+        <i class="hgi-stroke hgi-computer text-xs"></i>
+      </button>
+      <button
+        data-theme-btn="light"
+        class="theme-btn w-8 h-8 flex items-center justify-center rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-all duration-300"
+        aria-label="Light theme"
+      >
+        <i class="hgi-stroke hgi-sun-03 text-xs"></i>
+      </button>
+      <button
+        data-theme-btn="dark"
+        class="theme-btn w-8 h-8 flex items-center justify-center rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-all duration-300"
+        aria-label="Dark theme"
+      >
+        <i class="hgi-stroke hgi-moon-02 text-xs"></i>
+      </button>
+    </div>
+  </nav>
+
+
+
+  {
+    postId && (
+      <nav
+        class="bg-gray-100/90 dark:bg-neutral-900/90 backdrop-blur-md px-1 py-1 border border-gray-200 dark:border-neutral-800 w-fit items-center z-[99] sm:hidden flex rounded-full shadow-2xl pointer-events-auto transition-all duration-300 active:scale-95"
+        role="complementary"
+        aria-label="Mobile post interactions"
+      >
+        <ClapButton
+          client:load
+          postId={postId}
+          initialClaps={initialClaps}
+          isNavbar={true}
+        />
+      </nav>
+    )
+  }
+
+  {
+    postId && headings && headings.length > 0 && (
+      <nav
+        class="bg-gray-100/90 dark:bg-neutral-900/90 backdrop-blur-md px-1 py-1 border border-gray-200 dark:border-neutral-800 w-fit items-center z-[99] sm:hidden flex rounded-full shadow-2xl pointer-events-auto"
+        role="complementary"
+        aria-label="Mobile table of contents"
+      >
+        <TableOfContents client:load headings={headings} />
+      </nav>
+    )
+  }
+</div>
+
+<style>
+  .theme-btn.active {
+    background-color: white;
+    color: #374151;
+  }
+  :global(.dark) .theme-btn.active {
+    background-color: #262626;
+    color: #e5e7eb;
+  }
+</style>
+
+<script>
+  function applyTheme(theme: string) {
+    const root = document.documentElement;
+    if (theme === "dark") {
+      root.classList.add("dark");
+    } else if (theme === "light") {
+      root.classList.remove("dark");
+    } else {
+      // system
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        root.classList.add("dark");
+      } else {
+        root.classList.remove("dark");
+      }
+    }
+  }
+
+  function setActiveButton(theme: string) {
+    document.querySelectorAll(".theme-btn").forEach((btn) => {
+      btn.classList.remove("active");
+      if (btn.getAttribute("data-theme-btn") === theme) {
+        btn.classList.add("active");
+      }
+    });
+  }
+
+  // Initialize
+  const savedTheme = localStorage.getItem("theme") || "system";
+  applyTheme(savedTheme);
+  setActiveButton(savedTheme);
+
+  // Listen for clicks
+  document.querySelectorAll("[data-theme-btn]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const theme = btn.getAttribute("data-theme-btn") || "system";
+      localStorage.setItem("theme", theme);
+      applyTheme(theme);
+      setActiveButton(theme);
+    });
+  });
+
+  // Listen for system preference changes
+  window
+    .matchMedia("(prefers-color-scheme: dark)")
+    .addEventListener("change", () => {
+      if (
+        localStorage.getItem("theme") === "system" ||
+        !localStorage.getItem("theme")
+      ) {
+        applyTheme("system");
+      }
+    });
+</script>
