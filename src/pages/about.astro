@@ -4,6 +4,7 @@ import { Image } from "astro:assets";
 import devimg from "../assets/dev.webp";
 import DotGrid from "../components/ui/DotGrid.astro";
 import Gallery from "../components/ui/Gallery.astro";
+import GithubCalendar from "../components/ui/GithubCalendar.astro";
 
 // Dynamically import gallery images from src/assets/gallery
 const galleryFiles = import.meta.glob(
@@ -353,6 +354,22 @@ const skills = [
                     ))
                 }
             </div>
+        </div>
+    </section>
+
+    <!-- GitHub Calendar -->
+    <section
+        class="relative w-full flex justify-center py-16 sm:py-8"
+        data-aos="focus-up"
+        data-aos-offset="0"
+    >
+        <div
+            class="w-full max-w-4xl mx-auto px-4"
+            data-aos="focus-up"
+            data-aos-delay="100"
+            data-aos-offset="0"
+        >
+            <GithubCalendar username="theajmalrazaq" />
         </div>
     </section>
 </PageLayout>
